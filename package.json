@@ -1,0 +1,35 @@
+{
+  "name": "rempl-apollo-devtools",
+  "version": "1.0.6",
+  "main": "dist/apollo-devtools.js",
+  "author": "jvejr",
+  "license": "MIT",
+  "dependencies": {
+    "@fluentui/react-northstar": "0.59.0",
+    "graphql": "^15.0.0",
+    "hotkeys-js": "^3.8.7",
+    "object-sizeof": "^1.6.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-router-dom": "^4.2.2",
+    "rempl": "^1.0.0-alpha.19"
+  },
+  "scripts": {
+    "build": "node scripts/build",
+    "lint": "eslint src",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@apollo/client": "^3.4.11",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.3",
+    "@types/react-router-dom": "^4.2.3",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "esbuild": "^0.12.26",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.25.2",
+    "prettier": "^2.4.0",
+    "typescript": "^4.4.2"
+  }
+}
