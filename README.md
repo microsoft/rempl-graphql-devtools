@@ -1,14 +1,40 @@
-# Project
+# Rempl Apollo Client Devtools
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+## Features
+Rempl Apollo Devtools allows you to debug multiple apollo clients and it allows you to inspect key events. This tool contains the following features:
 
-As the maintainer of this project, please make a few updates:
+- Cache inspector - Allow seeing the content of the cache and allows you to remove a specific object from the cache.
+- Watched Query inspector - Observe active queries.
+- Mutation inspector - Visualise mutations, which were fired.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+## Installation
+1. First off, you need to include the bundled library's script into your site.
+```
+yarn install @microsoft/rempl-apollo-devtools
+```
+include `dist/apollo-devtools.js` in Webpack
+```
+webpackConfig.entry["apollodevtools"] = PROJECT_ROOT("node_modules/rempl-apollo-devtools/dist/apollo-devtools.js");
+```
+OR
+
+build the library and include `<script>` with `dist/apollo-devtools.js`in your HTML page.
+`<script src="path/apollo-devtools.js"></script>`
+
+2. In your project, you need to attach the apollo client(s) instance into the global variable __APOLLO_CLIENTS__
+```
+const client = new ApolloClient({
+  uri: 'https://48p1r2roz4.sse.codesandbox.io',
+  cache: new InMemoryCache()
+});
+
+window.__APOLLO_CLIENTS__ = [client]
+```
+## Usage
+### Mac
+To open devtools press cmd+option+shift+0
+### Windows 
+To open devtools press ctrl+alt+shift+0
 
 ## Contributing
 
