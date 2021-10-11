@@ -16,6 +16,7 @@
   },
   "scripts": {
     "build": "node scripts/build",
+    "watch": "node scripts/watch",
     "lint": "eslint src",
     "prepublishOnly": "npm run build"
   },

@@ -9,16 +9,18 @@ if (require.main === module) {
         minify: true,
         bundle: true,
         format: "esm",
-        sourcemap: false,
+        sourcemap: true,
+        watch: true,
       })
     ).outputFiles[0].text;
 
-    return esbuild.buildSync({
+    return esbuild.build({
       entryPoints: ["src/publisher/index.ts"],
       write: true,
       bundle: true,
       minify: true,
-      sourcemap: false,
+      watch: true,
+      sourcemap: true,
       outfile: "dist/apollo-devtools.js",
       format: "iife",
       define: {
