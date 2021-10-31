@@ -5,14 +5,14 @@ import {
   ApolloTrackerContextData,
 } from "./types";
 import { getOperationName } from "@apollo/client/utilities";
-import { ApolloTrackerData, ApolloClientData } from "../types";
+import { ApolloTrackerData } from "../types";
 
 function getQueryData(query: any, key: number): WatchedQuery | undefined {
   if (!query || !query.document) return;
   // TODO: The current designs do not account for non-cached data.
   // We need a workaround to show that data + we should surface
   // the FetchPolicy.
-  const name = getOperationName(query?.document);
+  const name = getOperationName(query?.document) || "";
   if (name === "IntrospectionQuery") {
     return;
   }
@@ -33,13 +33,19 @@ function getMutationData(mutation: any, key: number): MutationType | undefined {
   return {
     id: key,
     typename: "Mutation",
-    name: getOperationName(mutation.mutation),
+    name: getOperationName(mutation.mutation) || "",
     mutationString: print(mutation.mutation),
     variables: mutation.variables,
   };
 }
 
-const getData = ({ queries, mutations, clientId }: ApolloTrackerData) => {
+const getData = ({
+  queries,
+  mutations,
+}: {
+  mutations: unknown[];
+  queries: unknown[];
+}) => {
   const filteredQueries: WatchedQuery[] = Object.values(queries || {})
     .map((q, i: number) => getQueryData(q, i))
     .filter(Boolean) as WatchedQuery[];
@@ -58,14 +64,20 @@ const getData = ({ queries, mutations, clientId }: ApolloTrackerData) => {
     count: mappedMutations.length,
   };
 
-  return { clientId, mutationLog, watchedQueries };
+  return { mutationLog, watchedQueries };
 };
 
 export function updateData(
-  mutationObjects: ApolloTrackerData[],
+  apolloTrackerData: ApolloTrackerData,
   setApolloTrackerContextData: (
-    apolloTrackerContextData: ApolloTrackerContextData[]
+    apolloTrackerContextData: ApolloTrackerContextData
   ) => void
 ) {
-  setApolloTrackerContextData(mutationObjects.map(getData));
+  setApolloTrackerContextData(
+    Object.entries(apolloTrackerData).reduce((acc, [key, value]) => {
+      acc[key] = getData(value);
+
+      return acc;
+    }, {} as ApolloTrackerContextData)
+  );
 }

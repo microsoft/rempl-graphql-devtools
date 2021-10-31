@@ -4,13 +4,11 @@ import { MemoryRouter, Switch, Route, Link } from "react-router-dom";
 import { ApolloCache } from "./apollo-cache";
 import { WatchedQueries, Mutations } from "./apollo-tracker";
 import { ApolloTrackerContext } from "./contexts/apollo-tracker-context";
-import {
-  ActiveClientContext,
-  getActiveClientData,
-} from "./contexts/active-client-context";
+import { AdditionalInformations } from "./apollo-additional-informations";
+import { ActiveClientContext } from "./contexts/active-client-context";
 import {
   ApolloCacheContext,
-  getCacheObjectByClientId,
+  ApolloCacheContextType,
 } from "./contexts/apollo-cache-context";
 
 const items = (
@@ -34,19 +32,32 @@ const items = (
       <Link to="apollo-mutations">{`Mutations (${mutationsCount})`}</Link>
     ),
   },
+
+  {
+    key: "apollo-additional-informations",
+    content: (
+      <Link to="apollo-additional-informations">Additional Informations</Link>
+    ),
+  },
 ];
+
+const getCacheDataCount = (
+  cacheContextData: ApolloCacheContextType,
+  activeClientId: string
+) => {
+  if (!cacheContextData || !cacheContextData?.cacheObjects[activeClientId])
+    return 0;
+
+  return Object.keys(cacheContextData.cacheObjects[activeClientId].cache)
+    .length;
+};
 
 const Router = () => {
   const apolloTrackerData = useContext(ApolloTrackerContext);
   const activeClientId = useContext(ActiveClientContext);
-  const { cacheObjects } = useContext(ApolloCacheContext);
+  const cacheData = useContext(ApolloCacheContext);
 
-  const { mutationLog, watchedQueries } = getActiveClientData(
-    apolloTrackerData,
-    activeClientId
-  );
-
-  const { cache } = getCacheObjectByClientId(cacheObjects, activeClientId);
+  const { mutationLog, watchedQueries } = apolloTrackerData[activeClientId];
 
   return (
     <MemoryRouter>
@@ -54,13 +65,16 @@ const Router = () => {
         <Menu
           defaultActiveIndex={0}
           items={items(
-            Object.keys(cache).length,
+            getCacheDataCount(cacheData, activeClientId),
             mutationLog.count,
             watchedQueries.count
           )}
           primary
         />
         <Switch>
+          <Route path="/apollo-additional-informations">
+            <AdditionalInformations />
+          </Route>
           <Route path="/apollo-queries">
             <WatchedQueries />
           </Route>

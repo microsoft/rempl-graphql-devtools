@@ -4,42 +4,46 @@ import { NormalizedCacheObject } from "@apollo/client/cache";
 import { ClientCacheObject } from "../../types";
 import rempl from "rempl";
 
-export const ApolloCacheContext = React.createContext<{
+export type ApolloCacheContextType = {
   removeCacheItem: (clientIdToModify: string) => (key: string) => void;
-  cacheObjects: ClientCacheObject[];
-} | null>(null);
+  recordRecentCacheChanges: (
+    clientIdToModify: string
+  ) => (shouldRecord: boolean) => void;
+  clearRecentCacheChanges: (clientIdToModify: string) => () => void;
+  cacheObjects: ClientCacheObject;
+} | null;
+
+export const ApolloCacheContext =
+  React.createContext<ApolloCacheContextType>(null);
 
 export const ApolloCacheContextWrapper = ({
   children,
 }: {
   children: JSX.Element;
 }) => {
-  const [cacheObjects, setCacheObjects] = React.useState<ClientCacheObject[]>(
-    []
-  );
+  const [cacheObjects, setCacheObjects] = React.useState<ClientCacheObject>({});
   const myTool = React.useRef(rempl.getSubscriber());
 
   React.useEffect(() => {
-    myTool.current.ns("apollo-cache").subscribe(function (data: any) {
-      if (sizeOf(cacheObjects) !== sizeOf(data)) {
-        setCacheObjects(data);
-      }
-    });
+    myTool.current
+      .ns("apollo-cache")
+      .subscribe(function (data: ClientCacheObject) {
+        if (sizeOf(cacheObjects) !== sizeOf(data)) {
+          setCacheObjects(data);
+        }
+      });
   }, []);
 
   const removeCacheItem = React.useCallback(
     (clientIdToModify: string) => (key: string) => {
-      const cacheObjectsToModify = cacheObjects.reduce(
-        (acc: ClientCacheObject[], { clientId, cache }: ClientCacheObject) => {
-          if (clientId !== clientIdToModify) return acc;
-
-          return [
-            ...acc,
-            { clientId, cache: removeKeyFromCacheState(key, cache) },
-          ];
-        },
-        []
-      );
+      const cacheObjectsToModify = { ...cacheObjects };
+      cacheObjectsToModify[clientIdToModify] = {
+        ...cacheObjects[clientIdToModify],
+        cache: removeKeyFromCacheState(
+          key,
+          cacheObjects[clientIdToModify].cache
+        ),
+      };
 
       setCacheObjects(cacheObjectsToModify);
       myTool.current.callRemote("removeCacheKey", {
@@ -50,20 +54,45 @@ export const ApolloCacheContextWrapper = ({
     [cacheObjects]
   );
 
+  const clearRecentCacheChanges = React.useCallback(
+    (clientIdToModify: string) => () => {
+      const cacheObjectsToModify = { ...cacheObjects };
+      cacheObjectsToModify[clientIdToModify] = {
+        ...cacheObjects[clientIdToModify],
+        recentCache: {},
+      };
+
+      setCacheObjects(cacheObjectsToModify);
+      myTool.current.callRemote("clearRecent", {
+        clientId: clientIdToModify,
+      });
+    },
+    [cacheObjects]
+  );
+
+  const recordRecentCacheChanges = React.useCallback(
+    (clientIdToModify: string) => (shouldRecord: boolean) => {
+      myTool.current.callRemote("recordRecent", {
+        clientId: clientIdToModify,
+        shouldRecord,
+      });
+    },
+    [cacheObjects]
+  );
+
   return (
-    <ApolloCacheContext.Provider value={{ cacheObjects, removeCacheItem }}>
+    <ApolloCacheContext.Provider
+      value={{
+        cacheObjects,
+        removeCacheItem,
+        clearRecentCacheChanges,
+        recordRecentCacheChanges,
+      }}
+    >
       {children}
     </ApolloCacheContext.Provider>
   );
 };
-
-export const getCacheObjectByClientId = (
-  cacheObjects: ClientCacheObject[],
-  activeClientId: string
-) =>
-  cacheObjects.find(
-    (cacheObject: ClientCacheObject) => cacheObject.clientId === activeClientId
-  ) as ClientCacheObject;
 
 function removeKeyFromCacheState(
   key: string,

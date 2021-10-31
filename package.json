@@ -1,6 +1,6 @@
 {
   "name": "rempl-apollo-devtools",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "dist/apollo-devtools.js",
   "author": "jvejr",
   "license": "MIT",

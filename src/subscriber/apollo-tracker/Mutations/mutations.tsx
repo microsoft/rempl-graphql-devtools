@@ -1,10 +1,7 @@
 import React, { useState, useContext } from "react";
 import { MutationViewer } from "./mutation-viewer";
 import { Box, List, Flex, Segment } from "@fluentui/react-northstar";
-import {
-  ActiveClientContext,
-  getActiveClientData,
-} from "../../contexts/active-client-context";
+import { ActiveClientContext } from "../../contexts/active-client-context";
 import { ApolloTrackerContext } from "../../contexts/apollo-tracker-context";
 
 export const Mutations = () => {
@@ -12,7 +9,7 @@ export const Mutations = () => {
   const apolloTrackerData = useContext(ApolloTrackerContext);
   const activeClient = useContext(ActiveClientContext);
 
-  const data = getActiveClientData(apolloTrackerData, activeClient);
+  const data = apolloTrackerData[activeClient];
   const mutation = data.mutationLog.mutations.find(({ id }) => id === selected);
 
   if (!mutation) {

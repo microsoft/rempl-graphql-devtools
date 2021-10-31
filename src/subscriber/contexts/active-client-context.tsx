@@ -1,18 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Loader, FormDropdown } from "@fluentui/react-northstar";
 
-import { ApolloTrackerData } from "../../types";
-import { ApolloTrackerContextData } from "../types";
 import { ApolloTrackerContext } from "./apollo-tracker-context";
-
-export function getActiveClientData(
-  apolloTrackerData: ApolloTrackerContextData[],
-  activeClientId: string
-) {
-  return apolloTrackerData.find(
-    ({ clientId }: ApolloTrackerContextData) => clientId === activeClientId
-  ) as ApolloTrackerContextData;
-}
 
 export const ActiveClientContext = React.createContext("");
 
@@ -24,9 +13,9 @@ export const ActiveClientContextWrapper = ({
   const [activeClientId, setActiveClientId] = useState<string>("");
   const apolloTrackerData = useContext(ApolloTrackerContext);
 
-  const dropdownValues = apolloTrackerData.map(
-    (clientObject: ApolloTrackerData) => clientObject.clientId
-  );
+  const dropdownValues = apolloTrackerData
+    ? Object.keys(apolloTrackerData)
+    : [];
 
   const onChange = (_: any, { value }: any) => {
     setActiveClientId(value);

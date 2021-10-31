@@ -1,29 +1,45 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ApolloCacheRenderer } from "./apollo-cache-renderer";
 import sizeOf from "object-sizeof";
-import { NormalizedCacheObject } from "@apollo/client/cache";
+import { ApolloCacheContext } from "../contexts/apollo-cache-context";
+import { ActiveClientContext } from "../contexts/active-client-context";
+import { CacheObjectWithSize } from "./types";
 
-interface IApolloCacheContainer {
-  cache: NormalizedCacheObject;
-  removeCacheItem: (key: string) => void;
-}
+const ApolloCacheContainer = () => {
+  const contextData = useContext(ApolloCacheContext);
+  const activeClientId = useContext(ActiveClientContext);
 
-const ApolloCacheContainer = ({
-  cache,
-  removeCacheItem,
-}: IApolloCacheContainer) => {
-  const cacheObjectsWithSize = getCacheObjectWithSizes(cache as any);
+  if (!contextData) return null;
+
+  const {
+    cacheObjects,
+    removeCacheItem,
+    recordRecentCacheChanges,
+    clearRecentCacheChanges,
+  } = contextData;
+
+  const cache = cacheObjects[activeClientId].cache;
+  const recentCache = cacheObjects[activeClientId].recentCache;
+  const cacheObjectsWithSize = getCacheObjectWithSizes(
+    cache as Record<string, unknown>
+  );
+  const recentCacheObjectsWithSize = getCacheObjectWithSizes(
+    recentCache as Record<string, unknown>
+  );
 
   return (
     <ApolloCacheRenderer
       cacheObjectsWithSize={cacheObjectsWithSize}
-      cacheSize={sizeOf(cache as any)}
-      removeCacheItem={removeCacheItem}
+      recentCacheWithSize={recentCacheObjectsWithSize}
+      clearRecentCacheChanges={clearRecentCacheChanges(activeClientId)}
+      recordRecentCacheChanges={recordRecentCacheChanges(activeClientId)}
+      cacheSize={sizeOf(cache as Record<string, unknown>)}
+      removeCacheItem={removeCacheItem(activeClientId)}
     />
   );
 };
 
-function getCacheObjectWithSizes(rawCache?: Record<string, any>) {
+function getCacheObjectWithSizes(rawCache?: Record<string, unknown>) {
   if (!rawCache) {
     return [];
   }
@@ -34,7 +50,7 @@ function getCacheObjectWithSizes(rawCache?: Record<string, any>) {
     key,
     valueSize: sizeOf(rawCache[key]),
     value: rawCache[key],
-  }));
+  })) as CacheObjectWithSize[];
 }
 
 export default ApolloCacheContainer;

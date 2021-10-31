@@ -3,8 +3,8 @@ import { RemplWrapper } from "../rempl-wrapper";
 import { ApolloClient } from "@apollo/client/core";
 import { NormalizedCacheObject } from "@apollo/client/cache";
 import {
-  RemoveCacheKeyData,
   ClientCacheObject,
+  ClientRecentCacheObject,
   ApolloClientObject,
 } from "../../types";
 
@@ -12,7 +12,10 @@ export class ApolloCachePublisher {
   private static _instance: ApolloCachePublisher;
   private apolloPublisher;
   private remplWrapper: RemplWrapper;
-  private lastClientsArray: null | ApolloClientObject[] = null;
+  private clientsArray: null | ApolloClientObject[] = null;
+  private recentCachesHistory: ClientRecentCacheObject = {};
+  private lastCachesHistory: ClientCacheObject = {};
+  private recordRecentCache = false;
 
   constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
     if (ApolloCachePublisher._instance) {
@@ -21,7 +24,7 @@ export class ApolloCachePublisher {
 
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
-      this.cacheFetcherHandler.bind(this)
+      this.cachePublishHander.bind(this)
     );
     this.apolloPublisher = apolloPublisher;
     this.attachMethodsToPublisher();
@@ -33,11 +36,11 @@ export class ApolloCachePublisher {
     this.apolloPublisher.provide(
       "removeCacheKey",
       (
-        { clientId: clientIdToModify, key }: RemoveCacheKeyData,
+        { clientId: clientIdToModify, key }: { clientId: string; key: string },
         callback: () => void
       ) => {
-        if (this.lastClientsArray) {
-          const clientObjectToModify = this.lastClientsArray.find(
+        if (this.clientsArray) {
+          const clientObjectToModify = this.clientsArray.find(
             ({ clientId }) => clientId === clientIdToModify
           );
 
@@ -47,28 +50,89 @@ export class ApolloCachePublisher {
         callback();
       }
     );
+    this.apolloPublisher.provide(
+      "clearRecent",
+      ({ clientId }: { clientId: string }, callback: () => void) => {
+        this.recentCachesHistory[clientId] = {};
+        callback();
+      }
+    );
+
+    this.apolloPublisher.provide(
+      "recordRecent",
+      ({ shouldRecord }: { shouldRecord: boolean }, callback: () => void) => {
+        this.recordRecentCache = shouldRecord;
+        callback();
+      }
+    );
   }
 
   private getCache(client: ApolloClient<NormalizedCacheObject>) {
     return client.cache.extract(true);
   }
 
-  private serializeCacheObjects = (clients: ApolloClientObject[]) =>
-    clients.map(({ client, clientId }: ApolloClientObject) => ({
-      clientId,
-      cache: this.getCache(client),
-    }));
+  private diffCaches(
+    currentCache: NormalizedCacheObject,
+    previousCache: NormalizedCacheObject
+  ) {
+    return Object.fromEntries(
+      Object.entries(currentCache).filter(([key, value]) => {
+        if (
+          !previousCache[key] ||
+          JSON.stringify(previousCache[key]) !== JSON.stringify(value)
+        ) {
+          return true;
+        }
+        return false;
+      })
+    );
+  }
 
-  private cacheFetcherHandler() {
+  private getRecentCache(cache: NormalizedCacheObject, clientId: string) {
+    const recentCacheClient = this.recentCachesHistory[clientId];
+    if (!this.recordRecentCache) {
+      return recentCacheClient ? recentCacheClient : {};
+    }
+    if (!recentCacheClient) {
+      this.recentCachesHistory[clientId] = {};
+      return {};
+    }
+    const cacheClientFromLastIteration = this.lastCachesHistory[clientId];
+    if (!cacheClientFromLastIteration) {
+      return {};
+    }
+
+    this.recentCachesHistory[clientId] = {
+      ...recentCacheClient,
+      ...this.diffCaches(cache, cacheClientFromLastIteration.cache),
+    };
+
+    return this.recentCachesHistory[clientId];
+  }
+
+  private serializeCacheObjects = (clients: ApolloClientObject[]) =>
+    clients.reduce((acc, { client, clientId }: ApolloClientObject) => {
+      const cache = this.getCache(client);
+      acc[clientId] = {
+        cache,
+        recentCache: this.getRecentCache(cache, clientId),
+      };
+      return acc;
+    }, {} as ClientCacheObject);
+
+  private cachePublishHander() {
     if (!window.__APOLLO_CLIENTS__?.length) {
       return;
     }
 
-    this.lastClientsArray = window.__APOLLO_CLIENTS__;
-    this.publishCache(this.serializeCacheObjects(this.lastClientsArray));
+    this.clientsArray = window.__APOLLO_CLIENTS__;
+    const serializedCacheObject = this.serializeCacheObjects(this.clientsArray);
+
+    this.lastCachesHistory = serializedCacheObject;
+    this.publishCache(serializedCacheObject);
   }
 
-  public publishCache(cacheObjects: ClientCacheObject[]) {
+  public publishCache(cacheObjects: ClientCacheObject) {
     this.apolloPublisher.ns("apollo-cache").publish(cacheObjects);
   }
 }

@@ -1,30 +1,13 @@
-import { ApolloQueryResult } from "@apollo/client";
-
-export type QueryResult = ApolloQueryResult<any>;
-
-export interface GraphiQLResponse {
-  operationName: string;
-  response: QueryResult;
-}
-
-export interface MessageObj<TPayload = any> {
-  to?: string;
-  message: string;
-  payload?: TPayload;
-}
-
-export type CustomEventListener<T = any> = (message: MessageObj<T>) => void;
-
 interface Query {
   id: number;
-  name: string | null;
-  variables: object;
+  name: string;
+  variables: Record<string, unknown>;
 }
 
 export type WatchedQuery = Query & {
   typename: "WatchedQuery";
   queryString: string;
-  cachedData: object;
+  cachedData: Record<string, unknown>;
 };
 
 export type Mutation = Query & {
@@ -33,13 +16,14 @@ export type Mutation = Query & {
 };
 
 export type ApolloTrackerContextData = {
-  clientId: string;
-  watchedQueries: {
-    queries: WatchedQuery[];
-    count: number;
-  };
-  mutationLog: {
-    mutations: Mutation[];
-    count: number;
+  [clientId: string]: {
+    watchedQueries: {
+      queries: WatchedQuery[];
+      count: number;
+    };
+    mutationLog: {
+      mutations: Mutation[];
+      count: number;
+    };
   };
 };

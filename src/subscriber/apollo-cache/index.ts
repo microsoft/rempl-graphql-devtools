@@ -1,2 +1,2 @@
-import ApolloCacheObjects from "./apollo-cache-objects";
-export { ApolloCacheObjects as ApolloCache };
+import ApolloCache from "./apollo-cache-container";
+export { ApolloCache };

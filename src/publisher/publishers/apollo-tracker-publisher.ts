@@ -1,6 +1,6 @@
 import { RemplWrapper } from "../rempl-wrapper";
 
-import { ApolloClientObject } from "../../types";
+import { ApolloClientObject, ApolloTrackerData } from "../../types";
 
 export class ApolloTrackerPublisher {
   private static _instance: ApolloTrackerPublisher;
@@ -14,14 +14,14 @@ export class ApolloTrackerPublisher {
 
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
-      this.queryFetcherHandler.bind(this)
+      this.trackerDataPublishHandler.bind(this)
     );
     this.apolloPublisher = apolloPublisher;
 
     ApolloTrackerPublisher._instance = this;
   }
 
-  private queryFetcherHandler() {
+  private trackerDataPublishHandler() {
     if (!window.__APOLLO_CLIENTS__?.length) {
       return;
     }
@@ -31,8 +31,8 @@ export class ApolloTrackerPublisher {
     );
   }
   private filterQueryInfo(queryInfoMap: any) {
-    const filteredQueryInfo = {};
-    queryInfoMap.forEach((value: any, key: string) => {
+    const filteredQueryInfo: Record<string, unknown> = {};
+    queryInfoMap.forEach((value: Record<string, unknown>, key: string) => {
       filteredQueryInfo[key] = {
         document: value.document,
         graphQLErrors: value.graphQLErrors,
@@ -44,21 +44,21 @@ export class ApolloTrackerPublisher {
     return filteredQueryInfo;
   }
   private serializeTrackerDataObjects = (clients: ApolloClientObject[]) =>
-    clients.map(({ client, clientId }: ApolloClientObject) => ({
-      clientId,
-      queries: this.getQueries(client)(),
-      mutations: this.getMutations(client)(),
-    }));
+    clients.reduce((acc, { client, clientId }: ApolloClientObject) => {
+      if (!(client as any).queryManager) {
+        return acc;
+      }
+
+      acc[clientId] = {
+        queries: this.getQueries(client)(),
+        mutations: this.getMutations(client)(),
+      };
+      return acc;
+    }, {} as ApolloTrackerData);
 
   private getMutations(client: any) {
-    if (!client || !client.queryManager) {
-      return () => {};
-    }
     // Apollo Client 2 to 3.2
-    if (
-      client.queryManager.mutationStore &&
-      client.queryManager.mutationStore.getStore
-    ) {
+    if (client.queryManager.mutationStore?.getStore) {
       return () => client.queryManager.mutationStore.getStore();
     } else {
       // Apollo Client 3.3+
@@ -67,21 +67,14 @@ export class ApolloTrackerPublisher {
   }
 
   private getQueries(client: any) {
-    if (!client || !client.queryManager) {
-      return () => {};
-    }
-
-    if (client.queryManager.queryStore) {
-      if (client.queryManager.queryStore.getStore) {
-        return () => client.queryManager.queryStore.getStore();
-      }
-    } else if (client.queryManager.queries) {
+    if (client.queryManager.queryStore?.getStore) {
+      return () => client.queryManager.queryStore.getStore();
+    } else {
       return () => this.filterQueryInfo(client.queryManager.queries);
     }
-    return () => {};
   }
 
-  public publishTrackerData(queries: (() => void)[]) {
-    this.apolloPublisher.ns("apollo-tracker").publish(queries);
+  public publishTrackerData(apolloTrackerData: ApolloTrackerData) {
+    this.apolloPublisher.ns("apollo-tracker").publish(apolloTrackerData);
   }
 }

@@ -2,17 +2,14 @@ import React, { useState, useContext } from "react";
 import { List, Flex, Segment, Box } from "@fluentui/react-northstar";
 import { QueryViewer } from "./query-viewer";
 import { ApolloTrackerContext } from "../../contexts/apollo-tracker-context";
-import {
-  ActiveClientContext,
-  getActiveClientData,
-} from "../../contexts/active-client-context";
+import { ActiveClientContext } from "../../contexts/active-client-context";
 
 export const WatchedQueries = () => {
   const [selected, setSelected] = useState<number>(0);
   const apolloTrackerData = useContext(ApolloTrackerContext);
   const activeClient = useContext(ActiveClientContext);
 
-  const data = getActiveClientData(apolloTrackerData, activeClient);
+  const data = apolloTrackerData[activeClient];
   const watchedQuery = data.watchedQueries.queries.find(
     ({ id }) => id === selected
   );

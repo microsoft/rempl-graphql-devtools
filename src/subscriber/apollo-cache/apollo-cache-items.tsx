@@ -83,6 +83,10 @@ export const ApolloCacheItems = ({
     CacheObjectWithSize | undefined
   >(undefined);
 
+  if (!cacheObjectsWithSize.length) {
+    return null;
+  }
+
   return (
     <>
       <Segment

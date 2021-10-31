@@ -1,18 +1,22 @@
-import React from 'react';
-import { CacheObjectWithSize } from './types';
-import { ApolloCacheItems } from './apollo-cache-items';
+import React from "react";
+import { CacheObjectWithSize } from "./types";
+import { ApolloCacheItems } from "./apollo-cache-items";
 import {
   Header,
   Input,
   Grid,
+  Button,
   Segment,
   Flex,
   FlexItem,
-} from '@fluentui/react-northstar';
-import { SearchIcon } from '@fluentui/react-icons-northstar';
+} from "@fluentui/react-northstar";
+import { SearchIcon } from "@fluentui/react-icons-northstar";
 
 interface IApolloCacheRenderer {
   cacheObjectsWithSize: CacheObjectWithSize[];
+  recentCacheWithSize: CacheObjectWithSize[];
+  recordRecentCacheChanges: (shouldRemove: boolean) => void;
+  clearRecentCacheChanges: () => void;
   removeCacheItem: (key: string) => void;
   cacheSize: number;
 }
@@ -44,24 +48,38 @@ function filterCacheObjects(
 
 export const ApolloCacheRenderer = ({
   cacheObjectsWithSize,
+  recentCacheWithSize,
   cacheSize,
   removeCacheItem,
+  recordRecentCacheChanges,
+  clearRecentCacheChanges,
 }: IApolloCacheRenderer) => {
-  const [searchKey, setSearchKey] = React.useState('');
-  const [searchValue, setSearchValue] = React.useState('');
+  const [searchKey, setSearchKey] = React.useState("");
+  const [searchValue, setSearchValue] = React.useState("");
+  const [showRecentChat, setShowRecentChat] = React.useState(false);
+  const [recordRecentCache, setRecordRecentCache] = React.useState(false);
+
+  const toggleShowRecentChat = () => {
+    setShowRecentChat(!showRecentChat);
+  };
+
+  const toggleRecordRecentChanges = () => {
+    recordRecentCacheChanges(!recordRecentCache);
+    setRecordRecentCache(!recordRecentCache);
+  };
 
   return (
     <Grid
       columns="repeat(5, 1fr)"
       styles={{
-        height: 'calc(100vh - 45px)',
+        height: "calc(100vh - 45px)",
         gridTemplateRows:
-          '[row1-start] 85px [row1-end] 65px [third-line] auto [last-line]',
+          "[row1-start] 85px [row1-end] 65px [third-line] auto [last-line]",
       }}
     >
       <Segment
         styles={{
-          gridColumn: 'span 5',
+          gridColumn: "span 5",
         }}
       >
         <Header
@@ -72,7 +90,7 @@ export const ApolloCacheRenderer = ({
       <Segment
         color="brand"
         styles={{
-          gridColumn: 'span 5',
+          gridColumn: "span 5",
         }}
       >
         <Flex gap="gap.large">
@@ -104,12 +122,49 @@ export const ApolloCacheRenderer = ({
           </FlexItem>
         </Flex>
       </Segment>
-      <ApolloCacheItems
-        cacheObjectsWithSize={filterCacheObjects(
-          cacheObjectsWithSize,
-          searchKey,
-          searchValue
+      <Segment
+        color="brand"
+        styles={{
+          gridColumn: "span 5",
+        }}
+      >
+        <Flex gap="gap.large">
+          <FlexItem size="size.large">
+            <Header
+              as="h3"
+              content={
+                showRecentChat ? "Recent cache changes" : "All cache changes"
+              }
+            />
+          </FlexItem>
+          <FlexItem size="size.large">
+            <Button
+              content={showRecentChat ? "Show all" : "Show recent"}
+              onClick={toggleShowRecentChat}
+            />
+          </FlexItem>
+        </Flex>
+
+        {showRecentChat && (
+          <Flex gap="gap.large">
+            <FlexItem size="size.large">
+              <Button
+                content={recordRecentCache ? "Stop recording" : "Record"}
+                onClick={toggleRecordRecentChanges}
+              />
+            </FlexItem>
+            <FlexItem size="size.large">
+              <Button content="Clear" onClick={clearRecentCacheChanges} />
+            </FlexItem>
+          </Flex>
         )}
+      </Segment>
+      <ApolloCacheItems
+        cacheObjectsWithSize={
+          showRecentChat
+            ? recentCacheWithSize
+            : filterCacheObjects(cacheObjectsWithSize, searchKey, searchValue)
+        }
         removeCacheItem={removeCacheItem}
       />
     </Grid>
