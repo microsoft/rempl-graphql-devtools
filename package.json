@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "@fluentui/react-northstar": "0.59.0",
+    "graphiql": "^1.4.6",
     "graphql": "^15.0.0",
     "hotkeys-js": "^3.8.7",
     "object-sizeof": "^1.6.1",

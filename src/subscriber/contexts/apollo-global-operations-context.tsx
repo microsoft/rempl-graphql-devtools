@@ -27,7 +27,6 @@ export const ApolloGlobalOperationsWrapper = ({
       .ns("apollo-global-operations")
       .subscribe((data: ApolloGlobalOperations) => {
         if (data) {
-          console.log(data);
           setApolloGlobalOperations(data);
         }
       });

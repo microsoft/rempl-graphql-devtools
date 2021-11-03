@@ -36,3 +36,13 @@ export type ApolloTrackerData = {
 export type ClientRecentCacheObject = {
   [clientId: string]: NormalizedCacheObject;
 };
+
+export type ApolloClientsObject = {
+  [clientId: string]: ApolloClient<NormalizedCacheObject>;
+};
+
+export type FetcherParams = {
+  query: string;
+  operationName: string;
+  variables?: any;
+};

@@ -5,6 +5,7 @@ import { ApolloCache } from "./apollo-cache";
 import { WatchedQueries, Mutations } from "./apollo-tracker";
 import { ApolloTrackerContext } from "./contexts/apollo-tracker-context";
 import { AdditionalInformations } from "./apollo-additional-informations";
+import { GraphiQLRenderer } from "./graphiql";
 import { ActiveClientContext } from "./contexts/active-client-context";
 import {
   ApolloCacheContext,
@@ -32,12 +33,15 @@ const items = (
       <Link to="apollo-mutations">{`Mutations (${mutationsCount})`}</Link>
     ),
   },
-
   {
     key: "apollo-additional-informations",
     content: (
       <Link to="apollo-additional-informations">Additional Informations</Link>
     ),
+  },
+  {
+    key: "graphiql",
+    content: <Link to="graphiql">GraphiQL</Link>,
   },
 ];
 
@@ -80,6 +84,9 @@ const Router = () => {
           </Route>
           <Route path="/apollo-mutations">
             <Mutations />
+          </Route>
+          <Route path="/graphiql">
+            <GraphiQLRenderer />
           </Route>
           <Route path="/">
             <ApolloCache />
