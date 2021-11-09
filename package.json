@@ -1,12 +1,12 @@
 {
-  "name": "rempl-apollo-devtools",
-  "version": "1.0.7",
+  "name": "rempl-graphql-devtools",
+  "version": "0.0.1",
   "main": "dist/apollo-devtools.js",
   "author": "jvejr",
   "license": "MIT",
   "dependencies": {
     "@fluentui/react-northstar": "0.59.0",
-    "graphiql": "^1.5.0",
+    "graphiql": "^1.5.1",
     "graphql": "^15.0.0",
     "hotkeys-js": "^3.8.7",
     "jss-plugin-global": "^10.8.2",
