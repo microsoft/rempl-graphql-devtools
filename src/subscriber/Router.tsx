@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { Menu } from "@fluentui/react-northstar";
-import { MemoryRouter, Switch, Route, Link } from "react-router-dom";
+import { MemoryRouter, Switch, Route } from "react-router-dom";
 import { ApolloCache } from "./apollo-cache";
 import { WatchedQueries, Mutations } from "./apollo-tracker";
 import { ApolloTrackerContext } from "./contexts/apollo-tracker-context";
@@ -11,39 +10,7 @@ import {
   ApolloCacheContext,
   ApolloCacheContextType,
 } from "./contexts/apollo-cache-context";
-
-const items = (
-  cacheCount: number,
-  mutationsCount: number,
-  queriesCount: number
-) => [
-  {
-    key: "apollo-cache",
-    content: <Link to="/">{`Cache (${cacheCount})`}</Link>,
-  },
-  {
-    key: "apollo-queries",
-    content: (
-      <Link to="apollo-queries">{`Watched Queries (${queriesCount})`}</Link>
-    ),
-  },
-  {
-    key: "apollo-mutations",
-    content: (
-      <Link to="apollo-mutations">{`Mutations (${mutationsCount})`}</Link>
-    ),
-  },
-  {
-    key: "apollo-additional-informations",
-    content: (
-      <Link to="apollo-additional-informations">Additional Informations</Link>
-    ),
-  },
-  {
-    key: "graphiql",
-    content: <Link to="graphiql">GraphiQL</Link>,
-  },
-];
+import { Menu } from "../components";
 
 const getCacheDataCount = (
   cacheContextData: ApolloCacheContextType,
@@ -56,7 +23,7 @@ const getCacheDataCount = (
     .length;
 };
 
-const Router = () => {
+const Router = React.memo(() => {
   const apolloTrackerData = useContext(ApolloTrackerContext);
   const activeClientId = useContext(ActiveClientContext);
   const cacheData = useContext(ApolloCacheContext);
@@ -65,15 +32,11 @@ const Router = () => {
 
   return (
     <MemoryRouter>
-      <div>
+      <>
         <Menu
-          defaultActiveIndex={0}
-          items={items(
-            getCacheDataCount(cacheData, activeClientId),
-            mutationLog.count,
-            watchedQueries.count
-          )}
-          primary
+          cacheCount={getCacheDataCount(cacheData, activeClientId)}
+          mutationsCount={mutationLog.count}
+          queriesCount={watchedQueries.count}
         />
         <Switch>
           <Route path="/apollo-additional-informations">
@@ -92,9 +55,9 @@ const Router = () => {
             <ApolloCache />
           </Route>
         </Switch>
-      </div>
+      </>
     </MemoryRouter>
   );
-};
+});
 
 export default Router;

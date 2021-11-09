@@ -4,6 +4,7 @@ import GraphiQL from "graphiql";
 import { ActiveClientContext } from "../contexts/active-client-context";
 import { FetcherParams } from "../../types";
 import { Box } from "@fluentui/react-northstar";
+import { useAutoContainerHeight } from "../../helpers/container-height";
 
 (window as any).global = window;
 
@@ -36,9 +37,10 @@ const createFetcher = (myTool: any, activeClientId: string) => {
 export const GraphiQLRenderer = React.memo(() => {
   const myTool = React.useRef(rempl.getSubscriber());
   const activeClientId = useContext(ActiveClientContext);
+  const headerHeight = useAutoContainerHeight();
 
   return (
-    <Box styles={{ height: "700px" }}>
+    <Box styles={{ height: `calc(100% - ${headerHeight}px)` }}>
       <GraphiQL fetcher={createFetcher(myTool.current, activeClientId)} />
     </Box>
   );

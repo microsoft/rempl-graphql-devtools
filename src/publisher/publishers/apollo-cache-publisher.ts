@@ -1,6 +1,7 @@
 import { ApolloClient } from "@apollo/client/core";
 import { NormalizedCacheObject } from "@apollo/client/cache";
 import { RemplWrapper } from "../rempl-wrapper";
+import sizeOf from "object-sizeof";
 import {
   ClientCacheObject,
   ClientRecentCacheObject,
@@ -127,6 +128,9 @@ export class ApolloCachePublisher {
     this.clientsArray = window.__APOLLO_CLIENTS__;
     const serializedCacheObject = this.serializeCacheObjects(this.clientsArray);
 
+    if (sizeOf(this.lastCachesHistory) === sizeOf(serializedCacheObject)) {
+      return;
+    }
     this.lastCachesHistory = serializedCacheObject;
     this.publishCache(serializedCacheObject);
   }

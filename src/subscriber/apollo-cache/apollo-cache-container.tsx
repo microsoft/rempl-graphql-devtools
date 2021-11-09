@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { ApolloCacheRenderer } from "./apollo-cache-renderer";
 import sizeOf from "object-sizeof";
 import { ApolloCacheContext } from "../contexts/apollo-cache-context";
 import { ActiveClientContext } from "../contexts/active-client-context";
 import { CacheObjectWithSize } from "./types";
 
-const ApolloCacheContainer = () => {
+const ApolloCacheContainer = React.memo(() => {
   const contextData = useContext(ApolloCacheContext);
   const activeClientId = useContext(ActiveClientContext);
 
@@ -20,11 +20,14 @@ const ApolloCacheContainer = () => {
 
   const cache = cacheObjects[activeClientId].cache;
   const recentCache = cacheObjects[activeClientId].recentCache;
-  const cacheObjectsWithSize = getCacheObjectWithSizes(
-    cache as Record<string, unknown>
+  const cacheObjectsWithSize = useMemo(
+    () => getCacheObjectWithSizes(cache as Record<string, unknown>),
+    [cache]
   );
-  const recentCacheObjectsWithSize = getCacheObjectWithSizes(
-    recentCache as Record<string, unknown>
+
+  const recentCacheObjectsWithSize = useMemo(
+    () => getCacheObjectWithSizes(recentCache as Record<string, unknown>),
+    [recentCache]
   );
 
   return (
@@ -37,7 +40,7 @@ const ApolloCacheContainer = () => {
       removeCacheItem={removeCacheItem(activeClientId)}
     />
   );
-};
+});
 
 function getCacheObjectWithSizes(rawCache?: Record<string, unknown>) {
   if (!rawCache) {

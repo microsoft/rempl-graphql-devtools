@@ -1,16 +1,22 @@
-import React from "react";
+import React, { Fragment, useCallback } from "react";
 import { CacheObjectWithSize } from "./types";
 import { ApolloCacheItems } from "./apollo-cache-items";
 import {
-  Header,
   Input,
-  Grid,
   Button,
-  Segment,
   Flex,
-  FlexItem,
+  Alert,
+  Tooltip,
+  Dropdown,
 } from "@fluentui/react-northstar";
-import { SearchIcon } from "@fluentui/react-icons-northstar";
+import {
+  BanIcon,
+  CallRecordingIcon,
+  SearchIcon,
+} from "@fluentui/react-icons-northstar";
+import debounce from "lodash.debounce";
+import { useStyles } from "./apollo-cache-renderer-styles";
+import { useAutoContainerHeight } from "../../helpers/container-height";
 
 interface IApolloCacheRenderer {
   cacheObjectsWithSize: CacheObjectWithSize[];
@@ -23,150 +29,112 @@ interface IApolloCacheRenderer {
 
 function filterCacheObjects(
   cacheObjectsWithSize: CacheObjectWithSize[],
-  searchKey: string,
-  searchValue: string
+  searchKey: string
 ) {
-  if (!searchValue && !searchKey) return cacheObjectsWithSize;
-  let filteredCacheObject = [...cacheObjectsWithSize];
+  if (!searchKey) return cacheObjectsWithSize;
 
-  if (searchKey) {
-    filteredCacheObject = cacheObjectsWithSize.filter(
-      ({ key }: CacheObjectWithSize) =>
-        key.toLowerCase().includes(searchKey.toLowerCase())
-    );
-  }
-
-  if (searchValue) {
-    filteredCacheObject = cacheObjectsWithSize.filter(
-      ({ value }: CacheObjectWithSize) =>
-        JSON.stringify(value).includes(searchValue)
-    );
-  }
-
-  return filteredCacheObject;
-}
-
-export const ApolloCacheRenderer = ({
-  cacheObjectsWithSize,
-  recentCacheWithSize,
-  cacheSize,
-  removeCacheItem,
-  recordRecentCacheChanges,
-  clearRecentCacheChanges,
-}: IApolloCacheRenderer) => {
-  const [searchKey, setSearchKey] = React.useState("");
-  const [searchValue, setSearchValue] = React.useState("");
-  const [showRecentChat, setShowRecentChat] = React.useState(false);
-  const [recordRecentCache, setRecordRecentCache] = React.useState(false);
-
-  const toggleShowRecentChat = () => {
-    setShowRecentChat(!showRecentChat);
-  };
-
-  const toggleRecordRecentChanges = () => {
-    recordRecentCacheChanges(!recordRecentCache);
-    setRecordRecentCache(!recordRecentCache);
-  };
-
-  return (
-    <Grid
-      columns="repeat(5, 1fr)"
-      styles={{
-        height: "calc(100vh - 45px)",
-        gridTemplateRows:
-          "[row1-start] 85px [row1-end] 65px [third-line] auto [last-line]",
-      }}
-    >
-      <Segment
-        styles={{
-          gridColumn: "span 5",
-        }}
-      >
-        <Header
-          as="h2"
-          content={`Apollo cache (overall size ${cacheSize} B)`}
-        />
-      </Segment>
-      <Segment
-        color="brand"
-        styles={{
-          gridColumn: "span 5",
-        }}
-      >
-        <Flex gap="gap.large">
-          <FlexItem size="size.large">
-            <Input
-              icon={<SearchIcon />}
-              placeholder="Search by key..."
-              role="search"
-              clearable
-              fluid
-              onChange={(e: React.SyntheticEvent) => {
-                const input = e.target as HTMLInputElement;
-                setSearchKey(input.value);
-              }}
-            />
-          </FlexItem>
-          <FlexItem size="size.large">
-            <Input
-              icon={<SearchIcon />}
-              placeholder="Search by value..."
-              role="search"
-              clearable
-              fluid
-              onChange={(e: React.SyntheticEvent) => {
-                const input = e.target as HTMLInputElement;
-                setSearchValue(input.value);
-              }}
-            />
-          </FlexItem>
-        </Flex>
-      </Segment>
-      <Segment
-        color="brand"
-        styles={{
-          gridColumn: "span 5",
-        }}
-      >
-        <Flex gap="gap.large">
-          <FlexItem size="size.large">
-            <Header
-              as="h3"
-              content={
-                showRecentChat ? "Recent cache changes" : "All cache changes"
-              }
-            />
-          </FlexItem>
-          <FlexItem size="size.large">
-            <Button
-              content={showRecentChat ? "Show all" : "Show recent"}
-              onClick={toggleShowRecentChat}
-            />
-          </FlexItem>
-        </Flex>
-
-        {showRecentChat && (
-          <Flex gap="gap.large">
-            <FlexItem size="size.large">
-              <Button
-                content={recordRecentCache ? "Stop recording" : "Record"}
-                onClick={toggleRecordRecentChanges}
-              />
-            </FlexItem>
-            <FlexItem size="size.large">
-              <Button content="Clear" onClick={clearRecentCacheChanges} />
-            </FlexItem>
-          </Flex>
-        )}
-      </Segment>
-      <ApolloCacheItems
-        cacheObjectsWithSize={
-          showRecentChat
-            ? recentCacheWithSize
-            : filterCacheObjects(cacheObjectsWithSize, searchKey, searchValue)
-        }
-        removeCacheItem={removeCacheItem}
-      />
-    </Grid>
+  return cacheObjectsWithSize.filter(({ key }: CacheObjectWithSize) =>
+    key.toLowerCase().includes(searchKey.toLowerCase())
   );
-};
+}
+// magic number for fixed top bar and bottom status bar elements
+const FIXED_BARS_HEIGHT = 68;
+
+export const ApolloCacheRenderer = React.memo(
+  ({
+    cacheObjectsWithSize,
+    recentCacheWithSize,
+    cacheSize,
+    removeCacheItem,
+    recordRecentCacheChanges,
+    clearRecentCacheChanges,
+  }: IApolloCacheRenderer) => {
+    const [searchKey, setSearchKey] = React.useState("");
+    const [showRecentCache, setShowRecentCache] = React.useState(false);
+    const [recordRecentCache, setRecordRecentCache] = React.useState(false);
+    const classes = useStyles();
+    const headerHeight = useAutoContainerHeight() + FIXED_BARS_HEIGHT;
+
+    const toggleShowRecentCache = useCallback(() => {
+      setShowRecentCache(!showRecentCache);
+    }, [showRecentCache]);
+
+    const toggleRecordRecentChanges = useCallback(() => {
+      recordRecentCacheChanges(!recordRecentCache);
+      setRecordRecentCache(!recordRecentCache);
+    }, [recordRecentCache]);
+
+    const debouncedSetSearchKey = useCallback(
+      debounce((searchKey: string) => setSearchKey(searchKey), 250),
+      [setSearchKey]
+    );
+
+    return (
+      <Fragment>
+        <Flex space="between" className={classes.topBar}>
+          <Flex>
+            <Dropdown
+              className={classes.switchDropdown}
+              items={["All cache", "Recent cache"]}
+              defaultValue={"All cache"}
+              onChange={toggleShowRecentCache}
+            />
+            <Input
+              icon={<SearchIcon />}
+              placeholder="Search..."
+              role="search"
+              clearable
+              fluid
+              onChange={(e: React.SyntheticEvent) => {
+                const input = e.target as HTMLInputElement;
+                debouncedSetSearchKey(input.value);
+              }}
+            />
+          </Flex>
+          {showRecentCache && (
+            <Flex gap="gap.smaller" className={classes.topBarActions}>
+              <Tooltip
+                trigger={
+                  <Button
+                    className={recordRecentCache ? classes.activeRecord : ""}
+                    icon={<CallRecordingIcon size="medium" />}
+                    iconOnly
+                    tinted
+                    onClick={toggleRecordRecentChanges}
+                  />
+                }
+                content={recordRecentCache ? "Stop recording" : "Record"}
+              />
+              <Tooltip
+                trigger={
+                  <Button
+                    disabled={recordRecentCache}
+                    icon={<BanIcon size="medium" />}
+                    tinted
+                    iconOnly
+                    onClick={clearRecentCacheChanges}
+                  />
+                }
+                content="Clear"
+              />
+            </Flex>
+          )}
+        </Flex>
+        <ApolloCacheItems
+          cacheObjectsWithSize={
+            showRecentCache
+              ? recentCacheWithSize
+              : filterCacheObjects(cacheObjectsWithSize, searchKey)
+          }
+          removeCacheItem={removeCacheItem}
+          containerSize={`calc(100% - ${headerHeight}px)`}
+        />
+        <Alert
+          success
+          content={`Apollo cache (overall size ${cacheSize} B)`}
+          className={classes.infoPanel}
+        />
+      </Fragment>
+    );
+  }
+);

@@ -24,7 +24,7 @@ export const ApolloClientDataWrapper = ({
           updateData(data, setApolloTrackerData);
         }
       });
-  }, []);
+  }, [setApolloTrackerData]);
 
   return (
     <ApolloTrackerContext.Provider value={apolloTrackerData}>

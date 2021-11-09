@@ -1,40 +1,63 @@
 import React from "react";
-import { Table } from "@fluentui/react-northstar";
+import { Accordion, List } from "@fluentui/react-northstar";
 import { ApolloGlobalOperations } from "../../types";
+import { useAutoContainerHeight } from "../../helpers/container-height";
+import { useStyles } from "./additional-info-styles";
 
-const getTableRows = ({
-  globalQueries,
-  globalMutations,
-  globalSubscriptions,
-}: ApolloGlobalOperations) => {
-  const biggestSize = Math.max(
-    globalQueries.length,
-    Math.max(globalMutations.length, globalSubscriptions.length)
-  );
-  const rows = [];
-  for (let i = 0; i <= biggestSize; i++) {
-    const globalSubscription = globalSubscriptions[i] || "";
-    const globalQuery = globalQueries[i] || "";
-    const globalMutation = globalMutations[i] || "";
-    rows.push({
-      key: i,
-      items: [globalQuery, globalMutation, globalSubscription],
-    });
+const panels = (globalOperations: ApolloGlobalOperations) => [
+  {
+    key: "0_global_queries",
+    title: {
+      content: "Global Queries",
+      style: {
+        top: 0,
+      },
+    },
+    content: {
+      content: <List items={globalOperations.globalQueries} />,
+    },
+  },
+  {
+    key: "1_global_mutations",
+    title: {
+      content: "Global Mutations",
+      style: {
+        top: 31,
+        bottom: 31,
+      },
+    },
+    content: {
+      content: <List items={globalOperations.globalMutations} />,
+    },
+  },
+  {
+    key: "2_global_subscriptions",
+    title: {
+      content: "Global Subscriptions",
+      style: {
+        top: 31 * 2,
+        bottom: 0,
+      },
+    },
+    content: {
+      content: <List items={globalOperations.globalSubscriptions} />,
+    },
+  },
+];
+
+const AdditionalInformationsRenderer = React.memo(
+  ({ globalOperations }: { globalOperations: ApolloGlobalOperations }) => {
+    const classes = useStyles();
+    const headerHeight = useAutoContainerHeight();
+    return (
+      <div
+        className={classes.container}
+        style={{ height: `calc(100% - ${headerHeight}px)` }}
+      >
+        <Accordion panels={panels(globalOperations)} />
+      </div>
+    );
   }
-  return rows;
-};
-
-const AdditionalInformationsRenderer = ({
-  globalOperations,
-}: {
-  globalOperations: ApolloGlobalOperations;
-}) => {
-  const header = {
-    items: ["Global Queries", "Global Mutations", "Global Subscriptions"],
-  };
-  const rows = getTableRows(globalOperations);
-
-  return <Table header={header} rows={rows} aria-label="Global Operations" />;
-};
+);
 
 export default AdditionalInformationsRenderer;

@@ -1,5 +1,4 @@
 import React from "react";
-import sizeOf from "object-sizeof";
 import { NormalizedCacheObject } from "@apollo/client/cache";
 import { ClientCacheObject } from "../../types";
 import rempl from "rempl";
@@ -28,7 +27,7 @@ export const ApolloCacheContextWrapper = ({
     myTool.current
       .ns("apollo-cache")
       .subscribe(function (data: ClientCacheObject) {
-        if (sizeOf(cacheObjects) !== sizeOf(data)) {
+        if (data) {
           setCacheObjects(data);
         }
       });

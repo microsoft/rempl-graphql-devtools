@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
-import { Loader, FormDropdown } from "@fluentui/react-northstar";
+import { Loader } from "@fluentui/react-northstar";
 
 import { ApolloTrackerContext } from "./apollo-tracker-context";
+import { Dropdown } from "../../components";
 
 export const ActiveClientContext = React.createContext("");
 
@@ -27,14 +28,10 @@ export const ActiveClientContextWrapper = ({
 
   return (
     <>
-      <FormDropdown
-        label={{
-          content: `Choose apollo client:`,
-        }}
+      <Dropdown
         items={dropdownValues}
         onChange={onChange}
         value={activeClientId}
-        placeholder="Choose a apollo client"
       />
       {activeClientId ? (
         <ActiveClientContext.Provider value={activeClientId}>
