@@ -58,7 +58,9 @@ export const VerticalViewer = React.memo(
           <Text
             weight="semibold"
             color="green"
-            content={`${data.name} (Watched Query)`}
+            content={`${data.name} (${
+              isMutation ? "Mutation" : "Watched Query"
+            })`}
           />
         </Flex>
         <Box>
