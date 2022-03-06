@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import rempl from "rempl";
+import { Loader } from "@fluentui/react-northstar";
 import { ApolloTrackerData } from "../../types";
 import { updateData } from "../helpers";
 import { ApolloTrackerContextData } from "../types";
-import rempl from "rempl";
 
 export const ApolloTrackerContext =
   React.createContext<ApolloTrackerContextData>({});
@@ -14,17 +15,15 @@ export const ApolloClientDataWrapper = ({
 }) => {
   const [apolloTrackerData, setApolloTrackerData] =
     useState<ApolloTrackerContextData>({});
+  const myTool = React.useRef(rempl.getSubscriber());
 
-  useEffect(() => {
-    rempl
-      .getSubscriber()
-      .ns("apollo-tracker")
-      .subscribe((data: ApolloTrackerData) => {
-        if (data) {
-          updateData(data, setApolloTrackerData);
-        }
-      });
-  }, [setApolloTrackerData]);
+  React.useEffect(() => {
+    myTool.current.ns("apollo-tracker").subscribe((data: ApolloTrackerData) => {
+      if (data) {
+        updateData(data, setApolloTrackerData);
+      }
+    });
+  }, []);
 
   return (
     <ApolloTrackerContext.Provider value={apolloTrackerData}>

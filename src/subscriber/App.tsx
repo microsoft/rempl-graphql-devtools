@@ -5,6 +5,7 @@ import { ApolloClientDataWrapper } from "./contexts/apollo-tracker-context";
 import { ApolloGlobalOperationsWrapper } from "./contexts/apollo-global-operations-context";
 import { ActiveClientContextWrapper } from "./contexts/active-client-context";
 import { ApolloCacheContextWrapper } from "./contexts/apollo-cache-context";
+import { ApolloCacheDuplicatesContextWrapper } from "./contexts/apollo-cache-duplicates-context";
 import jss from "jss";
 import preset from "jss-preset-default";
 import { SheetsRegistry, JssProvider } from "react-jss";
@@ -32,13 +33,15 @@ const App = () => {
     <Provider theme={teamsTheme}>
       <JssProvider registry={sheets}>
         <ApolloGlobalOperationsWrapper>
-          <ApolloClientDataWrapper>
-            <ApolloCacheContextWrapper>
-              <ActiveClientContextWrapper>
-                <Router />
-              </ActiveClientContextWrapper>
-            </ApolloCacheContextWrapper>
-          </ApolloClientDataWrapper>
+          <ActiveClientContextWrapper>
+            <ApolloClientDataWrapper>
+              <ApolloCacheContextWrapper>
+                <ApolloCacheDuplicatesContextWrapper>
+                  <Router />
+                </ApolloCacheDuplicatesContextWrapper>
+              </ApolloCacheContextWrapper>
+            </ApolloClientDataWrapper>
+          </ActiveClientContextWrapper>
         </ApolloGlobalOperationsWrapper>
       </JssProvider>
     </Provider>

@@ -120,12 +120,8 @@ export class ApolloCachePublisher {
       return acc;
     }, {} as ClientCacheObject);
 
-  private cachePublishHander() {
-    if (!window.__APOLLO_CLIENTS__?.length) {
-      return;
-    }
-
-    this.clientsArray = window.__APOLLO_CLIENTS__;
+  private cachePublishHander(apolloClients: ApolloClientObject[]) {
+    this.clientsArray = apolloClients;
     const serializedCacheObject = this.serializeCacheObjects(this.clientsArray);
 
     if (sizeOf(this.lastCachesHistory) === sizeOf(serializedCacheObject)) {

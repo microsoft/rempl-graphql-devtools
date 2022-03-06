@@ -15,6 +15,7 @@ interface IDataItem {
   variables: Record<string, unknown>;
   queryString?: string;
   mutationString?: string;
+  errorMessage?: string;
   cachedData?: Record<string, unknown>;
 }
 
@@ -86,6 +87,18 @@ export const VerticalViewer = React.memo(
             </pre>
           </Box>
         </Box>
+        {data.errorMessage && (
+          <Box>
+            <Text weight="bold" content="Error" />
+            <Box styles={{ fontSize: "11px" }}>
+              <pre>
+                <code>
+                  <p>{data.errorMessage}</p>
+                </code>
+              </pre>
+            </Box>
+          </Box>
+        )}
         {!isMutation && (
           <Box>
             <Text weight="bold" content="Cache Data" />

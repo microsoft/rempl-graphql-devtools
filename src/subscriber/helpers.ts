@@ -36,6 +36,7 @@ function getMutationData(mutation: any, key: number): MutationType | undefined {
     name: getOperationName(mutation.mutation) || "",
     mutationString: print(mutation.mutation),
     variables: mutation.variables,
+    errorMessage: mutation.errorMessage,
   };
 }
 

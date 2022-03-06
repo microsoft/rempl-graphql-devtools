@@ -5,6 +5,7 @@ import { ApolloTrackerContext } from "../../contexts/apollo-tracker-context";
 import { List, VerticalViewer } from "../../../components";
 import { useAutoContainerHeight } from "../../../helpers/container-height";
 import { ApolloGlobalOperationsContext } from "../../contexts/apollo-global-operations-context";
+import { Mutation } from "../../types";
 
 export const Mutations = () => {
   const [selected, setSelected] = useState<number>(0);
@@ -30,7 +31,7 @@ export const Mutations = () => {
       <List
         isExpanded={isExpanded}
         items={data.mutationLog.mutations
-          .map(({ name, id }: { name: string; id: number }) => ({
+          .map(({ name, id, errorMessage }: Mutation) => ({
             index: id,
             key: `${name}-${id}`,
             onClick: () => setSelected(id),
@@ -42,6 +43,13 @@ export const Mutations = () => {
                 />
                 {globalMutations.has(name) && (
                   <Text weight={"bold"} content={" (GO)"} />
+                )}
+                {errorMessage && (
+                  <Text
+                    weight={"bold"}
+                    error={!!errorMessage}
+                    content={" (ERROR)"}
+                  />
                 )}
               </>
             ),

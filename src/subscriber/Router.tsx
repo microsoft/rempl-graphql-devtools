@@ -6,6 +6,7 @@ import { ApolloTrackerContext } from "./contexts/apollo-tracker-context";
 import { AdditionalInformations } from "./apollo-additional-informations";
 import { GraphiQLRenderer } from "./graphiql";
 import { ActiveClientContext } from "./contexts/active-client-context";
+import { Loader } from "@fluentui/react-northstar";
 import {
   ApolloCacheContext,
   ApolloCacheContextType,
@@ -23,10 +24,21 @@ const getCacheDataCount = (
     .length;
 };
 
+const shouldShowLoader = (apolloTrackerData, activeClientId, cacheData) => {
+  return !(
+    Object.keys(apolloTrackerData).length &&
+    cacheData?.cacheObjects &&
+    activeClientId
+  );
+};
+
 const Router = React.memo(() => {
   const apolloTrackerData = useContext(ApolloTrackerContext);
   const activeClientId = useContext(ActiveClientContext);
   const cacheData = useContext(ApolloCacheContext);
+
+  if (shouldShowLoader(apolloTrackerData, activeClientId, cacheData))
+    return <Loader />;
 
   const { mutationLog, watchedQueries } = apolloTrackerData[activeClientId];
 

@@ -1,4 +1,8 @@
-import { NormalizedCacheObject, ApolloClient } from "@apollo/client";
+import {
+  NormalizedCacheObject,
+  ApolloClient,
+  StoreObject,
+} from "@apollo/client";
 
 export type ApolloClientObject = {
   clientId: string;
@@ -26,6 +30,8 @@ export type ClientCacheObject = {
   };
 };
 
+export type CacheDuplicates = StoreObject[][];
+
 export type ApolloTrackerData = {
   [clientId: string]: {
     mutations: unknown[];
@@ -35,6 +41,10 @@ export type ApolloTrackerData = {
 
 export type ClientRecentCacheObject = {
   [clientId: string]: NormalizedCacheObject;
+};
+
+export type ClientCacheDuplicates = {
+  [clientId: string]: CacheDuplicates;
 };
 
 export type ApolloClientsObject = {
