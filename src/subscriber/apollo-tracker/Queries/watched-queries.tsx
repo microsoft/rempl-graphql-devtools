@@ -5,6 +5,7 @@ import { ApolloGlobalOperationsContext } from "../../contexts/apollo-global-oper
 import { ActiveClientContext } from "../../contexts/active-client-context";
 import { List, VerticalViewer } from "../../../components";
 import { useAutoContainerHeight } from "../../../helpers/container-height";
+import { WatchedQuery } from "../../types";
 
 export const WatchedQueries = () => {
   const [selected, setSelected] = useState<number>(0);
@@ -32,7 +33,7 @@ export const WatchedQueries = () => {
       <List
         isExpanded={isExpanded}
         items={data.watchedQueries.queries
-          .map(({ name, id }: { name: string; id: number }) => ({
+          .map(({ name, id, errorMessage }: WatchedQuery) => ({
             index: id,
             key: `${name}-${id}`,
             onClick: () => setSelected(id),
@@ -44,6 +45,13 @@ export const WatchedQueries = () => {
                 />
                 {globalQueries.has(name) && (
                   <Text weight={"bold"} content={" (GO)"} />
+                )}
+                {errorMessage && (
+                  <Text
+                    weight={"bold"}
+                    error={!!errorMessage}
+                    content={" (ERROR)"}
+                  />
                 )}
               </>
             ),

@@ -5,14 +5,14 @@ import sizeOf from "object-sizeof";
 import {
   ClientCacheObject,
   ClientRecentCacheObject,
-  ApolloClientObject,
+  ClientObject,
 } from "../../types";
 
 export class ApolloCachePublisher {
   private static _instance: ApolloCachePublisher;
   private apolloPublisher;
   private remplWrapper: RemplWrapper;
-  private clientsArray: null | ApolloClientObject[] = null;
+  private clientsArray: null | ClientObject[] = null;
   private recentCachesHistory: ClientRecentCacheObject = {};
   private lastCachesHistory: ClientCacheObject = {};
   private recordRecentCache = false;
@@ -110,8 +110,8 @@ export class ApolloCachePublisher {
     return this.recentCachesHistory[clientId];
   }
 
-  private serializeCacheObjects = (clients: ApolloClientObject[]) =>
-    clients.reduce((acc, { client, clientId }: ApolloClientObject) => {
+  private serializeCacheObjects = (clients: ClientObject[]) =>
+    clients.reduce((acc, { client, clientId }: ClientObject) => {
       const cache = this.getCache(client);
       acc[clientId] = {
         cache,
@@ -120,12 +120,8 @@ export class ApolloCachePublisher {
       return acc;
     }, {} as ClientCacheObject);
 
-  private cachePublishHander() {
-    if (!window.__APOLLO_CLIENTS__?.length) {
-      return;
-    }
-
-    this.clientsArray = window.__APOLLO_CLIENTS__;
+  private cachePublishHander(clientObjects: ClientObject[]) {
+    this.clientsArray = clientObjects;
     const serializedCacheObject = this.serializeCacheObjects(this.clientsArray);
 
     if (sizeOf(this.lastCachesHistory) === sizeOf(serializedCacheObject)) {

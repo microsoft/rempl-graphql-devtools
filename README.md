@@ -1,20 +1,24 @@
 # Rempl Apollo Client Devtools
 
 ## Features
-Rempl Apollo Devtools allows you to debug multiple apollo clients and it allows you to inspect key events. This tool contains the following features:
+Rempl Apollo Devtools allows you to debug multiple apollo clients. This tool contains the following features:
 
-- Cache inspector - Allow seeing the content of the cache and allows you to remove a specific object from the cache.
+- Cache inspector - Allow seeing the content of the cache and allows you to remove a specific object from the cache. Possibility to record only recent changes.
 - Watched Query inspector - Observe active queries.
-- Mutation inspector - Visualise mutations, which were fired.
+- Mutation inspector - Visualize recently fired mutations.
+- GraphiQL
+
+![plot](./docs/cache.png)
+![plot](./docs/mutations.png)
 
 ## Installation
 1. First off, you need to include the bundled library's script into your site.
 ```
-yarn install @microsoft/rempl-apollo-devtools
+yarn add rempl-graphql-devtools 
 ```
 include `dist/apollo-devtools.js` in Webpack
 ```
-webpackConfig.entry["apollodevtools"] = PROJECT_ROOT("node_modules/rempl-apollo-devtools/dist/apollo-devtools.js");
+webpackConfig.entry["apollodevtools"] = PROJECT_ROOT("node_modules/rempl-graphql-devtools/dist/apollo-devtools.js");
 ```
 OR
 
@@ -28,7 +32,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-window.__APOLLO_CLIENTS__ = [client]
+window.__APOLLO_CLIENTS__ = [{client, clientId: "custom_name"}]
 ```
 ## Usage
 ### Mac

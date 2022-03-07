@@ -1,6 +1,10 @@
-import { NormalizedCacheObject, ApolloClient } from "@apollo/client";
+import {
+  NormalizedCacheObject,
+  ApolloClient,
+  StoreObject,
+} from "@apollo/client";
 
-export type ApolloClientObject = {
+export type ClientObject = {
   clientId: string;
   client: ApolloClient<NormalizedCacheObject>;
 };
@@ -14,7 +18,7 @@ export type ApolloGlobalOperations = {
 declare let __APOLLO_DEVTOOLS_SUBSCRIBER__: string;
 declare global {
   interface Window {
-    __APOLLO_CLIENTS__: ApolloClientObject[];
+    __APOLLO_CLIENTS__: ClientObject[];
     __APOLLO_GLOBAL_OPERATIONS__: ApolloGlobalOperations;
   }
 }
@@ -26,6 +30,8 @@ export type ClientCacheObject = {
   };
 };
 
+export type CacheDuplicates = StoreObject[][];
+
 export type ApolloTrackerData = {
   [clientId: string]: {
     mutations: unknown[];
@@ -35,6 +41,10 @@ export type ApolloTrackerData = {
 
 export type ClientRecentCacheObject = {
   [clientId: string]: NormalizedCacheObject;
+};
+
+export type ClientCacheDuplicates = {
+  [clientId: string]: CacheDuplicates;
 };
 
 export type ApolloClientsObject = {

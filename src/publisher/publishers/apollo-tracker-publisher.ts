@@ -1,6 +1,7 @@
 import { RemplWrapper } from "../rempl-wrapper";
+import { GraphQLError } from "graphql";
 
-import { ApolloClientObject, ApolloTrackerData } from "../../types";
+import { ClientObject, ApolloTrackerData } from "../../types";
 
 export class ApolloTrackerPublisher {
   private static _instance: ApolloTrackerPublisher;
@@ -21,30 +22,69 @@ export class ApolloTrackerPublisher {
     ApolloTrackerPublisher._instance = this;
   }
 
-  private trackerDataPublishHandler() {
-    if (!window.__APOLLO_CLIENTS__?.length) {
+  private trackerDataPublishHandler(clientObjects: ClientObject[]) {
+    this.publishTrackerData(this.serializeTrackerDataObjects(clientObjects));
+  }
+
+  private filterQueryInfo(queryInfoMap: any) {
+    const filteredQueryInfo: Record<string, unknown> = {};
+    queryInfoMap.forEach(
+      (
+        {
+          variables,
+          document,
+          graphQLErrors,
+          networkError,
+        }: Record<string, unknown>,
+        key: string
+      ) => {
+        const graphQLErrorMessage = this.getErrorMessage(
+          graphQLErrors as GraphQLError[]
+        );
+
+        const networkErrorMessage = (networkError as Error)?.stack;
+
+        filteredQueryInfo[key] = {
+          document,
+          variables,
+          errorMessage: graphQLErrorMessage || networkErrorMessage,
+        };
+      }
+    );
+    return filteredQueryInfo;
+  }
+
+  private getErrorMessage(graphQLErrors?: GraphQLError[]) {
+    if (!graphQLErrors || !graphQLErrors.length) {
       return;
     }
 
-    this.publishTrackerData(
-      this.serializeTrackerDataObjects(window.__APOLLO_CLIENTS__)
-    );
+    return `Path: ${graphQLErrors[0].path} Stack: ${graphQLErrors[0].stack}`;
   }
-  private filterQueryInfo(queryInfoMap: any) {
-    const filteredQueryInfo: Record<string, unknown> = {};
-    queryInfoMap.forEach((value: Record<string, unknown>, key: string) => {
-      filteredQueryInfo[key] = {
-        document: value.document,
-        graphQLErrors: value.graphQLErrors,
-        networkError: value.networkError,
-        networkStatus: value.networkStatus,
-        variables: value.variables,
+
+  private filterMutationInfo(mutations: any) {
+    const filteredMutationInfo: Record<string, unknown> = {};
+    Object.keys(mutations).forEach((key: string) => {
+      const error = mutations[key].error;
+
+      const graphQLErrorMessage = this.getErrorMessage(
+        error?.graphQLErrors as GraphQLError[]
+      );
+
+      const networkErrorMessage = (error?.networkError as Error)?.stack;
+
+      filteredMutationInfo[key] = {
+        mutation: mutations[key].mutation,
+        variables: mutations[key].variables,
+        errorMessage:
+          graphQLErrorMessage || networkErrorMessage || error?.stack,
       };
     });
-    return filteredQueryInfo;
+    return filteredMutationInfo;
   }
-  private serializeTrackerDataObjects = (clients: ApolloClientObject[]) =>
-    clients.reduce((acc, { client, clientId }: ApolloClientObject) => {
+
+  private serializeTrackerDataObjects = (clients: ClientObject[]) =>
+    clients.reduce((acc, { client, clientId }: ClientObject) => {
       if (!(client as any).queryManager) {
         return acc;
       }
@@ -62,7 +102,7 @@ export class ApolloTrackerPublisher {
       return () => client.queryManager.mutationStore.getStore();
     } else {
       // Apollo Client 3.3+
-      return () => client.queryManager.mutationStore;
+      return () => this.filterMutationInfo(client.queryManager.mutationStore);
     }
   }
 

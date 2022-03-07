@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ApolloGlobalOperations } from "../../types";
 import rempl from "rempl";
 
@@ -20,10 +20,10 @@ export const ApolloGlobalOperationsWrapper = ({
       globalMutations: [],
       globalSubscriptions: [],
     });
+  const myTool = React.useRef(rempl.getSubscriber());
 
   useEffect(() => {
-    rempl
-      .getSubscriber()
+    myTool.current
       .ns("apollo-global-operations")
       .subscribe((data: ApolloGlobalOperations) => {
         if (data) {

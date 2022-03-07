@@ -2,6 +2,7 @@ interface Query {
   id: number;
   name: string;
   variables: Record<string, unknown>;
+  errorMessage?: string;
 }
 
 export type WatchedQuery = Query & {

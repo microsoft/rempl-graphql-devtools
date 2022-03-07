@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Loader } from "@fluentui/react-northstar";
-
-import { ApolloTrackerContext } from "./apollo-tracker-context";
+import rempl from "rempl";
 import { Dropdown } from "../../components";
 
 export const ActiveClientContext = React.createContext("");
@@ -12,27 +11,28 @@ export const ActiveClientContextWrapper = ({
   children: JSX.Element;
 }) => {
   const [activeClientId, setActiveClientId] = useState<string>("");
-  const apolloTrackerData = useContext(ApolloTrackerContext);
+  const [clientIds, setClientIds] = useState<string[]>([]);
+  const myTool = React.useRef(rempl.getSubscriber());
 
-  const dropdownValues = apolloTrackerData
-    ? Object.keys(apolloTrackerData)
-    : [];
+  useEffect(() => {
+    myTool.current.ns("apollo-client-ids").subscribe((data: string[]) => {
+      if (data) {
+        setClientIds(data);
+      }
+    });
+  }, []);
 
   const onChange = (_: any, { value }: any) => {
     setActiveClientId(value);
   };
 
-  if (!activeClientId && dropdownValues.length) {
-    setActiveClientId(dropdownValues[0]);
+  if (!activeClientId && clientIds.length) {
+    setActiveClientId(clientIds[0]);
   }
 
   return (
     <>
-      <Dropdown
-        items={dropdownValues}
-        onChange={onChange}
-        value={activeClientId}
-      />
+      <Dropdown items={clientIds} onChange={onChange} value={activeClientId} />
       {activeClientId ? (
         <ActiveClientContext.Provider value={activeClientId}>
           {children}
