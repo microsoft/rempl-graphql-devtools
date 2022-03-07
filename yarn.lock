@@ -391,10 +391,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fluentui/accessibility@^0.59.0":
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/@fluentui/accessibility/-/accessibility-0.59.0.tgz#b37548b025cffe71d3e7fe601b029851a2768955"
-  integrity sha512-p838f51bbhvaBYTC5MnYGjO8iHZYOFupi3/USxzEfwXCdYCPm9cHCeHuDx7d/7mp8uuPD3jF/SsUebmAcLnrkA==
+"@fluentui/accessibility@^0.60.1":
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/@fluentui/accessibility/-/accessibility-0.60.1.tgz#82b51e0502333b118058a77362a9331c3d32e6f4"
+  integrity sha512-TCcZnE6Z8SZBb4EhzL0pKY4Ygb9os7afS5gL+30Q/utyrNWhCyU7G8xvcuuCNW1Yxu630jZxMMjUOlxcpWsCXg==
   dependencies:
     "@babel/runtime" "^7.10.4"
     lodash "^4.17.15"
@@ -407,19 +407,19 @@
     "@uifabric/set-version" "^7.0.24"
     tslib "^1.10.0"
 
-"@fluentui/react-bindings@^0.59.0":
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/@fluentui/react-bindings/-/react-bindings-0.59.0.tgz#c434dc9ca436057dc925892e2a90abe060b49fa9"
-  integrity sha512-KLWA8U/y71N8rrpi3TuhRGfQzhHKTbz1zOQUPrT9KcuhNS3dtgFvwKBFP05HomTDEVJ86fv9t5lqn8USO7o91Q==
+"@fluentui/react-bindings@^0.60.1":
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-bindings/-/react-bindings-0.60.1.tgz#0ac9a4f8571ff13f271d8dac0242c38e7e7b6a7a"
+  integrity sha512-5YdriOQuD+us1d+zg02JCjeRJi4idn6c9H+/sm9IhvY3cksSJK864ryI3KK4muBjvNLXJ+qCsl9yLM2yes99mg==
   dependencies:
     "@babel/runtime" "^7.10.4"
-    "@fluentui/accessibility" "^0.59.0"
-    "@fluentui/react-component-event-listener" "^0.59.0"
-    "@fluentui/react-component-ref" "^0.59.0"
-    "@fluentui/react-northstar-fela-renderer" "^0.59.0"
-    "@fluentui/react-northstar-styles-renderer" "^0.59.0"
-    "@fluentui/state" "^0.59.0"
-    "@fluentui/styles" "^0.59.0"
+    "@fluentui/accessibility" "^0.60.1"
+    "@fluentui/react-component-event-listener" "^0.60.1"
+    "@fluentui/react-component-ref" "^0.60.1"
+    "@fluentui/react-northstar-fela-renderer" "^0.60.1"
+    "@fluentui/react-northstar-styles-renderer" "^0.60.1"
+    "@fluentui/state" "^0.60.1"
+    "@fluentui/styles" "^0.60.1"
     "@uifabric/utilities" "^7.32.3"
     classnames "^2.2.6"
     lodash "^4.17.15"
@@ -427,48 +427,48 @@
     react-is "^16.6.3"
     scheduler "^0.20.1"
 
-"@fluentui/react-component-event-listener@^0.59.0":
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/@fluentui/react-component-event-listener/-/react-component-event-listener-0.59.0.tgz#a5d29616985f52f61906d14b5a86e24fd0313872"
-  integrity sha512-snMmgYVAtvYizcYbPXxMwyWJAxBn0HJbvMoaebrsZqt4JyRXcvwCZFjn2sQV/6vN2RdYg8BJ6VxsVLvNz/k8GQ==
+"@fluentui/react-component-event-listener@^0.60.1":
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-component-event-listener/-/react-component-event-listener-0.60.1.tgz#ce36101b8bc4205dcf40f1d56ebe4854df8422b4"
+  integrity sha512-dU8hVyb78WFk+LJYFxi/IDdeg5LjCtwyUalNrH25APqlOqsL4KTig3PSIxHT6eJsgIqbfP0IzC9/KzXciAyFhg==
   dependencies:
     "@babel/runtime" "^7.10.4"
 
-"@fluentui/react-component-nesting-registry@^0.59.0":
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/@fluentui/react-component-nesting-registry/-/react-component-nesting-registry-0.59.0.tgz#1d8428256691c8102968c26c9c1bdedec500cc6e"
-  integrity sha512-zN50KIbzjALwETmGTE+kvaL3Wj7lNH0wGPpqsQTmCFxprERWsNIfbpzqPA5CUp7DDCcaNByA1qUsrABdb9yy4g==
+"@fluentui/react-component-nesting-registry@^0.60.1":
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-component-nesting-registry/-/react-component-nesting-registry-0.60.1.tgz#2b4adaeed5fc8600cb2f9e0868762d89b643d92c"
+  integrity sha512-N+yEv2uC1/qxzYQu4oniqM4PjXGZqCc6aYMVjfzOCbpgT5pV4sjN737d5Qx8KyAslH/w6MMMQeCofIwAkVLHGQ==
   dependencies:
     "@babel/runtime" "^7.10.4"
     prop-types "^15.7.2"
 
-"@fluentui/react-component-ref@^0.59.0":
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/@fluentui/react-component-ref/-/react-component-ref-0.59.0.tgz#d4dba85b45cf57df957f9d68168afc25f15b12e0"
-  integrity sha512-MojL/qgxMSMFYreI/TnLbFbFM+c5t78rxPcud7MqjI067dinGaLaj7zqO0lK3fpeLBJ69FJUW7C88xIdghk/tA==
+"@fluentui/react-component-ref@^0.60.1":
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-component-ref/-/react-component-ref-0.60.1.tgz#36c5b437af45248ddf2115aaebde102118a26699"
+  integrity sha512-Ar/wAkJGnsa3TQPJTpiCjDASFHHMcOictnHb4IsPnRjCO3nmcWUPtOcIwKm9BLYoPKt1/s+7VfIbG2IZ2QjIRg==
   dependencies:
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
-"@fluentui/react-icons-northstar@^0.59.0":
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/@fluentui/react-icons-northstar/-/react-icons-northstar-0.59.0.tgz#823cc58482f1f9047f37386469a171d1ac51fa66"
-  integrity sha512-gMoR++jKStwJ5y/fWQ4He79YTue00klLRUh9yqRFPa4960xT5sP3bgjwCTMfGLIhTJVgpWLO72jk1UnmPArzoA==
+"@fluentui/react-icons-northstar@^0.60.1":
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-icons-northstar/-/react-icons-northstar-0.60.1.tgz#2896f88c06e41a1bed657ebf331c594c2c878911"
+  integrity sha512-4mtqHMahTzjpG4cj/kMzhTdC3orY6sfij0Wyjb9D72GXtmPSiMADuGJTWFoA4NKJCXjlb2bVBopOrAaktZjBSw==
   dependencies:
     "@babel/runtime" "^7.10.4"
-    "@fluentui/accessibility" "^0.59.0"
-    "@fluentui/react-bindings" "^0.59.0"
-    "@fluentui/styles" "^0.59.0"
+    "@fluentui/accessibility" "^0.60.1"
+    "@fluentui/react-bindings" "^0.60.1"
+    "@fluentui/styles" "^0.60.1"
     classnames "^2.2.6"
 
-"@fluentui/react-northstar-fela-renderer@^0.59.0":
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/@fluentui/react-northstar-fela-renderer/-/react-northstar-fela-renderer-0.59.0.tgz#1764521e4dfea81cc09a146d351d1b0e87c44b8e"
-  integrity sha512-5aAybv23nbu6kCFE8tPHFmbnfrDF6QiPIF68at+RfD+YiExMUiufNcbk5ddLfLWDQ7j6Mp8j95Y++O/SBjtANg==
+"@fluentui/react-northstar-fela-renderer@^0.60.1":
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-northstar-fela-renderer/-/react-northstar-fela-renderer-0.60.1.tgz#f03408dca098e7e83e4381383808d38d0c669408"
+  integrity sha512-xL6G3Cc+nOOF3z+VvSSjw/0415VNLWzFdS/1t9gbo/nRZRo/bH4/zmgNmqnsn0Zk6YNf9exrH/s+ajwgiu5wgA==
   dependencies:
     "@babel/runtime" "^7.10.4"
-    "@fluentui/react-northstar-styles-renderer" "^0.59.0"
-    "@fluentui/styles" "^0.59.0"
+    "@fluentui/react-northstar-styles-renderer" "^0.60.1"
+    "@fluentui/styles" "^0.60.1"
     css-in-js-utils "^3.0.0"
     fela "^10.6.1"
     fela-plugin-embedded "^10.6.1"
@@ -481,31 +481,31 @@
     react-fela "^10.6.1"
     stylis "^3.5.4"
 
-"@fluentui/react-northstar-styles-renderer@^0.59.0":
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/@fluentui/react-northstar-styles-renderer/-/react-northstar-styles-renderer-0.59.0.tgz#c45ce8cd3ee4f5a2f1ab006c441770665df979b2"
-  integrity sha512-ujsMKPkLq25Ve2DjV3UzPZXY8Tn3zfKk32WHIo0wpFdpVHMXX4MW7yuNxv45n1r1D+Chf+J485LWReLByHaa7g==
+"@fluentui/react-northstar-styles-renderer@^0.60.1":
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-northstar-styles-renderer/-/react-northstar-styles-renderer-0.60.1.tgz#1383874ad73c10fbb41787ecf6e353057d1c2d29"
+  integrity sha512-l9oxq9X1VVwzDXMkaBsd8jECuLLlgKTC9DYIxmxT07kfLd1aY0Y7JNzx9eGOqvesVs8op+27f8L7sZaSonknSQ==
   dependencies:
     "@babel/runtime" "^7.10.4"
-    "@fluentui/styles" "^0.59.0"
+    "@fluentui/styles" "^0.60.1"
 
-"@fluentui/react-northstar@0.59.0":
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/@fluentui/react-northstar/-/react-northstar-0.59.0.tgz#646d3a727136ac7e17aa05a9aaaac8d923a0b410"
-  integrity sha512-qoL7zecjgqoY/Tjjj8ioNftL+oVAZ9ljNXvIXIt7K6lFfhA7CWBoaeh7Ll083gg8Uw0EdZjAhKtTrG1AvVlecw==
+"@fluentui/react-northstar@^0.60.1":
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-northstar/-/react-northstar-0.60.1.tgz#aaa6b3fe2c89d7a2378feabf81244c138117050d"
+  integrity sha512-X3wYpaMvroDNTY+LgZU4fx6uDqMKOSO+syREKhPFC53vl5H//JIrhcdoK3gOXMONeEYqlx/BJGBa561Eu+MElw==
   dependencies:
     "@babel/runtime" "^7.10.4"
-    "@fluentui/accessibility" "^0.59.0"
+    "@fluentui/accessibility" "^0.60.1"
     "@fluentui/dom-utilities" "^1.1.1"
-    "@fluentui/react-bindings" "^0.59.0"
-    "@fluentui/react-component-event-listener" "^0.59.0"
-    "@fluentui/react-component-nesting-registry" "^0.59.0"
-    "@fluentui/react-component-ref" "^0.59.0"
-    "@fluentui/react-icons-northstar" "^0.59.0"
-    "@fluentui/react-northstar-styles-renderer" "^0.59.0"
-    "@fluentui/react-proptypes" "^0.59.0"
-    "@fluentui/state" "^0.59.0"
-    "@fluentui/styles" "^0.59.0"
+    "@fluentui/react-bindings" "^0.60.1"
+    "@fluentui/react-component-event-listener" "^0.60.1"
+    "@fluentui/react-component-nesting-registry" "^0.60.1"
+    "@fluentui/react-component-ref" "^0.60.1"
+    "@fluentui/react-icons-northstar" "^0.60.1"
+    "@fluentui/react-northstar-styles-renderer" "^0.60.1"
+    "@fluentui/react-proptypes" "^0.60.1"
+    "@fluentui/state" "^0.60.1"
+    "@fluentui/styles" "^0.60.1"
     "@popperjs/core" "~2.4.3"
     "@uifabric/utilities" "^7.32.3"
     body-scroll-lock "^3.1.5"
@@ -515,28 +515,28 @@
     lodash "^4.17.15"
     prop-types "^15.7.2"
     react-is "^16.6.3"
-    react-transition-group "^4.3.0"
+    react-transition-group "^4.4.1"
 
-"@fluentui/react-proptypes@^0.59.0":
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/@fluentui/react-proptypes/-/react-proptypes-0.59.0.tgz#3faa870073579ce5d67985ab70bffbb1e5b262f5"
-  integrity sha512-r6C2RQkcgYck/PZH5voS5fWJQJv7XogxK8/75Wkoc1xPsSZGGngbINTITeU7x3pJsmEtPcL3/8Y2D6B3x2J4Wg==
+"@fluentui/react-proptypes@^0.60.1":
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-proptypes/-/react-proptypes-0.60.1.tgz#4a371b483594da86c4f7440163a74b188e3ba4ed"
+  integrity sha512-JK73QKvZ0CCbZ3vOhnnTc9sEjbqCNxH+WYBzdqCfb5v6ZkDBFho6yYIc//DkBgXu+hQCZqQvcJlKaIblsf8+tA==
   dependencies:
     "@babel/runtime" "^7.10.4"
     lodash "^4.17.15"
     prop-types "^15.7.2"
 
-"@fluentui/state@^0.59.0":
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/@fluentui/state/-/state-0.59.0.tgz#a3c32fa127cc3cc773111994fe65b88fff1bd7a4"
-  integrity sha512-nTTvztQNuXsTboc/g4lrqU3d8pW2PR6gwabrwvTuPBjAkIXyervgN8hFSLvZwRKXPU33g6yGVuxF3etfJx3HKQ==
+"@fluentui/state@^0.60.1":
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/@fluentui/state/-/state-0.60.1.tgz#f44c34912eeaaa70d5abc5ab963f92f2dc644491"
+  integrity sha512-SPRVxjH/bV4E4Dak/PnBLs1QK8dCrHapd0C6TRGGSYmnG991xlFNIoKGghDJZJ1O1Yh9ZSk28GZISBdS2DzRxQ==
   dependencies:
     "@babel/runtime" "^7.10.4"
 
-"@fluentui/styles@^0.59.0":
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/@fluentui/styles/-/styles-0.59.0.tgz#f7b66463cfdf3b217247d9b9a7d1b16a3ee7b31c"
-  integrity sha512-lvO+5YRPWZqbr5tznwPA7mjznSzS7uNjG0trG6CpCJJF/da4y4yxWnxO6qsteVVwaAgOZOY/Irqgf+xvoj+ilg==
+"@fluentui/styles@^0.60.1":
+  version "0.60.1"
+  resolved "https://registry.yarnpkg.com/@fluentui/styles/-/styles-0.60.1.tgz#46fb8cc8655dbba5b9416e7c85be5e2dbadd700f"
+  integrity sha512-vLJA4sn8dZdVY5AI2S9y0jEAHu6hs1blTl6inP3jdg0PDPYKh73XWUYdyON64mNtQKIHCl5zPoeAL57Eu93xlw==
   dependencies:
     "@babel/runtime" "^7.10.4"
     csstype "^2.6.7"
@@ -4819,7 +4819,7 @@ react-router@^4.3.1:
     prop-types "^15.6.1"
     warning "^4.0.1"
 
-react-transition-group@^4.3.0:
+react-transition-group@^4.4.1:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.2.tgz#8b59a56f09ced7b55cbd53c36768b922890d5470"
   integrity sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg==
