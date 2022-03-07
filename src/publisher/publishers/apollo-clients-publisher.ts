@@ -1,5 +1,5 @@
 import { RemplWrapper } from "../rempl-wrapper";
-import { ApolloClientObject } from "../../types";
+import { ClientObject } from "../../types";
 
 export class ApolloClientsPublisher {
   private static _instance: ApolloClientsPublisher;
@@ -21,35 +21,35 @@ export class ApolloClientsPublisher {
     ApolloClientsPublisher._instance = this;
   }
 
-  private updateActiveClients(apolloClients: ApolloClientObject[]) {
+  private updateActiveClients(clientObjects: ClientObject[]) {
     this.activeClients = new Set(
-      apolloClients.map((apolloClients) => apolloClients.clientId)
+      clientObjects.map((clientObjects) => clientObjects.clientId)
     );
   }
 
-  private hasApolloClientsChanged(apolloClients: ApolloClientObject[]) {
+  private hasApolloClientsChanged(clientObjects: ClientObject[]) {
     let hasChanged;
-    if (apolloClients.length !== this.activeClients.size) {
+    if (clientObjects.length !== this.activeClients.size) {
       hasChanged = true;
     }
 
-    hasChanged = apolloClients.some(
-      (client: ApolloClientObject) => !this.activeClients.has(client.clientId)
+    hasChanged = clientObjects.some(
+      (client: ClientObject) => !this.activeClients.has(client.clientId)
     );
 
     if (hasChanged) {
-      this.updateActiveClients(apolloClients);
+      this.updateActiveClients(clientObjects);
     }
 
     return hasChanged;
   }
 
-  private globalOperationsFetcherHandler(apolloClients: ApolloClientObject[]) {
-    if (!this.hasApolloClientsChanged(apolloClients)) {
+  private globalOperationsFetcherHandler(clientObjects: ClientObject[]) {
+    if (!this.hasApolloClientsChanged(clientObjects)) {
       return;
     }
 
-    const apolloClientIds = apolloClients.map(
+    const apolloClientIds = clientObjects.map(
       (apolloClient) => apolloClient.clientId
     );
 

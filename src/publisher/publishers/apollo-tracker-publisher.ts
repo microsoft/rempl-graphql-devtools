@@ -1,7 +1,7 @@
 import { RemplWrapper } from "../rempl-wrapper";
 import { GraphQLError } from "graphql";
 
-import { ApolloClientObject, ApolloTrackerData } from "../../types";
+import { ClientObject, ApolloTrackerData } from "../../types";
 
 export class ApolloTrackerPublisher {
   private static _instance: ApolloTrackerPublisher;
@@ -22,8 +22,8 @@ export class ApolloTrackerPublisher {
     ApolloTrackerPublisher._instance = this;
   }
 
-  private trackerDataPublishHandler(apolloClients: ApolloClientObject[]) {
-    this.publishTrackerData(this.serializeTrackerDataObjects(apolloClients));
+  private trackerDataPublishHandler(clientObjects: ClientObject[]) {
+    this.publishTrackerData(this.serializeTrackerDataObjects(clientObjects));
   }
 
   private filterQueryInfo(queryInfoMap: any) {
@@ -83,8 +83,8 @@ export class ApolloTrackerPublisher {
     return filteredMutationInfo;
   }
 
-  private serializeTrackerDataObjects = (clients: ApolloClientObject[]) =>
-    clients.reduce((acc, { client, clientId }: ApolloClientObject) => {
+  private serializeTrackerDataObjects = (clients: ClientObject[]) =>
+    clients.reduce((acc, { client, clientId }: ClientObject) => {
       if (!(client as any).queryManager) {
         return acc;
       }

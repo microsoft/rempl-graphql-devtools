@@ -1,8 +1,8 @@
 import rempl from "rempl";
 import hotkeys from "hotkeys-js";
-import { ApolloClientObject } from "../types";
+import { ClientObject } from "../types";
 
-type RemplStatusHook = (apolloClients: ApolloClientObject[]) => void;
+type RemplStatusHook = (clientObjects: ClientObject[]) => void;
 
 export class RemplWrapper {
   private static _instance: RemplWrapper | null;

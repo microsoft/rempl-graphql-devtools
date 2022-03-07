@@ -1,14 +1,14 @@
 import { ApolloClient } from "@apollo/client/core";
 import { NormalizedCacheObject } from "@apollo/client/cache";
 import { RemplWrapper } from "../rempl-wrapper";
-import { ClientCacheDuplicates, ApolloClientObject } from "../../types";
+import { ClientCacheDuplicates, ClientObject } from "../../types";
 import { getClientCacheDuplicates } from "../helpers/duplicate-cache-items";
 
 export class ApolloCacheDuplicatesPublisher {
   private static _instance: ApolloCacheDuplicatesPublisher;
   private apolloPublisher;
   private remplWrapper: RemplWrapper;
-  private clientsArray: null | ApolloClientObject[] = null;
+  private clientsArray: null | ClientObject[] = null;
   private duplicatesCacheItems: ClientCacheDuplicates = {};
 
   constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
@@ -38,10 +38,7 @@ export class ApolloCacheDuplicatesPublisher {
     return client.cache.extract(true);
   }
 
-  private serializeCacheDuplicatesObjects({
-    clientId,
-    client,
-  }: ApolloClientObject) {
+  private serializeCacheDuplicatesObjects({ clientId, client }: ClientObject) {
     const cache = this.getCache(client);
     this.duplicatesCacheItems[clientId] = getClientCacheDuplicates(cache);
 
