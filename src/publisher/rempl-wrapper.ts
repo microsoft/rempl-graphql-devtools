@@ -59,7 +59,7 @@ export class RemplWrapper {
           return;
         }
         this.runAllHooks();
-      }, 2000);
+      }, 1500);
 
       return;
     }
