@@ -5,25 +5,25 @@ describe(".getClientCacheDuplicates", () => {
     expect(
       getClientCacheDuplicates({
         ROOT_QUERY: { test: 123 },
-        "car:123": { testProperty: "test" },
-        "car:456": { testProperty: "test" },
-        "car:756": { testProperty2: "test2" },
-        "car:856": { testProperty: "test", anotherProperty: 2 },
-        "car:556": { testProperty: "test" },
-        "car:656": { testProperty: "test2" },
-        "ship:123": { testProperty: "test" },
-        "ship:456": { testProperty: { nestedProperty: "test" } },
-        "ship:556": { testProperty: { nestedProperty: "test" } },
+        "car:123": { id: "1", testProperty: "test" },
+        "car:456": { id: "2", testProperty: "test" },
+        "car:756": { id: "3", testProperty2: "test2" },
+        "car:856": { id: "4", testProperty: "test", anotherProperty: 2 },
+        "car:556": { id: "5", testProperty: "test" },
+        "car:656": { id: "6", testProperty: "test2" },
+        "ship:123": { id: "7", testProperty: "test" },
+        "ship:456": { id: "8", testProperty: { nestedProperty: "test" } },
+        "ship:556": { id: "9", testProperty: { nestedProperty: "test" } },
       })
     ).toMatchObject([
       [
-        { "car:123": { testProperty: "test" } },
-        { "car:456": { testProperty: "test" } },
-        { "car:556": { testProperty: "test" } },
+        { "car:123": { id: "1", testProperty: "test" } },
+        { "car:456": { id: "2", testProperty: "test" } },
+        { "car:556": { id: "5", testProperty: "test" } },
       ],
       [
-        { "ship:456": { testProperty: { nestedProperty: "test" } } },
-        { "ship:556": { testProperty: { nestedProperty: "test" } } },
+        { "ship:456": { id: "8", testProperty: { nestedProperty: "test" } } },
+        { "ship:556": { id: "9", testProperty: { nestedProperty: "test" } } },
       ],
     ]);
   });

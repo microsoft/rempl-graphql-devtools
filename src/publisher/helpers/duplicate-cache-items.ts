@@ -9,10 +9,11 @@ function getObjectTypeDuplicates(objectTypeItems: Record<string, StoreObject>) {
   for (const cacheItemKey of cacheItemKeys.values()) {
     const keySet: Set<string> = new Set();
     for (const cacheItemKey2 of cacheItemKeys.values()) {
-      if (
-        cacheItemKey !== cacheItemKey2 &&
-        isEqual(objectTypeItems[cacheItemKey], objectTypeItems[cacheItemKey2])
-      ) {
+      const object1 = { ...objectTypeItems[cacheItemKey] };
+      const object2 = { ...objectTypeItems[cacheItemKey2] };
+      delete object1.id;
+      delete object2.id;
+      if (cacheItemKey !== cacheItemKey2 && isEqual(object1, object2)) {
         keySet.add(cacheItemKey);
         keySet.add(cacheItemKey2);
         cacheItemKeys.delete(cacheItemKey2);

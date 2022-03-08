@@ -27,7 +27,6 @@ export class ApolloCacheDuplicatesPublisher {
     this.apolloPublisher.provide(
       "getCacheDuplicates",
       ({ clientId }: { clientId: string }, callback: () => void) => {
-        console.log("fired");
         this.publishCacheDuplicatesForClientId(clientId);
         callback();
       }
@@ -66,6 +65,7 @@ export class ApolloCacheDuplicatesPublisher {
   }
 
   public publishCache(cacheObjects: ClientCacheDuplicates) {
+    console.log(cacheObjects);
     this.apolloPublisher.ns("apollo-cache-duplicates").publish(cacheObjects);
   }
 }

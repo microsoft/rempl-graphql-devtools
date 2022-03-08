@@ -46,15 +46,11 @@ const ApolloCacheContainer = () => {
   const [removeMessage] = useMutation(REMOVE_MESSAGES);
 
   React.useEffect(() => {
-    addMessage({ variables: { message: "test" } })
-      .then(console.log)
-      .catch(console.log);
-    addMessage({ variables: { message: "test" } })
-      .then(console.log)
-      .catch(console.log);
-    addMessage({ variables: { message: "test2" } })
-      .then(console.log)
-      .catch(console.log);
+    addMessage({ variables: { message: "test2" } });
+    addMessage({ variables: { message: "test" } });
+    addMessage({ variables: { message: "test" } });
+    addMessage({ variables: { message: "test" } });
+    addMessage({ variables: { message: "test2" } });
     refetch();
   }, []);
 
