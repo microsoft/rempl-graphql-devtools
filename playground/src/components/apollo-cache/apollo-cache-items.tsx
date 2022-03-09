@@ -10,7 +10,6 @@ import {
 
 interface IApolloCacheItems {
   cacheObjectsWithSize: CacheObjectWithSize[];
-  removeCacheItem: (key: string) => void;
 }
 
 const header = {
@@ -33,7 +32,6 @@ const header = {
 
 export const ApolloCacheItems = ({
   cacheObjectsWithSize,
-  removeCacheItem,
 }: IApolloCacheItems) => {
   const [detailsValue, setDetailsValue] = React.useState<
     CacheObjectWithSize | undefined
@@ -63,14 +61,6 @@ export const ApolloCacheItems = ({
                 size="small"
                 content="Show details"
                 primary
-              />
-              <Button
-                onClick={(e) => {
-                  removeCacheItem(item.key);
-                  e.stopPropagation();
-                }}
-                size="small"
-                content="Remove item"
               />
             </Flex>
           ),

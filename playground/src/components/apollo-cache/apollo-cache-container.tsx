@@ -51,34 +51,16 @@ const ApolloCacheContainer = () => {
     addMessage({ variables: { message: "test" } });
     addMessage({ variables: { message: "test" } });
     addMessage({ variables: { message: "test2" } });
+    addMessage({ variables: {} });
     refetch();
   }, []);
-
-  const removeCacheItem = React.useCallback(
-    (key: string) => {
-      if (cache.data?.data[key]?.id) {
-        removeMessage({ variables: { id: cache.data.data[key].id } })
-          .then(console.log)
-          .catch(console.log);
-      }
-      cache.evict({ id: key });
-      refetch();
-    },
-    [cache]
-  );
 
   if (!cache) {
     return null;
   }
   const cacheObjectsWithSize = getCacheObjectWithSizes(cache.data?.data);
 
-  return (
-    <ApolloCacheRenderer
-      cacheObjectsWithSize={cacheObjectsWithSize}
-      cacheSize={sizeOf(cache.data.data)}
-      removeCacheItem={removeCacheItem}
-    />
-  );
+  return <ApolloCacheRenderer cacheObjectsWithSize={cacheObjectsWithSize} />;
 };
 
 function getCacheObjectWithSizes(rawCache?: Record<string, any>) {

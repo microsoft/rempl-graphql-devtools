@@ -3,7 +3,6 @@ import { CacheObjectWithSize } from "./types";
 import { ApolloCacheItems } from "./apollo-cache-items";
 import {
   Header,
-  Input,
   Grid,
   Segment,
   Flex,
@@ -13,8 +12,6 @@ import { SearchIcon } from "@fluentui/react-icons-northstar";
 
 interface IApolloCacheRenderer {
   cacheObjectsWithSize: CacheObjectWithSize[];
-  removeCacheItem: (key: string) => void;
-  cacheSize: number;
 }
 
 function filterCacheObjects(
@@ -44,8 +41,6 @@ function filterCacheObjects(
 
 export const ApolloCacheRenderer = ({
   cacheObjectsWithSize,
-  cacheSize,
-  removeCacheItem,
 }: IApolloCacheRenderer) => {
   const [searchKey, setSearchKey] = React.useState("");
   const [searchValue, setSearchValue] = React.useState("");
@@ -64,53 +59,20 @@ export const ApolloCacheRenderer = ({
           gridColumn: "span 5",
         }}
       >
-        <Header
-          as="h2"
-          content={`Apollo cache (overall size ${cacheSize} B)`}
-        />
+        <Header as="h2" content={`Example cache content`} />
       </Segment>
       <Segment
         color="brand"
         styles={{
           gridColumn: "span 5",
         }}
-      >
-        <Flex gap="gap.large">
-          <FlexItem size="size.large">
-            <Input
-              icon={<SearchIcon />}
-              placeholder="Search by key..."
-              role="search"
-              clearable
-              fluid
-              onChange={(e: React.SyntheticEvent) => {
-                const input = e.target as HTMLInputElement;
-                setSearchKey(input.value);
-              }}
-            />
-          </FlexItem>
-          <FlexItem size="size.large">
-            <Input
-              icon={<SearchIcon />}
-              placeholder="Search by value..."
-              role="search"
-              clearable
-              fluid
-              onChange={(e: React.SyntheticEvent) => {
-                const input = e.target as HTMLInputElement;
-                setSearchValue(input.value);
-              }}
-            />
-          </FlexItem>
-        </Flex>
-      </Segment>
+      ></Segment>
       <ApolloCacheItems
         cacheObjectsWithSize={filterCacheObjects(
           cacheObjectsWithSize,
           searchKey,
           searchValue
         )}
-        removeCacheItem={removeCacheItem}
       />
     </Grid>
   );

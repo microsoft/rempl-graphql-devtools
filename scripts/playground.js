@@ -6,7 +6,7 @@ if (require.main === module) {
       await esbuild.build({
         entryPoints: ["src/subscriber/index.tsx"],
         write: false,
-        minify: true,
+        minify: false,
         bundle: true,
         format: "esm",
         sourcemap: true,
@@ -18,7 +18,7 @@ if (require.main === module) {
       entryPoints: ["src/publisher/index.ts"],
       write: true,
       bundle: true,
-      minify: true,
+      minify: false,
       watch: false,
       sourcemap: true,
       outfile: "playground/public/apollo-devtools.js",
