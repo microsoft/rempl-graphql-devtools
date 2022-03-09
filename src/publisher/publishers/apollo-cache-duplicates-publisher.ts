@@ -1,7 +1,11 @@
 import { ApolloClient } from "@apollo/client/core";
 import { NormalizedCacheObject } from "@apollo/client/cache";
 import { RemplWrapper } from "../rempl-wrapper";
-import { ClientCacheDuplicates, ClientObject } from "../../types";
+import {
+  ClientCacheDuplicates,
+  ClientObject,
+  ApolloKeyFields,
+} from "../../types";
 import { getClientCacheDuplicates } from "../helpers/duplicate-cache-items";
 
 export class ApolloCacheDuplicatesPublisher {
@@ -10,6 +14,7 @@ export class ApolloCacheDuplicatesPublisher {
   private remplWrapper: RemplWrapper;
   private clientsArray: null | ClientObject[] = null;
   private duplicatesCacheItems: ClientCacheDuplicates = {};
+  private apolloKeyFields: ApolloKeyFields;
 
   constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
     if (ApolloCacheDuplicatesPublisher._instance) {
@@ -39,7 +44,10 @@ export class ApolloCacheDuplicatesPublisher {
 
   private serializeCacheDuplicatesObjects({ clientId, client }: ClientObject) {
     const cache = this.getCache(client);
-    this.duplicatesCacheItems[clientId] = getClientCacheDuplicates(cache);
+    this.duplicatesCacheItems[clientId] = getClientCacheDuplicates(
+      cache,
+      this.apolloKeyFields
+    );
 
     return this.duplicatesCacheItems;
   }
@@ -47,6 +55,10 @@ export class ApolloCacheDuplicatesPublisher {
   private publishCacheDuplicatesForClientId(clientIdToCheck: string) {
     if (!window.__APOLLO_CLIENTS__?.length) {
       return;
+    }
+
+    if (!this.apolloKeyFields && window.__APOLLO_KEY_FIELDS__) {
+      this.apolloKeyFields = window.__APOLLO_KEY_FIELDS__;
     }
 
     this.clientsArray = window.__APOLLO_CLIENTS__;
