@@ -23,6 +23,7 @@ interface IApolloCacheRenderer {
   recentCacheWithSize: CacheObjectWithSize[];
   recordRecentCacheChanges: (shouldRemove: boolean) => void;
   clearRecentCacheChanges: () => void;
+  getCacheDuplicates: () => void;
   removeCacheItem: (key: string) => void;
   cacheSize: number;
 }
@@ -44,6 +45,7 @@ export const ApolloCacheRenderer = React.memo(
   ({
     cacheObjectsWithSize,
     recentCacheWithSize,
+    getCacheDuplicates,
     cacheSize,
     removeCacheItem,
     recordRecentCacheChanges,
@@ -73,6 +75,7 @@ export const ApolloCacheRenderer = React.memo(
       <Fragment>
         <Flex space="between" className={classes.topBar}>
           <Flex>
+            <Button content="Find duplicities" onClick={getCacheDuplicates} />
             <Dropdown
               className={classes.switchDropdown}
               items={["All cache", "Recent cache"]}

@@ -5,8 +5,9 @@
   "author": "jvejr",
   "license": "MIT",
   "scripts": {
+    "playground": "watch 'node scripts/playground' ./src & (cd playground && yarn && yarn start)",
     "build": "node scripts/build",
-    "watch": "node scripts/watch",
+    "watch": "watch 'node scripts/build'",
     "lint": "eslint src",
     "test": "jest",
     "prepublishOnly": "npm run build"
@@ -40,8 +41,10 @@
     "react-dom": "^16.13.0",
     "react-jss": "^10.8.2",
     "react-router-dom": "^4.2.2",
+    "react-scripts": "^5.0.0",
     "rempl": "^1.0.0-alpha.19",
     "ts-jest": "^27.1.3",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.2",
+    "watch": "^1.0.2"
   }
 }

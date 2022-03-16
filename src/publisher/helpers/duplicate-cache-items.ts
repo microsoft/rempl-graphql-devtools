@@ -1,8 +1,29 @@
 import { NormalizedCacheObject, StoreObject } from "@apollo/client/cache";
 import isEqual from "lodash.isequal";
-import { CacheDuplicates } from "../../types";
+import { CacheDuplicates, ApolloKeyFields } from "../../types";
 
-function getObjectTypeDuplicates(objectTypeItems: Record<string, StoreObject>) {
+function getObjectWithoutKeyFields(
+  cacheItem: StoreObject,
+  keyFields?: string[]
+): StoreObject {
+  const cacheItemWithoutKeyFields: StoreObject = {};
+  for (const [key, value] of Object.entries(cacheItem)) {
+    if (keyFields && keyFields.includes(key)) {
+      continue;
+    } else if (!keyFields && key === "id") {
+      continue;
+    }
+
+    cacheItemWithoutKeyFields[key] = value;
+  }
+
+  return cacheItemWithoutKeyFields;
+}
+
+function getObjectTypeDuplicates(
+  objectTypeItems: Record<string, StoreObject>,
+  keyFields?: string[]
+) {
   const duplicateItems = [];
   const cacheItemKeys = new Set(Object.keys(objectTypeItems));
 
@@ -11,7 +32,10 @@ function getObjectTypeDuplicates(objectTypeItems: Record<string, StoreObject>) {
     for (const cacheItemKey2 of cacheItemKeys.values()) {
       if (
         cacheItemKey !== cacheItemKey2 &&
-        isEqual(objectTypeItems[cacheItemKey], objectTypeItems[cacheItemKey2])
+        isEqual(
+          getObjectWithoutKeyFields(objectTypeItems[cacheItemKey], keyFields),
+          getObjectWithoutKeyFields(objectTypeItems[cacheItemKey2], keyFields)
+        )
       ) {
         keySet.add(cacheItemKey);
         keySet.add(cacheItemKey2);
@@ -37,14 +61,18 @@ function getObjectTypeDuplicates(objectTypeItems: Record<string, StoreObject>) {
 }
 
 export function getClientCacheDuplicates(
-  cache: NormalizedCacheObject
+  cache: NormalizedCacheObject,
+  apolloKeyFields?: ApolloKeyFields
 ): CacheDuplicates {
   const groupedItems = groupByType(cache);
   const duplicateItems = [];
   for (const objectType of Object.keys(groupedItems)) {
     if (Object.keys(groupedItems[objectType]).length > 1) {
+      const keyFields = apolloKeyFields && apolloKeyFields[objectType];
+
       const objectTypeDuplicates = getObjectTypeDuplicates(
-        groupedItems[objectType] as Record<string, StoreObject>
+        groupedItems[objectType] as Record<string, StoreObject>,
+        keyFields
       );
 
       if (objectTypeDuplicates.length) {

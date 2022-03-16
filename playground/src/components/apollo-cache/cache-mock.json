@@ -1,0 +1,3422 @@
+{
+  "ROOT_QUERY": {
+    "__typename": "Query",
+    "activeWindows": [
+      {
+        "__ref": "Window:main"
+      }
+    ],
+    "prejoinState({})": {
+      "__typename": "PrejoinState",
+      "incomingAudio": true,
+      "isPSTN": false,
+      "withAudio": true,
+      "withVideo": false,
+      "volume": 10,
+      "wasAutomuteTriggered": false,
+      "wasMuteToggledByUser": false,
+      "roomDetails": {
+        "__typename": "RoomDetails",
+        "room": null,
+        "wasRoomBluetoothProximityTriggered": false,
+        "wasRoomLoudSpeakerInTheMeetingTriggered": false
+      },
+      "isAuditoriumModeEnabled": false
+    },
+    "shouldShowVideoApp": false,
+    "callingDebugTool": {
+      "__typename": "CallingDebugTool",
+      "visible": true,
+      "passiveBarHiddenParticipantsCount": 0
+    },
+    "streamPermissionsDebug": {
+      "__typename": "StreamPermissionsDebug",
+      "acknowledged": false,
+      "acknowledgementRequired": false,
+      "url": "https://www.microsoft.com/"
+    },
+    "pptSharingSession": {
+      "__typename": "ActivePptSession",
+      "_": false
+    },
+    "isFake": false,
+    "calls": [],
+    "lpcState": {
+      "__typename": "LpcState",
+      "isLivePersonaCardInitialized": false
+    },
+    "authenticationUsers({\"filter\":{\"isAuthenticated\":true}})": [
+      {
+        "__ref": "AuthenticationUser:00000000-0000-0000-2ccd-4aee08079a4e"
+      }
+    ],
+    "activeWindow({\"windowId\":\"main\"})": {
+      "__ref": "Window:main"
+    },
+    "lockedTiles": {
+      "__typename": "TileConnection",
+      "edges": [
+        {
+          "__typename": "AppBarLaunchTileEdge",
+          "node": {
+            "__ref": "LaunchTile:14d6962d-6eeb-4f48-8890-de55454bb136"
+          }
+        },
+        {
+          "__typename": "AppBarLaunchTileEdge",
+          "node": {
+            "__ref": "LaunchTile:86fcd49b-61a2-4701-b771-54728cd291fb"
+          }
+        },
+        {
+          "__typename": "AppBarLaunchTileEdge",
+          "node": {
+            "__ref": "LaunchTile:ef56c0de-36fc-4ef8-b417-3d82ba9d073c"
+          }
+        }
+      ]
+    },
+    "pinnedTiles": {
+      "__typename": "TileConnection",
+      "edges": []
+    },
+    "mostRecentlyUsedTiles": {
+      "__typename": "TileConnection",
+      "edges": []
+    },
+    "me": {
+      "__typename": "User",
+      "displayName": "Jakub Vejr",
+      "avatarUrl": "https://teams.live.com/api/mt/dogfood/beta/users/8:live:vejrjakub/profilepicturev2?displayname=Jakub%20Vejr&imageUri=https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3A2CCD4AEE08079A4E%2Fimage%2F%24value%3FhashKey%3D''&size=HR64x64&ts=undefined",
+      "companyName": null,
+      "email": null
+    },
+    "localizationSettings": {
+      "__typename": "LocalizationSettings",
+      "currentLocale": "en-us"
+    },
+    "hostUpdateState": {
+      "__typename": "HostUpdateState",
+      "newUpdateAvailable": false
+    },
+    "chats:{}": {
+      "__typename": "ChatsConnection",
+      "edges": [
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:994b8b86b468411a8bf341dd25b2d20e@thread.v2"
+          }
+        }
+      ],
+      "pageInfo": {
+        "hasPreviousPage": false,
+        "hasNextPage": true,
+        "startCursor": "",
+        "endCursor": ""
+      }
+    },
+    "recentsChats:{\"filter\":\"\"}": {
+      "__typename": "ChatsConnection",
+      "edges": [
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:994b8b86b468411a8bf341dd25b2d20e@thread.v2"
+          },
+          "cursor": "19:994b8b86b468411a8bf341dd25b2d20e@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2"
+          },
+          "cursor": "19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:b8d3cd5b252041eeba672ca8e9bdf44a@thread.v2"
+          },
+          "cursor": "19:b8d3cd5b252041eeba672ca8e9bdf44a@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:765b9eb10962440f89d3cde36b9181b1@thread.v2"
+          },
+          "cursor": "19:765b9eb10962440f89d3cde36b9181b1@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:54826beb7d724484953aa053ecbcd25a@thread.v2"
+          },
+          "cursor": "19:54826beb7d724484953aa053ecbcd25a@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:uni01_vwrcxjuhycfsq4rt5z6tvy5roloznuqpb45xyezeteyr7yhnkylq@thread.v2"
+          },
+          "cursor": "19:uni01_vwrcxjuhycfsq4rt5z6tvy5roloznuqpb45xyezeteyr7yhnkylq@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:9ea287ea158a4923b59417acae605fe0@thread.v2"
+          },
+          "cursor": "19:9ea287ea158a4923b59417acae605fe0@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:82d4b6ef74104ad7ae5524501a14d9d6@thread.v2"
+          },
+          "cursor": "19:82d4b6ef74104ad7ae5524501a14d9d6@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:uni01_osmbtx2eriaakfvd2724smjgieanwgkjo5izph2ozgime7y2chea@thread.v2"
+          },
+          "cursor": "19:uni01_osmbtx2eriaakfvd2724smjgieanwgkjo5izph2ozgime7y2chea@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:uni01_u6ho6womsyhndju6ldijc63g6ay74vika6o3yxv4wrkayxvvmwtq@thread.v2"
+          },
+          "cursor": "19:uni01_u6ho6womsyhndju6ldijc63g6ay74vika6o3yxv4wrkayxvvmwtq@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:uni01_pjfbtpl6kjl6ipjjsobiqwgpkku6aumdqo4fwsgcgo72y4zhcpha@thread.v2"
+          },
+          "cursor": "19:uni01_pjfbtpl6kjl6ipjjsobiqwgpkku6aumdqo4fwsgcgo72y4zhcpha@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:uni01_zqysz32jta4v6lmjgwmwjhsghozifctz53i5skwxuuwmeyprtjga@thread.v2"
+          },
+          "cursor": "19:uni01_zqysz32jta4v6lmjgwmwjhsghozifctz53i5skwxuuwmeyprtjga@thread.v2"
+        }
+      ],
+      "pageInfo": {
+        "__typename": "PageInfo",
+        "startCursor": "19:994b8b86b468411a8bf341dd25b2d20e@thread.v2",
+        "endCursor": "19:uni01_zqysz32jta4v6lmjgwmwjhsghozifctz53i5skwxuuwmeyprtjga@thread.v2",
+        "hasNextPage": false,
+        "hasPreviousPage": false
+      }
+    },
+    "pinnedChats:{\"filter\":\"\"}": {
+      "__typename": "ChatsConnection",
+      "edges": [
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:uni01_46cixvhwst2yklst5sk5e6ysg7lzyzlzh35twohohqm7v6urk7oq@thread.v2"
+          },
+          "cursor": "19:uni01_46cixvhwst2yklst5sk5e6ysg7lzyzlzh35twohohqm7v6urk7oq@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:7b986e2930a1478caa700c6a334b22bb@thread.v2"
+          },
+          "cursor": "19:7b986e2930a1478caa700c6a334b22bb@thread.v2"
+        },
+        {
+          "__typename": "ChatsEdge",
+          "node": {
+            "__ref": "Conversation:19:bfb4b577d3f4465ea4ddd7cf5b40588e@thread.v2"
+          },
+          "cursor": "19:bfb4b577d3f4465ea4ddd7cf5b40588e@thread.v2"
+        }
+      ],
+      "pageInfo": {
+        "__typename": "PageInfo",
+        "startCursor": "19:uni01_46cixvhwst2yklst5sk5e6ysg7lzyzlzh35twohohqm7v6urk7oq@thread.v2",
+        "endCursor": "19:bfb4b577d3f4465ea4ddd7cf5b40588e@thread.v2",
+        "hasNextPage": false,
+        "hasPreviousPage": false
+      }
+    },
+    "suggestedContactsInChatList:{\"filter\":\"\"}": {
+      "__typename": "ContactsSuggestionsConnection",
+      "edges": [],
+      "pageInfo": {
+        "__typename": "PageInfo",
+        "startCursor": null,
+        "endCursor": null,
+        "hasNextPage": false,
+        "hasPreviousPage": false
+      }
+    },
+    "chat({\"convId\":\"19:994b8b86b468411a8bf341dd25b2d20e@thread.v2\"})": {
+      "__ref": "Conversation:19:994b8b86b468411a8bf341dd25b2d20e@thread.v2"
+    },
+    "platformTabs({\"id\":\"19:994b8b86b468411a8bf341dd25b2d20e@thread.v2\",\"platformTabsQueryType\":\"QueryByThread\"})": [
+      {
+        "__typename": "BasicTab",
+        "baseInfo": {
+          "__ref": "BaseTab:com.microsoft.chattabs.chat"
+        }
+      },
+      {
+        "__typename": "BasicTab",
+        "baseInfo": {
+          "__ref": "BaseTab:com.microsoft.chattabs.files"
+        }
+      },
+      {
+        "__typename": "BasicTab",
+        "baseInfo": {
+          "__ref": "BaseTab:com.microsoft.chattabs.photos"
+        }
+      }
+    ],
+    "messages({\"convId\":\"19:994b8b86b468411a8bf341dd25b2d20e@thread.v2\",\"replyChainId\":null})": {
+      "__typename": "MessagesResult",
+      "messages": [
+        {
+          "__ref": "Message:1626872578194"
+        },
+        {
+          "__ref": "Message:1626447199334"
+        },
+        {
+          "__ref": "Message:1626447199334"
+        }
+      ],
+      "cursor": "1626447199334",
+      "dataSource": "indexedDB",
+      "isConvSynced": true,
+      "areMessagesAvailable": true
+    },
+    "msaGroupProfilePicture({\"callerInfo\":\"avatar-container\",\"msaGroupInfo\":{\"conversationId\":\"19:994b8b86b468411a8bf341dd25b2d20e@thread.v2\",\"pictureReadyUsers\":[{\"displayName\":\"Andrei Fidelman\",\"userId\":\"8:live:.cid.88ba7703045f8890\"},{\"displayName\":\"pompomon pompomon\",\"userId\":\"8:pompomon\"},{\"displayName\":\"R S\",\"userId\":\"8:live:.cid.6fd6be552907d282\"}]}})": "https://teams.live.com/api/mt/dogfood/beta/groups/19:994b8b86b468411a8bf341dd25b2d20e@thread.v2/profilepicturev2?usersInfo=%5B%7B%22userId%22%3A%228%3Alive%3A.cid.88ba7703045f8890%22%2C%22displayName%22%3A%22Andrei%20Fidelman%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3A88BA7703045F8890%2Fimage%2F%24value%3FhashKey%3D''%22%7D%2C%7B%22userId%22%3A%228%3Apompomon%22%2C%22displayName%22%3A%22pompomon%20pompomon%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3AD65E95DF7C19C5A3%2Fimage%2F%24value%3FhashKey%3D''%22%7D%2C%7B%22userId%22%3A%228%3Alive%3A.cid.6fd6be552907d282%22%2C%22displayName%22%3A%22R%20S%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3A6FD6BE552907D282%2Fimage%2F%24value%3FhashKey%3D''%22%7D%5D",
+    "userPreferences": {
+      "__ref": "UserPreferences"
+    },
+    "msaGroupProfilePicture({\"callerInfo\":\"avatar-container\",\"msaGroupInfo\":{\"conversationId\":\"19:7b986e2930a1478caa700c6a334b22bb@thread.v2\",\"pictureReadyUsers\":[{\"displayName\":\"Andrei Fidelman\",\"userId\":\"8:live:.cid.88ba7703045f8890\"},{\"displayName\":\"pompomon pompomon\",\"userId\":\"8:pompomon\"}]}})": "https://teams.live.com/api/mt/dogfood/beta/groups/19:7b986e2930a1478caa700c6a334b22bb@thread.v2/profilepicturev2?usersInfo=%5B%7B%22userId%22%3A%228%3Alive%3A.cid.88ba7703045f8890%22%2C%22displayName%22%3A%22Andrei%20Fidelman%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3A88BA7703045F8890%2Fimage%2F%24value%3FhashKey%3D''%22%7D%2C%7B%22userId%22%3A%228%3Apompomon%22%2C%22displayName%22%3A%22pompomon%20pompomon%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3AD65E95DF7C19C5A3%2Fimage%2F%24value%3FhashKey%3D''%22%7D%5D",
+    "msaGroupProfilePicture({\"callerInfo\":\"avatar-container\",\"msaGroupInfo\":{\"conversationId\":\"19:bfb4b577d3f4465ea4ddd7cf5b40588e@thread.v2\",\"pictureReadyUsers\":[{\"displayName\":\"Andrei Fidelman\",\"userId\":\"8:live:.cid.88ba7703045f8890\"},{\"displayName\":\"pompomon pompomon\",\"userId\":\"8:pompomon\"}]}})": "https://teams.live.com/api/mt/dogfood/beta/groups/19:bfb4b577d3f4465ea4ddd7cf5b40588e@thread.v2/profilepicturev2?usersInfo=%5B%7B%22userId%22%3A%228%3Alive%3A.cid.88ba7703045f8890%22%2C%22displayName%22%3A%22Andrei%20Fidelman%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3A88BA7703045F8890%2Fimage%2F%24value%3FhashKey%3D''%22%7D%2C%7B%22userId%22%3A%228%3Apompomon%22%2C%22displayName%22%3A%22pompomon%20pompomon%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3AD65E95DF7C19C5A3%2Fimage%2F%24value%3FhashKey%3D''%22%7D%5D",
+    "msaGroupProfilePicture({\"callerInfo\":\"avatar-container\",\"msaGroupInfo\":{\"conversationId\":\"19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2\",\"pictureReadyUsers\":[{\"displayName\":\"Adam Samec\",\"userId\":\"8:adamsamec\"},{\"displayName\":\"Andrei Fidelman\",\"userId\":\"8:live:fidelman-life\"},{\"displayName\":\"Andrei Fidelman\",\"userId\":\"8:live:.cid.88ba7703045f8890\"}]}})": "https://teams.live.com/api/mt/dogfood/beta/groups/19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2/profilepicturev2?usersInfo=%5B%7B%22userId%22%3A%228%3Aadamsamec%22%2C%22displayName%22%3A%22Adam%20Samec%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3A2D024B58C9C20570%2Fimage%2F%24value%3FhashKey%3D''%22%7D%2C%7B%22userId%22%3A%228%3Alive%3Afidelman-life%22%2C%22displayName%22%3A%22Andrei%20Fidelman%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3ABDD257BB61C107A9%2Fimage%2F%24value%3FhashKey%3D''%22%7D%2C%7B%22userId%22%3A%228%3Alive%3A.cid.88ba7703045f8890%22%2C%22displayName%22%3A%22Andrei%20Fidelman%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3A88BA7703045F8890%2Fimage%2F%24value%3FhashKey%3D''%22%7D%5D",
+    "msaGroupProfilePicture({\"callerInfo\":\"avatar-container\",\"msaGroupInfo\":{\"conversationId\":\"19:9ea287ea158a4923b59417acae605fe0@thread.v2\",\"pictureReadyUsers\":[{\"displayName\":\"Hugh Eland\",\"userId\":\"8:hughreeling\"},{\"displayName\":\"pompomon pompomon\",\"userId\":\"8:pompomon\"},{\"displayName\":\"Sergii Mykhailov\",\"userId\":\"8:sergii.mykhailov\"}]}})": "https://teams.live.com/api/mt/dogfood/beta/groups/19:9ea287ea158a4923b59417acae605fe0@thread.v2/profilepicturev2?usersInfo=%5B%7B%22userId%22%3A%228%3Ahughreeling%22%2C%22displayName%22%3A%22Hugh%20Eland%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3A79629EB7B83509AF%2Fimage%2F%24value%3FhashKey%3D''%22%7D%2C%7B%22userId%22%3A%228%3Apompomon%22%2C%22displayName%22%3A%22pompomon%20pompomon%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3AD65E95DF7C19C5A3%2Fimage%2F%24value%3FhashKey%3D''%22%7D%2C%7B%22userId%22%3A%228%3Asergii.mykhailov%22%2C%22displayName%22%3A%22Sergii%20Mykhailov%22%2C%22imageUri%22%3A%22https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3AFFA926770E320315%2Fimage%2F%24value%3FhashKey%3D''%22%7D%5D",
+    "msaUserProfilePicture({\"callerInfo\":\"avatar-container\",\"displayName\":\"pompomon pompomon\",\"profilePictureSize\":\"HR64x64\",\"userId\":\"8:pompomon\"})": "https://teams.live.com/api/mt/dogfood/beta/users/8:pompomon/profilepicturev2?displayname=pompomon%20pompomon&imageUri=https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3AD65E95DF7C19C5A3%2Fimage%2F%24value%3FhashKey%3D''&size=HR64x64",
+    "msaUserProfilePicture({\"callerInfo\":\"avatar-container\",\"displayName\":\"Yuanbo Xue aka Amber\",\"profilePictureSize\":\"HR64x64\",\"userId\":\"8:live:yuanboxue\"})": "https://teams.live.com/api/mt/dogfood/beta/users/8:live:yuanboxue/profilepicturev2?displayname=Yuanbo%20Xue%20aka%20Amber&imageUri=https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3AD9A92AE170DD8419%2Fimage%2F%24value%3FhashKey%3D''&size=HR64x64",
+    "msaUserProfilePicture({\"callerInfo\":\"avatar-container\",\"displayName\":\"Hugh Eland\",\"profilePictureSize\":\"HR64x64\",\"userId\":\"8:hughreeling\"})": "https://teams.live.com/api/mt/dogfood/beta/users/8:hughreeling/profilepicturev2?displayname=Hugh%20Eland&imageUri=https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3A79629EB7B83509AF%2Fimage%2F%24value%3FhashKey%3D''&size=HR64x64",
+    "msaUserProfilePicture({\"callerInfo\":\"avatar-container\",\"displayName\":\"Andrei Fidelman\",\"profilePictureSize\":\"HR64x64\",\"userId\":\"8:live:.cid.88ba7703045f8890\"})": "https://teams.live.com/api/mt/dogfood/beta/users/8:live:.cid.88ba7703045f8890/profilepicturev2?displayname=Andrei%20Fidelman&imageUri=https%3A%2F%2Fsubstrate.office.com%2Fprofile%2Fv1.0%2Fusers%2Fcid%3A88BA7703045F8890%2Fimage%2F%24value%3FhashKey%3D''&size=HR64x64",
+    "messagesWithUnreadActivities({\"convId\":\"19:994b8b86b468411a8bf341dd25b2d20e@thread.v2\"})": [],
+    "vdiCapabilities": null,
+    "presence({\"source\":\"ups\",\"userId\":\"8:pompomon\"})": {
+      "__ref": "Presence:8:pompomon_ups"
+    },
+    "currentFiles({\"fileContainerId\":\"draft-9a459a17-79de-41ca-b4ee-a325b3db543d\"})": [],
+    "composeState({\"id\":\"bottom-compose\"})": {
+      "__ref": "ComposeMessageState:bottom-compose"
+    },
+    "userCallingSettings": {
+      "__typename": "UserCallingSettings",
+      "isCallingAllowed": true,
+      "isPstnCallingAllowed": true
+    },
+    "presence({\"source\":\"ups\",\"userId\":\"8:live:yuanboxue\"})": {
+      "__ref": "Presence:8:live:yuanboxue_ups"
+    },
+    "presence({\"source\":\"ups\",\"userId\":\"8:hughreeling\"})": {
+      "__ref": "Presence:8:hughreeling_ups"
+    },
+    "installedAppsV2({\"installedContext\":{\"scope\":\"Personal\"}})": [
+      {
+        "__ref": "InstalledApp:81fef3a6-72aa-4648-a763-de824aeafb7d:Personal"
+      },
+      {
+        "__ref": "InstalledApp:14d6962d-6eeb-4f48-8890-de55454bb136:Personal"
+      },
+      {
+        "__ref": "InstalledApp:1ded03cb-ece5-4e7c-9f73-61c375528078:Personal"
+      },
+      {
+        "__ref": "InstalledApp:ef56c0de-36fc-4ef8-b417-3d82ba9d073c:Personal"
+      },
+      {
+        "__ref": "InstalledApp:86fcd49b-61a2-4701-b771-54728cd291fb:Personal"
+      },
+      {
+        "__ref": "InstalledApp:5a0e35f9-d3c8-45b6-9dd9-983ab47f1b83:Personal"
+      }
+    ]
+  },
+  "Entity:{\"id\":null,\"type\":\"chats\",\"action\":\"list\",\"options\":null}": {
+    "id": null,
+    "type": "chats",
+    "action": "list",
+    "options": null,
+    "__typename": "Entity",
+    "windowOptions": null,
+    "linkedEntity": null,
+    "entityState": {
+      "__typename": "EntityState",
+      "flushableByLinkedEntity": true
+    }
+  },
+  "Entity:{\"id\":null,\"type\":\"chats\",\"action\":\"default\",\"options\":null}": {
+    "id": null,
+    "type": "chats",
+    "action": "default",
+    "options": null,
+    "__typename": "Entity",
+    "windowOptions": null,
+    "linkedEntity": null,
+    "entityState": {
+      "__typename": "EntityState",
+      "flushableByLinkedEntity": true
+    }
+  },
+  "Correlation:cf06f2cb-5333-4520-b844-43a51952529a": {
+    "__typename": "Correlation",
+    "id": "cf06f2cb-5333-4520-b844-43a51952529a",
+    "startTimestamp": 1627302740537,
+    "source": "StandAlone"
+  },
+  "Window:main": {
+    "__typename": "Window",
+    "activeEntities": {
+      "__typename": "ActiveEntities",
+      "subNavEntity": {
+        "__ref": "Entity:{\"id\":null,\"type\":\"chats\",\"action\":\"list\",\"options\":null}"
+      },
+      "headerEntity": {
+        "__ref": "Entity:{\"id\":null,\"type\":\"chats\",\"action\":\"default\",\"options\":null}"
+      },
+      "startEntity": null,
+      "mainEntity": {
+        "__ref": "Entity:{\"id\":\"19:994b8b86b468411a8bf341dd25b2d20e@thread.v2\",\"type\":\"chats\",\"action\":\"default\",\"options\":null}"
+      },
+      "endEntity": null,
+      "entityExtension": null
+    },
+    "windowHistory": [],
+    "currentWindowHistoryIndex": -1,
+    "windowHistoryNavigationState": {
+      "__typename": "WindowHistoryNavigationState",
+      "canNavigateBack": false,
+      "canNavigateForward": false
+    },
+    "id": "main",
+    "correlation": {
+      "__ref": "Correlation:cf06f2cb-5333-4520-b844-43a51952529a"
+    },
+    "extendedEntityContainerState": {
+      "__typename": "ExtendedEntityContainerState",
+      "containerState": "Closed",
+      "isExternal": false
+    },
+    "blockingEntityExtension": null,
+    "layoutMode": "standard",
+    "isMainWindow": true
+  },
+  "AuthenticationUserProfile:{\"objectId\":\"00000000-0000-0000-2ccd-4aee08079a4e\",\"tenantId\":\"9188040d-6c67-4c5b-b112-36a304b66dad\"}": {
+    "objectId": "00000000-0000-0000-2ccd-4aee08079a4e",
+    "tenantId": "9188040d-6c67-4c5b-b112-36a304b66dad",
+    "__typename": "AuthenticationUserProfile",
+    "puid": "0003BFFD0DC0592A"
+  },
+  "AuthenticationUser:00000000-0000-0000-2ccd-4aee08079a4e": {
+    "__typename": "AuthenticationUser",
+    "id": "00000000-0000-0000-2ccd-4aee08079a4e",
+    "isAuthenticated": true,
+    "profile": {
+      "__ref": "AuthenticationUserProfile:{\"objectId\":\"00000000-0000-0000-2ccd-4aee08079a4e\",\"tenantId\":\"9188040d-6c67-4c5b-b112-36a304b66dad\"}"
+    },
+    "type": "MsaLife",
+    "role": "Member",
+    "loginUserName": "vejrjakub@gmail.com"
+  },
+  "LaunchTile:14d6962d-6eeb-4f48-8890-de55454bb136": {
+    "__typename": "LaunchTile",
+    "id": "14d6962d-6eeb-4f48-8890-de55454bb136",
+    "selectionIndicatorColor": null,
+    "name": "appkey:app_bar_activity_app_name",
+    "tooltip": "appkey:app_bar_activity_app_tooltip",
+    "ariaLabel": "appkey:app_bar_activity_app_arialabel",
+    "icon": {
+      "__typename": "InternalIcon",
+      "name": "ActivityIcon"
+    },
+    "badge": null,
+    "selectedStateIcon": {
+      "__typename": "InternalIcon",
+      "name": "ActivityIconSelected"
+    },
+    "isPinned": null,
+    "isPinnable": null,
+    "command": {
+      "__typename": "NovaCommandingEntityCommand",
+      "entity": {
+        "__typename": "NovaCommandingEntityInput",
+        "entityId": null,
+        "type": "teams_activity",
+        "action": "default"
+      },
+      "command": {
+        "__typename": "NovaCommandingEntityCommandInput",
+        "visibilityState": "show",
+        "stateTransition": "flush"
+      }
+    }
+  },
+  "LaunchTile:86fcd49b-61a2-4701-b771-54728cd291fb": {
+    "__typename": "LaunchTile",
+    "id": "86fcd49b-61a2-4701-b771-54728cd291fb",
+    "selectionIndicatorColor": null,
+    "name": "appkey:app_bar_chat_app_name",
+    "tooltip": "appkey:app_bar_chat_app_tooltip",
+    "ariaLabel": "appkey:app_bar_chat_app_arialabel",
+    "icon": {
+      "__typename": "InternalIcon",
+      "name": "ChatIcon"
+    },
+    "badge": {
+      "__typename": "LaunchTileNumericBadge",
+      "count": 1
+    },
+    "selectedStateIcon": {
+      "__typename": "InternalIcon",
+      "name": "ChatIconSelected"
+    },
+    "isPinned": null,
+    "isPinnable": null,
+    "command": {
+      "__typename": "NovaCommandingEntityCommand",
+      "entity": {
+        "__typename": "NovaCommandingEntityInput",
+        "entityId": null,
+        "type": "teams_chat",
+        "action": "default"
+      },
+      "command": {
+        "__typename": "NovaCommandingEntityCommandInput",
+        "visibilityState": "show",
+        "stateTransition": "flush"
+      }
+    }
+  },
+  "LaunchTile:ef56c0de-36fc-4ef8-b417-3d82ba9d073c": {
+    "__typename": "LaunchTile",
+    "id": "ef56c0de-36fc-4ef8-b417-3d82ba9d073c",
+    "selectionIndicatorColor": null,
+    "name": "appkey:app_bar_calendar_app_name",
+    "tooltip": "appkey:app_bar_calendar_app_tooltip",
+    "ariaLabel": "appkey:app_bar_calendar_app_arialabel",
+    "icon": {
+      "__typename": "InternalIcon",
+      "name": "TeamsCalendarIcon"
+    },
+    "badge": null,
+    "selectedStateIcon": {
+      "__typename": "InternalIcon",
+      "name": "TeamsCalendarIconSelected"
+    },
+    "isPinned": null,
+    "isPinnable": null,
+    "command": {
+      "__typename": "NovaCommandingEntityCommand",
+      "entity": {
+        "__typename": "NovaCommandingEntityInput",
+        "entityId": null,
+        "type": "teams_calendar",
+        "action": "default"
+      },
+      "command": {
+        "__typename": "NovaCommandingEntityCommandInput",
+        "visibilityState": "show",
+        "stateTransition": "flush"
+      }
+    }
+  },
+  "ROOT_SUBSCRIPTION": {
+    "__typename": "Subscription",
+    "launchTileUpdatedEvent": {
+      "__typename": "LaunchTileUpdatedEvent",
+      "launchTile": {
+        "__ref": "LaunchTile:14d6962d-6eeb-4f48-8890-de55454bb136"
+      }
+    },
+    "policiesUpdatedEvent": {
+      "__typename": "PoliciesResult",
+      "jsonData": "{\"callingPolicy\":{\"allowPrivateCalling\":true,\"allowGroupCalling\":true,\"allowCallGroups\":true,\"musicOnHoldEnabledType\":\"Enabled\"},\"voiceAdminSettings\":{\"isTeamsPreferredClient\":true},\"adminSettings\":{},\"policySettings\":{},\"teamsMeetingBrandingPolicy\":{},\"meetingPolicy\":{\"allowMeetNow\":true,\"allowIPVideo\":true,\"allowEngagementReport\":\"Disabled\",\"allowTrackingInReport\":\"Disabled\",\"ipAudioMode\":\"EnabledOutgoingIncoming\",\"ipVideoMode\":\"EnabledOutgoingIncoming\",\"allowAnonymousUsersToDialOut\":true,\"allowPrivateMeetingScheduling\":true,\"allowAnonymousUsersToStartMeeting\":true,\"allowOutlookAddIn\":true,\"allowPowerPointSharing\":true,\"allowParticipantGiveRequestControl\":true,\"allowExternalParticipantGiveRequestControl\":true,\"allowWhiteboard\":true,\"screenSharingMode\":\"EntireScreen\",\"allowPSTNUsersToBypassLobby\":true,\"allowOrganizersToOverrideLobbySettings\":true,\"allowPrivateMeetNow\":true,\"meetingChatEnableType\":\"Enabled\",\"videoFiltersMode\":\"AllFilters\",\"speakerAttributionMode\":\"EnabledUserOverride\",\"whoCanRegister\":\"Everyone\"},\"tenantSettingsV2\":{\"isMicrosoftTeamsEnabled\":true,\"isTeamsAndChannelsDisabled\":true,\"apps\":{\"isAppsEnabled\":true,\"isSideLoadedAppsEnabled\":true},\"email\":{},\"miscellaneous\":{},\"meetups\":{\"isVideoEnabled\":true,\"isScreenSharingEnabled\":true,\"isPrivateMeetingEnabled\":true,\"isGroupCallingEnabled\":true,\"isPrivateCallingEnabled\":true},\"funControl\":{\"isGiphyEnabled\":true,\"giphyRatingType\":\"Moderate\",\"isStickersEnabled\":true,\"isCustomMemesEnabled\":true},\"messaging\":{\"enableUserEditOwnMessages\":true,\"enableUserDeleteOwnMessages\":true,\"enableUserPrivateChat\":true,\"enableUrlPreviews\":true},\"files\":{\"isShareFileEnabled\":true}},\"tenantVoiceSettings\":{\"voiceTenantType\":\"Online\",\"pstnType\":\"Online\"},\"userResourcesSettings\":{\"licenseSettings\":{\"isSharePointEnabled\":true,\"isOneDriveEnabled\":true,\"isOfficeEnabled\":true},\"isSipEnabled\":true,\"userType\":\"member\"},\"onlineDialinConferencingPolicy\":{},\"messagingPolicy\":{\"allowUserEditMessage\":true,\"allowUserDeleteMessage\":true,\"allowUserChat\":true,\"allowGiphy\":true,\"giphyRatingType\":\"Moderate\",\"allowGiphyDisplay\":true,\"allowMemes\":true,\"allowStickers\":true,\"allowUserTranslation\":true,\"allowUrlPreviews\":true,\"readReceiptsEnabledType\":\"UserPreference\",\"allowImmersiveReader\":true,\"allowRemoveUser\":true},\"userPropertiesSettings\":{\"isOnCloud\":true,\"autodiscoverSettings\":{\"rest\":{\"url\":\"https://outlook.office.com/api\",\"mailboxStatus\":\"Discoverable\"}}},\"broadcastMeetingPolicy\":{},\"feedbackPolicy\":{\"receiveSurveysMode\":\"EnabledUserOverride\",\"userInitiatedMode\":\"Enabled\"}}"
+    },
+    "displayContactsSyncBannerEvent": {
+      "__typename": "DisplayContactsSyncBannerEvent",
+      "shouldDisplayContactsSyncBanner": true
+    }
+  },
+  "ROOT_MUTATION": {
+    "__typename": "Mutation",
+    "updateCurrentLocale({\"newLocale\":\"en-us\"})": "en-us",
+    "setPlatformAppsFetchPolicy({\"input\":[{\"fetchSource\":\"Network\",\"scope\":\"Personal\"},{\"convId\":\"19:994b8b86b468411a8bf341dd25b2d20e@thread.v2\",\"fetchSource\":\"Network\",\"scope\":\"GroupChat\"}]})": true,
+    "updateComposeState({\"id\":\"bottom-compose\",\"isExpanded\":false})": {
+      "__ref": "ComposeMessageState:bottom-compose"
+    }
+  },
+  "Conversation:19:994b8b86b468411a8bf341dd25b2d20e@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:994b8b86b468411a8bf341dd25b2d20e@thread.v2",
+    "title": null,
+    "isOneOnOne": false,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": false,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1626872578194"
+    },
+    "lastMessageSender": {
+      "__ref": "User:8:live:.cid.88ba7703045f8890"
+    },
+    "memberIds": [
+      "8:pompomon",
+      "8:live:.cid.88ba7703045f8890",
+      "8:live:vejrjakub",
+      "8:live:.cid.6fd6be552907d282"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:live:.cid.88ba7703045f8890"
+      },
+      {
+        "__ref": "User:8:pompomon"
+      },
+      {
+        "__ref": "User:8:live:.cid.6fd6be552907d282"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "Andrei Fidelman",
+      "pompomon pompomon",
+      "R S"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": true,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": "1626447199334",
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:994b8b86b468411a8bf341dd25b2d20e@thread.v2"
+    },
+    "consumptionHorizonBookmark": null,
+    "userConsumptionHorizon": null,
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null,
+    "isOneOnOneBotChat": false,
+    "disabledReason": null,
+    "meetingChatPolicy": null,
+    "chatType": "Chat",
+    "isRetentionHorizonSet": null,
+    "isModerator": null,
+    "guardianChatInfo": null,
+    "botMembers": null,
+    "creator": "8:pompomon",
+    "tenantId": "00000000-0000-0000-0000-000000000000",
+    "chatDisabledContext": {
+      "__typename": "ChatDisabledContext",
+      "isUIDisabled": false,
+      "disabledReason": "UnknownReason",
+      "extendedData": null,
+      "lastUpdatedTime": null
+    },
+    "interopConversationStatus": null,
+    "typingUsers": null,
+    "userProperties": null,
+    "pinnedConversationItems": null
+  },
+  "Entity:{\"id\":\"19:994b8b86b468411a8bf341dd25b2d20e@thread.v2\",\"type\":\"chats\",\"action\":\"default\",\"options\":null}": {
+    "id": "19:994b8b86b468411a8bf341dd25b2d20e@thread.v2",
+    "type": "chats",
+    "action": "default",
+    "options": null,
+    "__typename": "Entity",
+    "windowOptions": null,
+    "linkedEntity": null,
+    "entityState": {
+      "__typename": "EntityState",
+      "flushableByLinkedEntity": true
+    }
+  },
+  "Message:1626872578194": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>jakub</p></div>",
+    "originalArrivalTime": "2021-07-21T13:02:58.194Z",
+    "imDisplayName": "Andrei Fidelman",
+    "id": "1626872578194",
+    "clientMessageId": "1101439775185541040",
+    "from": "8:live:.cid.88ba7703045f8890",
+    "messageType": "RichText/Html",
+    "mentions": [],
+    "importance": "Standard",
+    "files": [],
+    "cards": [],
+    "callId": null,
+    "interopDeliveryState": null,
+    "replyPermission": null,
+    "smsDeliveryReports": null,
+    "emotions": null,
+    "emotionsSummary": null,
+    "escalations": null,
+    "meeting": null,
+    "onBehalfOf": null,
+    "status": "Delivered",
+    "diagnosticInfo": {
+      "__typename": "DiagnosticInfo",
+      "diagnosticErrorCode": -1,
+      "diagnosticMessage": null
+    },
+    "version": "1626872578194",
+    "deeplinks": [],
+    "urlPreview": null,
+    "embeddedLinks": [],
+    "dlpContext": null,
+    "editTime": null,
+    "userHasSaved": false,
+    "deletionInfo": {
+      "__typename": "DeletionInfo",
+      "showMessageAsDeleted": false,
+      "canBeUndeleted": false
+    },
+    "translation": {
+      "__typename": "Translation",
+      "status": "NotStarted",
+      "content": null,
+      "fromLanguage": null
+    },
+    "atpSharepointData": null,
+    "isDeletedByAdmin": false
+  },
+  "User:8:live:.cid.88ba7703045f8890": {
+    "__typename": "User",
+    "id": "8:live:.cid.88ba7703045f8890",
+    "objectId": "00000000-0000-0000-88ba-7703045f8890",
+    "displayName": "Andrei Fidelman",
+    "givenName": "Andrei",
+    "surname": "Fidelman",
+    "email": null,
+    "tenantId": null,
+    "isFederated": null,
+    "jobTitle": null,
+    "department": null,
+    "featureSettings": {
+      "__typename": "UserFeatureSettingsInfo",
+      "coExistenceMode": null,
+      "isPrivateChatEnabled": true
+    },
+    "type": "TFLUser"
+  },
+  "User:8:live:vejrjakub": {
+    "__typename": "User",
+    "id": "8:live:vejrjakub",
+    "objectId": "00000000-0000-0000-2ccd-4aee08079a4e",
+    "displayName": "Jakub Vejr",
+    "givenName": "Jakub",
+    "surname": "Vejr",
+    "email": null,
+    "tenantId": null,
+    "isFederated": null,
+    "jobTitle": null,
+    "department": null,
+    "featureSettings": {
+      "__typename": "UserFeatureSettingsInfo",
+      "coExistenceMode": null,
+      "isPrivateChatEnabled": true
+    },
+    "type": "TFLUser"
+  },
+  "User:8:pompomon": {
+    "__typename": "User",
+    "id": "8:pompomon",
+    "objectId": "00000000-0000-0000-d65e-95df7c19c5a3",
+    "displayName": "pompomon pompomon",
+    "givenName": "pompomon",
+    "surname": "pompomon",
+    "email": null,
+    "tenantId": null,
+    "isFederated": null,
+    "jobTitle": null,
+    "department": null,
+    "featureSettings": {
+      "__typename": "UserFeatureSettingsInfo",
+      "coExistenceMode": null,
+      "isPrivateChatEnabled": true
+    },
+    "type": "TFLUser"
+  },
+  "User:8:live:.cid.6fd6be552907d282": {
+    "__typename": "User",
+    "id": "8:live:.cid.6fd6be552907d282",
+    "objectId": "00000000-0000-0000-6fd6-be552907d282",
+    "displayName": "R S",
+    "givenName": "R",
+    "surname": "S",
+    "email": null,
+    "tenantId": null,
+    "isFederated": null,
+    "jobTitle": null,
+    "department": null,
+    "featureSettings": {
+      "__typename": "UserFeatureSettingsInfo",
+      "coExistenceMode": null,
+      "isPrivateChatEnabled": true
+    },
+    "type": "TFLUser"
+  },
+  "ConsumptionHorizon:19:994b8b86b468411a8bf341dd25b2d20e@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:994b8b86b468411a8bf341dd25b2d20e@thread.v2",
+    "originalArrivalTime": "2021-07-21T13:02:58.194Z",
+    "timeStamp": "2021-07-26T12:16:35.544Z",
+    "clientMessageId": "1101439775185541040"
+  },
+  "Message:1626427046609": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>&amp;</p></div>",
+    "originalArrivalTime": "2021-07-16T09:17:26.609Z",
+    "imDisplayName": "Andrei Fidelman",
+    "id": "1626427046609",
+    "clientMessageId": "2143014382264063680",
+    "from": "8:live:fidelman-life",
+    "messageType": "RichText/Html",
+    "mentions": null,
+    "importance": "Standard",
+    "files": null,
+    "cards": null
+  },
+  "User:8:live:fidelman-life": {
+    "__typename": "User",
+    "id": "8:live:fidelman-life",
+    "objectId": "00000000-0000-0000-bdd2-57bb61c107a9",
+    "displayName": "Andrei Fidelman",
+    "givenName": "Andrei",
+    "surname": "Fidelman",
+    "email": null,
+    "tenantId": null,
+    "isFederated": null,
+    "jobTitle": null,
+    "department": null,
+    "featureSettings": {
+      "__typename": "UserFeatureSettingsInfo",
+      "coExistenceMode": null,
+      "isPrivateChatEnabled": true
+    },
+    "type": "TFLUser"
+  },
+  "User:8:adamsamec": {
+    "__typename": "User",
+    "id": "8:adamsamec",
+    "objectId": "00000000-0000-0000-2d02-4b58c9c20570",
+    "displayName": "Adam Samec",
+    "givenName": "Adam",
+    "surname": "Samec",
+    "email": null,
+    "tenantId": null,
+    "isFederated": null,
+    "jobTitle": null,
+    "department": null,
+    "featureSettings": {
+      "__typename": "UserFeatureSettingsInfo",
+      "coExistenceMode": null,
+      "isPrivateChatEnabled": true
+    },
+    "type": "TFLUser"
+  },
+  "ConsumptionHorizon:19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2",
+    "originalArrivalTime": "2021-07-16T09:17:26.609Z",
+    "timeStamp": "2021-07-16T10:23:08.743Z",
+    "clientMessageId": "2143014382264063680"
+  },
+  "ConsumptionHorizonBookmark:19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2": {
+    "__typename": "ConsumptionHorizonBookmark",
+    "id": "19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2",
+    "originalArrivalTime": "1970-01-01T00:00:00.000Z",
+    "timeStamp": "2021-06-30T12:04:22.810Z",
+    "clientMessageId": "0"
+  },
+  "Conversation:19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2",
+    "title": "Friday Framework Prague Chat",
+    "isOneOnOne": false,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": false,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1626427046609"
+    },
+    "lastMessageSender": {
+      "__ref": "User:8:live:fidelman-life"
+    },
+    "memberIds": [
+      "8:hughreeling",
+      "8:sergii.mykhailov",
+      "8:live:.cid.2cee7fc3acb6bde0",
+      "8:hanysek8959",
+      "8:live:jukapsia",
+      "8:pompomon",
+      "8:live:fidelman-life",
+      "8:live:yuanboxue",
+      "8:live:.cid.37f9186a1afe5e05",
+      "8:live:.cid.8d076fb6c18d749f",
+      "8:live:user1736_1",
+      "8:live:freiksenet",
+      "8:live:.cid.59b64d4a3b437f90",
+      "8:adamsamec",
+      "8:live:.cid.6fd6be552907d282",
+      "8:live:vejrjakub",
+      "8:live:.cid.88ba7703045f8890"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:adamsamec"
+      },
+      {
+        "__ref": "User:8:live:fidelman-life"
+      },
+      {
+        "__ref": "User:8:live:.cid.88ba7703045f8890"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "Adam Samec",
+      "Andrei Fidelman",
+      "Andrei Fidelman",
+      "Daniel W",
+      "Dmitry Samsonov",
+      "Hugh Eland",
+      "Juraj Kapsiar",
+      "Mikhail Novikov",
+      "Petr Duda",
+      "pompomon pompomon",
+      "R S",
+      "Raluca Vasiliu",
+      "Roman Dvornov",
+      "Sergii Mykhailov",
+      "Unknown User",
+      "Yuanbo Xue aka Amber"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": false,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": null,
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2"
+    },
+    "consumptionHorizonBookmark": {
+      "__ref": "ConsumptionHorizonBookmark:19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2"
+    },
+    "userConsumptionHorizon": {
+      "__ref": "ConsumptionHorizonBookmark:19:a4ed3ee4264a447eb1d44d907fc994b8@thread.v2"
+    },
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1626087648372": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>test ignore pls</p></div>",
+    "originalArrivalTime": "2021-07-12T11:00:48.372Z",
+    "imDisplayName": "Andrei Fidelman",
+    "id": "1626087648372",
+    "clientMessageId": "2284232369154455581",
+    "from": "8:live:.cid.88ba7703045f8890",
+    "messageType": "RichText/Html",
+    "mentions": [],
+    "importance": "Standard",
+    "files": [],
+    "cards": []
+  },
+  "ConsumptionHorizon:19:b8d3cd5b252041eeba672ca8e9bdf44a@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:b8d3cd5b252041eeba672ca8e9bdf44a@thread.v2",
+    "originalArrivalTime": "2021-07-12T11:01:23.565Z",
+    "timeStamp": "2021-07-12T13:21:43.545Z",
+    "clientMessageId": "1626087683565"
+  },
+  "Conversation:19:b8d3cd5b252041eeba672ca8e9bdf44a@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:b8d3cd5b252041eeba672ca8e9bdf44a@thread.v2",
+    "title": null,
+    "isOneOnOne": false,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": false,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1626087648372"
+    },
+    "lastMessageSender": null,
+    "memberIds": [
+      "8:pompomon",
+      "8:live:vejrjakub"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:pompomon"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "pompomon pompomon"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": true,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": null,
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:b8d3cd5b252041eeba672ca8e9bdf44a@thread.v2"
+    },
+    "consumptionHorizonBookmark": null,
+    "userConsumptionHorizon": null,
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1626087553703": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>test please ignore</p></div>",
+    "originalArrivalTime": "2021-07-12T10:59:13.703Z",
+    "imDisplayName": "Andrei Fidelman",
+    "id": "1626087553703",
+    "clientMessageId": "360904909013389878",
+    "from": "8:live:.cid.88ba7703045f8890",
+    "messageType": "RichText/Html",
+    "mentions": [],
+    "importance": "Standard",
+    "files": [],
+    "cards": null
+  },
+  "Conversation:19:765b9eb10962440f89d3cde36b9181b1@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:765b9eb10962440f89d3cde36b9181b1@thread.v2",
+    "title": null,
+    "isOneOnOne": false,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": null,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1626087553703"
+    },
+    "lastMessageSender": null,
+    "memberIds": [
+      "8:pompomon",
+      "8:live:vejrjakub"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:pompomon"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "pompomon pompomon"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": true,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": null,
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": null,
+    "consumptionHorizonBookmark": null,
+    "userConsumptionHorizon": null,
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1626086268728": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>test please ignore</p></div>",
+    "originalArrivalTime": "2021-07-12T10:37:48.728Z",
+    "imDisplayName": "Andrei Fidelman",
+    "id": "1626086268728",
+    "clientMessageId": "3882985477331509454",
+    "from": "8:live:.cid.88ba7703045f8890",
+    "messageType": "RichText/Html",
+    "mentions": [],
+    "importance": "Standard",
+    "files": [],
+    "cards": []
+  },
+  "ConsumptionHorizon:19:54826beb7d724484953aa053ecbcd25a@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:54826beb7d724484953aa053ecbcd25a@thread.v2",
+    "originalArrivalTime": "2021-07-12T10:38:29.990Z",
+    "timeStamp": "2021-07-12T13:07:44.154Z",
+    "clientMessageId": "1626086309990"
+  },
+  "Conversation:19:54826beb7d724484953aa053ecbcd25a@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:54826beb7d724484953aa053ecbcd25a@thread.v2",
+    "title": null,
+    "isOneOnOne": false,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": false,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1626086268728"
+    },
+    "lastMessageSender": null,
+    "memberIds": [
+      "8:pompomon",
+      "8:live:vejrjakub"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:pompomon"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "pompomon pompomon"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": true,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": null,
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:54826beb7d724484953aa053ecbcd25a@thread.v2"
+    },
+    "consumptionHorizonBookmark": null,
+    "userConsumptionHorizon": null,
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1625052431328": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p><a href=\"https://teams.live.com/l/invite/EBAOLMc3rWmZ-SyJgI\" title=\"https://teams.live.com/l/invite/ebaolmc3rwmz-syjgi\" target=\"_blank\" rel=\"noreferrer noopener\">https://teams.live.com/l/invite/EBAOLMc3rWmZ-SyJgI</a></p></div>",
+    "originalArrivalTime": "2021-06-30T11:27:11.328Z",
+    "imDisplayName": "Jakub Vejr",
+    "id": "1625052431328",
+    "clientMessageId": "4695811552344762671",
+    "from": "8:live:vejrjakub",
+    "messageType": "RichText/Html",
+    "mentions": [],
+    "importance": "Standard",
+    "files": [],
+    "cards": []
+  },
+  "ConsumptionHorizon:19:uni01_vwrcxjuhycfsq4rt5z6tvy5roloznuqpb45xyezeteyr7yhnkylq@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:uni01_vwrcxjuhycfsq4rt5z6tvy5roloznuqpb45xyezeteyr7yhnkylq@thread.v2",
+    "originalArrivalTime": "2021-06-30T11:27:11.328Z",
+    "timeStamp": "2021-06-30T20:47:29.094Z",
+    "clientMessageId": "4695811552344762671"
+  },
+  "ConsumptionHorizonBookmark:19:uni01_vwrcxjuhycfsq4rt5z6tvy5roloznuqpb45xyezeteyr7yhnkylq@thread.v2": {
+    "__typename": "ConsumptionHorizonBookmark",
+    "id": "19:uni01_vwrcxjuhycfsq4rt5z6tvy5roloznuqpb45xyezeteyr7yhnkylq@thread.v2",
+    "originalArrivalTime": "1970-01-01T00:00:00.000Z",
+    "timeStamp": "2021-05-26T19:07:32.692Z",
+    "clientMessageId": "0"
+  },
+  "Conversation:19:uni01_vwrcxjuhycfsq4rt5z6tvy5roloznuqpb45xyezeteyr7yhnkylq@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:uni01_vwrcxjuhycfsq4rt5z6tvy5roloznuqpb45xyezeteyr7yhnkylq@thread.v2",
+    "title": null,
+    "isOneOnOne": true,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": null,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1625052431328"
+    },
+    "lastMessageSender": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "memberIds": [
+      "8:pompomon",
+      "8:live:vejrjakub"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:pompomon"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "pompomon pompomon"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": false,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": null,
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:uni01_vwrcxjuhycfsq4rt5z6tvy5roloznuqpb45xyezeteyr7yhnkylq@thread.v2"
+    },
+    "consumptionHorizonBookmark": {
+      "__ref": "ConsumptionHorizonBookmark:19:uni01_vwrcxjuhycfsq4rt5z6tvy5roloznuqpb45xyezeteyr7yhnkylq@thread.v2"
+    },
+    "userConsumptionHorizon": {
+      "__ref": "ConsumptionHorizonBookmark:19:uni01_vwrcxjuhycfsq4rt5z6tvy5roloznuqpb45xyezeteyr7yhnkylq@thread.v2"
+    },
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1622461938396": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>Cool!</p></div>",
+    "originalArrivalTime": "2021-05-31T11:52:18.396Z",
+    "imDisplayName": "Hugh Eland",
+    "id": "1622461938396",
+    "clientMessageId": "2967053591108187458",
+    "from": "8:hughreeling",
+    "messageType": "RichText/Html",
+    "mentions": null,
+    "importance": "Standard",
+    "files": null,
+    "cards": null
+  },
+  "User:8:hughreeling": {
+    "__typename": "User",
+    "id": "8:hughreeling",
+    "objectId": "00000000-0000-0000-7962-9eb7b83509af",
+    "displayName": "Hugh Eland",
+    "givenName": "Hugh",
+    "surname": "Eland",
+    "email": null,
+    "tenantId": null,
+    "isFederated": null,
+    "jobTitle": null,
+    "department": null,
+    "featureSettings": {
+      "__typename": "UserFeatureSettingsInfo",
+      "coExistenceMode": null,
+      "isPrivateChatEnabled": true
+    },
+    "type": "TFLUser"
+  },
+  "User:8:sergii.mykhailov": {
+    "__typename": "User",
+    "id": "8:sergii.mykhailov",
+    "objectId": "00000000-0000-0000-ffa9-26770e320315",
+    "displayName": "Sergii Mykhailov",
+    "givenName": "Sergii",
+    "surname": "Mykhailov",
+    "email": null,
+    "tenantId": null,
+    "isFederated": null,
+    "jobTitle": null,
+    "department": null,
+    "featureSettings": {
+      "__typename": "UserFeatureSettingsInfo",
+      "coExistenceMode": null,
+      "isPrivateChatEnabled": true
+    },
+    "type": "TFLUser"
+  },
+  "ConsumptionHorizon:19:9ea287ea158a4923b59417acae605fe0@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:9ea287ea158a4923b59417acae605fe0@thread.v2",
+    "originalArrivalTime": "2021-06-23T13:09:14.498Z",
+    "timeStamp": "2021-06-29T17:55:00.868Z",
+    "clientMessageId": "1624453754498"
+  },
+  "ConsumptionHorizonBookmark:19:9ea287ea158a4923b59417acae605fe0@thread.v2": {
+    "__typename": "ConsumptionHorizonBookmark",
+    "id": "19:9ea287ea158a4923b59417acae605fe0@thread.v2",
+    "originalArrivalTime": "1970-01-01T00:00:00.000Z",
+    "timeStamp": "2021-06-23T13:09:22.023Z",
+    "clientMessageId": "0"
+  },
+  "Conversation:19:9ea287ea158a4923b59417acae605fe0@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:9ea287ea158a4923b59417acae605fe0@thread.v2",
+    "title": "A-Team for test",
+    "isOneOnOne": false,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": false,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1622461938396"
+    },
+    "lastMessageSender": {
+      "__ref": "User:8:hughreeling"
+    },
+    "memberIds": [
+      "8:hughreeling",
+      "8:sergii.mykhailov",
+      "8:pompomon"
+    ],
+    "me": null,
+    "membersLimited": [
+      {
+        "__ref": "User:8:hughreeling"
+      },
+      {
+        "__ref": "User:8:pompomon"
+      },
+      {
+        "__ref": "User:8:sergii.mykhailov"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "Hugh Eland",
+      "pompomon pompomon",
+      "Sergii Mykhailov"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": true,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": null,
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": false,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:9ea287ea158a4923b59417acae605fe0@thread.v2"
+    },
+    "consumptionHorizonBookmark": {
+      "__ref": "ConsumptionHorizonBookmark:19:9ea287ea158a4923b59417acae605fe0@thread.v2"
+    },
+    "userConsumptionHorizon": {
+      "__ref": "ConsumptionHorizonBookmark:19:9ea287ea158a4923b59417acae605fe0@thread.v2"
+    },
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1622461821140": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>This is a new test chat message - checking current experience is only as broken as we expected.</p></div>",
+    "originalArrivalTime": "2021-05-31T11:50:21.140Z",
+    "imDisplayName": "Hugh Eland",
+    "id": "1622461821140",
+    "clientMessageId": "1865652249107215122",
+    "from": "8:hughreeling",
+    "messageType": "RichText/Html",
+    "mentions": [],
+    "importance": "Standard",
+    "files": [],
+    "cards": []
+  },
+  "ConsumptionHorizon:19:82d4b6ef74104ad7ae5524501a14d9d6@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:82d4b6ef74104ad7ae5524501a14d9d6@thread.v2",
+    "originalArrivalTime": "2021-05-31T11:50:39.262Z",
+    "timeStamp": "2021-06-17T17:05:58.515Z",
+    "clientMessageId": "1622461839262"
+  },
+  "Conversation:19:82d4b6ef74104ad7ae5524501a14d9d6@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:82d4b6ef74104ad7ae5524501a14d9d6@thread.v2",
+    "title": null,
+    "isOneOnOne": false,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": null,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1622461821140"
+    },
+    "lastMessageSender": null,
+    "memberIds": [
+      "8:pompomon",
+      "8:sergii.mykhailov",
+      "8:live:vejrjakub"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:pompomon"
+      },
+      {
+        "__ref": "User:8:sergii.mykhailov"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "pompomon pompomon",
+      "Sergii Mykhailov"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": true,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": "1624461580697",
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:82d4b6ef74104ad7ae5524501a14d9d6@thread.v2"
+    },
+    "consumptionHorizonBookmark": null,
+    "userConsumptionHorizon": null,
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1622058198561": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>fdg</p></div>",
+    "originalArrivalTime": "2021-05-26T19:43:18.561Z",
+    "imDisplayName": "Tyler Hilde",
+    "id": "1622058198561",
+    "clientMessageId": "3454012370209754036",
+    "from": "8:live:.cid.465b8a4b24429acb",
+    "messageType": "RichText/Html",
+    "mentions": [],
+    "importance": "Standard",
+    "files": [],
+    "cards": []
+  },
+  "User:8:live:.cid.465b8a4b24429acb": {
+    "__typename": "User",
+    "id": "8:live:.cid.465b8a4b24429acb",
+    "objectId": "00000000-0000-0000-465b-8a4b24429acb",
+    "displayName": "Tyler Hilde",
+    "givenName": "Tyler",
+    "surname": "Hilde",
+    "email": null,
+    "tenantId": null,
+    "isFederated": null,
+    "jobTitle": null,
+    "department": null,
+    "featureSettings": {
+      "__typename": "UserFeatureSettingsInfo",
+      "coExistenceMode": null,
+      "isPrivateChatEnabled": true
+    },
+    "type": "TFLUser"
+  },
+  "ConsumptionHorizon:19:uni01_osmbtx2eriaakfvd2724smjgieanwgkjo5izph2ozgime7y2chea@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:uni01_osmbtx2eriaakfvd2724smjgieanwgkjo5izph2ozgime7y2chea@thread.v2",
+    "originalArrivalTime": "2021-05-26T19:43:18.561Z",
+    "timeStamp": "2021-06-17T17:12:18.661Z",
+    "clientMessageId": "3454012370209754036"
+  },
+  "ConsumptionHorizonBookmark:19:uni01_osmbtx2eriaakfvd2724smjgieanwgkjo5izph2ozgime7y2chea@thread.v2": {
+    "__typename": "ConsumptionHorizonBookmark",
+    "id": "19:uni01_osmbtx2eriaakfvd2724smjgieanwgkjo5izph2ozgime7y2chea@thread.v2",
+    "originalArrivalTime": "1970-01-01T00:00:00.000Z",
+    "timeStamp": "2021-05-26T19:45:30.971Z",
+    "clientMessageId": "0"
+  },
+  "Conversation:19:uni01_osmbtx2eriaakfvd2724smjgieanwgkjo5izph2ozgime7y2chea@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:uni01_osmbtx2eriaakfvd2724smjgieanwgkjo5izph2ozgime7y2chea@thread.v2",
+    "title": null,
+    "isOneOnOne": true,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": null,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1622058198561"
+    },
+    "lastMessageSender": {
+      "__ref": "User:8:live:.cid.465b8a4b24429acb"
+    },
+    "memberIds": [
+      "8:live:vejrjakub",
+      "8:live:.cid.465b8a4b24429acb"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:live:.cid.465b8a4b24429acb"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "Tyler Hilde"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": false,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": "1624461344064",
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:uni01_osmbtx2eriaakfvd2724smjgieanwgkjo5izph2ozgime7y2chea@thread.v2"
+    },
+    "consumptionHorizonBookmark": {
+      "__ref": "ConsumptionHorizonBookmark:19:uni01_osmbtx2eriaakfvd2724smjgieanwgkjo5izph2ozgime7y2chea@thread.v2"
+    },
+    "userConsumptionHorizon": {
+      "__ref": "ConsumptionHorizonBookmark:19:uni01_osmbtx2eriaakfvd2724smjgieanwgkjo5izph2ozgime7y2chea@thread.v2"
+    },
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1622055563693": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>fdf</p></div>",
+    "originalArrivalTime": "2021-05-26T18:59:23.693Z",
+    "imDisplayName": "Jakub Vejr",
+    "id": "1622055563693",
+    "clientMessageId": "1189608525212579280",
+    "from": "8:live:vejrjakub",
+    "messageType": "RichText/Html",
+    "mentions": [],
+    "importance": "Standard",
+    "files": [],
+    "cards": []
+  },
+  "User:8:live:yuanboxue": {
+    "__typename": "User",
+    "id": "8:live:yuanboxue",
+    "objectId": "00000000-0000-0000-d9a9-2ae170dd8419",
+    "displayName": "Yuanbo Xue aka Amber",
+    "givenName": "Yuanbo",
+    "surname": "Xue aka Amber",
+    "email": null,
+    "tenantId": null,
+    "isFederated": null,
+    "jobTitle": null,
+    "department": null,
+    "featureSettings": {
+      "__typename": "UserFeatureSettingsInfo",
+      "coExistenceMode": null,
+      "isPrivateChatEnabled": true
+    },
+    "type": "TFLUser"
+  },
+  "ConsumptionHorizon:19:uni01_u6ho6womsyhndju6ldijc63g6ay74vika6o3yxv4wrkayxvvmwtq@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:uni01_u6ho6womsyhndju6ldijc63g6ay74vika6o3yxv4wrkayxvvmwtq@thread.v2",
+    "originalArrivalTime": "2021-06-29T14:00:52.710Z",
+    "timeStamp": "2021-06-30T09:31:18.545Z",
+    "clientMessageId": "93987301310791217"
+  },
+  "ConsumptionHorizonBookmark:19:uni01_u6ho6womsyhndju6ldijc63g6ay74vika6o3yxv4wrkayxvvmwtq@thread.v2": {
+    "__typename": "ConsumptionHorizonBookmark",
+    "id": "19:uni01_u6ho6womsyhndju6ldijc63g6ay74vika6o3yxv4wrkayxvvmwtq@thread.v2",
+    "originalArrivalTime": "1970-01-01T00:00:00.000Z",
+    "timeStamp": "2021-05-26T19:43:15.839Z",
+    "clientMessageId": "0"
+  },
+  "Conversation:19:uni01_u6ho6womsyhndju6ldijc63g6ay74vika6o3yxv4wrkayxvvmwtq@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:uni01_u6ho6womsyhndju6ldijc63g6ay74vika6o3yxv4wrkayxvvmwtq@thread.v2",
+    "title": null,
+    "isOneOnOne": true,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": null,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1622055563693"
+    },
+    "lastMessageSender": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "memberIds": [
+      "8:live:vejrjakub",
+      "8:live:yuanboxue"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:live:yuanboxue"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "Yuanbo Xue aka Amber"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": false,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": "1621330279243",
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:uni01_u6ho6womsyhndju6ldijc63g6ay74vika6o3yxv4wrkayxvvmwtq@thread.v2"
+    },
+    "consumptionHorizonBookmark": {
+      "__ref": "ConsumptionHorizonBookmark:19:uni01_u6ho6womsyhndju6ldijc63g6ay74vika6o3yxv4wrkayxvvmwtq@thread.v2"
+    },
+    "userConsumptionHorizon": {
+      "__ref": "ConsumptionHorizonBookmark:19:uni01_u6ho6womsyhndju6ldijc63g6ay74vika6o3yxv4wrkayxvvmwtq@thread.v2"
+    },
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1619529914285": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><div>\r\n<p><span title=\"Smiley\" type=\"(smile)\" class=\"animated-emoticon-20-smile\"><img itemscope itemtype=\"http://schema.skype.com/Emoji\" itemid=\"smile\" src=\"https://statics.teams.cdn.office.net/evergreen-assets/skype/v2/smile/20.png\" title=\"Smiley\" alt=\"🙂\" style=\"width:20px;height:20px\" /></span> ok </p>\r\n</div></div>",
+    "originalArrivalTime": "2021-04-27T13:25:14.285Z",
+    "imDisplayName": "Raluca Vasiliu",
+    "id": "1619529914285",
+    "clientMessageId": "77759203080323432",
+    "from": "8:live:.cid.8d076fb6c18d749f",
+    "messageType": "RichText/Html",
+    "mentions": null,
+    "importance": "Standard",
+    "files": null,
+    "cards": null
+  },
+  "User:8:live:.cid.8d076fb6c18d749f": {
+    "__typename": "User",
+    "id": "8:live:.cid.8d076fb6c18d749f",
+    "objectId": "00000000-0000-0000-8d07-6fb6c18d749f",
+    "displayName": "Raluca Vasiliu",
+    "givenName": "Raluca",
+    "surname": "Vasiliu",
+    "email": null,
+    "tenantId": null,
+    "isFederated": null,
+    "jobTitle": null,
+    "department": null,
+    "featureSettings": {
+      "__typename": "UserFeatureSettingsInfo",
+      "coExistenceMode": null,
+      "isPrivateChatEnabled": true
+    },
+    "type": "TFLUser"
+  },
+  "ConsumptionHorizon:19:uni01_pjfbtpl6kjl6ipjjsobiqwgpkku6aumdqo4fwsgcgo72y4zhcpha@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:uni01_pjfbtpl6kjl6ipjjsobiqwgpkku6aumdqo4fwsgcgo72y4zhcpha@thread.v2",
+    "originalArrivalTime": "2021-04-27T13:25:14.285Z",
+    "timeStamp": "2021-04-29T12:17:31.956Z",
+    "clientMessageId": "77759203080323432"
+  },
+  "Conversation:19:uni01_pjfbtpl6kjl6ipjjsobiqwgpkku6aumdqo4fwsgcgo72y4zhcpha@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:uni01_pjfbtpl6kjl6ipjjsobiqwgpkku6aumdqo4fwsgcgo72y4zhcpha@thread.v2",
+    "title": null,
+    "isOneOnOne": true,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": null,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1619529914285"
+    },
+    "lastMessageSender": {
+      "__ref": "User:8:live:.cid.8d076fb6c18d749f"
+    },
+    "memberIds": [
+      "8:live:vejrjakub",
+      "8:live:.cid.8d076fb6c18d749f"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:live:.cid.8d076fb6c18d749f"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "Raluca Vasiliu"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": false,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": "1620745376182",
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:uni01_pjfbtpl6kjl6ipjjsobiqwgpkku6aumdqo4fwsgcgo72y4zhcpha@thread.v2"
+    },
+    "consumptionHorizonBookmark": null,
+    "userConsumptionHorizon": null,
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1612433859027": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>It kind of works <span title=\"Winking\" type=\"(wink)\" class=\"animated-emoticon-20-wink\"><img itemscope itemtype=\"http://schema.skype.com/Emoji\" itemid=\"wink\" src=\"https://statics.teams.cdn.office.net/evergreen-assets/skype/v2/wink/20.png\" title=\"Winking\" alt=\"😉\" style=\"width:20px;height:20px\" /></span></p></div>",
+    "originalArrivalTime": "2021-02-04T10:17:39.027Z",
+    "imDisplayName": "Hugh Eland",
+    "id": "1612433859027",
+    "clientMessageId": "3862942079770712625",
+    "from": "8:hughreeling",
+    "messageType": "RichText/Html",
+    "mentions": null,
+    "importance": "Standard",
+    "files": null,
+    "cards": null
+  },
+  "ConsumptionHorizon:19:uni01_zqysz32jta4v6lmjgwmwjhsghozifctz53i5skwxuuwmeyprtjga@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:uni01_zqysz32jta4v6lmjgwmwjhsghozifctz53i5skwxuuwmeyprtjga@thread.v2",
+    "originalArrivalTime": "2021-02-04T10:17:39.027Z",
+    "timeStamp": "2021-04-22T18:11:17.073Z",
+    "clientMessageId": "3862942079770712625"
+  },
+  "ConsumptionHorizonBookmark:19:uni01_zqysz32jta4v6lmjgwmwjhsghozifctz53i5skwxuuwmeyprtjga@thread.v2": {
+    "__typename": "ConsumptionHorizonBookmark",
+    "id": "19:uni01_zqysz32jta4v6lmjgwmwjhsghozifctz53i5skwxuuwmeyprtjga@thread.v2",
+    "originalArrivalTime": "1970-01-01T00:00:00.000Z",
+    "timeStamp": "2021-05-26T14:35:06.437Z",
+    "clientMessageId": "3862942079770712625"
+  },
+  "Conversation:19:uni01_zqysz32jta4v6lmjgwmwjhsghozifctz53i5skwxuuwmeyprtjga@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:uni01_zqysz32jta4v6lmjgwmwjhsghozifctz53i5skwxuuwmeyprtjga@thread.v2",
+    "title": null,
+    "isOneOnOne": true,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": null,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1612433859027"
+    },
+    "lastMessageSender": {
+      "__ref": "User:8:hughreeling"
+    },
+    "memberIds": [
+      "8:hughreeling",
+      "8:live:vejrjakub"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:hughreeling"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "Hugh Eland"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": false,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": null,
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:uni01_zqysz32jta4v6lmjgwmwjhsghozifctz53i5skwxuuwmeyprtjga@thread.v2"
+    },
+    "consumptionHorizonBookmark": {
+      "__ref": "ConsumptionHorizonBookmark:19:uni01_zqysz32jta4v6lmjgwmwjhsghozifctz53i5skwxuuwmeyprtjga@thread.v2"
+    },
+    "userConsumptionHorizon": {
+      "__ref": "ConsumptionHorizonBookmark:19:uni01_zqysz32jta4v6lmjgwmwjhsghozifctz53i5skwxuuwmeyprtjga@thread.v2"
+    },
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1616577573086": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>test\\</p></div>",
+    "originalArrivalTime": "2021-03-24T09:19:33.086Z",
+    "imDisplayName": "Jakub Vejr",
+    "id": "1616577573086",
+    "clientMessageId": "3822467850251420375",
+    "from": "8:live:vejrjakub",
+    "messageType": "RichText/Html",
+    "mentions": null,
+    "importance": "Standard",
+    "files": null,
+    "cards": null
+  },
+  "ConsumptionHorizon:19:uni01_46cixvhwst2yklst5sk5e6ysg7lzyzlzh35twohohqm7v6urk7oq@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:uni01_46cixvhwst2yklst5sk5e6ysg7lzyzlzh35twohohqm7v6urk7oq@thread.v2",
+    "originalArrivalTime": "2021-03-24T09:19:33.086Z",
+    "timeStamp": "2021-04-26T15:39:38.457Z",
+    "clientMessageId": "3822467850251420375"
+  },
+  "ConsumptionHorizonBookmark:19:uni01_46cixvhwst2yklst5sk5e6ysg7lzyzlzh35twohohqm7v6urk7oq@thread.v2": {
+    "__typename": "ConsumptionHorizonBookmark",
+    "id": "19:uni01_46cixvhwst2yklst5sk5e6ysg7lzyzlzh35twohohqm7v6urk7oq@thread.v2",
+    "originalArrivalTime": "1970-01-01T00:00:00.000Z",
+    "timeStamp": "2021-04-27T06:31:52.402Z",
+    "clientMessageId": "3822467850251420375"
+  },
+  "Conversation:19:uni01_46cixvhwst2yklst5sk5e6ysg7lzyzlzh35twohohqm7v6urk7oq@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:uni01_46cixvhwst2yklst5sk5e6ysg7lzyzlzh35twohohqm7v6urk7oq@thread.v2",
+    "title": null,
+    "isOneOnOne": true,
+    "isDisabled": false,
+    "isMuted": true,
+    "isLastMessageFromMe": null,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1616577573086"
+    },
+    "lastMessageSender": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "memberIds": [
+      "8:live:vejrjakub",
+      "8:live:fidelman-life"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:live:fidelman-life"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "Andrei Fidelman"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": false,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": "1619171087866",
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:uni01_46cixvhwst2yklst5sk5e6ysg7lzyzlzh35twohohqm7v6urk7oq@thread.v2"
+    },
+    "consumptionHorizonBookmark": {
+      "__ref": "ConsumptionHorizonBookmark:19:uni01_46cixvhwst2yklst5sk5e6ysg7lzyzlzh35twohohqm7v6urk7oq@thread.v2"
+    },
+    "userConsumptionHorizon": {
+      "__ref": "ConsumptionHorizonBookmark:19:uni01_46cixvhwst2yklst5sk5e6ysg7lzyzlzh35twohohqm7v6urk7oq@thread.v2"
+    },
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1626440830661": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>Test</p></div>",
+    "originalArrivalTime": "2021-07-16T13:07:10.661Z",
+    "imDisplayName": "pompomon pompomon",
+    "id": "1626440830661",
+    "clientMessageId": "812396081243402437",
+    "from": "8:pompomon",
+    "messageType": "RichText/Html",
+    "mentions": null,
+    "importance": "Standard",
+    "files": null,
+    "cards": null
+  },
+  "ConsumptionHorizon:19:7b986e2930a1478caa700c6a334b22bb@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:7b986e2930a1478caa700c6a334b22bb@thread.v2",
+    "originalArrivalTime": "2021-07-16T13:12:26.893Z",
+    "timeStamp": "2021-07-16T14:21:47.784Z",
+    "clientMessageId": "3697780612357425796"
+  },
+  "Conversation:19:7b986e2930a1478caa700c6a334b22bb@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:7b986e2930a1478caa700c6a334b22bb@thread.v2",
+    "title": null,
+    "isOneOnOne": false,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": false,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1626440830661"
+    },
+    "lastMessageSender": {
+      "__ref": "User:8:pompomon"
+    },
+    "memberIds": [
+      "8:live:.cid.88ba7703045f8890",
+      "8:pompomon",
+      "8:live:vejrjakub"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:live:.cid.88ba7703045f8890"
+      },
+      {
+        "__ref": "User:8:pompomon"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "Andrei Fidelman",
+      "pompomon pompomon"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": true,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": null,
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:7b986e2930a1478caa700c6a334b22bb@thread.v2"
+    },
+    "consumptionHorizonBookmark": null,
+    "userConsumptionHorizon": null,
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "Message:1626440972391": {
+    "__typename": "Message",
+    "deleteTime": null,
+    "content": "<div><p>Testing hidden group</p></div>",
+    "originalArrivalTime": "2021-07-16T13:09:32.391Z",
+    "imDisplayName": "pompomon pompomon",
+    "id": "1626440972391",
+    "clientMessageId": "3480726427247441593",
+    "from": "8:pompomon",
+    "messageType": "RichText/Html",
+    "mentions": [],
+    "importance": "Standard",
+    "files": [],
+    "cards": []
+  },
+  "ConsumptionHorizon:19:bfb4b577d3f4465ea4ddd7cf5b40588e@thread.v2": {
+    "__typename": "ConsumptionHorizon",
+    "id": "19:bfb4b577d3f4465ea4ddd7cf5b40588e@thread.v2",
+    "originalArrivalTime": "2021-07-16T13:09:32.391Z",
+    "timeStamp": "2021-07-16T14:21:44.145Z",
+    "clientMessageId": "3480726427247441593"
+  },
+  "Conversation:19:bfb4b577d3f4465ea4ddd7cf5b40588e@thread.v2": {
+    "__typename": "Conversation",
+    "id": "19:bfb4b577d3f4465ea4ddd7cf5b40588e@thread.v2",
+    "title": "Test hidden group",
+    "isOneOnOne": false,
+    "isDisabled": false,
+    "isMuted": false,
+    "isLastMessageFromMe": false,
+    "chatSubType": 0,
+    "substrateGroupId": null,
+    "lastMessage": {
+      "__ref": "Message:1626440972391"
+    },
+    "lastMessageSender": {
+      "__ref": "User:8:pompomon"
+    },
+    "memberIds": [
+      "8:pompomon",
+      "8:live:vejrjakub",
+      "8:live:.cid.88ba7703045f8890"
+    ],
+    "me": {
+      "__ref": "User:8:live:vejrjakub"
+    },
+    "membersLimited": [
+      {
+        "__ref": "User:8:live:.cid.88ba7703045f8890"
+      },
+      {
+        "__ref": "User:8:pompomon"
+      }
+    ],
+    "memberDisplayNamesLimited": [
+      "Andrei Fidelman",
+      "pompomon pompomon"
+    ],
+    "hasFederatedUser": false,
+    "hasTflConsumerUser": false,
+    "cfet": true,
+    "hasUnresolvedFederatedUser": false,
+    "hasTflSmsUnverifiedUser": false,
+    "nonTeamsFederatedUserLimitedNames": [],
+    "nonTeamsFederatedUsersLength": 0,
+    "isPrivateChatPolicyDefinedScenario": true,
+    "isChatDisabledForRecipients": false,
+    "chatHistoryHiddenTime": null,
+    "clearHistoryTime": "0",
+    "isDeleted": null,
+    "tflOffNetworkUser": null,
+    "tflOffNetworkUserLength": 0,
+    "hasBotMember": false,
+    "isUserMember": true,
+    "meetingInformation": null,
+    "consumptionHorizon": {
+      "__ref": "ConsumptionHorizon:19:bfb4b577d3f4465ea4ddd7cf5b40588e@thread.v2"
+    },
+    "consumptionHorizonBookmark": null,
+    "userConsumptionHorizon": null,
+    "localClientId": null,
+    "isSfB": false,
+    "isHighImportance": null,
+    "isUrgentImportance": null,
+    "activeCallsCount": null,
+    "datatid": null,
+    "displayName": null,
+    "hasActiveCalls": null,
+    "hasFailedMessages": null,
+    "otherMemberMris": null,
+    "isNewChat": null,
+    "isBotBlocked": null,
+    "isBotUser": null,
+    "isFederated": false,
+    "isHidden": null,
+    "isContactTagged": null,
+    "pictureUpn": null,
+    "pinnedIndex": null,
+    "showAtMention": null,
+    "showMarkers": null,
+    "tooltipTitle": null,
+    "longTitle": null,
+    "pictureGroup": null,
+    "lastMessageTime": null,
+    "messagePreview": null,
+    "messagePreviewAria": null,
+    "isLastMessageText": null,
+    "isMeeting": false,
+    "plGroupKey": null,
+    "presenceSource": null,
+    "hasActions": null,
+    "canBeDiscarded": null,
+    "canBotBeBlocked": null,
+    "canBePinned": null,
+    "canBeMuted": null,
+    "canBeLeft": null,
+    "canBeHidden": null,
+    "canBeFavorited": null,
+    "canTagContact": null,
+    "canPopOut": null,
+    "canManageApps": null
+  },
+  "BaseTab:com.microsoft.chattabs.chat": {
+    "__typename": "BaseTab",
+    "displayNameLocalizationKey": "built_in_chat_tab",
+    "id": "com.microsoft.chattabs.chat",
+    "appId": "com.microsoft.chattabs.chat",
+    "externalAppId": null,
+    "displayName": "Chat",
+    "dateAdded": null,
+    "order": 1,
+    "replyChainId": null,
+    "teamInfo": null,
+    "channelInfo": null
+  },
+  "BaseTab:com.microsoft.chattabs.files": {
+    "__typename": "BaseTab",
+    "displayNameLocalizationKey": "built_in_files_tab",
+    "id": "com.microsoft.chattabs.files",
+    "appId": "com.microsoft.chattabs.files",
+    "externalAppId": null,
+    "displayName": "Files",
+    "dateAdded": null,
+    "order": 2,
+    "replyChainId": null,
+    "teamInfo": null,
+    "channelInfo": null
+  },
+  "BaseTab:com.microsoft.chattabs.photos": {
+    "__typename": "BaseTab",
+    "displayNameLocalizationKey": "built_in_photos_tab",
+    "id": "com.microsoft.chattabs.photos",
+    "appId": "com.microsoft.chattabs.photos",
+    "externalAppId": null,
+    "displayName": "Photos",
+    "dateAdded": null,
+    "order": 3,
+    "replyChainId": null,
+    "teamInfo": null,
+    "channelInfo": null
+  },
+  "Message:1626447199334": {
+    "__typename": "Message",
+    "content": "<showchathistory><sharehistorytime>1626447199334</sharehistorytime></showchathistory>",
+    "originalArrivalTime": "2021-07-16T14:53:19.334Z",
+    "imDisplayName": null,
+    "id": "1626447199334",
+    "callId": null,
+    "from": null,
+    "messageType": "ThreadActivity/ShowChatHistory",
+    "importance": null,
+    "interopDeliveryState": null,
+    "replyPermission": null,
+    "smsDeliveryReports": null,
+    "emotions": null,
+    "emotionsSummary": null,
+    "escalations": null,
+    "mentions": null,
+    "meeting": null,
+    "onBehalfOf": null,
+    "cards": null,
+    "status": null,
+    "diagnosticInfo": {
+      "__typename": "DiagnosticInfo",
+      "diagnosticErrorCode": -1,
+      "diagnosticMessage": null
+    },
+    "clientMessageId": null,
+    "version": "1626447199334",
+    "files": null,
+    "deeplinks": null,
+    "urlPreview": null,
+    "embeddedLinks": null,
+    "dlpContext": null,
+    "deleteTime": null,
+    "editTime": null,
+    "userHasSaved": null,
+    "deletionInfo": {
+      "__typename": "DeletionInfo",
+      "showMessageAsDeleted": false,
+      "canBeUndeleted": false
+    },
+    "translation": {
+      "__typename": "Translation",
+      "status": "NotStarted",
+      "content": null,
+      "fromLanguage": null
+    },
+    "atpSharepointData": null,
+    "isDeletedByAdmin": null
+  },
+  "PlatformAppsFetchPolicy:Personal": {
+    "__typename": "PlatformAppsFetchPolicy",
+    "forceNetworkFetch": true,
+    "scope": "Personal",
+    "convId": null
+  },
+  "PlatformAppsFetchPolicy:GroupChat:19:994b8b86b468411a8bf341dd25b2d20e@thread.v2": {
+    "__typename": "PlatformAppsFetchPolicy",
+    "forceNetworkFetch": true,
+    "scope": "GroupChat",
+    "convId": "19:994b8b86b468411a8bf341dd25b2d20e@thread.v2"
+  },
+  "UserPreferences": {
+    "__typename": "UserPreferences",
+    "userPersonalSettings": {
+      "__typename": "UserSettings",
+      "messagingSettings": {
+        "__typename": "MessagingSettings",
+        "alwaysPopOutNewChat": false,
+        "tflGiphyConsented": false
+      }
+    }
+  },
+  "Presence:8:pompomon_ups": {
+    "__typename": "Presence",
+    "id": "8:pompomon_ups",
+    "availability": "Offline",
+    "activity": "Offline",
+    "isOutOfOffice": false,
+    "statusNote": null,
+    "flwPresence": "None",
+    "flwShifts": null,
+    "isFocus": false
+  },
+  "ComposeMessageState:bottom-compose": {
+    "__typename": "ComposeMessageState",
+    "id": "bottom-compose",
+    "isExpanded": false
+  },
+  "Presence:8:live:yuanboxue_ups": {
+    "__typename": "Presence",
+    "id": "8:live:yuanboxue_ups",
+    "availability": "Offline",
+    "activity": "Offline",
+    "isOutOfOffice": false,
+    "statusNote": null,
+    "flwPresence": "None",
+    "flwShifts": null,
+    "isFocus": false
+  },
+  "Presence:8:hughreeling_ups": {
+    "__typename": "Presence",
+    "id": "8:hughreeling_ups",
+    "availability": "Offline",
+    "activity": "Offline",
+    "isOutOfOffice": false,
+    "statusNote": null,
+    "flwPresence": "None",
+    "flwShifts": null,
+    "isFocus": false
+  },
+  "BotDefinition:0af95b67-5890-4306-9c1c-a8591cead09e": {
+    "__typename": "BotDefinition",
+    "id": "0af95b67-5890-4306-9c1c-a8591cead09e",
+    "scopes": [
+      "GroupChat",
+      "Team"
+    ],
+    "capabilities": {
+      "__typename": "BotCapabilities",
+      "isNotificationOnly": null,
+      "supportsFiles": null,
+      "supportsCalling": null,
+      "supportsVideo": null
+    },
+    "commandLists": [
+      {
+        "__typename": "CommandListDefinition",
+        "commands": [
+          {
+            "__typename": "CommandDefinition",
+            "title": "Your question? Option1, Option2",
+            "description": "Example: What color do you like? Red, Green"
+          },
+          {
+            "__typename": "CommandDefinition",
+            "title": "Help",
+            "description": "Get quick answers and advanced tips"
+          }
+        ],
+        "scopes": [
+          "Team"
+        ]
+      }
+    ]
+  },
+  "MessageExtensionCommand:collectFormData:81fef3a6-72aa-4648-a763-de824aeafb7d:1.0.0": {
+    "__typename": "MessageExtensionCommand",
+    "id": "collectFormData",
+    "title": "Create a new poll",
+    "context": [
+      "Compose",
+      "Message"
+    ],
+    "description": "Easily launch a poll to make group decisions",
+    "initialRun": null,
+    "type": "Action",
+    "parameters": [
+      {
+        "__typename": "MessageExtensionParameter",
+        "name": "name",
+        "title": "title",
+        "description": "",
+        "inputType": null,
+        "value": null,
+        "choices": null
+      }
+    ],
+    "appKey": "81fef3a6-72aa-4648-a763-de824aeafb7d:1.0.0",
+    "fetchTask": true,
+    "taskInfo": {
+      "__typename": "MessageExtensionCommandTaskInfo",
+      "title": null,
+      "height": {
+        "__typename": "DimensionInFloat",
+        "value": 600
+      },
+      "width": {
+        "__typename": "DimensionInFloat",
+        "value": 600
+      },
+      "url": null
+    }
+  },
+  "WebApplicationInfo:c9a559d2-7aab-4f13-a6ed-e7e9c52aec87": {
+    "__typename": "WebApplicationInfo",
+    "id": "c9a559d2-7aab-4f13-a6ed-e7e9c52aec87",
+    "resource": "MicrosoftForms.ReadWrite",
+    "applicationPermissions": null
+  },
+  "AppDefinition:81fef3a6-72aa-4648-a763-de824aeafb7d:1.0.0": {
+    "__typename": "AppDefinition",
+    "id": "81fef3a6-72aa-4648-a763-de824aeafb7d",
+    "name": "Polls",
+    "developerName": "Microsoft Corporation",
+    "developerUrl": "https://support.office.com/forms",
+    "privacyUrl": "https://www.microsoft.com/privacy",
+    "termsOfUseUrl": "https://www.microsoft.com/en/servicesagreement",
+    "version": "1.0.0",
+    "shortDescription": "Easily launch a poll to make group decisions.",
+    "longDescription": "Launch a poll to make group decisions, or simply for fun!",
+    "smallImageUrl": "https://statics.teams.cdn.office.net/evergreen-assets/apps/polls_smallimage.png?v=1.0.0",
+    "largeImageUrl": "https://statics.teams.cdn.office.net/evergreen-assets/apps/polls_largeimage.png?v=1.0.0",
+    "accentColor": "#6264A7",
+    "categories": [
+      "Productivity",
+      "Utilities",
+      "Microsoft"
+    ],
+    "validDomains": [
+      "forms.office-int.com",
+      "forms.officeppe.com",
+      "forms.office.com",
+      "forms.microsoft.com",
+      "login.windows-ppe.net",
+      "login.microsoftonline.com"
+    ],
+    "externalId": null,
+    "tenantId": null,
+    "isFullScreenApp": null,
+    "isFullTrustApp": true,
+    "showTabLoadingIndicator": null,
+    "bots": [
+      {
+        "__ref": "BotDefinition:0af95b67-5890-4306-9c1c-a8591cead09e"
+      }
+    ],
+    "connectors": [],
+    "galleryTabs": [],
+    "staticTabs": [],
+    "meetingExtensionDefinition": null,
+    "authorization": null,
+    "messageExtensions": [
+      {
+        "__typename": "MessageExtensionDefinition",
+        "botId": "0af95b67-5890-4306-9c1c-a8591cead09e",
+        "canUpdateConfiguration": null,
+        "fetchCommands": null,
+        "scopes": [
+          "Team",
+          "Personal"
+        ],
+        "commands": [
+          {
+            "__ref": "MessageExtensionCommand:collectFormData:81fef3a6-72aa-4648-a763-de824aeafb7d:1.0.0"
+          }
+        ],
+        "messageHandlers": []
+      }
+    ],
+    "webApplicationInfo": {
+      "__ref": "WebApplicationInfo:c9a559d2-7aab-4f13-a6ed-e7e9c52aec87"
+    },
+    "screenshotUrls": null,
+    "officeAssetId": null,
+    "videoUrl": null,
+    "devicePermissions": null,
+    "securityComplianceInfo": null,
+    "defaultInstallScope": null,
+    "defaultGroupCapability": null
+  },
+  "InstalledApp:81fef3a6-72aa-4648-a763-de824aeafb7d:Personal": {
+    "__typename": "InstalledApp",
+    "installedScope": "Personal",
+    "id": "81fef3a6-72aa-4648-a763-de824aeafb7d",
+    "installationState": "InstalledAndPermanent",
+    "installedAppProps": {
+      "__typename": "InstalledAppProps",
+      "isUninstallable": true,
+      "isAdminPreInstalled": false
+    },
+    "conversationId": null,
+    "installedVersion": null,
+    "messageExtensionStates": [
+      {
+        "__typename": "MessageExtensionState",
+        "botId": null,
+        "isPinned": true,
+        "pinOrder": 1
+      }
+    ],
+    "definition": {
+      "__ref": "AppDefinition:81fef3a6-72aa-4648-a763-de824aeafb7d:1.0.0"
+    },
+    "permissions": null
+  },
+  "AppDefinition:14d6962d-6eeb-4f48-8890-de55454bb136:1.0": {
+    "__typename": "AppDefinition",
+    "id": "14d6962d-6eeb-4f48-8890-de55454bb136",
+    "name": "Activity",
+    "developerName": "Microsoft",
+    "developerUrl": "https://www.microsoft.com",
+    "privacyUrl": "https://privacy.microsoft.com/privacystatement",
+    "termsOfUseUrl": "https://www.microsoft.com/servicesagreement",
+    "version": "1.0",
+    "shortDescription": "Activity app bar entry.",
+    "longDescription": "Activity app bar entry.",
+    "smallImageUrl": "svg/icons-bell.html",
+    "largeImageUrl": "https://statics.teams.cdn.office.net/evergreen-assets/apps/activity_largeimage.png",
+    "accentColor": "#ffffff",
+    "categories": null,
+    "validDomains": null,
+    "externalId": null,
+    "tenantId": null,
+    "isFullScreenApp": null,
+    "isFullTrustApp": null,
+    "showTabLoadingIndicator": null,
+    "bots": [],
+    "connectors": [],
+    "galleryTabs": [],
+    "staticTabs": [],
+    "meetingExtensionDefinition": null,
+    "authorization": null,
+    "messageExtensions": [],
+    "webApplicationInfo": null,
+    "screenshotUrls": null,
+    "officeAssetId": null,
+    "videoUrl": null,
+    "devicePermissions": null,
+    "securityComplianceInfo": null,
+    "defaultInstallScope": null,
+    "defaultGroupCapability": null
+  },
+  "InstalledApp:14d6962d-6eeb-4f48-8890-de55454bb136:Personal": {
+    "__typename": "InstalledApp",
+    "installedScope": "Personal",
+    "id": "14d6962d-6eeb-4f48-8890-de55454bb136",
+    "installationState": "InstalledAndPermanent",
+    "installedAppProps": {
+      "__typename": "InstalledAppProps",
+      "isUninstallable": false,
+      "isAdminPreInstalled": false
+    },
+    "conversationId": null,
+    "installedVersion": null,
+    "messageExtensionStates": null,
+    "definition": {
+      "__ref": "AppDefinition:14d6962d-6eeb-4f48-8890-de55454bb136:1.0"
+    },
+    "permissions": null
+  },
+  "AppDefinition:1ded03cb-ece5-4e7c-9f73-61c375528078:0.0.19": {
+    "__typename": "AppDefinition",
+    "id": "1ded03cb-ece5-4e7c-9f73-61c375528078",
+    "name": "Tasks",
+    "developerName": "Microsoft Corporation",
+    "developerUrl": "https://tasks.office.com",
+    "privacyUrl": "https://privacy.microsoft.com/privacystatement",
+    "termsOfUseUrl": "https://www.microsoft.com/servicesagreement",
+    "version": "0.0.19",
+    "shortDescription": "Teams Tasks app",
+    "longDescription": "Tasks makes it easy to stay organized. Create, assign, and track tasks individually or collaboratively with others",
+    "smallImageUrl": "https://statics.teams.cdn.office.net/evergreen-assets/apps/1ded03cb-ece5-4e7c-9f73-61c375528078_smallImage.png?v=0.0.19",
+    "largeImageUrl": "https://statics.teams.cdn.office.net/evergreen-assets/apps/1ded03cb-ece5-4e7c-9f73-61c375528078_largeImage.png?v=0.0.19",
+    "accentColor": "#6264A7",
+    "categories": [
+      "Microsoft",
+      "Productivity",
+      "ProjectManagement"
+    ],
+    "validDomains": [
+      "tasks.teams.microsoft.com",
+      "retailservices.teams.microsoft.com",
+      "retailservices-ppe.teams.microsoft.com",
+      "tasks.office.com",
+      "*.office.com"
+    ],
+    "externalId": null,
+    "tenantId": null,
+    "isFullScreenApp": true,
+    "isFullTrustApp": true,
+    "showTabLoadingIndicator": true,
+    "bots": [],
+    "connectors": [],
+    "galleryTabs": [
+      {
+        "__typename": "GalleryTabDefinition",
+        "configurationUrl": "https://tasks.teams.microsoft.com/ui/tasks/chatConsumerTabConfig?chatId={chatId}&tid={tid}&userObjectId={userObjectId}&sessionId={sessionId}&theme={theme}&locale={locale}&ringId={ringId}&PlannerRouteHint={tid}",
+        "canUpdateConfiguration": null,
+        "canHaveTabConversation": false,
+        "scopes": [
+          "Team",
+          "GroupChat"
+        ],
+        "meetingSurfaces": [],
+        "context": []
+      }
+    ],
+    "staticTabs": [
+      {
+        "__typename": "StaticTabDefinition",
+        "entityId": "teamstasks.personalApp.mytasks",
+        "name": "My Tasks",
+        "order": null,
+        "contentUrl": "https://tasks.teams.microsoft.com/ui/tasks/personalApp/alltasklists/taskListType/smartList/SL_AssignedToMe?subEntityId={subEntityId}&entityId={entityId}&tid={tid}&userObjectId={userObjectId}&sessionId={sessionId}&theme={theme}&locale={locale}&ringId={ringId}",
+        "contentBotId": null,
+        "websiteUrl": "https://tasks.teams.microsoft.com/ui/tasks/",
+        "scopes": [
+          "Personal"
+        ],
+        "context": [],
+        "containerAppIds": null
+      }
+    ],
+    "meetingExtensionDefinition": null,
+    "authorization": null,
+    "messageExtensions": [],
+    "webApplicationInfo": null,
+    "screenshotUrls": null,
+    "officeAssetId": null,
+    "videoUrl": null,
+    "devicePermissions": null,
+    "securityComplianceInfo": null,
+    "defaultInstallScope": null,
+    "defaultGroupCapability": null
+  },
+  "InstalledApp:1ded03cb-ece5-4e7c-9f73-61c375528078:Personal": {
+    "__typename": "InstalledApp",
+    "installedScope": "Personal",
+    "id": "1ded03cb-ece5-4e7c-9f73-61c375528078",
+    "installationState": "InstalledAndPermanent",
+    "installedAppProps": {
+      "__typename": "InstalledAppProps",
+      "isUninstallable": true,
+      "isAdminPreInstalled": false
+    },
+    "conversationId": null,
+    "installedVersion": null,
+    "messageExtensionStates": null,
+    "definition": {
+      "__ref": "AppDefinition:1ded03cb-ece5-4e7c-9f73-61c375528078:0.0.19"
+    },
+    "permissions": null
+  },
+  "WebApplicationInfo:c9224372-5534-42cb-a48b-8db4f4a3892e": {
+    "__typename": "WebApplicationInfo",
+    "id": "c9224372-5534-42cb-a48b-8db4f4a3892e",
+    "resource": "https://teams.microsoft.com",
+    "applicationPermissions": null
+  },
+  "AppDefinition:ef56c0de-36fc-4ef8-b417-3d82ba9d073c:1.0": {
+    "__typename": "AppDefinition",
+    "id": "ef56c0de-36fc-4ef8-b417-3d82ba9d073c",
+    "name": "Calendar",
+    "developerName": "Microsoft",
+    "developerUrl": "https://www.microsoft.com",
+    "privacyUrl": "https://privacy.microsoft.com/privacystatement",
+    "termsOfUseUrl": "https://www.microsoft.com/servicesagreement",
+    "version": "1.0",
+    "shortDescription": "Calendar app bar entry.",
+    "longDescription": "Calendar app bar entry.",
+    "smallImageUrl": "svg/icons-calendar-medium.html",
+    "largeImageUrl": "https://statics.teams.cdn.office.net/evergreen-assets/apps/meetings_largeimage.png",
+    "accentColor": "#ffffff",
+    "categories": null,
+    "validDomains": null,
+    "externalId": null,
+    "tenantId": null,
+    "isFullScreenApp": null,
+    "isFullTrustApp": null,
+    "showTabLoadingIndicator": null,
+    "bots": [],
+    "connectors": [],
+    "galleryTabs": [],
+    "staticTabs": [],
+    "meetingExtensionDefinition": null,
+    "authorization": null,
+    "messageExtensions": [],
+    "webApplicationInfo": {
+      "__ref": "WebApplicationInfo:c9224372-5534-42cb-a48b-8db4f4a3892e"
+    },
+    "screenshotUrls": null,
+    "officeAssetId": null,
+    "videoUrl": null,
+    "devicePermissions": null,
+    "securityComplianceInfo": null,
+    "defaultInstallScope": null,
+    "defaultGroupCapability": null
+  },
+  "InstalledApp:ef56c0de-36fc-4ef8-b417-3d82ba9d073c:Personal": {
+    "__typename": "InstalledApp",
+    "installedScope": "Personal",
+    "id": "ef56c0de-36fc-4ef8-b417-3d82ba9d073c",
+    "installationState": "InstalledAndPermanent",
+    "installedAppProps": {
+      "__typename": "InstalledAppProps",
+      "isUninstallable": false,
+      "isAdminPreInstalled": false
+    },
+    "conversationId": null,
+    "installedVersion": null,
+    "messageExtensionStates": null,
+    "definition": {
+      "__ref": "AppDefinition:ef56c0de-36fc-4ef8-b417-3d82ba9d073c:1.0"
+    },
+    "permissions": null
+  },
+  "AppDefinition:86fcd49b-61a2-4701-b771-54728cd291fb:1.0": {
+    "__typename": "AppDefinition",
+    "id": "86fcd49b-61a2-4701-b771-54728cd291fb",
+    "name": "Chat",
+    "developerName": "Microsoft",
+    "developerUrl": "https://www.microsoft.com",
+    "privacyUrl": "https://privacy.microsoft.com/privacystatement",
+    "termsOfUseUrl": "https://www.microsoft.com/servicesagreement",
+    "version": "1.0",
+    "shortDescription": "Chat app bar entry.",
+    "longDescription": "Chat app bar entry.",
+    "smallImageUrl": "svg/icons-chat-medium.html",
+    "largeImageUrl": "https://statics.teams.cdn.office.net/evergreen-assets/apps/chat_largeimage.png",
+    "accentColor": "#ffffff",
+    "categories": null,
+    "validDomains": null,
+    "externalId": null,
+    "tenantId": null,
+    "isFullScreenApp": null,
+    "isFullTrustApp": null,
+    "showTabLoadingIndicator": null,
+    "bots": [],
+    "connectors": [],
+    "galleryTabs": [],
+    "staticTabs": [],
+    "meetingExtensionDefinition": null,
+    "authorization": null,
+    "messageExtensions": [],
+    "webApplicationInfo": null,
+    "screenshotUrls": null,
+    "officeAssetId": null,
+    "videoUrl": null,
+    "devicePermissions": null,
+    "securityComplianceInfo": null,
+    "defaultInstallScope": null,
+    "defaultGroupCapability": null
+  },
+  "InstalledApp:86fcd49b-61a2-4701-b771-54728cd291fb:Personal": {
+    "__typename": "InstalledApp",
+    "installedScope": "Personal",
+    "id": "86fcd49b-61a2-4701-b771-54728cd291fb",
+    "installationState": "InstalledAndPermanent",
+    "installedAppProps": {
+      "__typename": "InstalledAppProps",
+      "isUninstallable": false,
+      "isAdminPreInstalled": false
+    },
+    "conversationId": null,
+    "installedVersion": null,
+    "messageExtensionStates": null,
+    "definition": {
+      "__ref": "AppDefinition:86fcd49b-61a2-4701-b771-54728cd291fb:1.0"
+    },
+    "permissions": null
+  },
+  "AppDefinition:5a0e35f9-d3c8-45b6-9dd9-983ab47f1b83:1.0": {
+    "__typename": "AppDefinition",
+    "id": "5a0e35f9-d3c8-45b6-9dd9-983ab47f1b83",
+    "name": "Help",
+    "developerName": "Microsoft Corporation",
+    "developerUrl": "https://products.office.com/microsoft-teams/group-chat-software",
+    "privacyUrl": "https://privacy.microsoft.com/privacystatement",
+    "termsOfUseUrl": "https://www.microsoft.com/servicesagreement",
+    "version": "1.0",
+    "shortDescription": "In-App Teams Help",
+    "longDescription": "Help, Training and Support content for Teams",
+    "smallImageUrl": "https://statics.teams.cdn.office.net/evergreen-assets/apps/help_largeimage.png",
+    "largeImageUrl": "https://statics.teams.cdn.office.net/evergreen-assets/apps/help_largeimage.png",
+    "accentColor": "#ffffff",
+    "categories": [
+      "CustomerSupport",
+      "Productivity",
+      "Microsoft"
+    ],
+    "validDomains": [
+      "support.office.com"
+    ],
+    "externalId": null,
+    "tenantId": null,
+    "isFullScreenApp": null,
+    "isFullTrustApp": null,
+    "showTabLoadingIndicator": null,
+    "bots": [],
+    "connectors": [],
+    "galleryTabs": [],
+    "staticTabs": [
+      {
+        "__typename": "StaticTabDefinition",
+        "entityId": "help",
+        "name": "Help",
+        "order": null,
+        "contentUrl": "https://support.office.com/f1/home/?shownav=True&NS=MSFTTEAMS&version=16&omkt={locale}&context=%7B%22TeamsTheme%22%3A%22{theme}%22%2C%22TeamsTenantSKU%22%3A%22TFL%22%2C%22TeamsUserLicenseType%22%3A%22{userLicenseType}%22%2C%22SessionId%22%3A%22{sessionId}%22%2C%22AppVersionMajor%22%3A%2216%22%2C%22AppVersionMinor%22%3A%220%22%2C%22AppVersionBuild%22%3A%220%22%2C%22AppVersionUpdate%22%3A%220%22%2C%22RingId%22%3A%22{ringId}%22%2C%22HostClientType%22%3A%22{hostClientType}%22%7D",
+        "contentBotId": null,
+        "websiteUrl": null,
+        "scopes": [
+          "Personal"
+        ],
+        "context": [],
+        "containerAppIds": null
+      },
+      {
+        "__typename": "StaticTabDefinition",
+        "entityId": "training",
+        "name": "Training",
+        "order": null,
+        "contentUrl": "https://support.office.com/f1/home/?ShowNav=True&HelpID=teamstraining1&NS=MSFTTEAMS&version=16&omkt={locale}&context=%7B%22TeamsTheme%22%3A%22{theme}%22%2C%22TeamsTenantSKU%22%3A%22TFL%22%2C%22TeamsUserLicenseType%22%3A%22{userLicenseType}%22%2C%22SessionId%22%3A%22{sessionId}%22%2C%22AppVersionMajor%22%3A%2216%22%2C%22AppVersionMinor%22%3A%220%22%2C%22AppVersionBuild%22%3A%220%22%2C%22AppVersionUpdate%22%3A%220%22%2C%22RingId%22%3A%22{ringId}%22%2C%22HostClientType%22%3A%22{hostClientType}%22%7D",
+        "contentBotId": null,
+        "websiteUrl": null,
+        "scopes": [
+          "Personal"
+        ],
+        "context": [],
+        "containerAppIds": null
+      },
+      {
+        "__typename": "StaticTabDefinition",
+        "entityId": "release-notes",
+        "name": "What's New",
+        "order": null,
+        "contentUrl": "https://support.office.com/f1/home/?ShowNav=True&HelpId=teamswhatsnew1&NS=MSFTTEAMS&version=16&omkt={locale}&context=%7B%22TeamsTheme%22%3A%22{theme}%22%2C%22TeamsTenantSKU%22%3A%22TFL%22%2C%22TeamsUserLicenseType%22%3A%22{userLicenseType}%22%2C%22SessionId%22%3A%22{sessionId}%22%2C%22AppVersionMajor%22%3A%2216%22%2C%22AppVersionMinor%22%3A%220%22%2C%22AppVersionBuild%22%3A%220%22%2C%22AppVersionUpdate%22%3A%220%22%2C%22RingId%22%3A%22{ringId}%22%2C%22HostClientType%22%3A%22{hostClientType}%22%7D",
+        "contentBotId": null,
+        "websiteUrl": null,
+        "scopes": [
+          "Personal"
+        ],
+        "context": [],
+        "containerAppIds": null
+      }
+    ],
+    "meetingExtensionDefinition": null,
+    "authorization": null,
+    "messageExtensions": [],
+    "webApplicationInfo": null,
+    "screenshotUrls": null,
+    "officeAssetId": null,
+    "videoUrl": null,
+    "devicePermissions": null,
+    "securityComplianceInfo": null,
+    "defaultInstallScope": null,
+    "defaultGroupCapability": null
+  },
+  "InstalledApp:5a0e35f9-d3c8-45b6-9dd9-983ab47f1b83:Personal": {
+    "__typename": "InstalledApp",
+    "installedScope": "Personal",
+    "id": "5a0e35f9-d3c8-45b6-9dd9-983ab47f1b83",
+    "installationState": "InstalledAndPermanent",
+    "installedAppProps": {
+      "__typename": "InstalledAppProps",
+      "isUninstallable": true,
+      "isAdminPreInstalled": false
+    },
+    "conversationId": null,
+    "installedVersion": null,
+    "messageExtensionStates": null,
+    "definition": {
+      "__ref": "AppDefinition:5a0e35f9-d3c8-45b6-9dd9-983ab47f1b83:1.0"
+    },
+    "permissions": null
+  }
+}

@@ -15,11 +15,14 @@ export type ApolloGlobalOperations = {
   globalSubscriptions: string[];
 };
 
+export type ApolloKeyFields = Record<string, string[]>;
+
 declare let __APOLLO_DEVTOOLS_SUBSCRIBER__: string;
 declare global {
   interface Window {
     __APOLLO_CLIENTS__: ClientObject[];
     __APOLLO_GLOBAL_OPERATIONS__: ApolloGlobalOperations;
+    __APOLLO_KEY_FIELDS__: ApolloKeyFields;
   }
 }
 
