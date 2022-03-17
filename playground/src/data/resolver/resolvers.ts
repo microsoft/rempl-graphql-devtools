@@ -1,13 +1,5 @@
 import { IGraphQLContext } from "data/graphql-context";
 
-export const helloResolver = (
-  _: object,
-  __: object,
-  context: IGraphQLContext
-) => {
-  return context.hello();
-};
-
 export const chatResolver = (
   _: object,
   parameters: any,
@@ -22,6 +14,14 @@ export const addMessageResolver = (
   context: IGraphQLContext
 ) => {
   return context.addMessage(message);
+};
+
+export const messageResolver = (
+  _: object,
+  { id }: any,
+  context: IGraphQLContext
+) => {
+  return context.message(id);
 };
 
 export const removeMessageResolver = (

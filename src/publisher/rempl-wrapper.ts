@@ -2,14 +2,24 @@ import rempl from "rempl";
 import hotkeys from "hotkeys-js";
 import { ClientObject } from "../types";
 
-type RemplStatusHook = (clientObjects: ClientObject[]) => void;
+type RemplStatusHook = {
+  id: string;
+  timeout: number;
+  callback: (
+    clientObjects: ClientObject[],
+    activeClientId: string | null
+  ) => void;
+};
 
 export class RemplWrapper {
   private static _instance: RemplWrapper | null;
   private isRemplActive = false;
-  private isAutoRefreshEnabled = true;
   private remplStatusHooks: RemplStatusHook[] = [];
-  private checkInterval: null | ReturnType<typeof setInterval> = null;
+  private activeClientId: string | null = null;
+  private checkIntervals: {
+    id: string;
+    interval: ReturnType<typeof setInterval>;
+  }[] = [];
 
   constructor(enableRemplHotkey: string) {
     if (RemplWrapper._instance) {
@@ -20,12 +30,43 @@ export class RemplWrapper {
     });
   }
 
-  public subscribeToRemplStatus(remplStatusHook: RemplStatusHook) {
-    this.remplStatusHooks.push(remplStatusHook);
+  public subscribeToRemplStatus(
+    id: string,
+    callback: (
+      clientObjects: ClientObject[],
+      activeClientId: string | null
+    ) => void,
+    timeout: number
+  ) {
+    this.remplStatusHooks.push({ id, callback, timeout });
+  }
+
+  public unSubscribeToRemplStatus(idToCheck: string) {
+    this.remplStatusHooks.filter(({ id }) => idToCheck !== id);
+    this.checkIntervals.filter(({ id }) => {
+      const result = idToCheck !== id;
+      if (!result) {
+        this.clearIntervalById(id);
+      }
+    });
   }
 
   public getRempl() {
     return rempl;
+  }
+
+  public attachMethodsToPublisher(apolloPublisher: any) {
+    apolloPublisher.provide(
+      "setActiveClientId",
+      ({ clientId }: { clientId: string }, callback: () => void) => {
+        this.activeClientId = clientId;
+        callback();
+      }
+    );
+  }
+
+  private intervalExists(idToCheck: string) {
+    return this.checkIntervals.some(({ id }) => id === idToCheck);
   }
 
   public runAllHooks() {
@@ -33,33 +74,46 @@ export class RemplWrapper {
       return;
     }
 
-    for (const remplStatusHook of this.remplStatusHooks) {
-      remplStatusHook(window.__APOLLO_CLIENTS__);
+    for (const { id, callback, timeout } of this.remplStatusHooks) {
+      if (this.intervalExists(id)) {
+        return;
+      }
+
+      callback(window.__APOLLO_CLIENTS__, this.activeClientId);
+
+      this.checkIntervals.push({
+        id: id,
+        interval: setInterval(() => {
+          callback(window.__APOLLO_CLIENTS__, this.activeClientId);
+        }, timeout),
+      });
     }
   }
 
-  public toggleAutoRefreshEnabled() {
-    this.isAutoRefreshEnabled = !this.isAutoRefreshEnabled;
+  private clearIntervalById(idToCheck: string) {
+    for (const { id, interval } of this.checkIntervals) {
+      if (id === idToCheck) {
+        clearInterval(interval);
+      }
+    }
+    this.checkIntervals = [];
+  }
 
-    return this.isAutoRefreshEnabled;
+  private clearIntervals() {
+    for (const { interval } of this.checkIntervals) {
+      clearInterval(interval);
+    }
+    this.checkIntervals = [];
   }
 
   private toggleStatus() {
     this.isRemplActive = !this.isRemplActive;
+    this.clearIntervals();
 
     if (this.isRemplActive) {
       rempl.getHost().activate();
 
-      if (this.checkInterval) {
-        clearInterval(this.checkInterval);
-      }
-
-      this.checkInterval = setInterval(() => {
-        if (!this.isAutoRefreshEnabled) {
-          return;
-        }
-        this.runAllHooks();
-      }, 1500);
+      this.runAllHooks();
 
       return;
     }

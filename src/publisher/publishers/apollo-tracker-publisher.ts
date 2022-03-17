@@ -2,6 +2,10 @@ import { RemplWrapper } from "../rempl-wrapper";
 import { GraphQLError } from "graphql";
 
 import { ClientObject, ApolloTrackerData } from "../../types";
+import {
+  filterMutationInfo,
+  filterQueryInfo,
+} from "../helpers/parse-apollo-data";
 
 export class ApolloTrackerPublisher {
   private static _instance: ApolloTrackerPublisher;
@@ -15,7 +19,9 @@ export class ApolloTrackerPublisher {
 
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
-      this.trackerDataPublishHandler.bind(this)
+      "apollo-tracker",
+      this.trackerDataPublishHandler.bind(this),
+      2000
     );
     this.apolloPublisher = apolloPublisher;
 
@@ -24,63 +30,6 @@ export class ApolloTrackerPublisher {
 
   private trackerDataPublishHandler(clientObjects: ClientObject[]) {
     this.publishTrackerData(this.serializeTrackerDataObjects(clientObjects));
-  }
-
-  private filterQueryInfo(queryInfoMap: any) {
-    const filteredQueryInfo: Record<string, unknown> = {};
-    queryInfoMap.forEach(
-      (
-        {
-          variables,
-          document,
-          graphQLErrors,
-          networkError,
-        }: Record<string, unknown>,
-        key: string
-      ) => {
-        const graphQLErrorMessage = this.getErrorMessage(
-          graphQLErrors as GraphQLError[]
-        );
-
-        const networkErrorMessage = (networkError as Error)?.stack;
-
-        filteredQueryInfo[key] = {
-          document,
-          variables,
-          errorMessage: graphQLErrorMessage || networkErrorMessage,
-        };
-      }
-    );
-    return filteredQueryInfo;
-  }
-
-  private getErrorMessage(graphQLErrors?: GraphQLError[]) {
-    if (!graphQLErrors || !graphQLErrors.length) {
-      return;
-    }
-
-    return `Path: ${graphQLErrors[0].path} Stack: ${graphQLErrors[0].stack}`;
-  }
-
-  private filterMutationInfo(mutations: any) {
-    const filteredMutationInfo: Record<string, unknown> = {};
-    Object.keys(mutations).forEach((key: string) => {
-      const error = mutations[key].error;
-
-      const graphQLErrorMessage = this.getErrorMessage(
-        error?.graphQLErrors as GraphQLError[]
-      );
-
-      const networkErrorMessage = (error?.networkError as Error)?.stack;
-
-      filteredMutationInfo[key] = {
-        mutation: mutations[key].mutation,
-        variables: mutations[key].variables,
-        errorMessage:
-          graphQLErrorMessage || networkErrorMessage || error?.stack,
-      };
-    });
-    return filteredMutationInfo;
   }
 
   private serializeTrackerDataObjects = (clients: ClientObject[]) =>
@@ -93,6 +42,7 @@ export class ApolloTrackerPublisher {
         queries: this.getQueries(client)(),
         mutations: this.getMutations(client)(),
       };
+
       return acc;
     }, {} as ApolloTrackerData);
 
@@ -102,7 +52,7 @@ export class ApolloTrackerPublisher {
       return () => client.queryManager.mutationStore.getStore();
     } else {
       // Apollo Client 3.3+
-      return () => this.filterMutationInfo(client.queryManager.mutationStore);
+      return () => filterMutationInfo(client.queryManager.mutationStore);
     }
   }
 
@@ -110,7 +60,7 @@ export class ApolloTrackerPublisher {
     if (client.queryManager.queryStore?.getStore) {
       return () => client.queryManager.queryStore.getStore();
     } else {
-      return () => this.filterQueryInfo(client.queryManager.queries);
+      return () => filterQueryInfo(client.queryManager.queries);
     }
   }
 

@@ -35,6 +35,11 @@ export type ClientCacheObject = {
 
 export type CacheDuplicates = StoreObject[][];
 
+export type ApolloRecentActivities = {
+  mutationLog: { count: number; mutations: Mutation[] };
+  watchedQueries: { count: number; queries: WatchedQuery[] };
+};
+
 export type ApolloTrackerData = {
   [clientId: string]: {
     mutations: unknown[];
@@ -58,4 +63,36 @@ export type FetcherParams = {
   query: string;
   operationName: string;
   variables?: any;
+};
+
+interface Query {
+  id: string;
+  name: string;
+  change?: string;
+  variables: Record<string, unknown>;
+  errorMessage?: string;
+}
+
+export type WatchedQuery = Query & {
+  typename: "WatchedQuery";
+  queryString: string;
+  cachedData: Record<string, unknown>;
+};
+
+export type Mutation = Query & {
+  typename: "Mutation";
+  mutationString: string;
+};
+
+export type ApolloTrackerContextData = {
+  [clientId: string]: {
+    watchedQueries: {
+      queries: WatchedQuery[];
+      count: number;
+    };
+    mutationLog: {
+      mutations: Mutation[];
+      count: number;
+    };
+  };
 };
