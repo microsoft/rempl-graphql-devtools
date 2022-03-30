@@ -1,14 +1,7 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  ChevronEndIcon,
-  ChevronStartIcon,
-  Flex,
-  Text,
-  Tooltip,
-} from "@fluentui/react-northstar";
-import { useStyles } from "./vertical-viewer-styles";
+import {Tooltip, Button, Text } from "@fluentui/react-components";
+import { useStyles } from "./vertical-viewer.styles";
+import {ChevronCircleLeft20Regular, ChevronCircleRight20Regular} from "@fluentui/react-icons";
 
 interface IDataItem {
   name: string;
@@ -31,87 +24,71 @@ export const VerticalViewer = React.memo(
     const classes = useStyles();
 
     return (
-      <Flex
-        column
-        gap="gap.small"
+      <div
         className={classes.container}
-        styles={{ width: isExpanded ? "100%" : "auto" }}
+        style={{ width: isExpanded ? "100%" : "auto" }}
       >
-        <Flex vAlign="center">
+        <div className={classes.header}>
           <Tooltip
-            trigger={
-              <Button
-                className={classes.controlButton}
-                icon={
-                  isExpanded ? (
-                    <ChevronEndIcon size="small" />
-                  ) : (
-                    <ChevronStartIcon size="small" />
-                  )
-                }
-                tinted
-                iconOnly
-                onClick={onExpand}
-              />
-            }
             content={isExpanded ? "Show list" : "Expand"}
-          />
-          <Text
-            weight="semibold"
-            color="green"
-            content={`${data.name} (${
-              isMutation ? "Mutation" : "Watched Query"
-            })`}
-          />
-        </Flex>
-        <Box>
-          <Text
-            weight="bold"
-            content={isMutation ? "Mutation String" : "Query String"}
-          />
-          <Box styles={{ fontSize: "12px" }}>
+            relationship="description"
+          >
+            <Button
+              className={classes.controlButton}
+              onClick={onExpand}
+            >
+              {isExpanded ? <ChevronCircleRight20Regular /> : <ChevronCircleLeft20Regular />}
+            </Button>
+          </Tooltip>
+          <Text className={classes.title} weight="semibold">
+            {`${data.name} (${isMutation ? "Mutation" : "Watched Query"})`}
+          </Text>
+        </div>
+        <div>
+          <Text weight="semibold">{isMutation ? "Mutation String" : "Query String"}</Text>
+          <div className={classes.codeBox} style={{ fontSize: "12px" }}>
             <pre>
               <code>
                 <p>{isMutation ? data.mutationString : data.queryString}</p>
               </code>
             </pre>
-          </Box>
-        </Box>
-        <Box>
-          <Text weight="bold" content="Variables" />
-          <Box styles={{ fontSize: "11px" }}>
+          </div>
+        </div>
+        <div>
+          <Text weight="semibold">Variables</Text>
+          <div className={classes.codeBox}>
             <pre>
               <code>
                 <p>{JSON.stringify(data.variables, null, 2)}</p>
               </code>
             </pre>
-          </Box>
-        </Box>
+          </div>
+        </div>
         {data.errorMessage && (
-          <Box>
-            <Text weight="bold" content="Error" />
-            <Box styles={{ fontSize: "11px" }}>
+          <div>
+            <Text weight="semibold">Error</Text>
+            <div className={classes.codeBox}>
               <pre>
                 <code>
                   <p>{data.errorMessage}</p>
                 </code>
               </pre>
-            </Box>
-          </Box>
+            </div>
+          </div>
         )}
         {!isMutation && (
-          <Box>
-            <Text weight="bold" content="Cache Data" />
-            <Box styles={{ fontSize: "11px" }}>
+          <div>
+            <Text weight="semibold">Cache Data</Text>
+            <div className={classes.codeBox}>
               <pre>
                 <code>
                   <p>{JSON.stringify(data.cachedData, null, 2)}</p>
                 </code>
               </pre>
-            </Box>
-          </Box>
+            </div>
+          </div>
         )}
-      </Flex>
+      </div>
     );
   }
 );

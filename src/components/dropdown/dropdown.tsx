@@ -1,26 +1,36 @@
 import React from "react";
-import { Flex, FormDropdown, Text } from "@fluentui/react-northstar";
 import { useStyles } from "./dropdown-styles";
+import { Menu, MenuButton, MenuList, MenuPopover, MenuTrigger, Text, MenuItem } from "@fluentui/react-components";
 
 export const Dropdown = React.memo((props: any) => {
   const classes = useStyles();
 
   return (
-    <Flex
+    <div
       className={classes.container}
-      gap="gap.small"
-      vAlign="center"
-      hAlign="end"
       id="apollo-client-dropdown"
     >
-      <Text content="Apollo client:" />
-      <FormDropdown
+      <Text weight="semibold">Apollo client:</Text>
+      {/* <FormDropdown
         className={classes.adDropdown}
         items={props.items}
         onChange={props.onChange}
         value={props.value}
         placeholder="Choose a apollo client"
-      />
-    </Flex>
+      /> */}
+      <Menu>
+        <MenuTrigger>
+          <MenuButton>{props.value}</MenuButton>
+        </MenuTrigger>
+
+        <MenuPopover>
+          <MenuList>
+            {props.items.map(elem => (
+              <MenuItem>{elem}</MenuItem>
+            ))}
+          </MenuList>
+        </MenuPopover>
+      </Menu>
+    </div>
   );
 });

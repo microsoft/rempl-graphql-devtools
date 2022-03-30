@@ -1,94 +1,72 @@
 import React, { useState } from "react";
-import { Box, List } from "@fluentui/react-northstar";
-import { useStyles } from "./menu-styles";
-import { MenuItem } from "./menu-item";
+import { menuStyles } from "./menu.styles";
+import { NavLink } from "react-router-dom";
+import { Info24Regular, Flowchart24Regular, Database24Regular, DataFunnel24Regular, DataWhisker24Regular } from "@fluentui/react-icons";
+import { mergeClasses, Text, Badge } from "@fluentui/react-components";
+
 interface MenuProps {
   cacheCount: number;
   mutationsCount: number;
   queriesCount: number;
 }
 
-const items = (countData: MenuProps, activeIndex: number) => [
+const menuElements = (props: any) => [
   {
-    key: "apollo-cache",
-    content: (
-      <MenuItem
-        url="/"
-        title={`Cache (${countData.cacheCount})`}
-        description='Contains a list of cache objects, which can be removed (be careful what you remove). You can also record recent changes by switching from "All cache" to "Recent cache"'
-        isActive={activeIndex === 0}
-      />
-    ),
+    url: "/",
+    name: `Cache`,
+    icon: (<Database24Regular />),
+    badge: props.cacheCount
   },
   {
-    key: "apollo-queries",
-    content: (
-      <MenuItem
-        url="apollo-queries"
-        title={`Watched Queries (${countData.queriesCount})`}
-        description='Shows all currently active quries (watched Queries). "Go" in the name of some queries means Global Operation'
-        isActive={activeIndex === 1}
-      />
-    ),
+    url: "apollo-queries",
+    name: `Watched Queries`,
+    icon: (<DataFunnel24Regular />),
+    badge: props.queriesCount
   },
   {
-    key: "apollo-mutations",
-    content: (
-      <MenuItem
-        url="apollo-mutations"
-        title={`Mutations (${countData.mutationsCount})`}
-        description='Shows fired mutations. "Go" in the name of some queries means Global Operation'
-        isActive={activeIndex === 2}
-      />
-    ),
+    url: "apollo-mutations",
+    name: `Mutations`,
+    icon: (<DataWhisker24Regular />),
+    badge: props.mutationsCount
   },
   {
-    key: "apollo-additional-informations",
-    content: (
-      <MenuItem
-        url="apollo-additional-informations"
-        title="Additional Information"
-        description="Contains list of all global operations (Quries, Mutations and Subscribtion)"
-        isActive={activeIndex === 3}
-      />
-    ),
+    url: "apollo-additional-informations",
+    name: "Additional Information",
+    icon: (<Info24Regular />)
   },
   {
-    key: "graphiql",
-    content: (
-      <MenuItem
-        url="graphiql"
-        title="GraphiQL"
-        description="Contains GraphiQL library. You can call quries and receive a response. For now it's not possible to call subscriptions"
-        isActive={activeIndex === 4}
-      />
-    ),
-  },
+    url: "graphiql",
+    name: "GraphiQL",
+    icon: (<Flowchart24Regular/>)
+  }
 ];
 
 export const Menu = React.memo((props: MenuProps) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const classes = useStyles();
+  const classes = menuStyles();
+  const [activeItem, setActiveItem] = useState(0);
 
   return (
-    <Box
-      className={classes.container}
-      styles={({ theme: { siteVariables } }) => ({
-        backgroundColor: siteVariables.colorScheme.default.background5,
-      })}
-      id="menu-container"
-    >
-      <List
-        className={classes.listMenu}
-        selectable
-        defaultSelectedIndex={0}
-        items={items(props, activeIndex).map((item, index) => ({
-          ...item,
-          index,
-          onClick: () => setActiveIndex(index),
-        }))}
-        horizontal
-      />
-    </Box>
+    <nav className={classes.root}
+        id="menu-container">
+      <ul className={classes.menuList}>
+        {menuElements(props).map((item, index) => (
+          <li>
+            <NavLink to={item.url} 
+              className={mergeClasses(
+                classes.menuItem, 
+                activeItem === index && classes.menuItemActive
+              )}
+              onClick={() => setActiveItem(index)}
+            >
+              <div className={classes.menuItemIcon}>
+                {item.icon}
+              </div>
+              {true && <Text className={classes.menuText}>{item.name}</Text>}
+              {item.badge && <Badge appearance="tint" className={classes.badge}>{item.badge}</Badge>}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 });

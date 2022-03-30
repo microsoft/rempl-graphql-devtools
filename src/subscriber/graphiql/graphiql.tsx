@@ -3,8 +3,7 @@ import rempl from "rempl";
 import GraphiQL from "graphiql";
 import { ActiveClientContext } from "../contexts/active-client-context";
 import { FetcherParams } from "../../types";
-import { Box } from "@fluentui/react-northstar";
-import { useAutoContainerHeight } from "../../helpers/container-height";
+import { qraphiqlStyles } from "./graphiql.styles";
 
 (window as any).global = window;
 
@@ -37,12 +36,14 @@ const createFetcher = (myTool: any, activeClientId: string) => {
 export const GraphiQLRenderer = React.memo(() => {
   const myTool = React.useRef(rempl.getSubscriber());
   const activeClientId = useContext(ActiveClientContext);
-  const headerHeight = useAutoContainerHeight();
+  const classes = qraphiqlStyles();
 
   return (
-    <Box styles={{ height: `calc(100% - ${headerHeight}px)` }}>
-      <GraphiQL fetcher={createFetcher(myTool.current, activeClientId)} />
-    </Box>
+    <div className={classes.root}>
+      <div className={classes.innerContainer}>
+        <GraphiQL fetcher={createFetcher(myTool.current, activeClientId)} />
+      </div>
+    </div>
   );
 });
 
