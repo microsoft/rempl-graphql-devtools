@@ -53,8 +53,7 @@ export const WatchedQueries = () => {
                     >{" (ERROR)"}</Text>
                   )}
                 </>
-              ),
-              truncate: true,
+              )
             }))
             .reverse()}
           selectedIndex={selected}

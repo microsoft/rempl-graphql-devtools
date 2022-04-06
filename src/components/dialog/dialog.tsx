@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { dialogStyles } from "./dialog.styles";
-import { mergeClasses, Text, Headline } from "@fluentui/react-components";
+import { Text, Headline } from "@fluentui/react-components";
 import { CacheObjectWithSize } from "../../subscriber/apollo-cache/types";
 
 interface DialogProps {

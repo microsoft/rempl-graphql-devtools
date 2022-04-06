@@ -1,3 +1,4 @@
+
 import { Provider, teamsTheme, Menu } from "@fluentui/react-northstar";
 import { ApolloProvider } from "@apollo/client";
 import { buildClient } from "data/data-builder";

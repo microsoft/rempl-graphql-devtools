@@ -42,9 +42,10 @@ export const List = React.memo(
         <ul className={classes.list}>
           {filterListItems(items, searchValue).map((item, index) => (
             <li 
-              className={selectedIndex === item.index 
-                ? mergeClasses(classes.listItem, classes.listItemActive) 
-                : classes.listItem}
+              className={mergeClasses(
+                classes.listItem, 
+                selectedIndex === item.index && classes.listItemActive
+              )}
               key={item.key} 
               onClick={() => item.onClick(item.index)}>
               {item.content}

@@ -4,7 +4,7 @@ export const useStyles = makeStyles({
 	root: {
 		display: "flex",
 		flexDirection: "column",
-		height: "calc(100% - 65px)",
+		height: "calc(100% - 105px)",
 		...shorthands.padding(0, "15px"),
 		...shorthands.overflow("hidden", "auto")
 	},
@@ -26,6 +26,11 @@ export const useStyles = makeStyles({
 		"&:hover": {
 			backgroundColor: "#F5F5F6"
 		}
+	},
+	keyColumn: {
+		...shorthands.overflow("hidden"),
+		textOverflow: "ellipsis",
+		whiteSpace: "nowrap"
 	},
 	actionButton: {
 		minWidth: "auto",

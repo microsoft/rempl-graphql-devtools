@@ -1,9 +1,16 @@
 import React from "react";
-import { useStyles } from "./dropdown-styles";
-import { Menu, MenuButton, MenuList, MenuPopover, MenuTrigger, Text, MenuItem } from "@fluentui/react-components";
+import { useStyles } from "./dropdown.styles";
+import { mergeClasses, Text } from "@fluentui/react-components";
+import { ChevronDown20Regular, ChevronUp20Regular} from "@fluentui/react-icons";
 
 export const Dropdown = React.memo((props: any) => {
   const classes = useStyles();
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const onChange = (e: any, value: any) => {
+    props.onChange(e, {value});
+    setIsOpen(!isOpen);
+  }
 
   return (
     <div
@@ -11,26 +18,27 @@ export const Dropdown = React.memo((props: any) => {
       id="apollo-client-dropdown"
     >
       <Text weight="semibold">Apollo client:</Text>
-      {/* <FormDropdown
-        className={classes.adDropdown}
-        items={props.items}
-        onChange={props.onChange}
-        value={props.value}
-        placeholder="Choose a apollo client"
-      /> */}
-      <Menu>
-        <MenuTrigger>
-          <MenuButton>{props.value}</MenuButton>
-        </MenuTrigger>
-
-        <MenuPopover>
-          <MenuList>
-            {props.items.map(elem => (
-              <MenuItem>{elem}</MenuItem>
-            ))}
-          </MenuList>
-        </MenuPopover>
-      </Menu>
+      <div className={classes.dropdown}>
+        <div 
+          tabIndex={0}
+          className={classes.dropdownValue}
+          onClick={() => setIsOpen(!isOpen)}>
+          <Text>{props.value}</Text>
+          {isOpen ? <ChevronUp20Regular /> : <ChevronDown20Regular />}
+        </div>
+        <div className={mergeClasses(
+          classes.dropdownContent, 
+          isOpen && classes.dropdownContentOpen
+        )}>
+          {props.items.map((elem: string, index: number) => (
+            <Text 
+              block
+              key={`ddItem-${index}`}
+              className={classes.dropdownItem}
+              onClick={(e) => onChange(e, elem)}>{elem}</Text>
+          ))}
+        </div>
+      </div>
     </div>
   );
 });

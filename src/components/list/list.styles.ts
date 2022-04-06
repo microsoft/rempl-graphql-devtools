@@ -3,7 +3,7 @@ import { makeStyles, shorthands } from "@fluentui/react-components";
 export const useStyles = makeStyles({
   root: {
     ...shorthands.overflow("hidden"),
-    maxWidth: "300px",
+    maxWidth: "220px",
   },
   searchContainer: {
     width: "100%",
@@ -22,6 +22,9 @@ export const useStyles = makeStyles({
     marginBottom: "3px",
     ...shorthands.padding("10px"),
     ...shorthands.borderRadius("6px"),
+    ...shorthands.overflow("hidden"),
+		textOverflow: "ellipsis",
+		whiteSpace: "nowrap",
     "&:hover": {
       backgroundColor: "#F5F5F6",
       color: "#000",

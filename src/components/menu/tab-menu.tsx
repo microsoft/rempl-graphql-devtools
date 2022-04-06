@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { tabMenuStyles } from "./tab-menu.styles";
-import { mergeClasses, Text } from "@fluentui/react-components";
+import { mergeClasses } from "@fluentui/react-components";
 
 interface TabMenuProps {
   currentType: string;
@@ -14,22 +14,25 @@ export const TabMenu = React.memo(({currentType, onSelectItem}: TabMenuProps) =>
     <nav className={classes.root}>
       <ul className={classes.tabMenuList}>
         <li 
-            className={currentType === 'all' 
-                ? mergeClasses(classes.tabMenuItem, classes.tabMenuItemActive) 
-                : classes.tabMenuItem}
+            className={mergeClasses(
+              classes.tabMenuItem, 
+              currentType === 'all' && classes.tabMenuItemActive
+            )}
             onClick={() => onSelectItem('all')}
         >All cache</li>
         <li 
-             className={currentType === 'recent' 
-             ? mergeClasses(classes.tabMenuItem, classes.tabMenuItemActive) 
-             : classes.tabMenuItem}
-         onClick={() => onSelectItem('recent')}
+          className={mergeClasses(
+            classes.tabMenuItem, 
+            currentType === 'recent' && classes.tabMenuItemActive
+          )}
+          onClick={() => onSelectItem('recent')}
         >Recent cache</li>
         <li 
-             className={currentType === 'duplicated' 
-             ? mergeClasses(classes.tabMenuItem, classes.tabMenuItemActive) 
-             : classes.tabMenuItem}
-         onClick={() => onSelectItem('duplicated')}
+          className={mergeClasses(
+            classes.tabMenuItem, 
+            currentType === 'duplicated' && classes.tabMenuItemActive
+          )}
+          onClick={() => onSelectItem('duplicated')}
         >Duplicated cache</li>
       </ul>
     </nav>

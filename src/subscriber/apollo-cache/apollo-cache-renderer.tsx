@@ -89,9 +89,10 @@ export const ApolloCacheRenderer = React.memo(
                     relationship="description"
                   >
                     <Button
-                      className={recordRecentCache 
-                        ? mergeClasses(classes.actionButton, classes.activeRecord) 
-                        : classes.actionButton}
+                      className={mergeClasses(
+                        classes.actionButton,
+                        recordRecentCache && classes.activeRecord
+                      )}
                       onClick={toggleRecordRecentChanges}
                     >
                       {recordRecentCache ? <RecordStop20Regular /> : <Record20Regular />}

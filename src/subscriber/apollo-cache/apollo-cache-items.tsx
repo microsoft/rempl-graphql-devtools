@@ -1,7 +1,7 @@
 import React from "react";
 import { CacheObjectWithSize } from "./types";
 import { useStyles } from "./apollo-cache-items.styles";
-import { Tooltip as TooltipNew, Button as ButtonNew, mergeClasses, Text as TextNew } from "@fluentui/react-components";
+import { Tooltip, Button, mergeClasses, Text } from "@fluentui/react-components";
 import { Open20Filled, Delete20Regular } from "@fluentui/react-icons";
 import { Dialog } from "./../../components";
 
@@ -35,19 +35,19 @@ export const ApolloCacheItems = React.memo(
     ) =>
     (item: CacheObjectWithSize, index: number) => (
       <div className={classes.itemContainer} key={item.key}>
-        <div>{item.key}</div>
+        <div className={classes.keyColumn}>{item.key}</div>
         <div>{item.valueSize} B</div>
         <div>
-          <TooltipNew content="Show details" relationship="description">
-            <ButtonNew 
+          <Tooltip content="Show details" relationship="description">
+            <Button 
               className={mergeClasses(classes.actionButton, classes.detailsButton)}
               onClick={() => {setDetailsValue(item)}}
             >
               <Open20Filled />
-            </ButtonNew>
-          </TooltipNew>
-          <TooltipNew content="Remove item" relationship="description">
-            <ButtonNew
+            </Button>
+          </Tooltip>
+          <Tooltip content="Remove item" relationship="description">
+            <Button
               className={mergeClasses(classes.actionButton, classes.removeButton)}
               onClick={(e) => {
                 removeCacheItem(item.key);
@@ -55,8 +55,8 @@ export const ApolloCacheItems = React.memo(
               }} 
             >
               <Delete20Regular/>
-            </ButtonNew>
-          </TooltipNew>
+            </Button>
+          </Tooltip>
         </div>
       </div>
     );
@@ -64,8 +64,8 @@ export const ApolloCacheItems = React.memo(
     return (
       <div className={classes.root}>
         <div className={classes.itemContainer}>
-          <TextNew size={200} weight="semibold">Key</TextNew>
-          <TextNew size={200} weight="semibold">Value size</TextNew>
+          <Text size={200} weight="semibold">Key</Text>
+          <Text size={200} weight="semibold">Value size</Text>
         </div>
         {cacheObjectsWithSize.map(buildApolloCacheItems(removeCacheItem, setDetailsValue))}
         {detailsValue ? <Dialog value={detailsValue} onClose={closeDetails}/> : null}
