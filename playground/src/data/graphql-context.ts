@@ -1,9 +1,5 @@
 import { uid } from "uid";
 
-export type Hello = {
-  message: string;
-};
-
 type Message = {
   id: string;
   message: string;
@@ -14,10 +10,10 @@ export type Chat = {
 };
 
 export interface IGraphQLContext {
-  hello: () => Hello;
+  message: (id: string) => Message;
+  addMessage: (message: string) => Message;
   chat: () => Chat;
-  addMessage: (message: string) => Chat;
-  removeMessage: (id: string) => Chat;
+  removeMessage: (id: string) => boolean;
 }
 
 const createGraphQLContext: () => IGraphQLContext = () => {
@@ -28,25 +24,25 @@ export default createGraphQLContext;
 
 class GraphQLContext implements IGraphQLContext {
   private static messages: Message[] = [];
-  hello = () => ({
-    message: "Hello from context",
-  });
-  chat = () => ({
-    messages: GraphQLContext.messages,
-  });
   addMessage = (message: string) => {
-    GraphQLContext.messages.push({ id: uid(), message });
-
+    const id = uid();
+    GraphQLContext.messages.push({ id, message });
+    const newMessage = GraphQLContext.messages.find((value) => id === value.id);
+    return newMessage as Message;
+  };
+  chat = () => {
     return {
       messages: GraphQLContext.messages,
     };
+  };
+  message = (id: string) => {
+    const message = GraphQLContext.messages.find((value) => id === value.id);
+    return message as Message;
   };
   removeMessage = (id: string) => {
     const messages = GraphQLContext.messages.filter((value) => id !== value.id);
     GraphQLContext.messages = messages;
 
-    return {
-      messages: GraphQLContext.messages,
-    };
+    return true;
   };
 }

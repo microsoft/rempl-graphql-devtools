@@ -23,10 +23,16 @@ export const ActiveClientContextWrapper = ({
   }, []);
 
   const onChange = (_: any, { value }: any) => {
+    myTool.current.callRemote("setActiveClientId", {
+      clientId: value,
+    });
     setActiveClientId(value);
   };
 
   if (!activeClientId && clientIds.length) {
+    myTool.current.callRemote("setActiveClientId", {
+      clientId: clientIds[0],
+    });
     setActiveClientId(clientIds[0]);
   }
 

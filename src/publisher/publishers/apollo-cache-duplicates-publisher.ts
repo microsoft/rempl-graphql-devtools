@@ -77,7 +77,6 @@ export class ApolloCacheDuplicatesPublisher {
   }
 
   public publishCache(cacheObjects: ClientCacheDuplicates) {
-    console.log(cacheObjects);
     this.apolloPublisher.ns("apollo-cache-duplicates").publish(cacheObjects);
   }
 }

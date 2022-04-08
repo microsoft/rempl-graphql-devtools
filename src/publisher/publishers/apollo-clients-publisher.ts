@@ -14,7 +14,9 @@ export class ApolloClientsPublisher {
 
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
-      this.globalOperationsFetcherHandler.bind(this)
+      "apollo-clients",
+      this.globalOperationsFetcherHandler.bind(this),
+      6000
     );
     this.apolloPublisher = apolloPublisher;
 

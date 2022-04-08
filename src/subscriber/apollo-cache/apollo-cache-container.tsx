@@ -11,8 +11,6 @@ const ApolloCacheContainer = React.memo(() => {
   const activeClientId = useContext(ActiveClientContext);
   const duplicateItems = useContext(ApolloCacheDuplicatesContext);
 
-  console.log(duplicateItems?.cacheDuplicates);
-
   if (!contextData) return null;
 
   const {

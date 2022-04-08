@@ -4,7 +4,6 @@ export class ApolloGlobalOperationsPublisher {
   private static _instance: ApolloGlobalOperationsPublisher;
   private apolloPublisher;
   private remplWrapper: RemplWrapper;
-  private isPublished = false;
 
   constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
     if (ApolloGlobalOperationsPublisher._instance) {
@@ -13,7 +12,9 @@ export class ApolloGlobalOperationsPublisher {
 
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
-      this.globalOperationsFetcherHandler.bind(this)
+      "global-operations",
+      this.globalOperationsFetcherHandler.bind(this),
+      6000
     );
     this.apolloPublisher = apolloPublisher;
 
@@ -21,13 +22,14 @@ export class ApolloGlobalOperationsPublisher {
   }
 
   private globalOperationsFetcherHandler() {
-    if (!window.__APOLLO_GLOBAL_OPERATIONS__ || this.isPublished) {
+    if (!window.__APOLLO_GLOBAL_OPERATIONS__) {
       return;
     }
 
     this.apolloPublisher
       .ns("apollo-global-operations")
       .publish(window.__APOLLO_GLOBAL_OPERATIONS__);
-    this.isPublished = true;
+
+    this.remplWrapper.unSubscribeToRemplStatus("global-operations");
   }
 }

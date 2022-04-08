@@ -1,8 +1,4 @@
 const typeDefs = `
-type Hello {
-  message: String
-}
-
 type Message {
   id: ID!
   message: String!
@@ -13,13 +9,13 @@ type Chat {
 }
 
 type Query {
-  hello: Hello
-  chat: Chat
+  message(id: ID): Message
+  chat: Chat 
 }
 
 type Mutation {
-  addMessage(message: String): Chat
-  removeMessage(id: ID): Chat
+  addMessage(message: String): Message
+  removeMessage(id: ID): Boolean
 }
 `;
 

@@ -8,10 +8,10 @@ import {
 import { makeExecutableSchema } from "@graphql-tools/schema";
 
 import {
-  helloResolver,
-  chatResolver,
+  messageResolver,
   addMessageResolver,
   removeMessageResolver,
+  chatResolver,
 } from "./resolver/resolvers";
 
 import createGraphQLContext, { IGraphQLContext } from "./graphql-context";
@@ -37,7 +37,7 @@ export const buildClient: () => ApolloClient<NormalizedCacheObject> = () => {
 };
 
 const queryResolvers = {
-  hello: helloResolver,
+  message: messageResolver,
   chat: chatResolver,
 };
 

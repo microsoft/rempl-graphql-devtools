@@ -24,7 +24,9 @@ export class ApolloCachePublisher {
 
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
-      this.cachePublishHander.bind(this)
+      "apollo-cache",
+      this.cachePublishHander.bind(this),
+      1500
     );
     this.apolloPublisher = apolloPublisher;
     this.attachMethodsToPublisher();

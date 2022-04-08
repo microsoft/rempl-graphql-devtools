@@ -16,7 +16,9 @@ export class GraphiQLPublisher {
 
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
-      this.cachePublishHander.bind(this)
+      "graphiql",
+      this.cachePublishHander.bind(this),
+      6000
     );
     this.apolloPublisher = apolloPublisher;
     this.attachMethodsToPublisher();
