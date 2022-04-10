@@ -1,11 +1,7 @@
 import { GraphQLError } from "graphql";
 
 import { print } from "graphql/language/printer";
-import {
-  WatchedQuery,
-  Mutation as MutationType,
-  ApolloTrackerContextData,
-} from "../../types";
+import { WatchedQuery, Mutation as MutationType } from "../../types";
 import { getOperationName } from "@apollo/client/utilities";
 
 export function filterMutationInfo(mutations: any) {
@@ -126,19 +122,27 @@ export const getRecentData = (queries: unknown[], mutations: unknown[]) => {
     .map(getRecentQueryData)
     .filter(Boolean) as WatchedQuery[];
 
-  const watchedQueries = {
-    queries: filteredQueries,
-    count: filteredQueries.length,
-  };
-
   const mappedMutations: MutationType[] = mutations
     .map(getRecentMutationData)
     .filter(Boolean) as MutationType[];
 
-  const mutationLog = {
-    mutations: mappedMutations,
-    count: mappedMutations.length,
-  };
+  return { mutations: mappedMutations, queries: filteredQueries };
+};
 
-  return { mutationLog, watchedQueries };
+export const getData = ({
+  queries,
+  mutations,
+}: {
+  mutations: unknown[];
+  queries: unknown[];
+}) => {
+  const watchedQueries: WatchedQuery[] = Object.values(queries || {})
+    .map((q, i: number) => getQueryData(i.toString(), q))
+    .filter(Boolean) as WatchedQuery[];
+
+  const mutationLog: MutationType[] = Object.values(mutations || {})
+    .map((m, i: number) => getMutationData(m, i.toString()))
+    .filter(Boolean) as MutationType[];
+
+  return { mutations: mutationLog, queries: watchedQueries };
 };

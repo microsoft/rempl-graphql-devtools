@@ -1,7 +1,5 @@
-import React from "react";
-import { NormalizedCacheObject } from "@apollo/client/cache";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { ClientCacheDuplicates } from "../../types";
-import isEqual from "lodash.isequal";
 import rempl from "rempl";
 
 export type ApolloCacheDuplicatesContextType = {
@@ -17,11 +15,12 @@ export const ApolloCacheDuplicatesContextWrapper = ({
 }: {
   children: JSX.Element;
 }) => {
-  const [cacheDuplicates, setCacheDuplicates] =
-    React.useState<ClientCacheDuplicates>({});
-  const myTool = React.useRef(rempl.getSubscriber());
+  const [cacheDuplicates, setCacheDuplicates] = useState<ClientCacheDuplicates>(
+    {}
+  );
+  const myTool = useRef(rempl.getSubscriber());
 
-  React.useEffect(() => {
+  useEffect(() => {
     myTool.current
       .ns("apollo-cache-duplicates")
       .subscribe(function (data: ClientCacheDuplicates) {
@@ -31,7 +30,7 @@ export const ApolloCacheDuplicatesContextWrapper = ({
       });
   }, []);
 
-  const getCacheDuplicates = React.useCallback(
+  const getCacheDuplicates = useCallback(
     (clientIdToCheck: string) => {
       myTool.current.callRemote("getCacheDuplicates", {
         clientId: clientIdToCheck,

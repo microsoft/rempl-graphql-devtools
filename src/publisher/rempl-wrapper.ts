@@ -7,7 +7,7 @@ type RemplStatusHook = {
   timeout: number;
   callback: (
     clientObjects: ClientObject[],
-    activeClientId: string | null
+    activeClient: ClientObject | null
   ) => void;
 };
 
@@ -15,7 +15,7 @@ export class RemplWrapper {
   private static _instance: RemplWrapper | null;
   private isRemplActive = false;
   private remplStatusHooks: RemplStatusHook[] = [];
-  private activeClientId: string | null = null;
+  private activeClient: ClientObject | null = null;
   private checkIntervals: {
     id: string;
     interval: ReturnType<typeof setInterval>;
@@ -34,7 +34,7 @@ export class RemplWrapper {
     id: string,
     callback: (
       clientObjects: ClientObject[],
-      activeClientId: string | null
+      activeClientId: ClientObject | null
     ) => void,
     timeout: number
   ) {
@@ -59,10 +59,28 @@ export class RemplWrapper {
     apolloPublisher.provide(
       "setActiveClientId",
       ({ clientId }: { clientId: string }, callback: () => void) => {
-        this.activeClientId = clientId;
+        this.clearIntervals();
+        this.activeClient = this.getClientById(clientId);
+        this.runAllHooks();
         callback();
       }
     );
+  }
+
+  private getClientById(activeClientId: string) {
+    if (!window.__APOLLO_CLIENTS__?.length) {
+      return null;
+    }
+
+    const activeClient = window.__APOLLO_CLIENTS__.find(
+      (client: ClientObject) => client.clientId === activeClientId
+    );
+
+    if (!activeClient) {
+      return null;
+    }
+
+    return activeClient;
   }
 
   private intervalExists(idToCheck: string) {
@@ -79,12 +97,12 @@ export class RemplWrapper {
         return;
       }
 
-      callback(window.__APOLLO_CLIENTS__, this.activeClientId);
+      callback(window.__APOLLO_CLIENTS__, this.activeClient);
 
       this.checkIntervals.push({
         id: id,
         interval: setInterval(() => {
-          callback(window.__APOLLO_CLIENTS__, this.activeClientId);
+          callback(window.__APOLLO_CLIENTS__, this.activeClient);
         }, timeout),
       });
     }

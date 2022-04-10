@@ -1,55 +1,51 @@
 import React, { useMemo, useState, useContext } from "react";
-import { ActiveClientContext } from "../../contexts/active-client-context";
-import { ApolloTrackerContext } from "../../contexts/apollo-tracker-context";
 import { List, VerticalViewer } from "../../../components";
 import { ApolloGlobalOperationsContext } from "../../contexts/apollo-global-operations-context";
-import { Mutation } from "../../types";
 import { mutationsStyles } from "./mutations.styles";
 import { Text } from "@fluentui/react-components";
+import { Mutation } from "../../../types";
 
-export const Mutations = () => {
-  const [selected, setSelected] = useState<number>(0);
+export const Mutations = ({ mutations }: { mutations: Mutation[] }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const apolloTrackerData = useContext(ApolloTrackerContext);
-  const activeClient = useContext(ActiveClientContext);
+  const [selected, setSelected] = useState<number>(0);
   const globalOperations = useContext(ApolloGlobalOperationsContext);
-
   const classes = mutationsStyles();
-
-  const data = apolloTrackerData[activeClient];
-  const mutation = data.mutationLog.mutations.find(({ id }) => id === selected);
   const globalMutations = useMemo(
     () => new Set(globalOperations.globalMutations),
     [globalOperations]
   );
 
-  if (!mutation) {
+  if (!mutations.length) {
     return null;
   }
+
+  const selectedMutation = mutations[selected];
 
   return (
     <div className={classes.root}>
       <div className={classes.innerContainer}>
         <List
           isExpanded={isExpanded}
-          items={data.mutationLog.mutations
-            .map(({ name, id, errorMessage }: Mutation) => ({
+          items={mutations
+            .map(({ name, id, errorMessage }: Mutation, key) => ({
               index: id,
               key: `${name}-${id}`,
-              onClick: () => setSelected(id),
+              onClick: () => setSelected(key),
               content: (
                 <>
-                  <Text
-                    weight={id === selected ? "semibold" : "regular"}
-                  >{name}</Text>
+                  <Text weight={key === selected ? "semibold" : "regular"}>
+                    {name}
+                  </Text>
                   {globalMutations.has(name) && (
                     <Text weight="semibold">{" (GO)"}</Text>
                   )}
                   {errorMessage && (
                     <Text
                       weight="semibold"
-                      className={!!errorMessage ? classes.error : ""}
-                    >{" (ERROR)"}</Text>
+                      className={errorMessage ? classes.error : ""}
+                    >
+                      {" (ERROR)"}
+                    </Text>
                   )}
                 </>
               ),
@@ -59,7 +55,7 @@ export const Mutations = () => {
           selectedIndex={selected}
         />
         <VerticalViewer
-          data={mutation}
+          data={selectedMutation}
           isExpanded={isExpanded}
           onExpand={() => setIsExpanded(!isExpanded)}
           isMutation

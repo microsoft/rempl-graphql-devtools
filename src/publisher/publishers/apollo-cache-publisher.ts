@@ -1,5 +1,4 @@
-import { ApolloClient } from "@apollo/client/core";
-import { NormalizedCacheObject } from "@apollo/client/cache";
+import { NormalizedCacheObject, ApolloClient } from "@apollo/client";
 import { RemplWrapper } from "../rempl-wrapper";
 import sizeOf from "object-sizeof";
 import {
@@ -12,9 +11,9 @@ export class ApolloCachePublisher {
   private static _instance: ApolloCachePublisher;
   private apolloPublisher;
   private remplWrapper: RemplWrapper;
-  private clientsArray: null | ClientObject[] = null;
-  private recentCachesHistory: ClientRecentCacheObject = {};
-  private lastCachesHistory: ClientCacheObject = {};
+  private recentCacheHistory: ClientRecentCacheObject = {};
+  private lastCacheHistory: ClientCacheObject | null = null;
+  private activeClient: ClientObject | null = null;
   private recordRecentCache = false;
 
   constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
@@ -25,7 +24,7 @@ export class ApolloCachePublisher {
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
       "apollo-cache",
-      this.cachePublishHander.bind(this),
+      this.cachePublishHandler.bind(this),
       1500
     );
     this.apolloPublisher = apolloPublisher;
@@ -37,25 +36,17 @@ export class ApolloCachePublisher {
   private attachMethodsToPublisher() {
     this.apolloPublisher.provide(
       "removeCacheKey",
-      (
-        { clientId: clientIdToModify, key }: { clientId: string; key: string },
-        callback: () => void
-      ) => {
-        if (this.clientsArray) {
-          const clientObjectToModify = this.clientsArray.find(
-            ({ clientId }) => clientId === clientIdToModify
-          );
-
-          if (!clientObjectToModify) return;
-          clientObjectToModify.client.cache.evict({ id: key });
+      ({ key }: { key: string }, callback: () => void) => {
+        if (this.activeClient) {
+          this.activeClient.client.cache.evict({ id: key });
         }
         callback();
       }
     );
     this.apolloPublisher.provide(
       "clearRecent",
-      ({ clientId }: { clientId: string }, callback: () => void) => {
-        this.recentCachesHistory[clientId] = {};
+      (_: any, callback: () => void) => {
+        this.recentCacheHistory = {};
         callback();
       }
     );
@@ -90,50 +81,71 @@ export class ApolloCachePublisher {
     );
   }
 
-  private getRecentCache(cache: NormalizedCacheObject, clientId: string) {
-    const recentCacheClient = this.recentCachesHistory[clientId];
+  private getRecentCache(cache: NormalizedCacheObject) {
+    const recentCacheClient = this.recentCacheHistory;
     if (!this.recordRecentCache) {
       return recentCacheClient ? recentCacheClient : {};
     }
     if (!recentCacheClient) {
-      this.recentCachesHistory[clientId] = {};
+      this.recentCacheHistory = {};
       return {};
     }
-    const cacheClientFromLastIteration = this.lastCachesHistory[clientId];
+    const cacheClientFromLastIteration = this.lastCacheHistory;
     if (!cacheClientFromLastIteration) {
       return {};
     }
 
-    this.recentCachesHistory[clientId] = {
+    this.recentCacheHistory = {
       ...recentCacheClient,
       ...this.diffCaches(cache, cacheClientFromLastIteration.cache),
     };
 
-    return this.recentCachesHistory[clientId];
+    return this.recentCacheHistory;
   }
 
-  private serializeCacheObjects = (clients: ClientObject[]) =>
-    clients.reduce((acc, { client, clientId }: ClientObject) => {
-      const cache = this.getCache(client);
-      acc[clientId] = {
-        cache,
-        recentCache: this.getRecentCache(cache, clientId),
-      };
-      return acc;
-    }, {} as ClientCacheObject);
-
-  private cachePublishHander(clientObjects: ClientObject[]) {
-    this.clientsArray = clientObjects;
-    const serializedCacheObject = this.serializeCacheObjects(this.clientsArray);
-
-    if (sizeOf(this.lastCachesHistory) === sizeOf(serializedCacheObject)) {
+  private serializeCacheObject = (client?: ClientObject) => {
+    if (!client) {
       return;
     }
-    this.lastCachesHistory = serializedCacheObject;
+
+    const cache = this.getCache(client.client);
+    return {
+      cache,
+      recentCache: this.getRecentCache(cache),
+    };
+  };
+
+  private cachePublishHandler(
+    clientObjects: ClientObject[],
+    activeClient: ClientObject | null
+  ) {
+    if (!activeClient) {
+      return;
+    }
+
+    if (this.activeClient?.clientId !== activeClient.clientId) {
+      this.recentCacheHistory = {};
+      this.lastCacheHistory = null;
+    }
+    this.activeClient = activeClient;
+
+    const serializedCacheObject = this.serializeCacheObject(activeClient);
+
+    if (!serializedCacheObject) {
+      return;
+    }
+
+    if (sizeOf(this.lastCacheHistory) === sizeOf(serializedCacheObject)) {
+      return;
+    }
+    this.lastCacheHistory = serializedCacheObject;
     this.publishCache(serializedCacheObject);
   }
 
-  public publishCache(cacheObjects: ClientCacheObject) {
-    this.apolloPublisher.ns("apollo-cache").publish(cacheObjects);
+  public publishCache(cacheObject: ClientCacheObject) {
+    this.apolloPublisher.ns("apollo-cache").publish(cacheObject);
+    this.apolloPublisher
+      .ns("apollo-cache-count")
+      .publish(Object.values(cacheObject).length);
   }
 }

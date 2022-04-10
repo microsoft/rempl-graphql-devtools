@@ -27,29 +27,23 @@ declare global {
 }
 
 export type ClientCacheObject = {
-  [key: string]: {
-    cache: NormalizedCacheObject;
-    recentCache: NormalizedCacheObject;
-  };
+  cache: NormalizedCacheObject;
+  recentCache: NormalizedCacheObject;
 };
 
 export type CacheDuplicates = StoreObject[][];
 
-export type ApolloRecentActivities = {
-  mutationLog: { count: number; mutations: Mutation[] };
-  watchedQueries: { count: number; queries: WatchedQuery[] };
-};
-
 export type ApolloTrackerData = {
-  [clientId: string]: {
-    mutations: unknown[];
-    queries: unknown[];
-  };
+  mutations: Mutation[];
+  queries: WatchedQuery[];
 };
 
-export type ClientRecentCacheObject = {
-  [clientId: string]: NormalizedCacheObject;
+export type ApolloTrackerDataCount = {
+  mutationsCount: number;
+  queriesCount: number;
 };
+
+export type ClientRecentCacheObject = NormalizedCacheObject;
 
 export type ClientCacheDuplicates = {
   [clientId: string]: CacheDuplicates;
@@ -82,17 +76,4 @@ export type WatchedQuery = Query & {
 export type Mutation = Query & {
   typename: "Mutation";
   mutationString: string;
-};
-
-export type ApolloTrackerContextData = {
-  [clientId: string]: {
-    watchedQueries: {
-      queries: WatchedQuery[];
-      count: number;
-    };
-    mutationLog: {
-      mutations: Mutation[];
-      count: number;
-    };
-  };
 };

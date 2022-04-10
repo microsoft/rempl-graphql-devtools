@@ -1,65 +1,60 @@
 import React, { useState, useContext, useMemo } from "react";
-import { ApolloTrackerContext } from "../../contexts/apollo-tracker-context";
 import { ApolloGlobalOperationsContext } from "../../contexts/apollo-global-operations-context";
-import { ActiveClientContext } from "../../contexts/active-client-context";
 import { List, VerticalViewer } from "../../../components";
-import { WatchedQuery } from "../../types";
 import { watchedQueriesStyles } from "./watched-queries.styles";
 import { Text } from "@fluentui/react-components";
+import { WatchedQuery } from "../../../types";
 
-export const WatchedQueries = () => {
-  const [selected, setSelected] = useState<number>(0);
+export const WatchedQueries = ({ queries }: { queries: WatchedQuery[] }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const apolloTrackerData = useContext(ApolloTrackerContext);
-  const activeClient = useContext(ActiveClientContext);
+  const [selected, setSelected] = useState<number>(0);
   const globalOperations = useContext(ApolloGlobalOperationsContext);
-
-  const data = apolloTrackerData[activeClient];
-  const watchedQuery = data.watchedQueries.queries.find(
-    ({ id }) => id === selected
-  );
   const globalQueries = useMemo(
     () => new Set(globalOperations.globalQueries),
     [globalOperations]
   );
   const classes = watchedQueriesStyles();
 
-  if (!watchedQuery) {
+  if (!queries.length) {
     return null;
   }
+
+  const selectedQuery = queries[selected];
 
   return (
     <div className={classes.root}>
       <div className={classes.innerContainer}>
         <List
           isExpanded={isExpanded}
-          items={data.watchedQueries.queries
-            .map(({ name, id, errorMessage }: WatchedQuery) => ({
+          items={queries
+            .map(({ name, id, errorMessage }: WatchedQuery, key) => ({
               index: id,
               key: `${name}-${id}`,
-              onClick: () => setSelected(id),
+              onClick: () => setSelected(key),
               content: (
                 <>
-                  <Text
-                    weight={id === selected ? "semibold" : "regular"}
-                  >{name}</Text>
+                  <Text weight={key === selected ? "semibold" : "regular"}>
+                    {name}
+                  </Text>
                   {globalQueries.has(name) && (
                     <Text weight="semibold">{" (GO)"}</Text>
                   )}
                   {errorMessage && (
                     <Text
-                      className={!!errorMessage ? classes.error : ""}
+                      className={errorMessage ? classes.error : ""}
                       weight={"semibold"}
-                    >{" (ERROR)"}</Text>
+                    >
+                      {" (ERROR)"}
+                    </Text>
                   )}
                 </>
-              )
+              ),
             }))
             .reverse()}
           selectedIndex={selected}
         />
         <VerticalViewer
-          data={watchedQuery}
+          data={selectedQuery}
           isExpanded={isExpanded}
           onExpand={() => setIsExpanded(!isExpanded)}
         />
