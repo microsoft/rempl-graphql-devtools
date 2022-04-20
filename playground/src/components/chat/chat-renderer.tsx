@@ -1,15 +1,7 @@
 import React from "react";
 import { Messages } from "./messages";
-import {
-  Header,
-  Grid,
-  Segment,
-  Button,
-  Input,
-  Flex,
-  FlexItem,
-} from "@fluentui/react-northstar";
-import { SearchIcon } from "@fluentui/react-icons-northstar";
+import { Title2, Button } from "@fluentui/react-components";
+import { useChatRendererStyles } from "./chat-renderer.styles";
 
 interface IChatRenderer {
   ids: string[];
@@ -23,43 +15,22 @@ export const ChatRenderer = ({
   addMessage,
 }: IChatRenderer) => {
   const [messageText, setMessageText] = React.useState("");
-  const handleChange = React.useCallback((event) => {
-    setMessageText(event.target.value);
-  }, []);
+  const styles = useChatRendererStyles();
 
   return (
-    <Grid
-      columns="repeat(5, 1fr)"
-      styles={{
-        height: "calc(100vh - 45px)",
-        gridTemplateRows:
-          "[row1-start] 85px [row1-end] 65px [third-line] auto [last-line]",
-      }}
-    >
-      <Segment
-        styles={{
-          gridColumn: "span 5",
-        }}
-      >
-        <Header as="h2" content="Chat example" />
-      </Segment>
-      <Segment
-        color="brand"
-        styles={{
-          gridColumn: "span 5",
-        }}
-      >
-        <Input
-          fluid
+    <>
+      <Title2 block className={styles.title}>Chat example</Title2>
+      <div className={styles.inputContainer}>
+        <input 
+          className={styles.input}
           placeholder="Message"
           onChange={(e: React.SyntheticEvent) => {
             const input = e.target as HTMLInputElement;
             setMessageText(input.value);
-          }}
-        />
-        <Button onClick={() => addMessage(messageText)} content="Add Message" />
-      </Segment>
-      <Messages ids={ids} removeMessage={removeMessage} />
-    </Grid>
+          }} />
+        <Button onClick={() => addMessage(messageText)}>Add Message</Button>
+      </div>
+      <Messages ids={ids} removeMessage={removeMessage} />  
+    </>
   );
 };
