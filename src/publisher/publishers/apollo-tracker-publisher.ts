@@ -1,7 +1,12 @@
 import { RemplWrapper } from "../rempl-wrapper";
-import { GraphQLError } from "graphql";
+import { NormalizedCacheObject, ApolloClient } from "@apollo/client";
 
-import { ClientObject, ApolloTrackerData } from "../../types";
+import {
+  ClientObject,
+  ApolloTrackerData,
+  ApolloTrackerDataCount,
+} from "../../types";
+import { getData } from "../helpers/parse-apollo-data";
 import {
   filterMutationInfo,
   filterQueryInfo,
@@ -28,23 +33,34 @@ export class ApolloTrackerPublisher {
     ApolloTrackerPublisher._instance = this;
   }
 
-  private trackerDataPublishHandler(clientObjects: ClientObject[]) {
-    this.publishTrackerData(this.serializeTrackerDataObjects(clientObjects));
+  private trackerDataPublishHandler(
+    clientObjects: ClientObject[],
+    activeClient: ClientObject | null
+  ) {
+    const data = this.serializeTrackerDataObjects(activeClient?.client);
+
+    if (!data) {
+      return;
+    }
+    const apolloTrackerData = getData(data);
+    this.publishTrackerData(apolloTrackerData, {
+      mutationsCount: apolloTrackerData.mutations.length,
+      queriesCount: apolloTrackerData.queries.length,
+    });
   }
 
-  private serializeTrackerDataObjects = (clients: ClientObject[]) =>
-    clients.reduce((acc, { client, clientId }: ClientObject) => {
-      if (!(client as any).queryManager) {
-        return acc;
-      }
+  private serializeTrackerDataObjects = (
+    client?: ApolloClient<NormalizedCacheObject>
+  ) => {
+    if (!(client as any)?.queryManager) {
+      return null;
+    }
 
-      acc[clientId] = {
-        queries: this.getQueries(client)(),
-        mutations: this.getMutations(client)(),
-      };
-
-      return acc;
-    }, {} as ApolloTrackerData);
+    return {
+      queries: this.getQueries(client)(),
+      mutations: this.getMutations(client)(),
+    };
+  };
 
   private getMutations(client: any) {
     // Apollo Client 2 to 3.2
@@ -64,7 +80,18 @@ export class ApolloTrackerPublisher {
     }
   }
 
-  public publishTrackerData(apolloTrackerData: ApolloTrackerData) {
-    this.apolloPublisher.ns("apollo-tracker").publish(apolloTrackerData);
+  public publishTrackerData(
+    apolloTrackerData: ApolloTrackerData,
+    apolloTrackerDataCount: ApolloTrackerDataCount
+  ) {
+    this.apolloPublisher
+      .ns("apollo-tracker-mutations")
+      .publish(apolloTrackerData.mutations);
+    this.apolloPublisher
+      .ns("apollo-tracker-queries")
+      .publish(apolloTrackerData.queries);
+    this.apolloPublisher
+      .ns("apollo-tracker-data-count")
+      .publish(apolloTrackerDataCount);
   }
 }

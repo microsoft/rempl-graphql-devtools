@@ -2,7 +2,7 @@ import { RemplWrapper } from "../rempl-wrapper";
 import { GraphQLError } from "graphql";
 import { NormalizedCacheObject, ApolloClient } from "@apollo/client";
 import { getRecentActivities } from "../helpers/recent-activities";
-import { ClientObject, ApolloRecentActivities } from "../../types";
+import { ClientObject, ApolloTrackerData } from "../../types";
 import {
   filterMutationInfo,
   filterQueryInfo,
@@ -39,15 +39,8 @@ export class ApolloRecentActivitiesPublisher {
 
   private trackerDataPublishHandler(
     clientObjects: ClientObject[],
-    activeClientId: string | null
+    activeClient: ClientObject | null
   ) {
-    if (!activeClientId) {
-      return;
-    }
-    const activeClient = clientObjects.find(
-      (client: ClientObject) => client.clientId === activeClientId
-    );
-
     if (!activeClient) {
       return;
     }
@@ -56,7 +49,7 @@ export class ApolloRecentActivitiesPublisher {
       activeClient.client
     );
 
-    if (!newData.mutationLog.count && !newData.watchedQueries.count) {
+    if (!newData.mutations.length && !newData.queries.length) {
       return;
     }
 
@@ -65,7 +58,7 @@ export class ApolloRecentActivitiesPublisher {
 
   private serializeRecentActivitiesDataObjects = (
     client: ApolloClient<NormalizedCacheObject>
-  ): ApolloRecentActivities => {
+  ): ApolloTrackerData => {
     const recentQueries = this.getQueriesRecentActivities(client);
     const recentMutations = this.getMutationsRecentActivities(client);
 
@@ -131,6 +124,6 @@ export class ApolloRecentActivitiesPublisher {
   }
 
   public publishRecentActivitiesData(
-    apolloRecentActivitiesData: ApolloRecentActivities
+    apolloRecentActivitiesData: ApolloTrackerData
   ) {}
 }

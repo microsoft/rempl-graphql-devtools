@@ -20,7 +20,7 @@ export const ApolloGlobalOperationsWrapper = ({
       globalMutations: [],
       globalSubscriptions: [],
     });
-  const myTool = React.useRef(rempl.getSubscriber());
+  const myTool = useRef(rempl.getSubscriber());
 
   useEffect(() => {
     myTool.current

@@ -14,7 +14,7 @@ export class ApolloCacheDuplicatesPublisher {
   private remplWrapper: RemplWrapper;
   private clientsArray: null | ClientObject[] = null;
   private duplicatesCacheItems: ClientCacheDuplicates = {};
-  private apolloKeyFields: ApolloKeyFields;
+  private apolloKeyFields: ApolloKeyFields = {};
 
   constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
     if (ApolloCacheDuplicatesPublisher._instance) {

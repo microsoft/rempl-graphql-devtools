@@ -4,11 +4,9 @@ import { ClientCacheObject } from "../../types";
 import rempl from "rempl";
 
 export type ApolloCacheContextType = {
-  removeCacheItem: (clientIdToModify: string) => (key: string) => void;
-  recordRecentCacheChanges: (
-    clientIdToModify: string
-  ) => (shouldRecord: boolean) => void;
-  clearRecentCacheChanges: (clientIdToModify: string) => () => void;
+  removeCacheItem: (key: string) => void;
+  recordRecentCacheChanges: (shouldRecord: boolean) => void;
+  clearRecentCacheChanges: () => void;
   cacheObjects: ClientCacheObject;
 } | null;
 
@@ -20,7 +18,10 @@ export const ApolloCacheContextWrapper = ({
 }: {
   children: JSX.Element;
 }) => {
-  const [cacheObjects, setCacheObjects] = React.useState<ClientCacheObject>({});
+  const [cacheObjects, setCacheObjects] = React.useState<ClientCacheObject>({
+    recentCache: {},
+    cache: {},
+  });
   const myTool = React.useRef(rempl.getSubscriber());
 
   React.useEffect(() => {
@@ -34,45 +35,33 @@ export const ApolloCacheContextWrapper = ({
   }, []);
 
   const removeCacheItem = React.useCallback(
-    (clientIdToModify: string) => (key: string) => {
-      const cacheObjectsToModify = { ...cacheObjects };
-      cacheObjectsToModify[clientIdToModify] = {
-        ...cacheObjects[clientIdToModify],
-        cache: removeKeyFromCacheState(
-          key,
-          cacheObjects[clientIdToModify].cache
-        ),
+    (key: string) => {
+      const cacheObjectsToModify = {
+        ...cacheObjects,
+        cache: removeKeyFromCacheState(key, cacheObjects.cache),
       };
 
       setCacheObjects(cacheObjectsToModify);
       myTool.current.callRemote("removeCacheKey", {
         key,
-        clientId: clientIdToModify,
       });
     },
     [cacheObjects]
   );
 
-  const clearRecentCacheChanges = React.useCallback(
-    (clientIdToModify: string) => () => {
-      const cacheObjectsToModify = { ...cacheObjects };
-      cacheObjectsToModify[clientIdToModify] = {
-        ...cacheObjects[clientIdToModify],
-        recentCache: {},
-      };
+  const clearRecentCacheChanges = React.useCallback(() => {
+    const cacheObjectsToModify = {
+      ...cacheObjects,
+      recentCache: {},
+    };
 
-      setCacheObjects(cacheObjectsToModify);
-      myTool.current.callRemote("clearRecent", {
-        clientId: clientIdToModify,
-      });
-    },
-    [cacheObjects]
-  );
+    setCacheObjects(cacheObjectsToModify);
+    myTool.current.callRemote("clearRecent", {});
+  }, [cacheObjects]);
 
   const recordRecentCacheChanges = React.useCallback(
-    (clientIdToModify: string) => (shouldRecord: boolean) => {
+    (shouldRecord: boolean) => {
       myTool.current.callRemote("recordRecent", {
-        clientId: clientIdToModify,
         shouldRecord,
       });
     },

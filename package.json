@@ -8,7 +8,8 @@
     "playground": "watch 'node scripts/playground' ./src & (cd playground && yarn && yarn start)",
     "build": "node scripts/build",
     "watch": "watch 'node scripts/build'",
-    "lint": "eslint src",
+    "eslint": "eslint src",
+    "eslint:fix": "eslint src --fix",
     "test": "jest",
     "prepublishOnly": "npm run build"
   },

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import rempl from "rempl";
 import { Dropdown } from "../../components";
 
@@ -21,12 +21,12 @@ export const ActiveClientContextWrapper = ({
     });
   }, []);
 
-  const onChange = (_: any, { value }: any) => {
+  const onChange = useCallback((_: any, { value }: any) => {
     myTool.current.callRemote("setActiveClientId", {
       clientId: value,
     });
     setActiveClientId(value);
-  };
+  }, []);
 
   if (!activeClientId && clientIds.length) {
     myTool.current.callRemote("setActiveClientId", {
@@ -38,7 +38,11 @@ export const ActiveClientContextWrapper = ({
   return (
     <>
       <div>
-        <Dropdown items={clientIds} onChange={onChange} value={activeClientId} />
+        <Dropdown
+          items={clientIds}
+          onChange={onChange}
+          value={activeClientId}
+        />
       </div>
       {activeClientId ? (
         <ActiveClientContext.Provider value={activeClientId}>

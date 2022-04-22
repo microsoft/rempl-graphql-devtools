@@ -1,14 +1,12 @@
-import React, { useContext, useMemo, useCallback, useEffect } from "react";
+import React, { useContext, useMemo, useCallback } from "react";
 import { ApolloCacheRenderer } from "./apollo-cache-renderer";
 import sizeOf from "object-sizeof";
 import { ApolloCacheContext } from "../contexts/apollo-cache-context";
-import { ActiveClientContext } from "../contexts/active-client-context";
 import { ApolloCacheDuplicatesContext } from "../contexts/apollo-cache-duplicates-context";
 import { CacheObjectWithSize } from "./types";
 
 const ApolloCacheContainer = React.memo(() => {
   const contextData = useContext(ApolloCacheContext);
-  const activeClientId = useContext(ActiveClientContext);
   const duplicateItems = useContext(ApolloCacheDuplicatesContext);
 
   if (!contextData) return null;
@@ -20,11 +18,11 @@ const ApolloCacheContainer = React.memo(() => {
     clearRecentCacheChanges,
   } = contextData;
 
-  const cache = cacheObjects[activeClientId].cache;
-  const recentCache = cacheObjects[activeClientId].recentCache;
+  const cache = cacheObjects?.cache;
+  const recentCache = cacheObjects?.recentCache;
 
   const getCacheDuplicates = useCallback(() => {
-    duplicateItems?.getCacheDuplicates(activeClientId);
+    duplicateItems?.getCacheDuplicates;
   }, []);
 
   const cacheObjectsWithSize = useMemo(
@@ -43,10 +41,10 @@ const ApolloCacheContainer = React.memo(() => {
       getCacheDuplicates={getCacheDuplicates}
       duplicatedCacheObjects={duplicateItems?.cacheDuplicates}
       recentCacheWithSize={recentCacheObjectsWithSize}
-      clearRecentCacheChanges={clearRecentCacheChanges(activeClientId)}
-      recordRecentCacheChanges={recordRecentCacheChanges(activeClientId)}
+      clearRecentCacheChanges={clearRecentCacheChanges}
+      recordRecentCacheChanges={recordRecentCacheChanges}
       cacheSize={sizeOf(cache as Record<string, unknown>)}
-      removeCacheItem={removeCacheItem(activeClientId)}
+      removeCacheItem={removeCacheItem}
     />
   );
 });
