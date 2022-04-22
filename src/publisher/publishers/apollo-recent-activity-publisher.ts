@@ -2,17 +2,24 @@ import { RemplWrapper } from "../rempl-wrapper";
 import { GraphQLError } from "graphql";
 import { NormalizedCacheObject, ApolloClient } from "@apollo/client";
 import { getRecentActivities } from "../helpers/recent-activities";
-import { ClientObject, ApolloTrackerData } from "../../types";
+import {
+  ClientObject,
+  RecentActivity,
+  RecentActivities,
+  Mutation,
+  WatchedQuery,
+} from "../../types";
 import {
   filterMutationInfo,
   filterQueryInfo,
   getRecentData,
 } from "../helpers/parse-apollo-data";
 
-export class ApolloRecentActivitiesPublisher {
-  private static _instance: ApolloRecentActivitiesPublisher;
+export class ApolloRecentActivityPublisher {
+  private static _instance: ApolloRecentActivityPublisher;
   private apolloPublisher;
   private remplWrapper: RemplWrapper;
+  private recordRecentActivity = false;
   private lastIterationData: {
     mutations: unknown[];
     queries: Map<number, unknown>;
@@ -22,8 +29,8 @@ export class ApolloRecentActivitiesPublisher {
   };
 
   constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
-    if (ApolloRecentActivitiesPublisher._instance) {
-      return ApolloRecentActivitiesPublisher._instance;
+    if (ApolloRecentActivityPublisher._instance) {
+      return ApolloRecentActivityPublisher._instance;
     }
 
     this.remplWrapper = remplWrapper;
@@ -33,15 +40,35 @@ export class ApolloRecentActivitiesPublisher {
       2000
     );
     this.apolloPublisher = apolloPublisher;
+    this.attachMethodsToPublisher();
 
-    ApolloRecentActivitiesPublisher._instance = this;
+    ApolloRecentActivityPublisher._instance = this;
+  }
+
+  private attachMethodsToPublisher() {
+    this.apolloPublisher.provide(
+      "clearRecentActivity",
+      (_: any, callback: () => void) => {
+        this.lastIterationData = { mutations: [], queries: new Map() };
+        callback();
+      }
+    );
+
+    this.apolloPublisher.provide(
+      "recordRecentActivity",
+      ({ shouldRecord }: { shouldRecord: boolean }, callback: () => void) => {
+        console.log(shouldRecord);
+        this.recordRecentActivity = shouldRecord;
+        callback();
+      }
+    );
   }
 
   private trackerDataPublishHandler(
     clientObjects: ClientObject[],
     activeClient: ClientObject | null
   ) {
-    if (!activeClient) {
+    if (!activeClient || !this.recordRecentActivity) {
       return;
     }
 
@@ -58,11 +85,11 @@ export class ApolloRecentActivitiesPublisher {
 
   private serializeRecentActivitiesDataObjects = (
     client: ApolloClient<NormalizedCacheObject>
-  ): ApolloTrackerData => {
+  ) => {
     const recentQueries = this.getQueriesRecentActivities(client);
     const recentMutations = this.getMutationsRecentActivities(client);
 
-    return getRecentData(recentQueries, recentMutations);
+    return getRecentData(recentQueries, recentMutations, Date.now());
   };
 
   private getQueriesRecentActivities(
@@ -123,7 +150,9 @@ export class ApolloRecentActivitiesPublisher {
     }
   }
 
-  public publishRecentActivitiesData(
-    apolloRecentActivitiesData: ApolloTrackerData
-  ) {}
+  public publishRecentActivitiesData(recentActivitiesData: RecentActivities) {
+    this.apolloPublisher
+      .ns("apollo-recent-activity")
+      .publish(recentActivitiesData);
+  }
 }

@@ -9,13 +9,13 @@ type Chat {
 }
 
 type Query {
-  message(id: ID): Message
-  chat: Chat 
+  message(id: ID!): Message!
+  chat: Chat!
 }
 
 type Mutation {
-  addMessage(message: String): Message
-  removeMessage(id: ID): Boolean
+  addMessage(message: String!): Message!
+  removeMessage(id: ID!): Boolean!
 }
 `;
 

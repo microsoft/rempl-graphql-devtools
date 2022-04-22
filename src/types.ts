@@ -26,6 +26,24 @@ declare global {
   }
 }
 
+export type RecentActivity<Data> = {
+  id: string;
+  change: string;
+  data: Data;
+};
+
+export type RecentActivities = {
+  queries: RecentActivity<WatchedQuery>[];
+  mutations: RecentActivity<Mutation>[];
+  timestamp: number;
+};
+
+export type RecentActivityRaw = {
+  id: string;
+  change: string;
+  data: unknown;
+};
+
 export type ClientCacheObject = {
   cache: NormalizedCacheObject;
   recentCache: NormalizedCacheObject;

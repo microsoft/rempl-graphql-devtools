@@ -5,7 +5,7 @@ import { GraphiQLPublisher } from "./publishers/graphiql-publisher";
 import { ApolloTrackerPublisher } from "./publishers/apollo-tracker-publisher";
 import { ApolloClientsPublisher } from "./publishers/apollo-clients-publisher";
 import { ApolloGlobalOperationsPublisher } from "./publishers/apollo-global-operations-publisher";
-import { ApolloRecentActivitiesPublisher } from "./publishers/apollo-recent-activities-publisher";
+import { ApolloRecentActivityPublisher } from "./publishers/apollo-recent-activity-publisher";
 
 const remplWrapper = new RemplWrapper(
   "ctrl+shift+alt+0, command+shift+option+0"
@@ -25,4 +25,4 @@ new ApolloTrackerPublisher(remplWrapper, publisher);
 new ApolloGlobalOperationsPublisher(remplWrapper, publisher);
 new GraphiQLPublisher(remplWrapper, publisher);
 new ApolloCacheDuplicatesPublisher(remplWrapper, publisher);
-new ApolloRecentActivitiesPublisher(remplWrapper, publisher);
+new ApolloRecentActivityPublisher(remplWrapper, publisher);

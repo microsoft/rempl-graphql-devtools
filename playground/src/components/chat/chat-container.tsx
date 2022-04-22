@@ -1,12 +1,11 @@
 import React from "react";
 import { useApolloClient } from "@apollo/client/react";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import cacheMock from "./cache-mock.json";
 import { ChatRenderer } from "./chat-renderer";
 import sizeOf from "object-sizeof";
 
 const CHAT = gql`
-  query chat {
+  query Chat {
     chat {
       messages {
         id

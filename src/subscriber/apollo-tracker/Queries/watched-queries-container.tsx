@@ -10,13 +10,17 @@ const WatchedQueriesContainer = () => {
   const myTool = useRef(rempl.getSubscriber());
 
   useEffect(() => {
-    myTool.current
+    const unsubscribe = myTool.current
       .ns("apollo-tracker-queries")
       .subscribe((data: WatchedQuery[]) => {
         if (data) {
           setApolloTrackerQueries(data);
         }
       });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return <WatchedQueries queries={apolloTrackerQueries} />;

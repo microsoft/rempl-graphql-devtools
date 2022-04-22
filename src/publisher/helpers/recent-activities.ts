@@ -1,28 +1,31 @@
 import { uid } from "uid";
+import { RecentActivityRaw } from "../../types";
+import { RECENT_DATA_CHANGES_TYPES } from "../../consts";
 
-export const DATA_CHANGES = {
-  ADDED: "added",
-  REMOVED: "removed",
-};
-
-export function getRecentActivities(items: any[], lastIterationItems: any[]) {
+export function getRecentActivities(
+  items: unknown[],
+  lastIterationItems: unknown[]
+): RecentActivityRaw[] | null {
   if (!lastIterationItems.length || !items.length) {
-    return;
+    return null;
   }
 
-  let index = 0;
   const result = [];
   for (const value of items) {
     const searchedValueIndex = lastIterationItems.indexOf(value);
     if (searchedValueIndex === -1) {
-      result.push({ change: DATA_CHANGES.ADDED, id: uid(), data: value });
+      result.push({
+        change: RECENT_DATA_CHANGES_TYPES.ADDED,
+        id: uid(),
+        data: value,
+      });
       continue;
     } else {
       if (searchedValueIndex > 0) {
         result.push(
           ...lastIterationItems.slice(0, searchedValueIndex).map((data) => ({
             id: uid(),
-            change: DATA_CHANGES.REMOVED,
+            change: RECENT_DATA_CHANGES_TYPES.REMOVED,
             data,
           }))
         );
@@ -34,7 +37,7 @@ export function getRecentActivities(items: any[], lastIterationItems: any[]) {
   result.push(
     ...lastIterationItems.map((data) => ({
       id: uid(),
-      change: DATA_CHANGES.REMOVED,
+      change: RECENT_DATA_CHANGES_TYPES.REMOVED,
       data,
     }))
   );

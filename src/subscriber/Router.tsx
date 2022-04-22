@@ -4,6 +4,7 @@ import { ApolloCache } from "./apollo-cache";
 import { WatchedQueries, Mutations } from "./apollo-tracker";
 import { ApolloTrackerDataCountContext } from "./contexts/apollo-tracker-data-count-context";
 import { AdditionalInformations } from "./apollo-additional-informations";
+import { RecentActivityContainer } from "./apollo-recent-activity/recent-activity-container";
 import { GraphiQLRenderer } from "./graphiql";
 import {
   ApolloCacheContext,
@@ -40,6 +41,9 @@ const Router = React.memo(() => {
           </Route>
           <Route path="/apollo-mutations">
             <Mutations />
+          </Route>
+          <Route path="/recent-activity">
+            <RecentActivityContainer />
           </Route>
           <Route path="/graphiql">
             <GraphiQLRenderer />
