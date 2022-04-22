@@ -1,60 +1,51 @@
 import React from "react";
-import { Accordion, List } from "@fluentui/react-northstar";
 import { ApolloGlobalOperations } from "../../types";
-import { useAutoContainerHeight } from "../../helpers/container-height";
-import { useStyles } from "./additional-info-styles";
+import { useStyles } from "./additional-info.styles";
+import { Accordion, AccordionHeader, AccordionItem, AccordionPanel } from "@fluentui/react-components";
 
 const panels = (globalOperations: ApolloGlobalOperations) => [
   {
     key: "0_global_queries",
-    title: {
-      content: "Global Queries",
-      style: {
-        top: 0,
-      },
-    },
-    content: {
-      content: <List items={globalOperations.globalQueries} />,
-    },
+    title: "Global Queries",
+    items: globalOperations.globalQueries,
   },
   {
     key: "1_global_mutations",
-    title: {
-      content: "Global Mutations",
-      style: {
-        top: 31,
-        bottom: 31,
-      },
-    },
-    content: {
-      content: <List items={globalOperations.globalMutations} />,
-    },
+    title: "Global Mutations",
+    items: globalOperations.globalMutations,
   },
   {
     key: "2_global_subscriptions",
-    title: {
-      content: "Global Subscriptions",
-      style: {
-        top: 31 * 2,
-        bottom: 0,
-      },
-    },
-    content: {
-      content: <List items={globalOperations.globalSubscriptions} />,
-    },
+    title: "Global Subscriptions",
+    items: globalOperations.globalSubscriptions,
   },
 ];
 
 const AdditionalInformationsRenderer = React.memo(
   ({ globalOperations }: { globalOperations: ApolloGlobalOperations }) => {
     const classes = useStyles();
-    const headerHeight = useAutoContainerHeight();
     return (
-      <div
-        className={classes.container}
-        style={{ height: `calc(100% - ${headerHeight}px)` }}
-      >
-        <Accordion panels={panels(globalOperations)} />
+      <div className={classes.root}>
+        <div className={classes.innerContainer}>
+          <Accordion
+            multiple
+          >
+            {panels(globalOperations).map((item, index) => (
+              <AccordionItem value={index} key={item.key}>
+                <AccordionHeader>
+                 {item.title}
+                </AccordionHeader>
+                {item.items.map(elem => (
+                  <AccordionPanel>
+                    <div className={classes.infoItem}>
+                      {elem}
+                    </div>
+                  </AccordionPanel>
+                ))}
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
       </div>
     );
   }

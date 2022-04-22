@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Box, List as FUIList, Input } from "@fluentui/react-northstar";
-import { useStyles } from "./list-styles";
+import { useStyles } from "./list.styles";
+import { Search } from "../search/search";
+import { mergeClasses } from "@fluentui/react-components";
 
 interface ListProps {
   isExpanded: boolean;
@@ -8,12 +9,13 @@ interface ListProps {
   selectedIndex: number;
 }
 
-function filterListItems(items: string[], searchValue: string) {
+function filterListItems(items: any[], searchValue: string) {
   if (!searchValue) return items;
   const filteredItems = [...items];
+  console.log("ITEM", filteredItems);
 
-  return filteredItems.filter((value: string) =>
-    JSON.stringify(value).includes(searchValue)
+  return filteredItems.filter((value: any) =>
+    JSON.stringify(value.content).includes(searchValue)
   );
 }
 
@@ -23,30 +25,34 @@ export const List = React.memo(
     const classes = useStyles();
 
     return (
-      <Box
-        className={classes.container}
-        styles={{
-          width: isExpanded ? 0 : "30%",
+      <div
+        className={classes.root}
+        style={{
+          width: isExpanded ? 0 : "auto",
         }}
       >
-        <Box className={classes.input}>
-          <Input
-            fluid
-            placeholder="Search..."
-            onChange={(e: React.SyntheticEvent) => {
+        <div className={classes.searchContainer}>
+          <Search
+            onSearchChange={(e: React.SyntheticEvent) => {
               const input = e.target as HTMLInputElement;
               setSearchValue(input.value);
             }}
           />
-        </Box>
-        <FUIList
-          className={classes.list}
-          selectable
-          truncateContent
-          items={filterListItems(items, searchValue)}
-          selectedIndex={selectedIndex}
-        />
-      </Box>
+        </div>
+        <ul className={classes.list}>
+          {filterListItems(items, searchValue).map((item, index) => (
+            <li 
+              className={mergeClasses(
+                classes.listItem, 
+                selectedIndex === item.index && classes.listItemActive
+              )}
+              key={item.key} 
+              onClick={() => item.onClick(item.index)}>
+              {item.content}
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   }
 );

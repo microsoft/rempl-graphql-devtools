@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Provider, teamsTheme } from "@fluentui/react-northstar";
 import Router from "./Router";
 import { ApolloClientDataWrapper } from "./contexts/apollo-tracker-context";
 import { ApolloGlobalOperationsWrapper } from "./contexts/apollo-global-operations-context";
@@ -9,6 +8,7 @@ import { ApolloCacheDuplicatesContextWrapper } from "./contexts/apollo-cache-dup
 import jss from "jss";
 import preset from "jss-preset-default";
 import { SheetsRegistry, JssProvider } from "react-jss";
+import { FluentProvider, teamsLightTheme } from "@fluentui/react-components";
 
 const App = () => {
   const setupJss = () => {
@@ -18,8 +18,7 @@ const App = () => {
       .createStyleSheet({
         "@global": {
           html: { height: "100%" },
-          body: { height: "100%", overflow: "hidden" },
-          ".ui-provider": { height: "100%" },
+          body: { height: "100%", overflow: "hidden", margin: 0, padding: 0, boxSizing: "border-box" },
         },
       })
       .attach();
@@ -30,7 +29,7 @@ const App = () => {
   const sheets = setupJss();
 
   return (
-    <Provider theme={teamsTheme}>
+    <FluentProvider theme={teamsLightTheme} style={{height: '100%', backgroundColor: "#F2F2F2"}}>
       <JssProvider registry={sheets}>
         <ApolloGlobalOperationsWrapper>
           <ActiveClientContextWrapper>
@@ -44,7 +43,7 @@ const App = () => {
           </ActiveClientContextWrapper>
         </ApolloGlobalOperationsWrapper>
       </JssProvider>
-    </Provider>
+    </FluentProvider>
   );
 };
 

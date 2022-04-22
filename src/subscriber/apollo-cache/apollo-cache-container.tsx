@@ -41,6 +41,7 @@ const ApolloCacheContainer = React.memo(() => {
     <ApolloCacheRenderer
       cacheObjectsWithSize={cacheObjectsWithSize}
       getCacheDuplicates={getCacheDuplicates}
+      duplicatedCacheObjects={duplicateItems?.cacheDuplicates}
       recentCacheWithSize={recentCacheObjectsWithSize}
       clearRecentCacheChanges={clearRecentCacheChanges(activeClientId)}
       recordRecentCacheChanges={recordRecentCacheChanges(activeClientId)}

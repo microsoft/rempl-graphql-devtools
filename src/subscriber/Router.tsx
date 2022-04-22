@@ -6,7 +6,6 @@ import { ApolloTrackerContext } from "./contexts/apollo-tracker-context";
 import { AdditionalInformations } from "./apollo-additional-informations";
 import { GraphiQLRenderer } from "./graphiql";
 import { ActiveClientContext } from "./contexts/active-client-context";
-import { Loader } from "@fluentui/react-northstar";
 import {
   ApolloCacheContext,
   ApolloCacheContextType,
@@ -38,13 +37,13 @@ const Router = React.memo(() => {
   const cacheData = useContext(ApolloCacheContext);
 
   if (shouldShowLoader(apolloTrackerData, activeClientId, cacheData))
-    return <Loader />;
+    return <p>Loading...</p>;
 
   const { mutationLog, watchedQueries } = apolloTrackerData[activeClientId];
 
   return (
     <MemoryRouter>
-      <>
+      <div style={{display: "flex", height: 'calc(100% - 40px)'}}>
         <Menu
           cacheCount={getCacheDataCount(cacheData, activeClientId)}
           mutationsCount={mutationLog.count}
@@ -67,7 +66,7 @@ const Router = React.memo(() => {
             <ApolloCache />
           </Route>
         </Switch>
-      </>
+      </div>
     </MemoryRouter>
   );
 });

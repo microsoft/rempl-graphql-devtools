@@ -1,7 +1,8 @@
-import { Provider, teamsTheme, Menu } from "@fluentui/react-northstar";
+
 import { ApolloProvider } from "@apollo/client";
 import { buildClient } from "data/data-builder";
 import ChatContainer from "./chat/chat-container";
+import { FluentProvider, teamsLightTheme } from "@fluentui/react-components";
 
 const App = () => {
   const client = buildClient();
@@ -10,11 +11,11 @@ const App = () => {
   }
 
   return (
-    <Provider theme={teamsTheme}>
+    <FluentProvider theme={teamsLightTheme}>
       <ApolloProvider client={client}>
         <ChatContainer />
       </ApolloProvider>
-    </Provider>
+    </FluentProvider>
   );
 };
 

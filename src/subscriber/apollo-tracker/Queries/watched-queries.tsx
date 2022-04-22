@@ -1,11 +1,11 @@
 import React, { useState, useContext, useMemo } from "react";
-import { Flex, Text } from "@fluentui/react-northstar";
 import { ApolloTrackerContext } from "../../contexts/apollo-tracker-context";
 import { ApolloGlobalOperationsContext } from "../../contexts/apollo-global-operations-context";
 import { ActiveClientContext } from "../../contexts/active-client-context";
 import { List, VerticalViewer } from "../../../components";
-import { useAutoContainerHeight } from "../../../helpers/container-height";
 import { WatchedQuery } from "../../types";
+import { watchedQueriesStyles } from "./watched-queries.styles";
+import { Text } from "@fluentui/react-components";
 
 export const WatchedQueries = () => {
   const [selected, setSelected] = useState<number>(0);
@@ -18,53 +18,52 @@ export const WatchedQueries = () => {
   const watchedQuery = data.watchedQueries.queries.find(
     ({ id }) => id === selected
   );
-  const headerHeight = useAutoContainerHeight();
   const globalQueries = useMemo(
     () => new Set(globalOperations.globalQueries),
     [globalOperations]
   );
+  const classes = watchedQueriesStyles();
 
   if (!watchedQuery) {
     return null;
   }
 
   return (
-    <Flex styles={{ height: `calc(100% - ${headerHeight}px)` }}>
-      <List
-        isExpanded={isExpanded}
-        items={data.watchedQueries.queries
-          .map(({ name, id, errorMessage }: WatchedQuery) => ({
-            index: id,
-            key: `${name}-${id}`,
-            onClick: () => setSelected(id),
-            content: (
-              <>
-                <Text
-                  weight={id === selected ? "bold" : "regular"}
-                  content={name}
-                />
-                {globalQueries.has(name) && (
-                  <Text weight={"bold"} content={" (GO)"} />
-                )}
-                {errorMessage && (
+    <div className={classes.root}>
+      <div className={classes.innerContainer}>
+        <List
+          isExpanded={isExpanded}
+          items={data.watchedQueries.queries
+            .map(({ name, id, errorMessage }: WatchedQuery) => ({
+              index: id,
+              key: `${name}-${id}`,
+              onClick: () => setSelected(id),
+              content: (
+                <>
                   <Text
-                    weight={"bold"}
-                    error={!!errorMessage}
-                    content={" (ERROR)"}
-                  />
-                )}
-              </>
-            ),
-            truncate: true,
-          }))
-          .reverse()}
-        selectedIndex={selected}
-      />
-      <VerticalViewer
-        data={watchedQuery}
-        isExpanded={isExpanded}
-        onExpand={() => setIsExpanded(!isExpanded)}
-      />
-    </Flex>
+                    weight={id === selected ? "semibold" : "regular"}
+                  >{name}</Text>
+                  {globalQueries.has(name) && (
+                    <Text weight="semibold">{" (GO)"}</Text>
+                  )}
+                  {errorMessage && (
+                    <Text
+                      className={!!errorMessage ? classes.error : ""}
+                      weight={"semibold"}
+                    >{" (ERROR)"}</Text>
+                  )}
+                </>
+              )
+            }))
+            .reverse()}
+          selectedIndex={selected}
+        />
+        <VerticalViewer
+          data={watchedQuery}
+          isExpanded={isExpanded}
+          onExpand={() => setIsExpanded(!isExpanded)}
+        />
+      </div>
+    </div>
   );
 };

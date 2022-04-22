@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Loader } from "@fluentui/react-northstar";
+import React, { useEffect, useState } from "react";
 import rempl from "rempl";
 import { Dropdown } from "../../components";
 
@@ -38,13 +37,15 @@ export const ActiveClientContextWrapper = ({
 
   return (
     <>
-      <Dropdown items={clientIds} onChange={onChange} value={activeClientId} />
+      <div>
+        <Dropdown items={clientIds} onChange={onChange} value={activeClientId} />
+      </div>
       {activeClientId ? (
         <ActiveClientContext.Provider value={activeClientId}>
           {children}
         </ActiveClientContext.Provider>
       ) : (
-        <Loader />
+        <p>Loading...</p>
       )}
     </>
   );

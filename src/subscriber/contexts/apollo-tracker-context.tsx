@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState} from "react";
 import rempl from "rempl";
-import { Loader } from "@fluentui/react-northstar";
 import { ApolloTrackerData } from "../../types";
 import { updateData } from "../helpers";
 import { ApolloTrackerContextData } from "../types";

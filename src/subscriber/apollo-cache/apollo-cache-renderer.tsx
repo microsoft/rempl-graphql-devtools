@@ -1,26 +1,17 @@
-import React, { Fragment, useCallback } from "react";
+import React, { useCallback } from "react";
 import { CacheObjectWithSize } from "./types";
 import { ApolloCacheItems } from "./apollo-cache-items";
-import {
-  Input,
-  Button,
-  Flex,
-  Alert,
-  Tooltip,
-  Dropdown,
-} from "@fluentui/react-northstar";
-import {
-  BanIcon,
-  CallRecordingIcon,
-  SearchIcon,
-} from "@fluentui/react-icons-northstar";
 import debounce from "lodash.debounce";
-import { useStyles } from "./apollo-cache-renderer-styles";
-import { useAutoContainerHeight } from "../../helpers/container-height";
+import { useStyles } from "./apollo-cache-renderer.styles";
+import { Text, Tooltip, Button, mergeClasses } from "@fluentui/react-components";
+import { TabMenu, Search } from "../../components";
+import { Record20Regular, RecordStop20Regular, DismissCircle20Regular, ArrowClockwise20Regular } from "@fluentui/react-icons";
+import { ApolloCacheDuplicatedItems } from "./apollo-cache-duplicated-items";
 
 interface IApolloCacheRenderer {
   cacheObjectsWithSize: CacheObjectWithSize[];
   recentCacheWithSize: CacheObjectWithSize[];
+  duplicatedCacheObjects: any;
   recordRecentCacheChanges: (shouldRemove: boolean) => void;
   clearRecentCacheChanges: () => void;
   getCacheDuplicates: () => void;
@@ -38,13 +29,12 @@ function filterCacheObjects(
     key.toLowerCase().includes(searchKey.toLowerCase())
   );
 }
-// magic number for fixed top bar and bottom status bar elements
-const FIXED_BARS_HEIGHT = 68;
 
 export const ApolloCacheRenderer = React.memo(
   ({
     cacheObjectsWithSize,
     recentCacheWithSize,
+    duplicatedCacheObjects,
     getCacheDuplicates,
     cacheSize,
     removeCacheItem,
@@ -52,14 +42,16 @@ export const ApolloCacheRenderer = React.memo(
     clearRecentCacheChanges,
   }: IApolloCacheRenderer) => {
     const [searchKey, setSearchKey] = React.useState("");
-    const [showRecentCache, setShowRecentCache] = React.useState(false);
+    const [currentCache, setCurrentCache] = React.useState('all');
     const [recordRecentCache, setRecordRecentCache] = React.useState(false);
     const classes = useStyles();
-    const headerHeight = useAutoContainerHeight() + FIXED_BARS_HEIGHT;
 
-    const toggleShowRecentCache = useCallback(() => {
-      setShowRecentCache(!showRecentCache);
-    }, [showRecentCache]);
+    const getCurrentCacheView = useCallback((cacheType: string) => {
+      if (cacheType === "duplicated") {
+        getCacheDuplicates();
+      }
+      setCurrentCache(cacheType);
+    }, []);
 
     const toggleRecordRecentChanges = useCallback(() => {
       recordRecentCacheChanges(!recordRecentCache);
@@ -71,73 +63,99 @@ export const ApolloCacheRenderer = React.memo(
       [setSearchKey]
     );
 
+    const convertDuplicatedObjects = (data) => {
+      return data?.main?.map(item => item.map(obj => Object.values(obj)[0]))
+    }
+
     return (
-      <Fragment>
-        <Flex space="between" className={classes.topBar}>
-          <Flex>
-            <Button content="Find duplicities" onClick={getCacheDuplicates} />
-            <Dropdown
-              className={classes.switchDropdown}
-              items={["All cache", "Recent cache"]}
-              defaultValue={"All cache"}
-              onChange={toggleShowRecentCache}
-            />
-            <Input
-              icon={<SearchIcon />}
-              placeholder="Search..."
-              role="search"
-              clearable
-              fluid
-              onChange={(e: React.SyntheticEvent) => {
-                const input = e.target as HTMLInputElement;
-                debouncedSetSearchKey(input.value);
-              }}
-            />
-          </Flex>
-          {showRecentCache && (
-            <Flex gap="gap.smaller" className={classes.topBarActions}>
-              <Tooltip
-                trigger={
-                  <Button
-                    className={recordRecentCache ? classes.activeRecord : ""}
-                    icon={<CallRecordingIcon size="medium" />}
-                    iconOnly
-                    tinted
-                    onClick={toggleRecordRecentChanges}
-                  />
-                }
-                content={recordRecentCache ? "Stop recording" : "Record"}
-              />
-              <Tooltip
-                trigger={
-                  <Button
-                    disabled={recordRecentCache}
-                    icon={<BanIcon size="medium" />}
-                    tinted
-                    iconOnly
-                    onClick={clearRecentCacheChanges}
-                  />
-                }
-                content="Clear"
-              />
-            </Flex>
-          )}
-        </Flex>
-        <ApolloCacheItems
-          cacheObjectsWithSize={
-            showRecentCache
-              ? recentCacheWithSize
-              : filterCacheObjects(cacheObjectsWithSize, searchKey)
-          }
-          removeCacheItem={removeCacheItem}
-          containerSize={`calc(100% - ${headerHeight}px)`}
-        />
-        <Alert
-          success
-          content={`Apollo cache (overall size ${cacheSize} B)`}
-          className={classes.infoPanel}
-        />
-      </Fragment>
+      <div className={classes.root}>
+        <div className={classes.innerContainer}>
+          <div className={classes.topBar}>
+            {/* Title */}
+            <Text 
+              className={classes.title}
+              weight="semibold"
+              size={400} 
+            >
+              {`${currentCache} cache`}
+            </Text>
+
+            <div className={classes.actionsContainer}>
+              {/* Recent actions */}
+              {currentCache === "recent" && (
+                <div className={classes.topBarActions}>
+                  <Tooltip
+                    content={recordRecentCache ? "Stop recording" : "Record"}
+                    relationship="description"
+                  >
+                    <Button
+                      className={mergeClasses(
+                        classes.actionButton,
+                        recordRecentCache && classes.activeRecord
+                      )}
+                      onClick={toggleRecordRecentChanges}
+                    >
+                      {recordRecentCache ? <RecordStop20Regular /> : <Record20Regular />}
+                    </Button>
+                  </Tooltip>
+                  <Tooltip
+                    content="Clear"
+                    relationship="description"
+                  >
+                    <Button
+                      className={classes.actionButton}
+                      disabled={recordRecentCache}
+                      onClick={clearRecentCacheChanges}
+                    >
+                      <DismissCircle20Regular />
+                    </Button>
+                  </Tooltip>
+                </div>
+              )}
+
+              {currentCache === "duplicated" && (
+                <div className={classes.topBarActions}>
+                  <Tooltip
+                    content="Refresh"
+                    relationship="description"
+                  >
+                    <Button
+                      className={classes.actionButton}
+                      onClick={getCacheDuplicates}
+                    >
+                      <ArrowClockwise20Regular/>
+                    </Button>
+                  </Tooltip>
+                </div>
+              )}
+
+              {/* Search */}
+              <div className={classes.searchContainer}>
+                <Search onSearchChange={(e: React.SyntheticEvent) => {
+                    const input = e.target as HTMLInputElement;
+                    debouncedSetSearchKey(input.value);
+                  }}/>
+              </div>
+            </div>
+          </div>
+          <TabMenu currentType={currentCache} onSelectItem={getCurrentCacheView}/>
+
+          { currentCache !== "duplicated" ? <ApolloCacheItems
+            cacheObjectsWithSize={
+              currentCache === "recent"
+                ? recentCacheWithSize
+                : filterCacheObjects(cacheObjectsWithSize, searchKey)
+            }
+            removeCacheItem={removeCacheItem}
+          /> : null }
+          {currentCache === "duplicated" ? <ApolloCacheDuplicatedItems
+            duplicatedCacheObjects={convertDuplicatedObjects(duplicatedCacheObjects)}
+          /> : null }
+        </div>
+        <Text className={classes.infoPanel}>
+          {`Apollo cache (overall size ${cacheSize} B)`}
+        </Text>
+      </div>
     );
   }
 );
