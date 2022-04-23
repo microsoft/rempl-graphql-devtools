@@ -1,4 +1,4 @@
-import { uid } from "uid";
+import { v4 as uid } from "uuid";
 import { RecentActivityRaw } from "../../types";
 import { RECENT_DATA_CHANGES_TYPES } from "../../consts";
 

@@ -1,6 +1,5 @@
-import { GraphQLError } from "graphql";
+import { GraphQLError, print, getOperationAST } from "graphql";
 
-import { print } from "graphql/language/printer";
 import {
   WatchedQuery,
   Mutation as MutationType,
@@ -8,7 +7,6 @@ import {
   RecentActivity,
   RecentActivities,
 } from "../../types";
-import { getOperationName } from "@apollo/client/utilities";
 
 export function filterMutationInfo(mutations: any) {
   const filteredMutationInfo: Record<string, unknown> = {};
@@ -85,7 +83,7 @@ function getRecentQueryData({
 
 function getQueryData(id: string, query: any): WatchedQuery | undefined {
   if (!query || !query.document) return;
-  const name = getOperationName(query?.document) || "";
+  const name = getOperationAST(query?.document)?.name?.value || "";
   if (name === "IntrospectionQuery") {
     return;
   }
@@ -104,7 +102,7 @@ function getMutationData(mutation: any, id: string): MutationType {
   return {
     id,
     typename: "Mutation",
-    name: getOperationName(mutation.mutation) || "",
+    name: getOperationAST(mutation.mutation)?.name?.value || "",
     mutationString: print(mutation.mutation),
     variables: mutation.variables,
     errorMessage: mutation.errorMessage,

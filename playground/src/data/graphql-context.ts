@@ -1,4 +1,4 @@
-import { uid } from "uid";
+import { v4 as uid } from "uuid";
 
 type Message = {
   id: string;
