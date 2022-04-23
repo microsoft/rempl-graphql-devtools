@@ -1,19 +1,8 @@
 import { RemplWrapper } from "../rempl-wrapper";
-import { GraphQLError } from "graphql";
 import { NormalizedCacheObject, ApolloClient } from "@apollo/client";
 import { getRecentActivities } from "../helpers/recent-activities";
-import {
-  ClientObject,
-  RecentActivity,
-  RecentActivities,
-  Mutation,
-  WatchedQuery,
-} from "../../types";
-import {
-  filterMutationInfo,
-  filterQueryInfo,
-  getRecentData,
-} from "../helpers/parse-apollo-data";
+import { ClientObject, RecentActivities } from "../../types";
+import { getRecentData } from "../helpers/parse-apollo-data";
 
 export class ApolloRecentActivityPublisher {
   private static _instance: ApolloRecentActivityPublisher;
