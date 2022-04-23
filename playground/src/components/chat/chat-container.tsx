@@ -44,7 +44,7 @@ const ChatContainer = () => {
           fields: {
             chat: (previous, { toReference }) => {
               return [
-                ...previous.messages,
+                ...(previous?.messages || []),
                 toReference(mutationResult.data.addMessage),
               ];
             },
@@ -83,7 +83,7 @@ const ChatContainer = () => {
             fields: {
               chat: (previous, { toReference }) => {
                 return [
-                  ...previous.messages,
+                  ...(previous?.messages || []),
                   toReference(mutationResult.data.addMessage),
                 ];
               },

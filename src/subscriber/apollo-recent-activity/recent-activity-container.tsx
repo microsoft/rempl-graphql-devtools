@@ -3,8 +3,10 @@ import { RecentActivities } from "../../types";
 import { Button } from "@fluentui/react-components";
 import rempl from "rempl";
 
-export const RecentActivityContainer = () => {
-  const [recentActivity, setRecentActivity] = useState<RecentActivities[]>([]);
+export const RecentActivityContainer = React.memo(() => {
+  const [recentActivities, setRecentActivities] = useState<RecentActivities[]>(
+    []
+  );
   const [recordRecentActivity, setRecordRecentActivity] =
     useState<boolean>(false);
   const myTool = useRef(rempl.getSubscriber());
@@ -13,13 +15,15 @@ export const RecentActivityContainer = () => {
     const unsubscribe = myTool.current
       .ns("apollo-recent-activity")
       .subscribe((data: RecentActivities) => {
-        if (data) {
-          console.log(data);
-          setRecentActivity([...recentActivity, data]);
+        if (data && recordRecentActivity) {
+          setRecentActivities([...recentActivities, data]);
         }
       });
 
     return () => {
+      myTool.current.callRemote("recordRecentActivity", {
+        shouldRecord: false,
+      });
       unsubscribe();
     };
   }, []);
@@ -43,6 +47,6 @@ export const RecentActivityContainer = () => {
       </Button>
     </div>
   );
-};
+});
 
 export default RecentActivityContainer;

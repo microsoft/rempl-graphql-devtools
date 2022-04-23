@@ -39,8 +39,6 @@ export class ApolloTrackerPublisher {
   ) {
     const data = this.serializeTrackerDataObjects(activeClient?.client);
 
-    console.log(data);
-
     if (!data) {
       return;
     }

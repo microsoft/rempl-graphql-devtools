@@ -36,11 +36,6 @@ const menuElements = (props: any) => [
     badge: props.mutationsCount,
   },
   {
-    url: "recent-activity",
-    name: "Recent activity",
-    icon: <Info24Regular />,
-  },
-  {
     url: "apollo-additional-informations",
     name: "Additional Information",
     icon: <Info24Regular />,

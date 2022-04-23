@@ -31,7 +31,7 @@ export function getRecentActivities(
         );
       }
 
-      lastIterationItems.splice(searchedValueIndex, searchedValueIndex + 1);
+      lastIterationItems.splice(0, searchedValueIndex + 1);
     }
   }
   result.push(
