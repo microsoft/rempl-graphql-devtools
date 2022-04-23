@@ -26,7 +26,7 @@ export class ApolloRecentActivityPublisher {
     this.remplWrapper.subscribeToRemplStatus(
       "recent-activities",
       this.trackerDataPublishHandler.bind(this),
-      2000
+      600
     );
     this.apolloPublisher = apolloPublisher;
     this.attachMethodsToPublisher();
