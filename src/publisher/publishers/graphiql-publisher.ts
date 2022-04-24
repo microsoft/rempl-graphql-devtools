@@ -1,7 +1,12 @@
 import { RemplWrapper } from "../rempl-wrapper";
 import { parse } from "graphql";
 
-import { ApolloClientsObject, FetcherParams, ClientObject } from "../../types";
+import {
+  ApolloClientsObject,
+  FetcherParams,
+  ClientObject,
+  WrapperCallbackParams,
+} from "../../types";
 
 export class GraphiQLPublisher {
   private static _instance: GraphiQLPublisher;
@@ -17,7 +22,7 @@ export class GraphiQLPublisher {
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
       "graphiql",
-      this.cachePublishHander.bind(this),
+      this.cachePublishHandler.bind(this),
       6000
     );
     this.apolloPublisher = apolloPublisher;
@@ -50,9 +55,8 @@ export class GraphiQLPublisher {
     );
   }
 
-  private cachePublishHander(apolloClients: ClientObject[]) {
-    const clients = apolloClients;
-    for (const client of clients) {
+  private cachePublishHandler({ clientObjects }: WrapperCallbackParams) {
+    for (const client of clientObjects) {
       if (this.apolloClients[client.clientId]) {
         continue;
       }

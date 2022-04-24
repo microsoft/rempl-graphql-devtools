@@ -5,10 +5,7 @@ import { ClientObject } from "../types";
 type RemplStatusHook = {
   id: string;
   timeout: number;
-  callback: (
-    clientObjects: ClientObject[],
-    activeClient: ClientObject | null
-  ) => void;
+  callback: (wrapperCallbackParams: WrapperCallbackParams) => void;
 };
 
 export class RemplWrapper {
@@ -32,10 +29,7 @@ export class RemplWrapper {
 
   public subscribeToRemplStatus(
     id: string,
-    callback: (
-      clientObjects: ClientObject[],
-      activeClientId: ClientObject | null
-    ) => void,
+    callback: ({ clientObjects, activeClient }: WrapperCallbackParams) => void,
     timeout: number
   ) {
     this.remplStatusHooks.push({ id, callback, timeout });
@@ -97,12 +91,18 @@ export class RemplWrapper {
         return;
       }
 
-      callback(window.__APOLLO_CLIENTS__, this.activeClient);
+      callback({
+        clientObjects: window.__APOLLO_CLIENTS__,
+        activeClient: this.activeClient,
+      });
 
       this.checkIntervals.push({
         id: id,
         interval: setInterval(() => {
-          callback(window.__APOLLO_CLIENTS__, this.activeClient);
+          callback({
+            clientObjects: window.__APOLLO_CLIENTS__,
+            activeClient: this.activeClient,
+          });
         }, timeout),
       });
     }

@@ -4,6 +4,11 @@ import {
   StoreObject,
 } from "@apollo/client";
 
+export type WrapperCallbackParams = {
+  clientObjects: ClientObject[];
+  activeClient: ClientObject | null;
+};
+
 export type ClientObject = {
   clientId: string;
   client: ApolloClient<NormalizedCacheObject>;

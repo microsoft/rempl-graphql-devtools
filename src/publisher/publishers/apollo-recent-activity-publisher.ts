@@ -1,7 +1,7 @@
 import { RemplWrapper } from "../rempl-wrapper";
 import { NormalizedCacheObject, ApolloClient } from "@apollo/client";
 import { getRecentActivities } from "../helpers/recent-activities";
-import { ClientObject, RecentActivities } from "../../types";
+import { RecentActivities, WrapperCallbackParams } from "../../types";
 import { getRecentData } from "../helpers/parse-apollo-data";
 
 export class ApolloRecentActivityPublisher {
@@ -53,10 +53,7 @@ export class ApolloRecentActivityPublisher {
     );
   }
 
-  private trackerDataPublishHandler(
-    clientObjects: ClientObject[],
-    activeClient: ClientObject | null
-  ) {
+  private trackerDataPublishHandler({ activeClient }: WrapperCallbackParams) {
     if (!activeClient || !this.recordRecentActivity) {
       return;
     }

@@ -2,7 +2,7 @@ import { RemplWrapper } from "../rempl-wrapper";
 import { NormalizedCacheObject, ApolloClient } from "@apollo/client";
 
 import {
-  ClientObject,
+  WrapperCallbackParams,
   ApolloTrackerData,
   ApolloTrackerDataCount,
 } from "../../types";
@@ -33,10 +33,7 @@ export class ApolloTrackerPublisher {
     ApolloTrackerPublisher._instance = this;
   }
 
-  private trackerDataPublishHandler(
-    clientObjects: ClientObject[],
-    activeClient: ClientObject | null
-  ) {
+  private trackerDataPublishHandler({ activeClient }: WrapperCallbackParams) {
     const data = this.serializeTrackerDataObjects(activeClient?.client);
 
     if (!data) {

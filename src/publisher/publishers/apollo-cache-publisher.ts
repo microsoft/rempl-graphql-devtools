@@ -5,6 +5,7 @@ import {
   ClientCacheObject,
   ClientRecentCacheObject,
   ClientObject,
+  WrapperCallbackParams,
 } from "../../types";
 
 export class ApolloCachePublisher {
@@ -115,10 +116,7 @@ export class ApolloCachePublisher {
     };
   };
 
-  private cachePublishHandler(
-    clientObjects: ClientObject[],
-    activeClient: ClientObject | null
-  ) {
+  private cachePublishHandler({ activeClient }: WrapperCallbackParams) {
     if (!activeClient) {
       return;
     }
