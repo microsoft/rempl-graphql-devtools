@@ -14,7 +14,6 @@ const WatchedQueriesContainer = memo(() => {
       .ns("apollo-tracker-queries")
       .subscribe((data: WatchedQuery[]) => {
         if (data && hasChanged(apolloTrackerQueries, data)) {
-          console.log(data);
           setApolloTrackerQueries(data);
         }
       });
@@ -22,20 +21,14 @@ const WatchedQueriesContainer = memo(() => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [apolloTrackerQueries]);
 
   return <WatchedQueries queries={apolloTrackerQueries} />;
 });
 
 function hasChanged(currentQueries: WatchedQuery[], queries: WatchedQuery[]) {
   if (currentQueries.length !== queries.length) {
-    return false;
-  }
-
-  for (let i = 0; i <= queries.length; i++) {
-    if (currentQueries[i] !== queries[i]) {
-      return true;
-    }
+    return true;
   }
 
   return false;

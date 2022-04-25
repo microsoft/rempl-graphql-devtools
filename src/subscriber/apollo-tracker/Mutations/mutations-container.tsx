@@ -21,20 +21,14 @@ const MutationsContainer = memo(() => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [apolloTrackerMutations]);
 
   return <Mutations mutations={apolloTrackerMutations} />;
 });
 
 function hasChanged(currentMutations: Mutation[], mutations: Mutation[]) {
   if (currentMutations.length !== mutations.length) {
-    return false;
-  }
-
-  for (let i = 0; i <= mutations.length; i++) {
-    if (currentMutations[i] !== mutations[i]) {
-      return true;
-    }
+    return true;
   }
 
   return false;
