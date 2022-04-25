@@ -12,7 +12,6 @@ interface ListProps {
 function filterListItems(items: any[], searchValue: string) {
   if (!searchValue) return items;
   const filteredItems = [...items];
-  console.log("ITEM", filteredItems);
 
   return filteredItems.filter((value: any) =>
     JSON.stringify(value.content).includes(searchValue)
@@ -41,13 +40,14 @@ export const List = React.memo(
         </div>
         <ul className={classes.list}>
           {filterListItems(items, searchValue).map((item, index) => (
-            <li 
+            <li
               className={mergeClasses(
-                classes.listItem, 
+                classes.listItem,
                 selectedIndex === item.index && classes.listItemActive
               )}
-              key={item.key} 
-              onClick={() => item.onClick(item.index)}>
+              key={item.key}
+              onClick={() => item.onClick(item.index)}
+            >
               {item.content}
             </li>
           ))}

@@ -1,4 +1,6 @@
 const esbuild = require("esbuild");
+var { readFileSync } = require("fs");
+var { resolve } = require("path");
 
 if (require.main === module) {
   (async () => {
@@ -6,10 +8,18 @@ if (require.main === module) {
       await esbuild.build({
         entryPoints: ["src/subscriber/index.tsx"],
         write: false,
-        minify: true,
+        minify: false,
         bundle: true,
         format: "esm",
         sourcemap: false,
+        define: {
+          __GRAPHIQL_CSS__: JSON.stringify(
+            readFileSync(
+              resolve(process.cwd(), "scripts/graphiql.min.css"),
+              "utf8"
+            )
+          ),
+        },
       })
     ).outputFiles[0].text;
 

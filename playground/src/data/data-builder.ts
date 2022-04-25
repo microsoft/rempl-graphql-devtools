@@ -2,6 +2,7 @@ import {
   ApolloClient,
   from,
   NormalizedCacheObject,
+  InMemoryCache,
   Resolvers as ApolloResolvers,
 } from "@apollo/client";
 
@@ -15,7 +16,6 @@ import {
 } from "./resolver/resolvers";
 
 import createGraphQLContext, { IGraphQLContext } from "./graphql-context";
-import { cache } from "./cache";
 import typeDefs from "./typeDefs";
 import { SchemaLink } from "@apollo/client/link/schema";
 
@@ -26,7 +26,7 @@ export const buildClient: () => ApolloClient<NormalizedCacheObject> = () => {
   });
 
   return new ApolloClient({
-    cache,
+    cache: new InMemoryCache({}),
     link: from([
       new SchemaLink({
         schema: schema,

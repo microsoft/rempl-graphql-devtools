@@ -1,8 +1,12 @@
-import { GraphQLError } from "graphql";
+import { GraphQLError, print, getOperationAST } from "graphql";
 
-import { print } from "graphql/language/printer";
-import { WatchedQuery, Mutation as MutationType } from "../../types";
-import { getOperationName } from "@apollo/client/utilities";
+import {
+  WatchedQuery,
+  Mutation as MutationType,
+  RecentActivityRaw,
+  RecentActivity,
+  RecentActivities,
+} from "../../types";
 
 export function filterMutationInfo(mutations: any) {
   const filteredMutationInfo: Record<string, unknown> = {};
@@ -62,23 +66,24 @@ export function filterQueryInfo(queryInfoMap: any) {
 
 function getRecentQueryData({
   id,
-  query,
+  data,
   change,
-}: any): WatchedQuery | undefined {
-  const queryData = getQueryData(id, query);
+}: RecentActivityRaw): RecentActivity<WatchedQuery> | undefined {
+  const queryData = getQueryData(id, data);
   if (!queryData) {
     return queryData;
   }
 
   return {
-    ...queryData,
+    id,
+    data: queryData,
     change,
   };
 }
 
 function getQueryData(id: string, query: any): WatchedQuery | undefined {
   if (!query || !query.document) return;
-  const name = getOperationName(query?.document) || "";
+  const name = getOperationAST(query?.document)?.name?.value || "";
   if (name === "IntrospectionQuery") {
     return;
   }
@@ -97,7 +102,7 @@ function getMutationData(mutation: any, id: string): MutationType {
   return {
     id,
     typename: "Mutation",
-    name: getOperationName(mutation.mutation) || "",
+    name: getOperationAST(mutation.mutation)?.name?.value || "",
     mutationString: print(mutation.mutation),
     variables: mutation.variables,
     errorMessage: mutation.errorMessage,
@@ -108,25 +113,30 @@ function getRecentMutationData({
   id,
   data,
   change,
-}: any): MutationType | undefined {
+}: RecentActivityRaw): RecentActivity<MutationType> | undefined {
   if (!data) return;
 
   return {
-    ...getMutationData(data, id),
+    id,
+    data: getMutationData(data, id),
     change,
   };
 }
 
-export const getRecentData = (queries: unknown[], mutations: unknown[]) => {
-  const filteredQueries: WatchedQuery[] = queries
+export const getRecentData = (
+  queries: RecentActivityRaw[],
+  mutations: RecentActivityRaw[],
+  timestamp: number
+): RecentActivities => {
+  const filteredQueries: RecentActivity<WatchedQuery>[] = queries
     .map(getRecentQueryData)
-    .filter(Boolean) as WatchedQuery[];
+    .filter(Boolean) as RecentActivity<WatchedQuery>[];
 
-  const mappedMutations: MutationType[] = mutations
+  const mappedMutations: RecentActivity<MutationType>[] = mutations
     .map(getRecentMutationData)
-    .filter(Boolean) as MutationType[];
+    .filter(Boolean) as RecentActivity<MutationType>[];
 
-  return { mutations: mappedMutations, queries: filteredQueries };
+  return { mutations: mappedMutations, queries: filteredQueries, timestamp };
 };
 
 export const getData = ({

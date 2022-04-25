@@ -4,6 +4,11 @@ import {
   StoreObject,
 } from "@apollo/client";
 
+export type WrapperCallbackParams = {
+  clientObjects: ClientObject[];
+  activeClient: ClientObject | null;
+};
+
 export type ClientObject = {
   clientId: string;
   client: ApolloClient<NormalizedCacheObject>;
@@ -25,6 +30,24 @@ declare global {
     __APOLLO_KEY_FIELDS__: ApolloKeyFields;
   }
 }
+
+export type RecentActivity<Data> = {
+  id: string;
+  change: string;
+  data: Data;
+};
+
+export type RecentActivities = {
+  queries: RecentActivity<WatchedQuery>[];
+  mutations: RecentActivity<Mutation>[];
+  timestamp: number;
+};
+
+export type RecentActivityRaw = {
+  id: string;
+  change: string;
+  data: unknown;
+};
 
 export type ClientCacheObject = {
   cache: NormalizedCacheObject;

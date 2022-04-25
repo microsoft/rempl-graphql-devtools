@@ -10,13 +10,17 @@ const MutationsContainer = () => {
   const myTool = useRef(rempl.getSubscriber());
 
   useEffect(() => {
-    myTool.current
+    const unsubscribe = myTool.current
       .ns("apollo-tracker-mutations")
       .subscribe((data: Mutation[]) => {
         if (data) {
           setApolloTrackerMutations(data);
         }
       });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return <Mutations mutations={apolloTrackerMutations} />;

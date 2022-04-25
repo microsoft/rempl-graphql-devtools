@@ -1,5 +1,5 @@
 import { RemplWrapper } from "../rempl-wrapper";
-import { ClientObject } from "../../types";
+import { ClientObject, WrapperCallbackParams } from "../../types";
 
 export class ApolloClientsPublisher {
   private static _instance: ApolloClientsPublisher;
@@ -46,7 +46,9 @@ export class ApolloClientsPublisher {
     return hasChanged;
   }
 
-  private globalOperationsFetcherHandler(clientObjects: ClientObject[]) {
+  private globalOperationsFetcherHandler({
+    clientObjects,
+  }: WrapperCallbackParams) {
     if (!this.hasApolloClientsChanged(clientObjects)) {
       return;
     }

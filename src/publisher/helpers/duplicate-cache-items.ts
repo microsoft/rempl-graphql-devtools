@@ -1,4 +1,4 @@
-import { NormalizedCacheObject, StoreObject } from "@apollo/client/cache";
+import { NormalizedCacheObject, StoreObject } from "@apollo/client";
 import isEqual from "lodash.isequal";
 import { CacheDuplicates, ApolloKeyFields } from "../../types";
 

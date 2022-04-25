@@ -1,5 +1,4 @@
-import { ApolloClient } from "@apollo/client/core";
-import { NormalizedCacheObject } from "@apollo/client/cache";
+import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import { RemplWrapper } from "../rempl-wrapper";
 import {
   ClientCacheDuplicates,
