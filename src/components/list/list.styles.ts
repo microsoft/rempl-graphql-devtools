@@ -2,8 +2,12 @@ import { makeStyles, shorthands } from "@fluentui/react-components";
 
 export const useStyles = makeStyles({
   root: {
+    width: "100%",
     ...shorthands.overflow("hidden"),
     maxWidth: "220px",
+  },
+  hidden: {
+    width: "0",
   },
   searchContainer: {
     width: "100%",
@@ -16,6 +20,8 @@ export const useStyles = makeStyles({
     listStyleType: "none",
     ...shorthands.margin(0),
     ...shorthands.padding("5px"),
+    height: "calc(100% - 48px)",
+    boxSizing: "border-box"
   },
   listItem: {
     cursor: "pointer",

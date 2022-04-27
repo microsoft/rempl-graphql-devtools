@@ -26,7 +26,6 @@ export const VerticalViewer = React.memo(
     return (
       <div
         className={classes.container}
-        style={{ width: isExpanded ? "100%" : "auto" }}
       >
         <div className={classes.header}>
           <Tooltip
@@ -44,50 +43,52 @@ export const VerticalViewer = React.memo(
             {`${data.name} (${isMutation ? "Mutation" : "Watched Query"})`}
           </Text>
         </div>
-        <div>
-          <Text weight="semibold">{isMutation ? "Mutation String" : "Query String"}</Text>
-          <div className={classes.codeBox} style={{ fontSize: "12px" }}>
-            <pre>
-              <code>
-                <p>{isMutation ? data.mutationString : data.queryString}</p>
-              </code>
-            </pre>
-          </div>
-        </div>
-        <div>
-          <Text weight="semibold">Variables</Text>
-          <div className={classes.codeBox}>
-            <pre>
-              <code>
-                <p>{JSON.stringify(data.variables, null, 2)}</p>
-              </code>
-            </pre>
-          </div>
-        </div>
-        {data.errorMessage && (
+        <div className={classes.details}>
           <div>
-            <Text weight="semibold">Error</Text>
-            <div className={classes.codeBox}>
+            <Text weight="semibold">{isMutation ? "Mutation String" : "Query String"}</Text>
+            <div className={classes.codeBox} style={{ fontSize: "12px" }}>
               <pre>
                 <code>
-                  <p>{data.errorMessage}</p>
+                  <p>{isMutation ? data.mutationString : data.queryString}</p>
                 </code>
               </pre>
             </div>
           </div>
-        )}
-        {!isMutation && (
           <div>
-            <Text weight="semibold">Cache Data</Text>
+            <Text weight="semibold">Variables</Text>
             <div className={classes.codeBox}>
               <pre>
                 <code>
-                  <p>{JSON.stringify(data.cachedData, null, 2)}</p>
+                  <p>{JSON.stringify(data.variables, null, 2)}</p>
                 </code>
               </pre>
             </div>
           </div>
-        )}
+          {data.errorMessage && (
+            <div>
+              <Text weight="semibold">Error</Text>
+              <div className={classes.codeBox}>
+                <pre>
+                  <code>
+                    <p>{data.errorMessage}</p>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          )}
+          {!isMutation && (
+            <div>
+              <Text weight="semibold">Cache Data</Text>
+              <div className={classes.codeBox}>
+                <pre>
+                  <code>
+                    <p>{JSON.stringify(data.cachedData, null, 2)}</p>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     );
   }

@@ -13,9 +13,9 @@ function filterListItems(items: any[], searchValue: string) {
   if (!searchValue) return items;
   const filteredItems = [...items];
 
-  return filteredItems.filter((value: any) =>
-    JSON.stringify(value.content).includes(searchValue)
-  );
+  return filteredItems.filter((value: any) => {
+    return JSON.stringify(value.key).toLowerCase().includes(searchValue);
+  });
 }
 
 export const List = React.memo(
@@ -25,10 +25,7 @@ export const List = React.memo(
 
     return (
       <div
-        className={classes.root}
-        style={{
-          width: isExpanded ? 0 : "auto",
-        }}
+        className={mergeClasses(classes.root, isExpanded && classes.hidden)}
       >
         <div className={classes.searchContainer}>
           <Search
