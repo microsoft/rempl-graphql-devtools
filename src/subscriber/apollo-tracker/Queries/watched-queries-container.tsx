@@ -13,7 +13,7 @@ const WatchedQueriesContainer = memo(() => {
     const unsubscribe = myTool.current
       .ns("apollo-tracker-queries")
       .subscribe((data: WatchedQuery[]) => {
-        if (data && hasChanged(apolloTrackerQueries, data)) {
+        if (data) {
           setApolloTrackerQueries(data);
         }
       });
@@ -21,17 +21,9 @@ const WatchedQueriesContainer = memo(() => {
     return () => {
       unsubscribe();
     };
-  }, [apolloTrackerQueries]);
+  }, []);
 
   return <WatchedQueries queries={apolloTrackerQueries} />;
 });
-
-function hasChanged(currentQueries: WatchedQuery[], queries: WatchedQuery[]) {
-  if (currentQueries.length !== queries.length) {
-    return true;
-  }
-
-  return false;
-}
 
 export default WatchedQueriesContainer;

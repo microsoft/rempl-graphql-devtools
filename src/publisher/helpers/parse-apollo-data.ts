@@ -8,24 +8,10 @@ import {
   RecentActivities,
 } from "../../types";
 
-export function filterMutationInfo(mutations: any) {
-  const filteredMutationInfo: Record<string, unknown> = {};
-  Object.keys(mutations).forEach((key: string) => {
-    const error = mutations[key].error;
-
-    const graphQLErrorMessage = getErrorMessage(
-      error?.graphQLErrors as GraphQLError[]
-    );
-
-    const networkErrorMessage = (error?.networkError as Error)?.stack;
-
-    filteredMutationInfo[key] = {
-      mutation: mutations[key].mutation,
-      variables: mutations[key].variables,
-      errorMessage: graphQLErrorMessage || networkErrorMessage || error?.stack,
-    };
-  });
-  return filteredMutationInfo;
+export function filterMutationInfo(mutations: any[]): MutationType[] {
+  return mutations.map((mutation: any, key: number) =>
+    getMutationData(mutation, key.toString())
+  );
 }
 
 export function getErrorMessage(graphQLErrors?: GraphQLError[]) {
@@ -36,32 +22,13 @@ export function getErrorMessage(graphQLErrors?: GraphQLError[]) {
   return `Path: ${graphQLErrors[0].path} Stack: ${graphQLErrors[0].stack}`;
 }
 
-export function filterQueryInfo(queryInfoMap: any) {
-  const filteredQueryInfo: Record<string, unknown> = {};
-  queryInfoMap.forEach(
-    (
-      {
-        variables,
-        document,
-        graphQLErrors,
-        networkError,
-      }: Record<string, unknown>,
-      key: string
-    ) => {
-      const graphQLErrorMessage = getErrorMessage(
-        graphQLErrors as GraphQLError[]
-      );
-
-      const networkErrorMessage = (networkError as Error)?.stack;
-
-      filteredQueryInfo[key] = {
-        document,
-        variables,
-        errorMessage: graphQLErrorMessage || networkErrorMessage,
-      };
-    }
-  );
-  return filteredQueryInfo;
+export function filterQueryInfo(
+  queryInfoMap: Map<string, any>
+): WatchedQuery[] {
+  const queries = Array.from(queryInfoMap.values());
+  return queries
+    .map((query: any, id: number) => getQueryData(id.toString(), query))
+    .filter(Boolean) as WatchedQuery[];
 }
 
 function getRecentQueryData({
@@ -88,6 +55,12 @@ function getQueryData(id: string, query: any): WatchedQuery | undefined {
     return;
   }
 
+  const graphQLErrorMessage = getErrorMessage(
+    query.graphQLErrors as GraphQLError[]
+  );
+
+  const networkErrorMessage = (query.networkError as Error)?.stack;
+
   return {
     id,
     typename: "WatchedQuery",
@@ -95,17 +68,25 @@ function getQueryData(id: string, query: any): WatchedQuery | undefined {
     queryString: print(query.document),
     variables: query.variables,
     cachedData: query.cachedData,
+    errorMessage: graphQLErrorMessage || networkErrorMessage,
   };
 }
 
 function getMutationData(mutation: any, id: string): MutationType {
+  const error = mutation.error;
+
+  const graphQLErrorMessage = getErrorMessage(
+    error?.graphQLErrors as GraphQLError[]
+  );
+
+  const networkErrorMessage = (error?.networkError as Error)?.stack;
   return {
     id,
     typename: "Mutation",
     name: getOperationAST(mutation.mutation)?.name?.value || "",
     mutationString: print(mutation.mutation),
     variables: mutation.variables,
-    errorMessage: mutation.errorMessage,
+    errorMessage: graphQLErrorMessage || networkErrorMessage || error?.stack,
   };
 }
 
@@ -137,22 +118,4 @@ export const getRecentData = (
     .filter(Boolean) as RecentActivity<MutationType>[];
 
   return { mutations: mappedMutations, queries: filteredQueries, timestamp };
-};
-
-export const getData = ({
-  queries,
-  mutations,
-}: {
-  mutations: unknown[];
-  queries: unknown[];
-}) => {
-  const watchedQueries: WatchedQuery[] = Object.values(queries || {})
-    .map((q, i: number) => getQueryData(i.toString(), q))
-    .filter(Boolean) as WatchedQuery[];
-
-  const mutationLog: MutationType[] = Object.values(mutations || {})
-    .map((m, i: number) => getMutationData(m, i.toString()))
-    .filter(Boolean) as MutationType[];
-
-  return { mutations: mutationLog, queries: watchedQueries };
 };

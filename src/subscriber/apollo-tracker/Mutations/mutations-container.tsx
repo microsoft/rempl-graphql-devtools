@@ -13,7 +13,7 @@ const MutationsContainer = memo(() => {
     const unsubscribe = myTool.current
       .ns("apollo-tracker-mutations")
       .subscribe((data: Mutation[]) => {
-        if (data && hasChanged(apolloTrackerMutations, data)) {
+        if (data) {
           setApolloTrackerMutations(data);
         }
       });
@@ -21,17 +21,9 @@ const MutationsContainer = memo(() => {
     return () => {
       unsubscribe();
     };
-  }, [apolloTrackerMutations]);
+  }, []);
 
   return <Mutations mutations={apolloTrackerMutations} />;
 });
-
-function hasChanged(currentMutations: Mutation[], mutations: Mutation[]) {
-  if (currentMutations.length !== mutations.length) {
-    return true;
-  }
-
-  return false;
-}
 
 export default MutationsContainer;
