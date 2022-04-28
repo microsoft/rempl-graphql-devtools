@@ -2,7 +2,7 @@ import React, { useMemo, useState, useContext } from "react";
 import { List, VerticalViewer } from "../../../components";
 import { ApolloGlobalOperationsContext } from "../../contexts/apollo-global-operations-context";
 import { mutationsStyles } from "./mutations.styles";
-import { Text } from "@fluentui/react-components";
+import { mergeClasses, Text } from "@fluentui/react-components";
 import { Mutation } from "../../../types";
 
 export const Mutations = ({ mutations }: { mutations: Mutation[] }) => {
@@ -23,7 +23,10 @@ export const Mutations = ({ mutations }: { mutations: Mutation[] }) => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.innerContainer}>
+      <div className={mergeClasses(
+        classes.innerContainer,
+        isExpanded && classes.innerContainerFull
+      )}>
         <List
           isExpanded={isExpanded}
           items={mutations
@@ -54,12 +57,14 @@ export const Mutations = ({ mutations }: { mutations: Mutation[] }) => {
             .reverse()}
           selectedIndex={selected}
         />
-        <VerticalViewer
-          data={selectedMutation}
-          isExpanded={isExpanded}
-          onExpand={() => setIsExpanded(!isExpanded)}
-          isMutation
-        />
+        <div className={classes.viewerContainer}>
+          <VerticalViewer
+            data={selectedMutation}
+            isExpanded={isExpanded}
+            onExpand={() => setIsExpanded(!isExpanded)}
+            isMutation
+          />
+        </div>
       </div>
     </div>
   );
