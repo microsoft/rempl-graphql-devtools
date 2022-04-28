@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { ClientCacheDuplicates } from "../../types";
+import { CacheDuplicates } from "../../types";
 import rempl from "rempl";
 
 export type ApolloCacheDuplicatesContextType = {
   getCacheDuplicates: (clientIdToModify: string) => void;
-  cacheDuplicates: ClientCacheDuplicates;
+  cacheDuplicates: CacheDuplicates;
 } | null;
 
 export const ApolloCacheDuplicatesContext =
@@ -15,29 +15,22 @@ export const ApolloCacheDuplicatesContextWrapper = ({
 }: {
   children: JSX.Element;
 }) => {
-  const [cacheDuplicates, setCacheDuplicates] = useState<ClientCacheDuplicates>(
-    {}
-  );
+  const [cacheDuplicates, setCacheDuplicates] = useState<CacheDuplicates>([]);
   const myTool = useRef(rempl.getSubscriber());
 
   useEffect(() => {
     myTool.current
       .ns("apollo-cache-duplicates")
-      .subscribe(function (data: ClientCacheDuplicates) {
+      .subscribe(function (data: CacheDuplicates) {
         if (data) {
           setCacheDuplicates(data);
         }
       });
   }, []);
 
-  const getCacheDuplicates = useCallback(
-    (clientIdToCheck: string) => {
-      myTool.current.callRemote("getCacheDuplicates", {
-        clientId: clientIdToCheck,
-      });
-    },
-    [cacheDuplicates]
-  );
+  const getCacheDuplicates = useCallback(() => {
+    myTool.current.callRemote("getCacheDuplicates", {});
+  }, [cacheDuplicates]);
 
   return (
     <ApolloCacheDuplicatesContext.Provider

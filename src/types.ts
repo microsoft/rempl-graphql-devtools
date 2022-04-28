@@ -68,10 +68,6 @@ export type ApolloTrackerDataCount = {
 
 export type ClientRecentCacheObject = NormalizedCacheObject;
 
-export type ClientCacheDuplicates = {
-  [clientId: string]: CacheDuplicates;
-};
-
 export type ApolloClientsObject = {
   [clientId: string]: ApolloClient<NormalizedCacheObject>;
 };

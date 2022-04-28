@@ -1,9 +1,10 @@
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import { RemplWrapper } from "../rempl-wrapper";
 import {
-  ClientCacheDuplicates,
+  CacheDuplicates,
   ClientObject,
   ApolloKeyFields,
+  WrapperCallbackParams,
 } from "../../types";
 import { getClientCacheDuplicates } from "../helpers/duplicate-cache-items";
 
@@ -11,8 +12,8 @@ export class ApolloCacheDuplicatesPublisher {
   private static _instance: ApolloCacheDuplicatesPublisher;
   private apolloPublisher;
   private remplWrapper: RemplWrapper;
-  private clientsArray: null | ClientObject[] = null;
-  private duplicatesCacheItems: ClientCacheDuplicates = {};
+  private duplicatesCacheItems: CacheDuplicates = [];
+  private client: ClientObject | null = null;
   private apolloKeyFields: ApolloKeyFields = {};
 
   constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
@@ -21,17 +22,27 @@ export class ApolloCacheDuplicatesPublisher {
     }
 
     this.remplWrapper = remplWrapper;
+    this.remplWrapper.subscribeToRemplStatus(
+      "apollo-cache-duplicates",
+      this.cacheDuplicatesHandler.bind(this),
+      1500
+    );
     this.apolloPublisher = apolloPublisher;
     this.attachMethodsToPublisher();
 
     ApolloCacheDuplicatesPublisher._instance = this;
   }
 
+  private cacheDuplicatesHandler({ activeClient }: WrapperCallbackParams) {
+    this.client = activeClient;
+  }
+
   private attachMethodsToPublisher() {
     this.apolloPublisher.provide(
       "getCacheDuplicates",
-      ({ clientId }: { clientId: string }, callback: () => void) => {
-        this.publishCacheDuplicatesForClientId(clientId);
+      ({}: {}, callback: () => void) => {
+        console.log("test");
+        this.publishCacheDuplicatesForClientId();
         callback();
       }
     );
@@ -41,9 +52,9 @@ export class ApolloCacheDuplicatesPublisher {
     return client.cache.extract(true);
   }
 
-  private serializeCacheDuplicatesObjects({ clientId, client }: ClientObject) {
+  private serializeCacheDuplicatesObjects({ client }: ClientObject) {
     const cache = this.getCache(client);
-    this.duplicatesCacheItems[clientId] = getClientCacheDuplicates(
+    this.duplicatesCacheItems = getClientCacheDuplicates(
       cache,
       this.apolloKeyFields
     );
@@ -51,31 +62,18 @@ export class ApolloCacheDuplicatesPublisher {
     return this.duplicatesCacheItems;
   }
 
-  private publishCacheDuplicatesForClientId(clientIdToCheck: string) {
-    if (!window.__APOLLO_CLIENTS__?.length) {
-      return;
-    }
-
-    if (!this.apolloKeyFields && window.__APOLLO_KEY_FIELDS__) {
-      this.apolloKeyFields = window.__APOLLO_KEY_FIELDS__;
-    }
-
-    this.clientsArray = window.__APOLLO_CLIENTS__;
-
-    const client = this.clientsArray.find(
-      ({ clientId }) => clientId === clientIdToCheck
-    );
-
-    if (!client) {
+  private publishCacheDuplicatesForClientId() {
+    if (!this.client) {
       return;
     }
 
     const serializedCacheDuplicatesObject =
-      this.serializeCacheDuplicatesObjects(client);
+      this.serializeCacheDuplicatesObjects(this.client);
     this.publishCache(serializedCacheDuplicatesObject);
   }
 
-  public publishCache(cacheObjects: ClientCacheDuplicates) {
+  public publishCache(cacheObjects: CacheDuplicates) {
+    console.log(cacheObjects);
     this.apolloPublisher.ns("apollo-cache-duplicates").publish(cacheObjects);
   }
 }

@@ -22,7 +22,7 @@ const ApolloCacheContainer = React.memo(() => {
   const recentCache = cacheObjects?.recentCache;
 
   const getCacheDuplicates = useCallback(() => {
-    duplicateItems?.getCacheDuplicates;
+    duplicateItems?.getCacheDuplicates();
   }, []);
 
   const cacheObjectsWithSize = useMemo(
