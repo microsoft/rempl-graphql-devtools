@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { dialogStyles } from "./dialog.styles";
 import { Text, Headline } from "@fluentui/react-components";
 import { CacheObjectWithSize } from "../../subscriber/apollo-cache/types";
+import {Dismiss20Regular} from "@fluentui/react-icons";
+
 
 interface DialogProps {
     value: CacheObjectWithSize | undefined;
@@ -18,7 +20,12 @@ export const Dialog = React.memo(({value, onClose}: DialogProps) => {
         <div 
             className={classes.dialogContainer}
             onClick={(e) => {e.stopPropagation()}}>
-            <Headline>{value?.key}</Headline>
+              <div className={classes.header}>
+                <Headline>{value?.key}</Headline>
+                <Dismiss20Regular 
+                  className={classes.closeButton}
+                  onClick={() => onClose()} />
+              </div>
             <Text 
                 className={classes.description}
                 weight="semibold"
