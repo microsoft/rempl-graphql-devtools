@@ -74,9 +74,7 @@ export const ApolloCacheRenderer = React.memo(
     );
 
     const convertDuplicatedObjects = (data) => {
-      return data?.main?.map((item) =>
-        item.map((obj) => Object.values(obj)[0])
-      );
+      return data.map((item) => item.map((obj) => Object.values(obj)[0]));
     };
 
     return (

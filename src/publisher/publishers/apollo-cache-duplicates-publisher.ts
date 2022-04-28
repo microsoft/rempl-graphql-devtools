@@ -34,6 +34,9 @@ export class ApolloCacheDuplicatesPublisher {
   }
 
   private cacheDuplicatesHandler({ activeClient }: WrapperCallbackParams) {
+    if (this.client?.clientId !== activeClient?.clientId) {
+      this.publishCacheDuplicates([]);
+    }
     this.client = activeClient;
   }
 
@@ -41,7 +44,6 @@ export class ApolloCacheDuplicatesPublisher {
     this.apolloPublisher.provide(
       "getCacheDuplicates",
       ({}: {}, callback: () => void) => {
-        console.log("test");
         this.publishCacheDuplicatesForClientId();
         callback();
       }
@@ -69,11 +71,10 @@ export class ApolloCacheDuplicatesPublisher {
 
     const serializedCacheDuplicatesObject =
       this.serializeCacheDuplicatesObjects(this.client);
-    this.publishCache(serializedCacheDuplicatesObject);
+    this.publishCacheDuplicates(serializedCacheDuplicatesObject);
   }
 
-  public publishCache(cacheObjects: CacheDuplicates) {
-    console.log(cacheObjects);
+  public publishCacheDuplicates(cacheObjects: CacheDuplicates) {
     this.apolloPublisher.ns("apollo-cache-duplicates").publish(cacheObjects);
   }
 }
