@@ -2,7 +2,7 @@ import React, { useState, useContext, useMemo } from "react";
 import { ApolloGlobalOperationsContext } from "../../contexts/apollo-global-operations-context";
 import { List, VerticalViewer } from "../../../components";
 import { watchedQueriesStyles } from "./watched-queries.styles";
-import { Text } from "@fluentui/react-components";
+import { mergeClasses, Text } from "@fluentui/react-components";
 import { WatchedQuery } from "../../../types";
 
 export const WatchedQueries = ({ queries }: { queries: WatchedQuery[] }) => {
@@ -23,7 +23,10 @@ export const WatchedQueries = ({ queries }: { queries: WatchedQuery[] }) => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.innerContainer}>
+      <div className={mergeClasses(
+        classes.innerContainer, 
+        isExpanded && classes.innerContainerFull
+      )}>
         <List
           isExpanded={isExpanded}
           items={queries
@@ -53,11 +56,13 @@ export const WatchedQueries = ({ queries }: { queries: WatchedQuery[] }) => {
             .reverse()}
           selectedIndex={selected}
         />
-        <VerticalViewer
-          data={selectedQuery}
-          isExpanded={isExpanded}
-          onExpand={() => setIsExpanded(!isExpanded)}
-        />
+        <div className={classes.viewerContainer}>
+          <VerticalViewer
+            data={selectedQuery}
+            isExpanded={isExpanded}
+            onExpand={() => setIsExpanded(!isExpanded)}
+          />
+        </div>
       </div>
     </div>
   );

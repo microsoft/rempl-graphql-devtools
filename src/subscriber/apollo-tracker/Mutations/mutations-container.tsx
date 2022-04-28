@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import rempl from "rempl";
 import { Mutation } from "../../../types";
 import { Mutations } from "./mutations";
 
-const MutationsContainer = () => {
+const MutationsContainer = memo(() => {
   const [apolloTrackerMutations, setApolloTrackerMutations] = useState<
     Mutation[]
   >([]);
@@ -24,6 +24,6 @@ const MutationsContainer = () => {
   }, []);
 
   return <Mutations mutations={apolloTrackerMutations} />;
-};
+});
 
 export default MutationsContainer;

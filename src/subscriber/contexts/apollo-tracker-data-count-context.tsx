@@ -13,22 +13,38 @@ export const ApolloClientDataCountWrapper = ({
 }: {
   children: JSX.Element;
 }) => {
-  const [apolloTrackerDataCount, setApolloTrackerDataCount] =
-    useState<ApolloTrackerDataCount>({ queriesCount: 0, mutationsCount: 0 });
+  const [apolloTrackerQueriesCount, setApolloTrackerQueriesCount] =
+    useState<number>(0);
+
+  const [apolloTrackerMutationsCount, setApolloTrackerMutationsCount] =
+    useState<number>(0);
   const myTool = useRef(rempl.getSubscriber());
 
   useEffect(() => {
     myTool.current
-      .ns("apollo-tracker-data-count")
-      .subscribe((data: ApolloTrackerDataCount) => {
-        if (data) {
-          setApolloTrackerDataCount(data);
+      .ns("apollo-tracker-queries-count")
+      .subscribe((data: number) => {
+        if (data != null) {
+          setApolloTrackerQueriesCount(data);
+        }
+      });
+
+    myTool.current
+      .ns("apollo-tracker-mutations-count")
+      .subscribe((data: number) => {
+        if (data != null) {
+          setApolloTrackerMutationsCount(data);
         }
       });
   }, []);
 
   return (
-    <ApolloTrackerDataCountContext.Provider value={apolloTrackerDataCount}>
+    <ApolloTrackerDataCountContext.Provider
+      value={{
+        mutationsCount: apolloTrackerMutationsCount,
+        queriesCount: apolloTrackerQueriesCount,
+      }}
+    >
       {children}
     </ApolloTrackerDataCountContext.Provider>
   );

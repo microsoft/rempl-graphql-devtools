@@ -3,9 +3,19 @@ import { CacheObjectWithSize } from "./types";
 import { ApolloCacheItems } from "./apollo-cache-items";
 import debounce from "lodash.debounce";
 import { useStyles } from "./apollo-cache-renderer.styles";
-import { Text, Tooltip, Button, mergeClasses } from "@fluentui/react-components";
+import {
+  Text,
+  Tooltip,
+  Button,
+  mergeClasses,
+} from "@fluentui/react-components";
 import { TabMenu, Search } from "../../components";
-import { Record20Regular, RecordStop20Regular, DismissCircle20Regular, ArrowClockwise20Regular } from "@fluentui/react-icons";
+import {
+  Record20Regular,
+  RecordStop20Regular,
+  DismissCircle20Regular,
+  ArrowClockwise20Regular,
+} from "@fluentui/react-icons";
 import { ApolloCacheDuplicatedItems } from "./apollo-cache-duplicated-items";
 
 interface IApolloCacheRenderer {
@@ -42,7 +52,7 @@ export const ApolloCacheRenderer = React.memo(
     clearRecentCacheChanges,
   }: IApolloCacheRenderer) => {
     const [searchKey, setSearchKey] = React.useState("");
-    const [currentCache, setCurrentCache] = React.useState('all');
+    const [currentCache, setCurrentCache] = React.useState("all");
     const [recordRecentCache, setRecordRecentCache] = React.useState(false);
     const classes = useStyles();
 
@@ -64,19 +74,15 @@ export const ApolloCacheRenderer = React.memo(
     );
 
     const convertDuplicatedObjects = (data) => {
-      return data?.main?.map(item => item.map(obj => Object.values(obj)[0]))
-    }
+      return data.map((item) => item.map((obj) => Object.values(obj)[0]));
+    };
 
     return (
       <div className={classes.root}>
         <div className={classes.innerContainer}>
           <div className={classes.topBar}>
             {/* Title */}
-            <Text 
-              className={classes.title}
-              weight="semibold"
-              size={400} 
-            >
+            <Text className={classes.title} weight="semibold" size={400}>
               {`${currentCache} cache`}
             </Text>
 
@@ -95,13 +101,14 @@ export const ApolloCacheRenderer = React.memo(
                       )}
                       onClick={toggleRecordRecentChanges}
                     >
-                      {recordRecentCache ? <RecordStop20Regular /> : <Record20Regular />}
+                      {recordRecentCache ? (
+                        <RecordStop20Regular />
+                      ) : (
+                        <Record20Regular />
+                      )}
                     </Button>
                   </Tooltip>
-                  <Tooltip
-                    content="Clear"
-                    relationship="description"
-                  >
+                  <Tooltip content="Clear" relationship="description">
                     <Button
                       className={classes.actionButton}
                       disabled={recordRecentCache}
@@ -115,15 +122,12 @@ export const ApolloCacheRenderer = React.memo(
 
               {currentCache === "duplicated" && (
                 <div className={classes.topBarActions}>
-                  <Tooltip
-                    content="Refresh"
-                    relationship="description"
-                  >
+                  <Tooltip content="Refresh" relationship="description">
                     <Button
                       className={classes.actionButton}
                       onClick={getCacheDuplicates}
                     >
-                      <ArrowClockwise20Regular/>
+                      <ArrowClockwise20Regular />
                     </Button>
                   </Tooltip>
                 </div>
@@ -131,26 +135,37 @@ export const ApolloCacheRenderer = React.memo(
 
               {/* Search */}
               <div className={classes.searchContainer}>
-                <Search onSearchChange={(e: React.SyntheticEvent) => {
+                <Search
+                  onSearchChange={(e: React.SyntheticEvent) => {
                     const input = e.target as HTMLInputElement;
                     debouncedSetSearchKey(input.value);
-                  }}/>
+                  }}
+                />
               </div>
             </div>
           </div>
-          <TabMenu currentType={currentCache} onSelectItem={getCurrentCacheView}/>
+          <TabMenu
+            currentType={currentCache}
+            onSelectItem={getCurrentCacheView}
+          />
 
-          { currentCache !== "duplicated" ? <ApolloCacheItems
-            cacheObjectsWithSize={
-              currentCache === "recent"
-                ? recentCacheWithSize
-                : filterCacheObjects(cacheObjectsWithSize, searchKey)
-            }
-            removeCacheItem={removeCacheItem}
-          /> : null }
-          {currentCache === "duplicated" ? <ApolloCacheDuplicatedItems
-            duplicatedCacheObjects={convertDuplicatedObjects(duplicatedCacheObjects)}
-          /> : null }
+          {currentCache !== "duplicated" ? (
+            <ApolloCacheItems
+              cacheObjectsWithSize={
+                currentCache === "recent"
+                  ? recentCacheWithSize
+                  : filterCacheObjects(cacheObjectsWithSize, searchKey)
+              }
+              removeCacheItem={removeCacheItem}
+            />
+          ) : null}
+          {currentCache === "duplicated" ? (
+            <ApolloCacheDuplicatedItems
+              duplicatedCacheObjects={convertDuplicatedObjects(
+                duplicatedCacheObjects
+              )}
+            />
+          ) : null}
         </div>
         <Text className={classes.infoPanel}>
           {`Apollo cache (overall size ${cacheSize} B)`}

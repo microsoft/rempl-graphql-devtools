@@ -55,7 +55,7 @@ export const Menu = React.memo((props: MenuProps) => {
     <nav className={classes.root} id="menu-container">
       <ul className={classes.menuList}>
         {menuElements(props).map((item, index) => (
-          <li>
+          <li key={item.name}>
             <NavLink
               to={item.url}
               className={mergeClasses(

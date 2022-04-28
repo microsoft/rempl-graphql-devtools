@@ -26,7 +26,7 @@ export class ApolloRecentActivityPublisher {
     this.remplWrapper.subscribeToRemplStatus(
       "recent-activities",
       this.trackerDataPublishHandler.bind(this),
-      600
+      400
     );
     this.apolloPublisher = apolloPublisher;
     this.attachMethodsToPublisher();
@@ -46,7 +46,6 @@ export class ApolloRecentActivityPublisher {
     this.apolloPublisher.provide(
       "recordRecentActivity",
       ({ shouldRecord }: { shouldRecord: boolean }, callback: () => void) => {
-        console.log(shouldRecord);
         this.recordRecentActivity = shouldRecord;
         callback();
       }

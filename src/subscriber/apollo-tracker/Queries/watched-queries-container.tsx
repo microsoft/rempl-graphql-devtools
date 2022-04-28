@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import rempl from "rempl";
 import { WatchedQuery } from "../../../types";
 import { WatchedQueries } from "./watched-queries";
 
-const WatchedQueriesContainer = () => {
+const WatchedQueriesContainer = memo(() => {
   const [apolloTrackerQueries, setApolloTrackerQueries] = useState<
     WatchedQuery[]
   >([]);
@@ -24,6 +24,6 @@ const WatchedQueriesContainer = () => {
   }, []);
 
   return <WatchedQueries queries={apolloTrackerQueries} />;
-};
+});
 
 export default WatchedQueriesContainer;

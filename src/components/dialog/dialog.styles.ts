@@ -24,6 +24,14 @@ export const dialogStyles = makeStyles({
         ...shorthands.borderRadius("6px"),
         ...shorthands.padding("15px")
     },
+    header: {
+        display: "flex",
+        justifyContent: "space-between"
+    },
+    closeButton: {
+        marginLeft: "10px",
+        cursor: "pointer"
+    },
     description: {
         display: "block",
         color: "#57a8f9",
