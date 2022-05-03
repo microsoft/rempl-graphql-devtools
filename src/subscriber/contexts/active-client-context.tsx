@@ -26,6 +26,8 @@ export const ActiveClientContextWrapper = ({
       clientId: value,
     });
     setActiveClientId(value);
+
+    window.REMPL_GRAPHQL_DEVTOOLS_RECENT_ACTIVITIES = [];
   }, []);
 
   if (!activeClientId && clientIds.length) {

@@ -10,13 +10,18 @@ export const RecentActivityContainer = React.memo(() => {
   const [recordRecentActivity, setRecordRecentActivity] =
     useState<boolean>(false);
   const myTool = useRef(rempl.getSubscriber());
+  console.log(recentActivities);
 
   useEffect(() => {
     const unsubscribe = myTool.current
       .ns("apollo-recent-activity")
       .subscribe((data: RecentActivities) => {
         if (data) {
-          setRecentActivities([...recentActivities, data]);
+          const storedRecentActivities =
+            window.REMPL_GRAPHQL_DEVTOOLS_RECENT_ACTIVITIES || [];
+          const newRecentActivities = [...storedRecentActivities, data];
+          window.REMPL_GRAPHQL_DEVTOOLS_RECENT_ACTIVITIES = newRecentActivities;
+          setRecentActivities(newRecentActivities);
         }
       });
 
