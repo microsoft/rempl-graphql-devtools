@@ -1,4 +1,5 @@
 import { makeStyles, shorthands } from "@fluentui/react-components";
+import { keyboardFocusedStyle } from "../common.styles";
 
 export const useStyles = makeStyles({
   root: {
@@ -24,6 +25,7 @@ export const useStyles = makeStyles({
     boxSizing: "border-box"
   },
   listItem: {
+    position: "relative",
     cursor: "pointer",
     marginBottom: "3px",
     ...shorthands.padding("10px"),
@@ -35,6 +37,7 @@ export const useStyles = makeStyles({
       backgroundColor: "#F5F5F6",
       color: "#000",
     },
+    ...keyboardFocusedStyle('0'),
   },
   listItemActive: {
     backgroundColor: "#F5F5F6",

@@ -3,7 +3,7 @@ import { CacheDuplicates } from "../../types";
 import rempl from "rempl";
 
 export type ApolloCacheDuplicatesContextType = {
-  getCacheDuplicates: (clientIdToModify: string) => void;
+  getCacheDuplicates: (clientIdToModify?: string) => void;
   cacheDuplicates: CacheDuplicates;
 } | null;
 

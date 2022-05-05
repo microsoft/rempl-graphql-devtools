@@ -1,4 +1,5 @@
 import { makeStyles, shorthands } from "@fluentui/react-components";
+import { keyboardFocusedStyle } from "../common.styles";
 
 export const useStyles = makeStyles({
   container: {
@@ -22,7 +23,8 @@ export const useStyles = makeStyles({
     alignItems: "center",
     cursor: "pointer",
     ...shorthands.padding(0, "15px"),
-    boxSizing: "border-box"
+    boxSizing: "border-box",
+    ...keyboardFocusedStyle('0'),
   },
   dropdownContent: {
     display: "none",
@@ -43,6 +45,7 @@ export const useStyles = makeStyles({
     cursor: "pointer",
     "&:hover": {
       backgroundColor: "#F5F5F6"
-    }
+    },
+    ...keyboardFocusedStyle('0'),
   }
 });

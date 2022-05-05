@@ -42,6 +42,9 @@ const Router = React.memo(() => {
           <Route path="/apollo-mutations">
             <Mutations />
           </Route>
+          <Route path="/activity">
+            <RecentActivityContainer />
+          </Route>
           <Route path="/graphiql">
             <GraphiQLRenderer />
           </Route>

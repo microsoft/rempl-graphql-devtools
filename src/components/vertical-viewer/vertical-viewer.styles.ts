@@ -7,7 +7,9 @@ export const useStyles = makeStyles({
     display: "grid",
     gridAutoFlow: "column",
     gridTemplateRows: "50px auto",
-    flex: 1,
+    flexShrink: 1,
+    flexGrow: 1,
+    flexBasis: 0,
     ...shorthands.padding(0, "1rem"),
     boxSizing: "border-box"
   },

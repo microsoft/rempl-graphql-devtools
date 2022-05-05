@@ -5,7 +5,6 @@ import debounce from "lodash.debounce";
 import { useStyles } from "./apollo-cache-renderer.styles";
 import {
   Text,
-  Tooltip,
   Button,
   mergeClasses,
 } from "@fluentui/react-components";
@@ -17,6 +16,7 @@ import {
   ArrowClockwise20Regular,
 } from "@fluentui/react-icons";
 import { ApolloCacheDuplicatedItems } from "./apollo-cache-duplicated-items";
+import { useArrowNavigationGroup } from "@fluentui/react-tabster";
 
 interface IApolloCacheRenderer {
   cacheObjectsWithSize: CacheObjectWithSize[];
@@ -55,6 +55,7 @@ export const ApolloCacheRenderer = React.memo(
     const [currentCache, setCurrentCache] = React.useState("all");
     const [recordRecentCache, setRecordRecentCache] = React.useState(false);
     const classes = useStyles();
+    const buttonsAttrs = useArrowNavigationGroup({circular: true, axis: 'horizontal'});
 
     const getCurrentCacheView = useCallback((cacheType: string) => {
       if (cacheType === "duplicated") {
@@ -89,47 +90,43 @@ export const ApolloCacheRenderer = React.memo(
             <div className={classes.actionsContainer}>
               {/* Recent actions */}
               {currentCache === "recent" && (
-                <div className={classes.topBarActions}>
-                  <Tooltip
-                    content={recordRecentCache ? "Stop recording" : "Record"}
-                    relationship="description"
+                <div className={classes.topBarActions} {...buttonsAttrs}>
+                  <Button
+                    title={recordRecentCache ? "Stop recording" : "Record"}
+                    tabIndex={0}
+                    className={mergeClasses(
+                      classes.actionButton,
+                      recordRecentCache && classes.activeRecord
+                    )}
+                    onClick={toggleRecordRecentChanges}
                   >
-                    <Button
-                      className={mergeClasses(
-                        classes.actionButton,
-                        recordRecentCache && classes.activeRecord
-                      )}
-                      onClick={toggleRecordRecentChanges}
-                    >
-                      {recordRecentCache ? (
-                        <RecordStop20Regular />
-                      ) : (
-                        <Record20Regular />
-                      )}
-                    </Button>
-                  </Tooltip>
-                  <Tooltip content="Clear" relationship="description">
-                    <Button
-                      className={classes.actionButton}
-                      disabled={recordRecentCache}
-                      onClick={clearRecentCacheChanges}
-                    >
-                      <DismissCircle20Regular />
-                    </Button>
-                  </Tooltip>
+                    {recordRecentCache ? (
+                      <RecordStop20Regular />
+                    ) : (
+                      <Record20Regular />
+                    )}
+                  </Button>
+                  <Button
+                    title="Clear"
+                    tabIndex={0}
+                    className={classes.actionButton}
+                    disabled={recordRecentCache}
+                    onClick={clearRecentCacheChanges}
+                  >
+                    <DismissCircle20Regular />
+                  </Button>
                 </div>
               )}
 
               {currentCache === "duplicated" && (
                 <div className={classes.topBarActions}>
-                  <Tooltip content="Refresh" relationship="description">
-                    <Button
-                      className={classes.actionButton}
-                      onClick={getCacheDuplicates}
-                    >
-                      <ArrowClockwise20Regular />
-                    </Button>
-                  </Tooltip>
+                  <Button
+                    title="Refresh"
+                    className={classes.actionButton}
+                    onClick={getCacheDuplicates}
+                  >
+                    <ArrowClockwise20Regular />
+                  </Button>
                 </div>
               )}
 

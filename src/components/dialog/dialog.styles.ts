@@ -30,7 +30,8 @@ export const dialogStyles = makeStyles({
     },
     closeButton: {
         marginLeft: "10px",
-        cursor: "pointer"
+        cursor: "pointer",
+        minWidth: "auto"
     },
     description: {
         display: "block",

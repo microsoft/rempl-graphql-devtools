@@ -3,10 +3,11 @@ import ReactDOM from "react-dom";
 import App from "./App";
 
 declare let __GRAPHIQL_CSS__: string;
+declare let __GLOBAL_CSS__: string;
 
 const style = document.createElement("style");
 document.body.appendChild(style);
-style.innerHTML = __GRAPHIQL_CSS__;
+style.innerHTML = __GLOBAL_CSS__ + __GRAPHIQL_CSS__;
 
 const rootEl = document.createElement("div");
 rootEl.style.height = "100%";

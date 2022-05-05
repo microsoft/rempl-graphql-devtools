@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { RecentActivities } from "../../types";
 import { Button } from "@fluentui/react-components";
 import rempl from "rempl";
@@ -15,14 +15,14 @@ export const RecentActivityContainer = React.memo(() => {
     const unsubscribe = myTool.current
       .ns("apollo-recent-activity")
       .subscribe((data: RecentActivities) => {
-        if (data && recordRecentActivity) {
+        if (data) {
           setRecentActivities([...recentActivities, data]);
         }
       });
 
     return () => {
       myTool.current.callRemote("recordRecentActivity", {
-        shouldRecord: false,
+        shouldRecord: true,
       });
       unsubscribe();
     };
@@ -35,10 +35,11 @@ export const RecentActivityContainer = React.memo(() => {
     []
   );
 
-  const toggleRecordRecentChanges = useCallback(() => {
+  const toggleRecordRecentChanges = () => {
     recordRecentActivityRempl(!recordRecentActivity);
     setRecordRecentActivity(!recordRecentActivity);
-  }, []);
+    console.log("recentActivities", recentActivities);
+  };
 
   return (
     <div>

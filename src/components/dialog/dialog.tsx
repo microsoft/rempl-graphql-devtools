@@ -1,6 +1,6 @@
-import React from "react";
+import React, { createRef, useEffect } from "react";
 import { dialogStyles } from "./dialog.styles";
-import { Text, Headline } from "@fluentui/react-components";
+import { Text, Headline, Button } from "@fluentui/react-components";
 import { CacheObjectWithSize } from "../../subscriber/apollo-cache/types";
 import {Dismiss20Regular} from "@fluentui/react-icons";
 
@@ -12,6 +12,11 @@ interface DialogProps {
 
 export const Dialog = React.memo(({value, onClose}: DialogProps) => {
   const classes = dialogStyles();
+  const closeIcon = createRef<HTMLButtonElement>();
+
+  useEffect(() => {
+    closeIcon?.current?.focus();
+  });
 
   return (
     <div 
@@ -22,9 +27,13 @@ export const Dialog = React.memo(({value, onClose}: DialogProps) => {
             onClick={(e) => {e.stopPropagation()}}>
               <div className={classes.header}>
                 <Headline>{value?.key}</Headline>
-                <Dismiss20Regular 
+                <Button 
+                  appearance="transparent"
+                  ref={closeIcon}
+                  tabIndex={0}
+                  onClick={() => onClose()}
                   className={classes.closeButton}
-                  onClick={() => onClose()} />
+                  icon={<Dismiss20Regular />} />
               </div>
             <Text 
                 className={classes.description}

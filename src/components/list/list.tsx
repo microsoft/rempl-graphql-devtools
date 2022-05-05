@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useStyles } from "./list.styles";
 import { Search } from "../search/search";
 import { mergeClasses } from "@fluentui/react-components";
+import { useArrowNavigationGroup } from "@fluentui/react-tabster";
 
 interface ListProps {
   isExpanded: boolean;
@@ -22,6 +23,7 @@ export const List = React.memo(
   ({ isExpanded, items, selectedIndex }: ListProps) => {
     const [searchValue, setSearchValue] = useState("");
     const classes = useStyles();
+    const listAttributes = useArrowNavigationGroup({circular: true});
 
     return (
       <div
@@ -35,15 +37,17 @@ export const List = React.memo(
             }}
           />
         </div>
-        <ul className={classes.list}>
+        <ul className={classes.list} {...listAttributes}>
           {filterListItems(items, searchValue).map((item, index) => (
             <li
+              tabIndex={0}
               className={mergeClasses(
                 classes.listItem,
                 selectedIndex === item.index && classes.listItemActive
               )}
               key={item.key}
               onClick={() => item.onClick(item.index)}
+              onKeyDown={(e) => {if (e.key === 'Enter') item.onClick(item.index)}}
             >
               {item.content}
             </li>
