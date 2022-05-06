@@ -34,7 +34,7 @@ export const ApolloCacheItems = React.memo(
       setDetailsValue: (value: CacheObjectWithSize) => void
     ) =>
     (item: CacheObjectWithSize, index: number) => (
-      <div className={classes.itemContainer} key={item.key}>
+      <div className={classes.itemContainer} key={`${item.key}-${index}`}>
         <div className={classes.keyColumn}>{item.key}</div>
         <div>{item.valueSize} B</div>
         <div>

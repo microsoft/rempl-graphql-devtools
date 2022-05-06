@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { RecentActivities } from "../../types";
 import { Button } from "@fluentui/react-components";
 import rempl from "rempl";
+import { useStyles } from "./recent-activity.styles";
+import { RecentActivity } from "./recent-activity";
 
 export const RecentActivityContainer = React.memo(() => {
   const [recentActivities, setRecentActivities] = useState<RecentActivities[]>(
@@ -10,6 +12,7 @@ export const RecentActivityContainer = React.memo(() => {
   const [recordRecentActivity, setRecordRecentActivity] =
     useState<boolean>(false);
   const myTool = useRef(rempl.getSubscriber());
+  const classes = useStyles();
   console.log(recentActivities);
 
   useEffect(() => {
@@ -47,10 +50,15 @@ export const RecentActivityContainer = React.memo(() => {
   };
 
   return (
-    <div>
-      <Button onClick={toggleRecordRecentChanges}>
-        {recordRecentActivity ? "recording" : "not recording"}
-      </Button>
+    <div className={classes.root}>
+      <div className={classes.innerContainer}>
+        <div className={classes.header}>
+          <Button onClick={toggleRecordRecentChanges}>
+            {recordRecentActivity ? "Stop recording" : "Recording recent activity"}
+          </Button>
+        </div>
+        <RecentActivity activity={recentActivities} />
+      </div>
     </div>
   );
 });

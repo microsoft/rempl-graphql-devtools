@@ -7,6 +7,9 @@ export const useStyles = makeStyles({
     ...shorthands.overflow("hidden"),
     maxWidth: "220px",
   },
+  fill: {
+    maxWidth: "auto"
+  },
   hidden: {
     width: "0",
   },
