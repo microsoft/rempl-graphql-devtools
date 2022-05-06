@@ -4,7 +4,7 @@ import { mergeClasses, Text } from "@fluentui/react-components";
 import { useStyles } from "./recent-activity.styles";
 import moment from "moment";
 
-export const RecentActivity = ({ activity }: {activity: any}) => {
+export const RecentActivity = ({ activity }: {activity: any[]}) => {
   const classes = useStyles();
   const [detailsValue, setDetailsValue] = React.useState<any>(undefined);
 
@@ -12,28 +12,47 @@ export const RecentActivity = ({ activity }: {activity: any}) => {
     setDetailsValue(undefined);
   };
 
+  const buildItem = (elem: any, timestamp: number, type: string) => (
+    <div
+      className={classes.activityItem} 
+      key={timestamp}>
+      <Text className={classes.name} block>
+        <Text weight="semibold">{type}: </Text>
+        {elem.data?.name}
+      </Text>
+      <div className={mergeClasses(
+        classes.label,
+        elem.change === 'added' && classes.added,
+        elem.change === 'removed' && classes.removed
+      )}>{elem.change}</div>
+      <div className={classes.time}>{moment(timestamp).format('hh:mm:ss')}</div>
+    </div>
+  );
+
+  const buildActivityItems = () => {
+    let items: any[] = [];
+
+    activity.forEach((elem: any, index: number) => {
+      const m = elem.mutations.map((mutation: any) => ({
+        index: index + elem.timestamp,
+        onClick: () => {setDetailsValue({...mutation, isMutation: true})},
+        content: (buildItem(mutation, elem.timestamp, 'Mutation'))
+      }));
+      const q = elem.queries.map((query: any) => ({
+        index: index + elem.timestamp,
+        onClick: () => {setDetailsValue({...query, isMutation: false})},
+        content: (buildItem(query, elem.timestamp, "Query"))
+      }));
+      items = [...items, ...m, ...q];
+    });
+
+    return items;
+  };
+
   return (
     <div className={classes.activityContainer}>
       <List 
-        items={
-          activity.map((elem: any, index: number) => ({
-            index: index + elem.timestamp,
-            onClick: () => {setDetailsValue(elem)},
-            content: (
-              <div
-                className={classes.activityItem} 
-                key={index + elem.timestamp}>
-                <Text className={classes.name} block>{elem.mutations[0]?.data?.name}</Text>
-                <div className={mergeClasses(
-                  classes.label,
-                  elem.queries[0]?.change === 'added' && classes.added,
-                  elem.queries[0]?.change === 'removed' && classes.removed
-                )}>{elem.queries[0]?.change}</div>
-                <div className={classes.time}>{moment(elem.timestamp).format('DD.MM.YYYY hh:mm:ss')}</div>
-              </div>
-            )
-          }))
-        }
+        items={buildActivityItems()}
         search={false}
         fill
       />

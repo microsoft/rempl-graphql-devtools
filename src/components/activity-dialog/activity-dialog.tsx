@@ -15,7 +15,6 @@ export const ActivityDialog = React.memo(({value, onClose}: ActivityDialogProps)
 
   useEffect(() => {
     closeIcon?.current?.focus();
-    console.log(value);
   });
 
   return (
@@ -26,7 +25,7 @@ export const ActivityDialog = React.memo(({value, onClose}: ActivityDialogProps)
             className={classes.dialogContainer}
             onClick={(e) => {e.stopPropagation()}}>
               <div className={classes.header}>
-                <Headline>Details</Headline>
+                <Headline>{`${value.data?.name} (${value.isMutation ? "Mutation" : "Watched Query"})`}</Headline>
                 <Button 
                   appearance="transparent"
                   ref={closeIcon}
@@ -39,70 +38,48 @@ export const ActivityDialog = React.memo(({value, onClose}: ActivityDialogProps)
 
             <div className={classes.details}>
             <div>
-              <Text weight="semibold">Mutation String</Text>
+              <Text weight="semibold">{value.isMutation ? "Mutation String" : "Query String"}</Text>
               <div className={classes.codeBox} style={{ fontSize: "12px" }}>
                 <pre>
                   <code>
-                    <p>{value?.mutations[0]?.data?.mutationString}</p>
+                    <p>{value.isMutation ? value.data?.mutationString : value.data?.queryString}</p>
                   </code>
                 </pre>
               </div>
             </div>
             <div>
-              <Text weight="semibold">Mutation variables</Text>
+              <Text weight="semibold">Variables</Text>
               <div className={classes.codeBox}>
                 <pre>
                   <code>
-                    <p>{JSON.stringify(value?.mutations[0]?.data?.variables)}</p>
+                    <p>{JSON.stringify(value.data?.variables)}</p>
                   </code>
                 </pre>
               </div>
             </div>
-            <div>
-              <Text weight="semibold">Query String</Text>
-              <div className={classes.codeBox} style={{ fontSize: "12px" }}>
-                <pre>
-                  <code>
-                    <p>{value?.queries[0]?.data?.queryString}</p>
-                  </code>
-                </pre>
-              </div>
-            </div>
-            <div>
-              <Text weight="semibold">Query variables</Text>
-              <div className={classes.codeBox}>
-                <pre>
-                  <code>
-                    <p>{JSON.stringify(value?.queries[0]?.data?.variables)}</p>
-                  </code>
-                </pre>
-              </div>
-            </div>
-            {value?.mutations[0]?.data?.errorMessage && (
+            {value.data?.errorMessage && (
               <div>
                 <Text weight="semibold">Error</Text>
                 <div className={classes.codeBox}>
                   <pre>
                     <code>
-                      <p>{value?.mutations[0]?.data?.errorMessage}</p>
+                      <p>{value.data?.errorMessage}</p>
                     </code>
                   </pre>
                 </div>
               </div>
             )}
-            <div>
+            {!value.isMutation && (<div>
               <Text weight="semibold">Cache Data</Text>
               <div className={classes.codeBox}>
                 <pre>
                   <code>
-                    <p>{JSON.stringify(value?.queries[0]?.data?.cacheData, null, 2)}</p>
+                    <p>{JSON.stringify(value.data?.cacheData, null, 2)}</p>
                   </code>
                 </pre>
               </div>
-            </div>
+            </div>)}
           </div>
-
-
         </div>
     </div>
   );

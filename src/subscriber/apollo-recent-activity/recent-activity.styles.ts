@@ -29,7 +29,7 @@ export const useStyles = makeStyles({
     activityItem: {
         display: "grid",
         alignItems: "center",
-        gridTemplateColumns: "auto 90px 140px",
+        gridTemplateColumns: "auto 90px 70px",
     },
     name: {
         ...shorthands.overflow("hidden"),

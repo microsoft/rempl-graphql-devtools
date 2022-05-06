@@ -22,7 +22,7 @@ export const RecentActivityContainer = React.memo(() => {
         if (data) {
           const storedRecentActivities =
             window.REMPL_GRAPHQL_DEVTOOLS_RECENT_ACTIVITIES || [];
-          const newRecentActivities = [...storedRecentActivities, data];
+          const newRecentActivities = [data, ...storedRecentActivities];
           window.REMPL_GRAPHQL_DEVTOOLS_RECENT_ACTIVITIES = newRecentActivities;
           setRecentActivities(newRecentActivities);
         }
