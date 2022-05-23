@@ -10,6 +10,7 @@ import {
   ApolloCacheContextType,
 } from "./contexts/apollo-cache-context";
 import { Menu } from "../components";
+import RecentActivityContainer from "./apollo-recent-activity/recent-activity-container";
 
 const getCacheDataCount = (cacheContextData: ApolloCacheContextType) => {
   if (!cacheContextData?.cacheObjects) return 0;
