@@ -1,6 +1,6 @@
 import rempl from "rempl";
 import hotkeys from "hotkeys-js";
-import { ClientObject } from "../types";
+import { ClientObject, WrapperCallbackParams } from "../types";
 
 type RemplStatusHook = {
   id: string;

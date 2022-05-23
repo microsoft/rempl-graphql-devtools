@@ -22,7 +22,7 @@ export type ApolloGlobalOperations = {
 
 export type ApolloKeyFields = Record<string, string[]>;
 
-declare let __APOLLO_DEVTOOLS_SUBSCRIBER__: string;
+export declare let __APOLLO_DEVTOOLS_SUBSCRIBER__: string;
 declare global {
   interface Window {
     __APOLLO_CLIENTS__: ClientObject[];

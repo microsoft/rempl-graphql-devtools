@@ -43,7 +43,7 @@ export class ApolloCacheDuplicatesPublisher {
   private attachMethodsToPublisher() {
     this.apolloPublisher.provide(
       "getCacheDuplicates",
-      ({}: {}, callback: () => void) => {
+      (_: any, callback: () => void) => {
         this.publishCacheDuplicatesForClientId();
         callback();
       }

@@ -36,7 +36,7 @@ export const List = React.memo(
           />
         </div>
         <ul className={classes.list}>
-          {filterListItems(items, searchValue).map((item, index) => (
+          {filterListItems(items, searchValue).map((item) => (
             <li
               className={mergeClasses(
                 classes.listItem,
