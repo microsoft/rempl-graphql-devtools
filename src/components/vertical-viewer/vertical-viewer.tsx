@@ -1,5 +1,5 @@
 import React from "react";
-import {Tooltip, Button, Text } from "@fluentui/react-components";
+import {Button, Text } from "@fluentui/react-components";
 import { useStyles } from "./vertical-viewer.styles";
 import {ChevronCircleLeft20Regular, ChevronCircleRight20Regular} from "@fluentui/react-icons";
 
@@ -28,17 +28,13 @@ export const VerticalViewer = React.memo(
         className={classes.container}
       >
         <div className={classes.header}>
-          <Tooltip
-            content={isExpanded ? "Show list" : "Expand"}
-            relationship="description"
-          >
             <Button
+              title={isExpanded ? "Show list" : "Expand"}
               className={classes.controlButton}
               onClick={onExpand}
             >
               {isExpanded ? <ChevronCircleRight20Regular /> : <ChevronCircleLeft20Regular />}
             </Button>
-          </Tooltip>
           <Text className={classes.title} weight="semibold">
             {`${data.name} (${isMutation ? "Mutation" : "Watched Query"})`}
           </Text>

@@ -36,11 +36,13 @@ export const Mutations = ({ mutations }: { mutations: Mutation[] }) => {
               onClick: () => setSelected(key),
               content: (
                 <>
-                  <Text weight={key === selected ? "semibold" : "regular"}>
+                  <Text 
+                    weight={key === selected ? "semibold" : "regular"}>
                     {name}
                   </Text>
                   {globalMutations.has(name) && (
-                    <Text weight="semibold">{" (GO)"}</Text>
+                    <Text 
+                      weight="semibold">{" (GO)"}</Text>
                   )}
                   {errorMessage && (
                     <Text

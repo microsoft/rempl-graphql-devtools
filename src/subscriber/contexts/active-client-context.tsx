@@ -23,6 +23,8 @@ export const ActiveClientContextWrapper = ({
   const onChange = useCallback((_: any, { value }: any) => {
     remplSubscriber.callRemote("setActiveClientId", value);
     setActiveClientId(value);
+
+    window.REMPL_GRAPHQL_DEVTOOLS_RECENT_ACTIVITIES = [];
   }, []);
 
   if (!activeClientId && clientIds.length) {
