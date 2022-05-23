@@ -19,7 +19,7 @@ jobs:
           node-version: ${{ env.PRIMARY_NODEJS_VERSION }}
           cache: "yarn"
       - run: yarn
-      - run: yarn lint
+      - run: yarn eslint
 
   tscheck:
     name: TS check typings
