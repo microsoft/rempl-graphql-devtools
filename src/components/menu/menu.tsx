@@ -7,8 +7,10 @@ import {
   Database24Regular,
   DataFunnel24Regular,
   DataWhisker24Regular,
+  Alert24Regular
 } from "@fluentui/react-icons";
 import { mergeClasses, Text, Badge } from "@fluentui/react-components";
+import { useArrowNavigationGroup } from "@fluentui/react-tabster";
 
 interface MenuProps {
   cacheCount: number;
@@ -36,6 +38,11 @@ const menuElements = (props: any) => [
     badge: props.mutationsCount,
   },
   {
+    url: "activity",
+    name: "Activity",
+    icon: <Alert24Regular />,
+  },
+  {
     url: "apollo-additional-informations",
     name: "Additional Information",
     icon: <Info24Regular />,
@@ -50,14 +57,16 @@ const menuElements = (props: any) => [
 export const Menu = React.memo((props: MenuProps) => {
   const classes = menuStyles();
   const [activeItem, setActiveItem] = useState(0);
+  const menuAttributes = useArrowNavigationGroup({circular: true});
 
   return (
     <nav className={classes.root} id="menu-container">
-      <ul className={classes.menuList}>
+      <ul className={classes.menuList} {...menuAttributes}>
         {menuElements(props).map((item, index) => (
           <li key={item.name}>
             <NavLink
               to={item.url}
+              tabIndex={0}
               className={mergeClasses(
                 classes.menuItem,
                 activeItem === index && classes.menuItemActive

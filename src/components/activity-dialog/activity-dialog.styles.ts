@@ -14,10 +14,13 @@ export const dialogStyles = makeStyles({
         zIndex: 2
     },
     dialogContainer: {
-        width: "50%",
+        display: "grid",
+        gridAutoFlow: "column",
+        gridTemplateRows: "40px auto",
+        width: "70%",
         maxWidth: "calc(100% - 60px)",
         minWidth: "400px",
-        height: "50%",
+        height: "75%",
         maxHeight: "100%",
         minHeight: "335px",
         backgroundColor: "#fff",
@@ -33,21 +36,17 @@ export const dialogStyles = makeStyles({
         cursor: "pointer",
         minWidth: "auto"
     },
-    description: {
-        display: "block",
-        color: "#57a8f9",
+    details: {
+        ...shorthands.overflow("hidden", "auto")
     },
-    contentPre: {
-        display: "flex",
-        verticalAlign: "flex-start",
-        ...shorthands.overflow("auto"),
-        flexShrink: 1,
-        flexGrow: 1,
-        flexBasis: 0,
-        height: "calc(100% - 35px)",
-    },
-    preStyles: {
-        marginTop: 0,
-        fontSize: "0.75rem",
-    },
+    codeBox: {
+        width: "100%",
+        backgroundColor: "#F5F5F6",
+        fontSize: "11px",
+        boxSizing: "border-box",
+        ...shorthands.overflow("auto", "hidden"),
+        ...shorthands.borderRadius("6px"),
+        ...shorthands.padding("5px"),
+        ...shorthands.margin("5px", 0)
+    }
 });

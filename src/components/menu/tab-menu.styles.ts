@@ -1,4 +1,5 @@
 import { makeStyles, shorthands } from "@fluentui/react-components";
+import { keyboardFocusedStyle } from "../common.styles";
 
 export const tabMenuStyles = makeStyles({
     root: {},
@@ -16,7 +17,8 @@ export const tabMenuStyles = makeStyles({
         position: "relative",
         "&:hover": {
             color: "#97CBFF"
-        }
+        },
+        ...keyboardFocusedStyle('-4px'),
     },
     tabMenuItemActive: {
         color: "#97CBFF",

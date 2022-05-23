@@ -1,7 +1,7 @@
 import React from "react";
 import { CacheObjectWithSize } from "./types";
 import { useStyles } from "./apollo-cache-items.styles";
-import { Tooltip, Button, mergeClasses, Text } from "@fluentui/react-components";
+import { Button, mergeClasses, Text } from "@fluentui/react-components";
 import { Open20Filled, Delete20Regular } from "@fluentui/react-icons";
 import { Dialog } from "./../../components";
 
@@ -34,29 +34,27 @@ export const ApolloCacheItems = React.memo(
       setDetailsValue: (value: CacheObjectWithSize) => void
     ) =>
     (item: CacheObjectWithSize, index: number) => (
-      <div className={classes.itemContainer} key={item.key}>
+      <div className={classes.itemContainer} key={`${item.key}-${index}`}>
         <div className={classes.keyColumn}>{item.key}</div>
         <div>{item.valueSize} B</div>
         <div>
-          <Tooltip content="Show details" relationship="description">
-            <Button 
-              className={mergeClasses(classes.actionButton, classes.detailsButton)}
-              onClick={() => {setDetailsValue(item)}}
-            >
-              <Open20Filled />
-            </Button>
-          </Tooltip>
-          <Tooltip content="Remove item" relationship="description">
-            <Button
-              className={mergeClasses(classes.actionButton, classes.removeButton)}
-              onClick={(e) => {
-                removeCacheItem(item.key);
-                e.stopPropagation();
-              }} 
-            >
-              <Delete20Regular/>
-            </Button>
-          </Tooltip>
+          <Button 
+            title="Show details"
+            className={mergeClasses(classes.actionButton, classes.detailsButton)}
+            onClick={() => {setDetailsValue(item)}}
+          >
+            <Open20Filled />
+          </Button>
+          <Button
+            title="Remove item"
+            className={mergeClasses(classes.actionButton, classes.removeButton)}
+            onClick={(e) => {
+              removeCacheItem(item.key);
+              e.stopPropagation();
+            }} 
+          >
+            <Delete20Regular/>
+          </Button>
         </div>
       </div>
     );

@@ -5,7 +5,7 @@ export const useStyles = makeStyles({
     flexShrink: 1,
     flexGrow: 1,
     flexBasic: 0,
-    height: "100%",
+    height: "calc(100% - 15px)",
     ...shorthands.padding("10px"),
   },
   innerContainer: {

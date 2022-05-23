@@ -1,14 +1,19 @@
 import { makeStyles, shorthands } from "@fluentui/react-components";
+import { keyboardFocusedStyle } from "../common.styles";
 
 export const menuStyles = makeStyles({
     root: {
         position: "relative",
+        minWidth: "75px",
         width: "75px",
+        ...shorthands.overflow('hidden'),
     },
     menuList: {
+        maxHeight: '100%',
         listStyleType: "none",
-        ...shorthands.padding(0),
-        ...shorthands.margin("15px", "5px")
+        ...shorthands.overflow('auto'),
+        ...shorthands.margin("-15px", "-5px", "-15px", 0),
+        ...shorthands.padding("15px", "5px")
     },
     menuItem: {
         display: "flex",
@@ -25,6 +30,7 @@ export const menuStyles = makeStyles({
             color: "#757575",
             backgroundColor: "#EAEAEA",
         },
+        ...keyboardFocusedStyle('0'),
     },
     menuItemActive: {
         backgroundColor: "#fff",
@@ -42,6 +48,6 @@ export const menuStyles = makeStyles({
     badge: {
         position: "absolute",
         top: "-3px",
-        right: "-6px"
+        right: "1px"
     }
 });

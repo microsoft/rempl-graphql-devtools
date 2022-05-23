@@ -14,7 +14,7 @@ export const searchStyles = makeStyles({
     height: "32px",
     ...shorthands.padding(0, 0, 0, "30px"),
     backgroundColor: "#F5F5F6",
-    ...shorthands.border("1px", "solid", "transparent"),
+    ...shorthands.border("2px", "solid", "transparent"),
     ...shorthands.borderRadius("6px"),
     outlineStyle: "none",
     "&:focus": {

@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { useStyles } from "./list.styles";
 import { Search } from "../search/search";
 import { mergeClasses } from "@fluentui/react-components";
+import { useArrowNavigationGroup } from "@fluentui/react-tabster";
 
 interface ListProps {
-  isExpanded: boolean;
+  isExpanded?: boolean;
   items: any;
-  selectedIndex: number;
+  selectedIndex?: number;
+  search?: boolean;
+  fill?: boolean;
 }
 
 function filterListItems(items: any[], searchValue: string) {
@@ -19,31 +22,44 @@ function filterListItems(items: any[], searchValue: string) {
 }
 
 export const List = React.memo(
-  ({ isExpanded, items, selectedIndex }: ListProps) => {
+  ({ 
+    isExpanded = false, 
+    items, 
+    selectedIndex, 
+    search = true, 
+    fill = false 
+  }: ListProps) => {
     const [searchValue, setSearchValue] = useState("");
     const classes = useStyles();
+    const listAttributes = useArrowNavigationGroup({circular: true});
 
     return (
       <div
-        className={mergeClasses(classes.root, isExpanded && classes.hidden)}
+        className={mergeClasses(
+          classes.root, 
+          fill && classes.fill,
+          isExpanded && classes.hidden
+        )}
       >
-        <div className={classes.searchContainer}>
+        {search && <div className={classes.searchContainer}>
           <Search
             onSearchChange={(e: React.SyntheticEvent) => {
               const input = e.target as HTMLInputElement;
               setSearchValue(input.value);
             }}
           />
-        </div>
-        <ul className={classes.list}>
+        </div>}
+        <ul className={classes.list} {...listAttributes}>
           {filterListItems(items, searchValue).map((item, index) => (
             <li
+              tabIndex={0}
               className={mergeClasses(
                 classes.listItem,
                 selectedIndex === item.index && classes.listItemActive
               )}
               key={item.key}
               onClick={() => item.onClick(item.index)}
+              onKeyDown={(e) => {if (e.key === 'Enter') item.onClick(item.index)}}
             >
               {item.content}
             </li>

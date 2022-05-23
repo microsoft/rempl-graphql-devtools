@@ -19,6 +19,12 @@ if (require.main === module) {
               "utf8"
             )
           ),
+          __GLOBAL_CSS__: JSON.stringify(
+            readFileSync(
+              resolve(process.cwd(), "src/subscriber/styles.css"),
+              "utf8"
+            )
+          ),
         },
       })
     ).outputFiles[0].text;
