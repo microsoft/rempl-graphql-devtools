@@ -10,6 +10,7 @@
     "watch": "watch 'node scripts/build'",
     "eslint": "eslint src",
     "eslint:fix": "eslint src --fix",
+    "tscheck": "tsc --noEmit",
     "test": "jest",
     "prepublishOnly": "npm run build"
   },
