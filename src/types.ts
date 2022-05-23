@@ -3,6 +3,9 @@ import {
   ApolloClient,
   StoreObject,
 } from "@apollo/client";
+import { createPublisher } from "rempl";
+
+export type Publisher = ReturnType<typeof createPublisher>;
 
 export type WrapperCallbackParams = {
   clientObjects: ClientObject[];
@@ -22,7 +25,6 @@ export type ApolloGlobalOperations = {
 
 export type ApolloKeyFields = Record<string, string[]>;
 
-export declare let __APOLLO_DEVTOOLS_SUBSCRIBER__: string;
 declare global {
   interface Window {
     __APOLLO_CLIENTS__: ClientObject[];

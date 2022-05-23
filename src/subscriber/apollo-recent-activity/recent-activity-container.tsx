@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { RecentActivities } from "../../types";
 import { Button } from "@fluentui/react-components";
-import rempl from "rempl";
+import { remplSubscriber } from "../rempl";
 
 export const RecentActivityContainer = React.memo(() => {
   const [recentActivities, setRecentActivities] = useState<RecentActivities[]>(
@@ -9,19 +9,18 @@ export const RecentActivityContainer = React.memo(() => {
   );
   const [recordRecentActivity, setRecordRecentActivity] =
     useState<boolean>(false);
-  const myTool = useRef(rempl.getSubscriber());
 
   useEffect(() => {
-    const unsubscribe = myTool.current
+    const unsubscribe = remplSubscriber
       .ns("apollo-recent-activity")
-      .subscribe((data: RecentActivities) => {
+      .subscribe((data) => {
         if (data && recordRecentActivity) {
           setRecentActivities([...recentActivities, data]);
         }
       });
 
     return () => {
-      myTool.current.callRemote("recordRecentActivity", {
+      remplSubscriber.callRemote("recordRecentActivity", {
         shouldRecord: false,
       });
       unsubscribe();
@@ -30,7 +29,7 @@ export const RecentActivityContainer = React.memo(() => {
 
   const recordRecentActivityRempl = React.useCallback(
     (shouldRecord: boolean) => {
-      myTool.current.callRemote("recordRecentActivity", { shouldRecord });
+      remplSubscriber.callRemote("recordRecentActivity", { shouldRecord });
     },
     []
   );

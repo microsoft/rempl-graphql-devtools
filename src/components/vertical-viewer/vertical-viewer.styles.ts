@@ -9,18 +9,18 @@ export const useStyles = makeStyles({
     gridTemplateRows: "50px auto",
     flex: 1,
     ...shorthands.padding(0, "1rem"),
-    boxSizing: "border-box"
+    boxSizing: "border-box",
   },
   header: {
     display: "flex",
     alignItems: "center",
-    ...shorthands.padding("10px", 0)
+    ...shorthands.padding("10px", 0),
   },
   title: {
     color: "#97CBFF",
   },
   details: {
-    ...shorthands.overflow("hidden", "auto")
+    ...shorthands.overflow("hidden", "auto"),
   },
   controlButton: {
     minWidth: "auto",
@@ -35,6 +35,6 @@ export const useStyles = makeStyles({
     ...shorthands.overflow("auto", "hidden"),
     ...shorthands.borderRadius("6px"),
     ...shorthands.padding("5px"),
-    ...shorthands.margin("5px", 0)
-  }
+    ...shorthands.margin("5px", 0),
+  },
 });

@@ -17,11 +17,12 @@ import {
   ArrowClockwise20Regular,
 } from "@fluentui/react-icons";
 import { ApolloCacheDuplicatedItems } from "./apollo-cache-duplicated-items";
+import { CacheDuplicates } from "../../types";
 
 interface IApolloCacheRenderer {
   cacheObjectsWithSize: CacheObjectWithSize[];
   recentCacheWithSize: CacheObjectWithSize[];
-  duplicatedCacheObjects: any;
+  duplicatedCacheObjects: CacheDuplicates;
   recordRecentCacheChanges: (shouldRemove: boolean) => void;
   clearRecentCacheChanges: () => void;
   getCacheDuplicates: () => void;
@@ -73,7 +74,7 @@ export const ApolloCacheRenderer = React.memo(
       [setSearchKey]
     );
 
-    const convertDuplicatedObjects = (data) => {
+    const convertDuplicatedObjects = (data: CacheDuplicates) => {
       return data.map((item) => item.map((obj) => Object.values(obj)[0]));
     };
 

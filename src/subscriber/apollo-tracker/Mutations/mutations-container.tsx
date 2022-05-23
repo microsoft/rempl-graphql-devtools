@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useRef, memo } from "react";
-import rempl from "rempl";
+import React, { useState, useEffect, memo } from "react";
 import { Mutation } from "../../../types";
+import { remplSubscriber } from "../../rempl";
 import { Mutations } from "./mutations";
 
 const MutationsContainer = memo(() => {
   const [apolloTrackerMutations, setApolloTrackerMutations] = useState<
     Mutation[]
   >([]);
-  const myTool = useRef(rempl.getSubscriber());
-
   useEffect(() => {
-    const unsubscribe = myTool.current
+    const unsubscribe = remplSubscriber
       .ns("apollo-tracker-mutations")
       .subscribe((data: Mutation[]) => {
         if (data) {

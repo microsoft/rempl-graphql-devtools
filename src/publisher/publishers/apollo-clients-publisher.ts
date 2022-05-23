@@ -2,25 +2,18 @@ import { RemplWrapper } from "../rempl-wrapper";
 import { ClientObject, WrapperCallbackParams } from "../../types";
 
 export class ApolloClientsPublisher {
-  private static _instance: ApolloClientsPublisher;
   private apolloPublisher;
   private remplWrapper: RemplWrapper;
   private activeClients: Set<string> = new Set();
 
-  constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
-    if (ApolloClientsPublisher._instance) {
-      return ApolloClientsPublisher._instance;
-    }
-
+  constructor(remplWrapper: RemplWrapper) {
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
       "apollo-clients",
       this.globalOperationsFetcherHandler.bind(this),
       6000
     );
-    this.apolloPublisher = apolloPublisher;
-
-    ApolloClientsPublisher._instance = this;
+    this.apolloPublisher = remplWrapper.publisher;
   }
 
   private updateActiveClients(clientObjects: ClientObject[]) {

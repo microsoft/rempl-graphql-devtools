@@ -1,24 +1,17 @@
 import { RemplWrapper } from "../rempl-wrapper";
 
 export class ApolloGlobalOperationsPublisher {
-  private static _instance: ApolloGlobalOperationsPublisher;
   private apolloPublisher;
   private remplWrapper: RemplWrapper;
 
-  constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
-    if (ApolloGlobalOperationsPublisher._instance) {
-      return ApolloGlobalOperationsPublisher._instance;
-    }
-
+  constructor(remplWrapper: RemplWrapper) {
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
       "global-operations",
       this.globalOperationsFetcherHandler.bind(this),
       6000
     );
-    this.apolloPublisher = apolloPublisher;
-
-    ApolloGlobalOperationsPublisher._instance = this;
+    this.apolloPublisher = remplWrapper.publisher;
   }
 
   private globalOperationsFetcherHandler() {

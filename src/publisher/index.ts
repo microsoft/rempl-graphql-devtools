@@ -11,18 +11,10 @@ const remplWrapper = new RemplWrapper(
   "ctrl+shift+alt+0, command+shift+option+0"
 );
 
-const publisher = remplWrapper
-  .getRempl()
-  .createPublisher("apollo-devtools", (_: any, callback: any) => {
-    callback(null, "script", __APOLLO_DEVTOOLS_SUBSCRIBER__);
-  });
-
-remplWrapper.attachMethodsToPublisher(publisher);
-
-new ApolloClientsPublisher(remplWrapper, publisher);
-new ApolloCachePublisher(remplWrapper, publisher);
-new ApolloTrackerPublisher(remplWrapper, publisher);
-new ApolloGlobalOperationsPublisher(remplWrapper, publisher);
-new GraphiQLPublisher(remplWrapper, publisher);
-new ApolloCacheDuplicatesPublisher(remplWrapper, publisher);
-new ApolloRecentActivityPublisher(remplWrapper, publisher);
+new ApolloClientsPublisher(remplWrapper);
+new ApolloCachePublisher(remplWrapper);
+new ApolloTrackerPublisher(remplWrapper);
+new ApolloGlobalOperationsPublisher(remplWrapper);
+new GraphiQLPublisher(remplWrapper);
+new ApolloCacheDuplicatesPublisher(remplWrapper);
+new ApolloRecentActivityPublisher(remplWrapper);
