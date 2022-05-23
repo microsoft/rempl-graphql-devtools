@@ -56,7 +56,10 @@ export type ClientCacheObject = {
   recentCache: NormalizedCacheObject;
 };
 
-export type CacheDuplicates = StoreObject[][];
+export type CacheDuplicates = {
+  type: string;
+  duplicates: { [key: string]: StoreObject };
+}[];
 
 export type ApolloTrackerData = {
   mutations: Mutation[];

@@ -27,9 +27,10 @@ function getObjectTypeDuplicates(
   const duplicateItems = [];
   const cacheItemKeys = new Set(Object.keys(objectTypeItems));
 
-  for (const cacheItemKey of cacheItemKeys.values()) {
-    const keySet: Set<string> = new Set();
-    for (const cacheItemKey2 of cacheItemKeys.values()) {
+  for (const cacheItemKey of cacheItemKeys) {
+    const keySet = new Set<string>();
+
+    for (const cacheItemKey2 of cacheItemKeys) {
       if (
         cacheItemKey !== cacheItemKey2 &&
         isEqual(
@@ -43,14 +44,13 @@ function getObjectTypeDuplicates(
       }
     }
 
-    if (cacheItemKeys.has(cacheItemKey)) {
-      cacheItemKeys.delete(cacheItemKey);
-    }
-    if (keySet.size > 1) {
-      const objectDuplicates = [];
+    cacheItemKeys.delete(cacheItemKey);
 
-      for (const value of keySet.values()) {
-        objectDuplicates.push({ [value]: objectTypeItems[value] });
+    if (keySet.size > 1) {
+      const objectDuplicates = Object.create(null);
+
+      for (const key of keySet) {
+        objectDuplicates[key] = objectTypeItems[key];
       }
 
       duplicateItems.push(objectDuplicates);
@@ -66,17 +66,18 @@ export function getClientCacheDuplicates(
 ): CacheDuplicates {
   const groupedItems = groupByType(cache);
   const duplicateItems = [];
+
   for (const objectType of Object.keys(groupedItems)) {
     if (Object.keys(groupedItems[objectType]).length > 1) {
       const keyFields = apolloKeyFields && apolloKeyFields[objectType];
 
       const objectTypeDuplicates = getObjectTypeDuplicates(
-        groupedItems[objectType] as Record<string, StoreObject>,
+        groupedItems[objectType],
         keyFields
       );
 
-      if (objectTypeDuplicates.length) {
-        duplicateItems.push(...objectTypeDuplicates);
+      for (const duplicates of objectTypeDuplicates) {
+        duplicateItems.push({ type: objectType, duplicates });
       }
     }
   }
@@ -85,14 +86,19 @@ export function getClientCacheDuplicates(
 }
 
 function groupByType(cache: NormalizedCacheObject) {
-  const groupedItems: { [key: string]: StoreObject } = {};
-  for (const cacheItemKey of Object.keys(cache)) {
+  const groupedItems: { [key: string]: { [key: string]: StoreObject } } = {};
+  for (const [cacheItemKey, value] of Object.entries(cache)) {
     const objectType = cacheItemKey.split(":")[0];
-    if (!groupedItems[objectType]) {
-      groupedItems[objectType] = { [cacheItemKey]: cache[cacheItemKey] };
+
+    if (value === undefined) {
       continue;
     }
-    groupedItems[objectType][cacheItemKey] = cache[cacheItemKey];
+
+    if (!groupedItems[objectType]) {
+      groupedItems[objectType] = Object.create(null);
+    }
+
+    groupedItems[objectType][cacheItemKey] = value;
   }
 
   return groupedItems;

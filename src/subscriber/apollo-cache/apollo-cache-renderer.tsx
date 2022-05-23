@@ -3,11 +3,7 @@ import { CacheObjectWithSize } from "./types";
 import { ApolloCacheItems } from "./apollo-cache-items";
 import debounce from "lodash.debounce";
 import { useStyles } from "./apollo-cache-renderer.styles";
-import {
-  Text,
-  Button,
-  mergeClasses,
-} from "@fluentui/react-components";
+import { Text, Button, mergeClasses } from "@fluentui/react-components";
 import { TabMenu, Search } from "../../components";
 import {
   Record20Regular,
@@ -56,7 +52,10 @@ export const ApolloCacheRenderer = React.memo(
     const [currentCache, setCurrentCache] = React.useState("all");
     const [recordRecentCache, setRecordRecentCache] = React.useState(false);
     const classes = useStyles();
-    const buttonsAttrs = useArrowNavigationGroup({circular: true, axis: 'horizontal'});
+    const buttonsAttrs = useArrowNavigationGroup({
+      circular: true,
+      axis: "horizontal",
+    });
 
     const getCurrentCacheView = useCallback((cacheType: string) => {
       if (cacheType === "duplicated") {
@@ -74,10 +73,6 @@ export const ApolloCacheRenderer = React.memo(
       debounce((searchKey: string) => setSearchKey(searchKey), 250),
       [setSearchKey]
     );
-
-    const convertDuplicatedObjects = (data: CacheDuplicates) => {
-      return data.map((item) => item.map((obj) => Object.values(obj)[0]));
-    };
 
     return (
       <div className={classes.root}>
@@ -159,9 +154,7 @@ export const ApolloCacheRenderer = React.memo(
           ) : null}
           {currentCache === "duplicated" ? (
             <ApolloCacheDuplicatedItems
-              duplicatedCacheObjects={convertDuplicatedObjects(
-                duplicatedCacheObjects
-              )}
+              duplicatedCacheObjects={duplicatedCacheObjects}
             />
           ) : null}
         </div>

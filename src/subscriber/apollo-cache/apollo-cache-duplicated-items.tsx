@@ -7,10 +7,10 @@ import {
   AccordionPanel,
   Text,
 } from "@fluentui/react-components";
-import { StoreValue } from "@apollo/client";
+import { CacheDuplicates } from "../../types";
 
 interface IApolloCacheItems {
-  duplicatedCacheObjects: StoreValue[][];
+  duplicatedCacheObjects: CacheDuplicates;
 }
 
 export const ApolloCacheDuplicatedItems = React.memo(
@@ -28,15 +28,17 @@ export const ApolloCacheDuplicatedItems = React.memo(
             <AccordionItem value={index} key={`duplicates ${index}`}>
               <AccordionHeader className={classes.accordionHeader}>
                 <Text weight="semibold">
-                  Message: {item[0].message}{" "}
-                  <Text className={classes.counter}>({item.length})</Text>
+                  {item.type}{" "}
+                  <Text className={classes.counter}>
+                    ({Object.keys(item.duplicates).length})
+                  </Text>
                 </Text>
               </AccordionHeader>
               <AccordionPanel>
-                {item.map((obj, index) => (
+                {Object.entries(item.duplicates).map(([key, value], index) => (
                   <div className={classes.cacheItem} key={`message ${index}`}>
-                    <div>{`Message:${obj.id}`}</div>
-                    <div>{obj.message || undefined}</div>
+                    <div>{key}</div>
+                    <div>{JSON.stringify(value)}</div>
                   </div>
                 ))}
               </AccordionPanel>
