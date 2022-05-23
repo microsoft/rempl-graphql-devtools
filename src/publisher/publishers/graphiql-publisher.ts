@@ -3,7 +3,6 @@ import { parse } from "graphql";
 
 import {
   ApolloClientsObject,
-  FetcherParams,
   WrapperCallbackParams,
 } from "../../types";
 
