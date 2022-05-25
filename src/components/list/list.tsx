@@ -50,7 +50,7 @@ export const List = React.memo(
           />
         </div>}
         <ul className={classes.list} {...listAttributes}>
-          {filterListItems(items, searchValue).map((item, index) => (
+          {filterListItems(items, searchValue).map((item) => (
             <li
               tabIndex={0}
               className={mergeClasses(

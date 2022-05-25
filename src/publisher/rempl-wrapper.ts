@@ -1,7 +1,8 @@
-import rempl from "rempl";
+import { createPublisher, getHost } from "rempl";
 import hotkeys from "hotkeys-js";
-import { ClientObject } from "../types";
+import { ClientObject, WrapperCallbackParams, Publisher } from "../types";
 
+declare let __APOLLO_DEVTOOLS_SUBSCRIBER__: string;
 type RemplStatusHook = {
   id: string;
   timeout: number;
@@ -9,7 +10,6 @@ type RemplStatusHook = {
 };
 
 export class RemplWrapper {
-  private static _instance: RemplWrapper | null;
   private isRemplActive = false;
   private remplStatusHooks: RemplStatusHook[] = [];
   private activeClient: ClientObject | null = null;
@@ -17,11 +17,15 @@ export class RemplWrapper {
     id: string;
     interval: ReturnType<typeof setInterval>;
   }[] = [];
+  publisher: Publisher;
 
   constructor(enableRemplHotkey: string) {
-    if (RemplWrapper._instance) {
-      return RemplWrapper._instance;
-    }
+    this.publisher = createPublisher("apollo-devtools", () => {
+      return { type: "script", value: __APOLLO_DEVTOOLS_SUBSCRIBER__ };
+    });
+
+    this.attachMethodsToPublisher(this.publisher);
+
     hotkeys(enableRemplHotkey, () => {
       this.toggleStatus();
     });
@@ -45,20 +49,12 @@ export class RemplWrapper {
     });
   }
 
-  public getRempl() {
-    return rempl;
-  }
-
-  public attachMethodsToPublisher(apolloPublisher: any) {
-    apolloPublisher.provide(
-      "setActiveClientId",
-      ({ clientId }: { clientId: string }, callback: () => void) => {
-        this.clearIntervals();
-        this.activeClient = this.getClientById(clientId);
-        this.runAllHooks();
-        callback();
-      }
-    );
+  public attachMethodsToPublisher(apolloPublisher: Publisher) {
+    apolloPublisher.provide("setActiveClientId", (clientId) => {
+      this.clearIntervals();
+      this.activeClient = this.getClientById(clientId);
+      this.runAllHooks();
+    });
   }
 
   private getClientById(activeClientId: string) {
@@ -129,13 +125,13 @@ export class RemplWrapper {
     this.clearIntervals();
 
     if (this.isRemplActive) {
-      rempl.getHost().activate();
+      getHost().activate();
 
       this.runAllHooks();
 
       return;
     }
 
-    rempl.getHost().deactivate();
+    getHost().deactivate();
   }
 }

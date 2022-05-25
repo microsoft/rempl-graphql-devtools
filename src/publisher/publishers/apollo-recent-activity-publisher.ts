@@ -5,7 +5,6 @@ import { RecentActivities, WrapperCallbackParams } from "../../types";
 import { getRecentData } from "../helpers/parse-apollo-data";
 
 export class ApolloRecentActivityPublisher {
-  private static _instance: ApolloRecentActivityPublisher;
   private apolloPublisher;
   private remplWrapper: RemplWrapper;
   private recordRecentActivity = false;
@@ -17,39 +16,25 @@ export class ApolloRecentActivityPublisher {
     queries: new Map(),
   };
 
-  constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
-    if (ApolloRecentActivityPublisher._instance) {
-      return ApolloRecentActivityPublisher._instance;
-    }
-
+  constructor(remplWrapper: RemplWrapper) {
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
       "recent-activities",
       this.trackerDataPublishHandler.bind(this),
       400
     );
-    this.apolloPublisher = apolloPublisher;
+    this.apolloPublisher = remplWrapper.publisher;
     this.attachMethodsToPublisher();
-
-    ApolloRecentActivityPublisher._instance = this;
   }
 
   private attachMethodsToPublisher() {
-    this.apolloPublisher.provide(
-      "clearRecentActivity",
-      (_: any, callback: () => void) => {
-        this.lastIterationData = { mutations: [], queries: new Map() };
-        callback();
-      }
-    );
+    this.apolloPublisher.provide("clearRecentActivity", () => {
+      this.lastIterationData = { mutations: [], queries: new Map() };
+    });
 
-    this.apolloPublisher.provide(
-      "recordRecentActivity",
-      ({ shouldRecord }: { shouldRecord: boolean }, callback: () => void) => {
-        this.recordRecentActivity = shouldRecord;
-        callback();
-      }
-    );
+    this.apolloPublisher.provide("recordRecentActivity", (options) => {
+      this.recordRecentActivity = Boolean(options?.shouldRecord);
+    });
   }
 
   private trackerDataPublishHandler({ activeClient }: WrapperCallbackParams) {

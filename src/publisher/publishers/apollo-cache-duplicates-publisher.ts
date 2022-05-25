@@ -5,32 +5,26 @@ import {
   ClientObject,
   ApolloKeyFields,
   WrapperCallbackParams,
+  Publisher,
 } from "../../types";
 import { getClientCacheDuplicates } from "../helpers/duplicate-cache-items";
 
 export class ApolloCacheDuplicatesPublisher {
-  private static _instance: ApolloCacheDuplicatesPublisher;
-  private apolloPublisher;
+  private apolloPublisher: Publisher;
   private remplWrapper: RemplWrapper;
   private duplicatesCacheItems: CacheDuplicates = [];
   private client: ClientObject | null = null;
   private apolloKeyFields: ApolloKeyFields = {};
 
-  constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
-    if (ApolloCacheDuplicatesPublisher._instance) {
-      return ApolloCacheDuplicatesPublisher._instance;
-    }
-
+  constructor(remplWrapper: RemplWrapper) {
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
       "apollo-cache-duplicates",
       this.cacheDuplicatesHandler.bind(this),
       1500
     );
-    this.apolloPublisher = apolloPublisher;
+    this.apolloPublisher = remplWrapper.publisher;
     this.attachMethodsToPublisher();
-
-    ApolloCacheDuplicatesPublisher._instance = this;
   }
 
   private cacheDuplicatesHandler({ activeClient }: WrapperCallbackParams) {
@@ -41,13 +35,9 @@ export class ApolloCacheDuplicatesPublisher {
   }
 
   private attachMethodsToPublisher() {
-    this.apolloPublisher.provide(
-      "getCacheDuplicates",
-      ({}: {}, callback: () => void) => {
-        this.publishCacheDuplicatesForClientId();
-        callback();
-      }
-    );
+    this.apolloPublisher.provide("getCacheDuplicates", () => {
+      this.publishCacheDuplicatesForClientId();
+    });
   }
 
   private getCache(client: ApolloClient<NormalizedCacheObject>) {

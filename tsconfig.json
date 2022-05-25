@@ -12,7 +12,9 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "resolveJsonModule": true,
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true
   },
+  "include": ["./src", "./rempl.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

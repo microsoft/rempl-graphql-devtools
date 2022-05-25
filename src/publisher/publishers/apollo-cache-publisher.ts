@@ -9,7 +9,6 @@ import {
 } from "../../types";
 
 export class ApolloCachePublisher {
-  private static _instance: ApolloCachePublisher;
   private apolloPublisher;
   private remplWrapper: RemplWrapper;
   private recentCacheHistory: ClientRecentCacheObject = {};
@@ -17,48 +16,30 @@ export class ApolloCachePublisher {
   private activeClient: ClientObject | null = null;
   private recordRecentCache = false;
 
-  constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
-    if (ApolloCachePublisher._instance) {
-      return ApolloCachePublisher._instance;
-    }
-
+  constructor(remplWrapper: RemplWrapper) {
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
       "apollo-cache",
       this.cachePublishHandler.bind(this),
       1500
     );
-    this.apolloPublisher = apolloPublisher;
+    this.apolloPublisher = remplWrapper.publisher;
     this.attachMethodsToPublisher();
-
-    ApolloCachePublisher._instance = this;
   }
 
   private attachMethodsToPublisher() {
-    this.apolloPublisher.provide(
-      "removeCacheKey",
-      ({ key }: { key: string }, callback: () => void) => {
-        if (this.activeClient) {
-          this.activeClient.client.cache.evict({ id: key });
-        }
-        callback();
+    this.apolloPublisher.provide("removeCacheKey", (key) => {
+      if (this.activeClient) {
+        this.activeClient.client.cache.evict({ id: key });
       }
-    );
-    this.apolloPublisher.provide(
-      "clearRecent",
-      (_: any, callback: () => void) => {
-        this.recentCacheHistory = {};
-        callback();
-      }
-    );
+    });
+    this.apolloPublisher.provide("clearRecent", () => {
+      this.recentCacheHistory = {};
+    });
 
-    this.apolloPublisher.provide(
-      "recordRecent",
-      ({ shouldRecord }: { shouldRecord: boolean }, callback: () => void) => {
-        this.recordRecentCache = shouldRecord;
-        callback();
-      }
-    );
+    this.apolloPublisher.provide("recordRecent", (options) => {
+      this.recordRecentCache = Boolean(options?.shouldRecord);
+    });
   }
 
   private getCache(client: ApolloClient<NormalizedCacheObject>) {

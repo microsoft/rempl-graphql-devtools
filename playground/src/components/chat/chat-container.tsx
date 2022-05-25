@@ -2,7 +2,6 @@ import React from "react";
 import { useApolloClient } from "@apollo/client/react";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { ChatRenderer } from "./chat-renderer";
-import sizeOf from "object-sizeof";
 
 const CHAT = gql`
   query Chat {
@@ -57,7 +56,7 @@ const ChatContainer = () => {
   const removeMessageFunction = React.useCallback((id) => {
     removeMessage({
       variables: { id },
-      update(cache, mutationResult) {
+      update(cache) {
         cache.modify({
           fields: {
             chat: (previous) => {
@@ -92,7 +91,6 @@ const ChatContainer = () => {
         },
       });
     }
-    addMessage({ variables: {} });
   }, []);
 
   if (!cache) {

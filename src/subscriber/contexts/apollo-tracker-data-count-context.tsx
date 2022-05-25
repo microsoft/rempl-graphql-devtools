@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import rempl from "rempl";
+import React, { useState, useEffect } from "react";
 import { ApolloTrackerDataCount } from "../../types";
+import { remplSubscriber } from "../rempl";
 
 export const ApolloTrackerDataCountContext =
   React.createContext<ApolloTrackerDataCount>({
@@ -18,10 +18,9 @@ export const ApolloClientDataCountWrapper = ({
 
   const [apolloTrackerMutationsCount, setApolloTrackerMutationsCount] =
     useState<number>(0);
-  const myTool = useRef(rempl.getSubscriber());
 
   useEffect(() => {
-    myTool.current
+    const unsubscribeQueryCount = remplSubscriber
       .ns("apollo-tracker-queries-count")
       .subscribe((data: number) => {
         if (data != null) {
@@ -29,13 +28,18 @@ export const ApolloClientDataCountWrapper = ({
         }
       });
 
-    myTool.current
+    const unsubscribeMutationCount = remplSubscriber
       .ns("apollo-tracker-mutations-count")
       .subscribe((data: number) => {
         if (data != null) {
           setApolloTrackerMutationsCount(data);
         }
       });
+
+    return () => {
+      unsubscribeQueryCount();
+      unsubscribeMutationCount();
+    };
   }, []);
 
   return (

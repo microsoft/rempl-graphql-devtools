@@ -8,36 +8,29 @@ import {
 } from "../helpers/parse-apollo-data";
 
 export class ApolloTrackerPublisher {
-  private static _instance: ApolloTrackerPublisher;
   private apolloPublisher;
   private lastRawMutations: any[] | null = null;
   private lastRawQueries: Map<number, any> | null = null;
   private remplWrapper: RemplWrapper;
 
-  constructor(remplWrapper: RemplWrapper, apolloPublisher: any) {
-    if (ApolloTrackerPublisher._instance) {
-      return ApolloTrackerPublisher._instance;
-    }
-
+  constructor(remplWrapper: RemplWrapper) {
     this.remplWrapper = remplWrapper;
     this.remplWrapper.subscribeToRemplStatus(
       "apollo-tracker",
       this.trackerDataPublishHandler.bind(this),
       2000
     );
-    this.apolloPublisher = apolloPublisher;
-
-    ApolloTrackerPublisher._instance = this;
+    this.apolloPublisher = remplWrapper.publisher;
   }
 
-  private getCountData() {
-    this.apolloPublisher.ns("apollo-tracker-data-count").publish({
-      queriesCount: queries ? queries.length : this.lastRawQueries?.size || 0,
-      mutationsCount: mutations
-        ? mutations.length
-        : this.lastRawMutations?.length || 0,
-    });
-  }
+  // private getCountData() {
+  //   this.apolloPublisher.ns("apollo-tracker-data-count").publish({
+  //     queriesCount: queries ? queries.length : this.lastRawQueries?.size || 0,
+  //     mutationsCount: mutations
+  //       ? mutations.length
+  //       : this.lastRawMutations?.length || 0,
+  //   });
+  // }
 
   private trackerDataPublishHandler({ activeClient }: WrapperCallbackParams) {
     if (!activeClient) {
@@ -53,6 +46,7 @@ export class ApolloTrackerPublisher {
         .ns("apollo-tracker-mutations-count")
         .publish(mutations.length);
     }
+
     if (queries) {
       this.apolloPublisher.ns("apollo-tracker-queries").publish(queries);
       this.apolloPublisher
@@ -100,11 +94,11 @@ export class ApolloTrackerPublisher {
       return true;
     }
 
-    queries.forEach((query: any, key: number) => {
-      if (query !== (this.lastRawQueries as Map<number, any>).get(key)) {
+    for (const [key, query] of queries) {
+      if (query !== this.lastRawQueries?.get(key)) {
         return true;
       }
-    });
+    }
 
     return false;
   }

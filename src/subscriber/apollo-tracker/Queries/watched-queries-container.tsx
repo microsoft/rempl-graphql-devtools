@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useRef, memo } from "react";
-import rempl from "rempl";
+import React, { useState, useEffect, memo } from "react";
 import { WatchedQuery } from "../../../types";
+import { remplSubscriber } from "../../rempl";
 import { WatchedQueries } from "./watched-queries";
 
 const WatchedQueriesContainer = memo(() => {
   const [apolloTrackerQueries, setApolloTrackerQueries] = useState<
     WatchedQuery[]
   >([]);
-  const myTool = useRef(rempl.getSubscriber());
-
   useEffect(() => {
-    const unsubscribe = myTool.current
+    const unsubscribe = remplSubscriber
       .ns("apollo-tracker-queries")
       .subscribe((data: WatchedQuery[]) => {
         if (data) {

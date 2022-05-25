@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
-import rempl from "rempl";
 import { Dropdown } from "../../components";
+import { remplSubscriber } from "../rempl";
 
 export const ActiveClientContext = React.createContext("");
 
@@ -11,10 +11,9 @@ export const ActiveClientContextWrapper = ({
 }) => {
   const [activeClientId, setActiveClientId] = useState<string>("");
   const [clientIds, setClientIds] = useState<string[]>([]);
-  const myTool = React.useRef(rempl.getSubscriber());
 
   useEffect(() => {
-    myTool.current.ns("apollo-client-ids").subscribe((data: string[]) => {
+    remplSubscriber.ns("apollo-client-ids").subscribe((data: string[]) => {
       if (data) {
         setClientIds(data);
       }
@@ -22,18 +21,14 @@ export const ActiveClientContextWrapper = ({
   }, []);
 
   const onChange = useCallback((_: any, { value }: any) => {
-    myTool.current.callRemote("setActiveClientId", {
-      clientId: value,
-    });
+    remplSubscriber.callRemote("setActiveClientId", value);
     setActiveClientId(value);
 
     window.REMPL_GRAPHQL_DEVTOOLS_RECENT_ACTIVITIES = [];
   }, []);
 
   if (!activeClientId && clientIds.length) {
-    myTool.current.callRemote("setActiveClientId", {
-      clientId: clientIds[0],
-    });
+    remplSubscriber.callRemote("setActiveClientId", clientIds[0]);
     setActiveClientId(clientIds[0]);
   }
 

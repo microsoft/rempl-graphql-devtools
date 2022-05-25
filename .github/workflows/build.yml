@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+env:
+  PRIMARY_NODEJS_VERSION: 16
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node ${{ env.PRIMARY_NODEJS_VERSION }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.PRIMARY_NODEJS_VERSION }}
+          cache: "yarn"
+      - run: yarn
+      - run: yarn eslint
+
+  tscheck:
+    name: TS check typings
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node ${{ env.PRIMARY_NODEJS_VERSION }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.PRIMARY_NODEJS_VERSION }}
+          cache: "yarn"
+      - run: yarn
+      - run: yarn tscheck

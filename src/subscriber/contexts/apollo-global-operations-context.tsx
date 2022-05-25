@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ApolloGlobalOperations } from "../../types";
-import rempl from "rempl";
+import { remplSubscriber } from "../rempl";
 
 export const ApolloGlobalOperationsContext =
   React.createContext<ApolloGlobalOperations>({
@@ -20,17 +20,18 @@ export const ApolloGlobalOperationsWrapper = ({
       globalMutations: [],
       globalSubscriptions: [],
     });
-  const myTool = useRef(rempl.getSubscriber());
 
-  useEffect(() => {
-    myTool.current
-      .ns("apollo-global-operations")
-      .subscribe((data: ApolloGlobalOperations) => {
-        if (data) {
-          setApolloGlobalOperations(data);
-        }
-      });
-  }, []);
+  useEffect(
+    () =>
+      remplSubscriber
+        .ns("apollo-global-operations")
+        .subscribe((data: ApolloGlobalOperations) => {
+          if (data) {
+            setApolloGlobalOperations(data);
+          }
+        }),
+    []
+  );
 
   return (
     <ApolloGlobalOperationsContext.Provider value={apolloGlobalOperations}>

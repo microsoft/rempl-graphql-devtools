@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 
 const MESSAGE = gql`
   query message($id: ID) {

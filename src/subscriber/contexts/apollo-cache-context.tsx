@@ -1,7 +1,7 @@
 import React from "react";
 import { NormalizedCacheObject } from "@apollo/client/cache";
 import { ClientCacheObject } from "../../types";
-import rempl from "rempl";
+import { remplSubscriber } from "../rempl";
 
 export type ApolloCacheContextType = {
   removeCacheItem: (key: string) => void;
@@ -22,10 +22,9 @@ export const ApolloCacheContextWrapper = ({
     recentCache: {},
     cache: {},
   });
-  const myTool = React.useRef(rempl.getSubscriber());
 
   React.useEffect(() => {
-    myTool.current
+    remplSubscriber
       .ns("apollo-cache")
       .subscribe(function (data: ClientCacheObject) {
         if (data) {
@@ -42,9 +41,7 @@ export const ApolloCacheContextWrapper = ({
       };
 
       setCacheObjects(cacheObjectsToModify);
-      myTool.current.callRemote("removeCacheKey", {
-        key,
-      });
+      remplSubscriber.callRemote("removeCacheKey", key);
     },
     [cacheObjects]
   );
@@ -56,12 +53,12 @@ export const ApolloCacheContextWrapper = ({
     };
 
     setCacheObjects(cacheObjectsToModify);
-    myTool.current.callRemote("clearRecent", {});
+    remplSubscriber.callRemote("clearRecent");
   }, [cacheObjects]);
 
   const recordRecentCacheChanges = React.useCallback(
     (shouldRecord: boolean) => {
-      myTool.current.callRemote("recordRecent", {
+      remplSubscriber.callRemote("recordRecent", {
         shouldRecord,
       });
     },

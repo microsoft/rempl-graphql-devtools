@@ -4,13 +4,13 @@ import { ApolloCache } from "./apollo-cache";
 import { WatchedQueries, Mutations } from "./apollo-tracker";
 import { ApolloTrackerDataCountContext } from "./contexts/apollo-tracker-data-count-context";
 import { AdditionalInformations } from "./apollo-additional-informations";
-import { RecentActivityContainer } from "./apollo-recent-activity/recent-activity-container";
 import { GraphiQLRenderer } from "./graphiql";
 import {
   ApolloCacheContext,
   ApolloCacheContextType,
 } from "./contexts/apollo-cache-context";
 import { Menu } from "../components";
+import RecentActivityContainer from "./apollo-recent-activity/recent-activity-container";
 
 const getCacheDataCount = (cacheContextData: ApolloCacheContextType) => {
   if (!cacheContextData?.cacheObjects) return 0;

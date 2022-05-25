@@ -17,15 +17,8 @@ style.innerHTML = __GLOBAL_CSS__ + __GRAPHIQL_CSS__;
 
 const rootEl = document.createElement("div");
 rootEl.style.height = "100%";
-rootEl.style["will-change"] = "transform";
+rootEl.style.willChange = "transform";
 
 document.body.appendChild(rootEl);
-
-// very bad way to remove opacity from the iframe container
-// may not work in TMP
-const iframeParent =
-  parent.window.document.getElementsByTagName("iframe")[0].parentElement
-    ?.parentElement;
-if (iframeParent) iframeParent.style.opacity = "1";
 
 ReactDOM.render(<App />, rootEl);

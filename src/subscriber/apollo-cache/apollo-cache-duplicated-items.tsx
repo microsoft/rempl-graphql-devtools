@@ -1,15 +1,20 @@
 import React from "react";
 import { useStyles } from "./apollo-cache-duplicated-items.styles";
-import { Accordion, AccordionItem, AccordionHeader, AccordionPanel, Text } from "@fluentui/react-components";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionHeader,
+  AccordionPanel,
+  Text,
+} from "@fluentui/react-components";
+import { CacheDuplicates } from "../../types";
 
 interface IApolloCacheItems {
-  duplicatedCacheObjects: any;
+  duplicatedCacheObjects: CacheDuplicates;
 }
 
 export const ApolloCacheDuplicatedItems = React.memo(
-  ({
-    duplicatedCacheObjects,
-  }: IApolloCacheItems) => {
+  ({ duplicatedCacheObjects }: IApolloCacheItems) => {
     const classes = useStyles();
 
     if (!duplicatedCacheObjects || !duplicatedCacheObjects.length) {
@@ -18,25 +23,27 @@ export const ApolloCacheDuplicatedItems = React.memo(
 
     return (
       <div className={classes.root}>
-        <Accordion 
-          multiple>
-          {duplicatedCacheObjects.map((item, index) => 
+        <Accordion multiple>
+          {duplicatedCacheObjects.map((item, index) => (
             <AccordionItem value={index} key={`duplicates ${index}`}>
               <AccordionHeader className={classes.accordionHeader}>
                 <Text weight="semibold">
-                  Message: {item[0].message} <Text className={classes.counter}>({item.length})</Text>
+                  {item.type}{" "}
+                  <Text className={classes.counter}>
+                    ({Object.keys(item.duplicates).length})
+                  </Text>
                 </Text>
               </AccordionHeader>
               <AccordionPanel>
-                {item.map((obj, index) => 
+                {Object.entries(item.duplicates).map(([key, value], index) => (
                   <div className={classes.cacheItem} key={`message ${index}`}>
-                    <div>{`Message:${obj.id}`}</div>
-                    <div>{obj.message}</div>
+                    <div>{key}</div>
+                    <div>{JSON.stringify(value)}</div>
                   </div>
-                )}
+                ))}
               </AccordionPanel>
             </AccordionItem>
-          )}
+          ))}
         </Accordion>
       </div>
     );
