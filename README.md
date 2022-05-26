@@ -1,29 +1,45 @@
-# Rempl Apollo Client Devtools
+# Rempl GraphQL Devtools
 
 ## Features
-Rempl Apollo Devtools allows you to debug multiple apollo clients. This tool contains the following features:
+Rempl GraphQL Devtools allows you to debug multiple apollo clients. This tool contains the following features:
 
-- Cache inspector - Allow seeing the content of the cache and allows you to remove a specific object from the cache. Possibility to record only recent changes.
-- Watched Query inspector - Observe active queries.
-- Mutation inspector - Visualize recently fired mutations.
-- GraphiQL
+### Cache inspector
+- Allow seeing the content of the cache and allows you to remove a specific object from the cache. Possibility to record only recent changes.
 
-![plot](./docs/cache.png)
-![plot](./docs/mutations.png)
+![plot](./docs/cache-inspector.png)
+
+### Watched Query and Mutation inspector
+Observe active queries, or recently fired mutations.
+
+![plot](./docs/operations-monitor.png)
+
+### Recent Activity 
+Monitor recently fired mutations and recently activated/deactivated queries. 
+
+![plot](./docs/recent-activity.png)
+
+### GraphiQL
+Allows sending custom queries (using https://github.com/graphql/graphiql)
+
+![plot](./docs/graphiql.png)
+
+## Playground 
+
+You can try the devtools using `yarn playground`
 
 ## Installation
 1. First off, you need to include the bundled library's script into your site.
 ```
 yarn add rempl-graphql-devtools 
 ```
-include `dist/apollo-devtools.js` in Webpack
+include `dist/graphql-devtools.js` in Webpack
 ```
-webpackConfig.entry["apollodevtools"] = PROJECT_ROOT("node_modules/rempl-graphql-devtools/dist/apollo-devtools.js");
+webpackConfig.entry["graphqldevtools"] = PROJECT_ROOT("node_modules/rempl-graphql-devtools/dist/graphql-devtools.js");
 ```
 OR
 
-build the library and include `<script>` with `dist/apollo-devtools.js`in your HTML page.
-`<script src="path/apollo-devtools.js"></script>`
+build the library and include `<script>` with `dist/graphql-devtools.js`in your HTML page.
+`<script src="path/graphql-devtools.js"></script>`
 
 2. In your project, you need to attach the apollo client(s) instance into the global variable __APOLLO_CLIENTS__
 ```

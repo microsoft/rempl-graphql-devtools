@@ -1,7 +1,7 @@
 {
   "name": "rempl-graphql-devtools",
   "version": "0.0.3",
-  "main": "dist/apollo-devtools.js",
+  "main": "dist/graphql-devtools.js",
   "author": "jvejr",
   "license": "MIT",
   "scripts": {
