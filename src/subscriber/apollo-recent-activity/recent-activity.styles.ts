@@ -46,7 +46,8 @@ export const useStyles = makeStyles({
     },
     openDescription: {
         visibility: "visible",
-        height: "auto"
+        height: "auto",
+        ...shorthands.overflow('hidden', 'auto'),
     },
     activityContainer: {
         height: "100%",
