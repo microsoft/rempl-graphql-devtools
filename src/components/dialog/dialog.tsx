@@ -35,12 +35,12 @@ export const Dialog = React.memo(({value, onClose}: DialogProps) => {
                   className={classes.closeButton}
                   icon={<Dismiss20Regular />} />
               </div>
-            <Text 
+            {value?.valueSize && <Text 
                 className={classes.description}
                 weight="semibold"
             >
                 {value?.valueSize} B
-            </Text>
+            </Text>}
             <div className={classes.contentPre}>
               <pre className={classes.preStyles}>
                 <code>

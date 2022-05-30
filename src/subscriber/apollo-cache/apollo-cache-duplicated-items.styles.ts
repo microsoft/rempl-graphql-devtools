@@ -8,6 +8,9 @@ export const useStyles = makeStyles({
 		...shorthands.padding(0, "15px"),
 		...shorthands.overflow("hidden", "auto")
 	},
+	description: {
+		...shorthands.padding("10px", "15px"),
+	},
 	accordionHeader: {
 		"&:hover": {
 			backgroundColor: "#F5F5F6"
@@ -19,12 +22,31 @@ export const useStyles = makeStyles({
 	},
 	cacheItem: {
 		display: "grid",
-		gridTemplateColumns: "50% 50%",
+		width: "calc(100% - 20px)",
+		gridTemplateColumns: "auto auto 40px",
+		columnGap: "10px",
 		alignItems: "center",
 		...shorthands.padding("10px"),
 		...shorthands.borderBottom("1px", "solid", "#F5F5F5"),
 		"&:hover": {
 			backgroundColor: "#F5F5F6"
+		}
+	},
+	message: {
+		...shorthands.overflow("hidden"),
+		textOverflow: "ellipsis",
+		whiteSpace: "nowrap"
+	},
+	detailsButton: {
+		minWidth: "auto",
+		height: "auto",
+		...shorthands.padding("3px", "12px"),
+		...shorthands.borderStyle("none"),
+		backgroundColor: "#e6f8e8",
+		color: "#97D4A9",
+		"&:hover": {
+			backgroundColor: "#cef0d2",
+			color: "#7fae8d"
 		}
 	},
 });
