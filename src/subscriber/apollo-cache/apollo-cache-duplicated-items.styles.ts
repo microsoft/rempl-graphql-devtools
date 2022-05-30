@@ -8,6 +8,9 @@ export const useStyles = makeStyles({
 		...shorthands.padding(0, "15px"),
 		...shorthands.overflow("hidden", "auto")
 	},
+	description: {
+		...shorthands.padding("10px", "15px"),
+	},
 	accordionHeader: {
 		"&:hover": {
 			backgroundColor: "#F5F5F6"

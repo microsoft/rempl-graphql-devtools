@@ -15,10 +15,11 @@ import { CacheObjectWithSize } from "./types";
 
 interface IApolloCacheItems {
   duplicatedCacheObjects: CacheDuplicates;
+  showDescription: boolean;
 }
 
 export const ApolloCacheDuplicatedItems = React.memo(
-  ({ duplicatedCacheObjects }: IApolloCacheItems) => {
+  ({ duplicatedCacheObjects, showDescription }: IApolloCacheItems) => {
     const classes = useStyles();
 
     const [detailsValue, setDetailsValue] = React.useState<CacheObjectWithSize | undefined>(undefined);
@@ -33,6 +34,10 @@ export const ApolloCacheDuplicatedItems = React.memo(
 
     return (
       <div className={classes.root}>
+        {showDescription && 
+        <div className={classes.description}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, quae.
+        </div>}
         <Accordion multiple>
           {duplicatedCacheObjects.map((item, index) => (
             <AccordionItem value={index} key={`duplicates ${index}`}>
