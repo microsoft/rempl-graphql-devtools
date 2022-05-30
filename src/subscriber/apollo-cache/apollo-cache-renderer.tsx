@@ -118,6 +118,7 @@ export const ApolloCacheRenderer = React.memo(
                 <div className={classes.topBarActions}>
                   <Button
                     title="Refresh"
+                    tabIndex={0}
                     className={classes.actionButton}
                     onClick={getCacheDuplicates}
                   >
