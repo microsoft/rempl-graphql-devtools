@@ -16,10 +16,12 @@ interface MenuProps {
   cacheCount: number;
   mutationsCount: number;
   queriesCount: number;
+  mutationsHaveError: boolean;
+  queriesHaveError: boolean;
   hideGlobalOperations: boolean;
 }
 
-const menuElements = (props: any) => [
+const menuElements = (props: MenuProps) => [
   {
     url: "/",
     name: `Cache`,
@@ -31,12 +33,14 @@ const menuElements = (props: any) => [
     name: `Watched Queries`,
     icon: <DataFunnel24Regular />,
     badge: props.queriesCount,
+    haveError: props.queriesHaveError,
   },
   {
     url: "apollo-mutations",
     name: `Mutations`,
     icon: <DataWhisker24Regular />,
     badge: props.mutationsCount,
+    haveError: props.mutationsHaveError,
   },
   {
     url: "activity",
@@ -86,7 +90,11 @@ export const Menu = React.memo((props: MenuProps) => {
                     <Text className={classes.menuText}>{item.name}</Text>
                   )}
                   {item.badge && (
-                    <Badge appearance="tint" className={classes.badge}>
+                    <Badge
+                      appearance="tint"
+                      color={item.haveError ? "danger" : "brand"}
+                      className={classes.badge}
+                    >
                       {item.badge}
                     </Badge>
                   )}

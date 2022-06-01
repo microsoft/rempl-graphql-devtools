@@ -11,7 +11,7 @@ export const useStyles = makeStyles({
     position: "relative",
     width: "200px",
     height: "32px",
-    backgroundColor: '#E9E8E8',
+    backgroundColor: "#E9E8E8",
     marginLeft: "10px",
     ...shorthands.borderRadius("6px"),
   },
@@ -24,7 +24,7 @@ export const useStyles = makeStyles({
     cursor: "pointer",
     ...shorthands.padding(0, "15px"),
     boxSizing: "border-box",
-    ...keyboardFocusedStyle('0'),
+    ...keyboardFocusedStyle("0"),
   },
   dropdownContent: {
     display: "none",
@@ -32,20 +32,20 @@ export const useStyles = makeStyles({
     top: "32px",
     left: 0,
     right: 0,
-    zIndex: 3,
+    zIndex: 5,
     backgroundColor: "#fff",
     ...shorthands.border("1px", "solid", "#F5F5F5"),
     ...shorthands.borderRadius("6px"),
   },
   dropdownContentOpen: {
-    display: "block"
+    display: "block",
   },
   dropdownItem: {
     ...shorthands.padding("10px", "15px"),
     cursor: "pointer",
     "&:hover": {
-      backgroundColor: "#F5F5F6"
+      backgroundColor: "#F5F5F6",
     },
-    ...keyboardFocusedStyle('0'),
-  }
+    ...keyboardFocusedStyle("0"),
+  },
 });

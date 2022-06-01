@@ -4,6 +4,7 @@ import {
   ClientCacheObject,
   FetcherParams,
   Mutation,
+  ApolloTrackerMetadata,
   RecentActivities,
   WatchedQuery,
 } from "./src/types";
@@ -62,6 +63,7 @@ declare module "rempl" {
 
         removeCacheKey(key: string): void;
         clearRecent(): void;
+        clearApolloTrackerMetadata(): void;
         recordRecent(options?: { shouldRecord?: boolean }): void;
 
         clearRecentActivity(): void;
@@ -98,16 +100,12 @@ declare module "rempl" {
       data: Mutation[];
       methods: never;
     };
-    "apollo-tracker-mutations-count": {
-      data: number;
+    "apollo-tracker-metadata": {
+      data: Partial<ApolloTrackerMetadata>;
       methods: never;
     };
     "apollo-tracker-queries": {
       data: WatchedQuery[];
-      methods: never;
-    };
-    "apollo-tracker-queries-count": {
-      data: number;
       methods: never;
     };
   }>;
