@@ -20,7 +20,7 @@ export class RemplWrapper {
   publisher: Publisher;
 
   constructor(enableRemplHotkey: string) {
-    this.publisher = createPublisher("apollo-devtools", () => {
+    this.publisher = createPublisher("graphql-devtools", () => {
       return { type: "script", value: __APOLLO_DEVTOOLS_SUBSCRIBER__ };
     });
 

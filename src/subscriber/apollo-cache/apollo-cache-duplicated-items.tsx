@@ -22,7 +22,9 @@ export const ApolloCacheDuplicatedItems = React.memo(
   ({ duplicatedCacheObjects, showDescription }: IApolloCacheItems) => {
     const classes = useStyles();
 
-    const [detailsValue, setDetailsValue] = React.useState<CacheObjectWithSize | undefined>(undefined);
+    const [detailsValue, setDetailsValue] = React.useState<
+      CacheObjectWithSize | undefined
+    >(undefined);
 
     const closeDetails = () => {
       setDetailsValue(undefined);
@@ -34,10 +36,13 @@ export const ApolloCacheDuplicatedItems = React.memo(
 
     return (
       <div className={classes.root}>
-        {showDescription && 
-        <div className={classes.description}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, quae.
-        </div>}
+        {showDescription && (
+          <div className={classes.description}>
+            {
+              "Checks whether some cache items have the same values except ID field(s). Checks only cache items of the same type."
+            }
+          </div>
+        )}
         <Accordion multiple>
           {duplicatedCacheObjects.map((item, index) => (
             <AccordionItem value={index} key={`duplicates ${index}`}>
@@ -53,11 +58,15 @@ export const ApolloCacheDuplicatedItems = React.memo(
                 {Object.entries(item.duplicates).map(([key, value], index) => (
                   <div className={classes.cacheItem} key={`message ${index}`}>
                     <div className={classes.message}>{key}</div>
-                    <div className={classes.message}>{JSON.stringify(value)}</div>
-                    <Button 
+                    <div className={classes.message}>
+                      {JSON.stringify(value)}
+                    </div>
+                    <Button
                       title="Show details"
                       className={classes.detailsButton}
-                      onClick={() => {setDetailsValue({key, value, valueSize: null})}}
+                      onClick={() => {
+                        setDetailsValue({ key, value, valueSize: null });
+                      }}
                     >
                       <Open20Filled />
                     </Button>
@@ -67,7 +76,9 @@ export const ApolloCacheDuplicatedItems = React.memo(
             </AccordionItem>
           ))}
         </Accordion>
-        {detailsValue ? <Dialog value={detailsValue} onClose={closeDetails}/> : null}
+        {detailsValue ? (
+          <Dialog value={detailsValue} onClose={closeDetails} />
+        ) : null}
       </div>
     );
   }

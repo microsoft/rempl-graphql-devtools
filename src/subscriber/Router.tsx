@@ -11,18 +11,29 @@ import {
 } from "./contexts/apollo-cache-context";
 import { Menu } from "../components";
 import RecentActivityContainer from "./apollo-recent-activity/recent-activity-container";
+import { ApolloGlobalOperationsContext } from "./contexts/apollo-global-operations-context";
+import { ApolloGlobalOperations } from "../types";
 
-const getCacheDataCount = (cacheContextData: ApolloCacheContextType) => {
+function getCacheDataCount(cacheContextData: ApolloCacheContextType) {
   if (!cacheContextData?.cacheObjects) return 0;
 
   return Object.keys(cacheContextData.cacheObjects.cache).length;
-};
+}
+
+function hideGlobalOperations(globalOperations: ApolloGlobalOperations) {
+  return (
+    !globalOperations.globalMutations.length &&
+    !globalOperations.globalQueries.length &&
+    !globalOperations.globalSubscriptions.length
+  );
+}
 
 const Router = React.memo(() => {
   const { mutationsCount, queriesCount } = useContext(
     ApolloTrackerDataCountContext
   );
   const cacheData = useContext(ApolloCacheContext);
+  const globalOperations = useContext(ApolloGlobalOperationsContext);
 
   return (
     <MemoryRouter>
@@ -31,6 +42,7 @@ const Router = React.memo(() => {
           cacheCount={getCacheDataCount(cacheData)}
           mutationsCount={mutationsCount}
           queriesCount={queriesCount}
+          hideGlobalOperations={hideGlobalOperations(globalOperations)}
         />
         <Switch>
           <Route path="/apollo-additional-informations">
