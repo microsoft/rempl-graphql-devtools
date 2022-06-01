@@ -7,6 +7,29 @@ import { RecentActivity } from "./recent-activity";
 import { Search } from "../../components";
 import { Info20Regular } from "@fluentui/react-icons";
 
+function filterActivities(
+  recentActivities: RecentActivities[],
+  searchKey: string
+): RecentActivities[] {
+  if (!searchKey?.trim()) return recentActivities;
+
+  return recentActivities.map(({ queries, mutations, timestamp }) => {
+    const filteredQueries = queries.filter(({ data: { name } }) =>
+      name.toLowerCase().includes(searchKey.toLowerCase())
+    );
+
+    const filteredMutations = mutations.filter(({ data: { name } }) =>
+      name.toLowerCase().includes(searchKey.toLowerCase())
+    );
+
+    return {
+      timestamp,
+      queries: filteredQueries,
+      mutations: filteredMutations,
+    };
+  });
+}
+
 export const RecentActivityContainer = React.memo(() => {
   const [recentActivities, setRecentActivities] = useState<RecentActivities[]>(
     []
@@ -15,6 +38,7 @@ export const RecentActivityContainer = React.memo(() => {
     useState<boolean>(false);
 
   const [openDescription, setOpenDescription] = useState<boolean>(false);
+  const [searchKey, setSearchKey] = React.useState("");
   const classes = useStyles();
 
   useEffect(() => {
@@ -48,7 +72,6 @@ export const RecentActivityContainer = React.memo(() => {
   const toggleRecordRecentChanges = () => {
     recordRecentActivityRempl(!recordRecentActivity);
     setRecordRecentActivity(!recordRecentActivity);
-    console.log("recentActivities", recentActivities);
   };
 
   return (
@@ -79,7 +102,7 @@ export const RecentActivityContainer = React.memo(() => {
             <Search
               onSearchChange={(e: React.SyntheticEvent) => {
                 const input = e.target as HTMLInputElement;
-                console.log(input.value);
+                setSearchKey(input.value);
               }}
             />
           </div>
@@ -93,7 +116,9 @@ export const RecentActivityContainer = React.memo(() => {
           Monitor recently fired mutations and recently activated/deactivated
           queries.
         </div>
-        <RecentActivity activity={recentActivities} />
+        <RecentActivity
+          activity={filterActivities(recentActivities, searchKey)}
+        />
       </div>
     </div>
   );
