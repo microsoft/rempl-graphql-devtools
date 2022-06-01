@@ -5,7 +5,7 @@ import { remplSubscriber } from "../rempl";
 import { useStyles } from "./recent-activity.styles";
 import { RecentActivity } from "./recent-activity";
 import { Search } from "../../components";
-import { Info20Regular} from "@fluentui/react-icons";
+import { Info20Regular } from "@fluentui/react-icons";
 
 export const RecentActivityContainer = React.memo(() => {
   const [recentActivities, setRecentActivities] = useState<RecentActivities[]>(
@@ -53,29 +53,45 @@ export const RecentActivityContainer = React.memo(() => {
 
   return (
     <div className={classes.root}>
-      <div className={mergeClasses(classes.innerContainer, openDescription && classes.innerContainerDescription)}>
+      <div
+        className={mergeClasses(
+          classes.innerContainer,
+          openDescription && classes.innerContainerDescription
+        )}
+      >
         <div className={classes.header}>
           <div>
-            <Button 
+            <Button
               title="Information"
               tabIndex={0}
               className={classes.infoButton}
-              onClick={() => setOpenDescription(!openDescription)}>
+              onClick={() => setOpenDescription(!openDescription)}
+            >
               <Info20Regular />
             </Button>
             <Button onClick={toggleRecordRecentChanges}>
-              {recordRecentActivity ? "Stop recording" : "Recording recent activity"}
+              {recordRecentActivity
+                ? "Stop recording"
+                : "Recording recent activity"}
             </Button>
           </div>
           <div className={classes.searchContainer}>
-            <Search onSearchChange={(e: React.SyntheticEvent) => {
-              const input = e.target as HTMLInputElement;
-              console.log(input.value);
-            }} />
+            <Search
+              onSearchChange={(e: React.SyntheticEvent) => {
+                const input = e.target as HTMLInputElement;
+                console.log(input.value);
+              }}
+            />
           </div>
         </div>
-        <div className={mergeClasses(classes.description, openDescription && classes.openDescription)}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores minima eveniet laborum fuga atque commodi magni accusantium reprehenderit perspiciatis natus, quia rem officiis molestiae culpa, corrupti harum maxime tempora itaque libero corporis, facilis quae illum? Molestias repellat corporis quibusdam omnis atque et porro est, tempora nihil, a tenetur beatae saepe expedita? Dicta odio consequatur natus corporis beatae reprehenderit consectetur rerum nostrum fugit commodi excepturi quis, nihil, error autem cupiditate ad impedit saepe delectus quo itaque? Tempora autem quis quaerat eos itaque alias excepturi eveniet iure laborum facere quae, perspiciatis possimus iste. Doloremque sint corporis ad explicabo incidunt est, molestiae expedita?
+        <div
+          className={mergeClasses(
+            classes.description,
+            openDescription && classes.openDescription
+          )}
+        >
+          Monitor recently fired mutations and recently activated/deactivated
+          queries.
         </div>
         <RecentActivity activity={recentActivities} />
       </div>

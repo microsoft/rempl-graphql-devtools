@@ -25,6 +25,7 @@ export class ApolloCacheDuplicatesPublisher {
     );
     this.apolloPublisher = remplWrapper.publisher;
     this.attachMethodsToPublisher();
+    this.apolloKeyFields = window.__APOLLO_KEY_FIELDS__ || {};
   }
 
   private cacheDuplicatesHandler({ activeClient }: WrapperCallbackParams) {
