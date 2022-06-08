@@ -1,4 +1,4 @@
 node_modules
 .npmrc
-playground/public/graphql-devtools.js
-playground/public/graphql-devtools.js.map
+playground/public/apollo-devtools.js
+playground/public/apollo-devtools.js.map
