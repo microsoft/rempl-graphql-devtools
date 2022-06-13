@@ -29,6 +29,7 @@ const AdditionalInformationsRenderer = React.memo(
         <div className={classes.innerContainer}>
           <Accordion
             multiple
+            collapsible
           >
             {panels(globalOperations).map((item, index) => (
               <AccordionItem value={index} key={item.key}>
