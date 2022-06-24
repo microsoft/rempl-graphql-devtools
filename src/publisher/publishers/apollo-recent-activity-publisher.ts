@@ -11,7 +11,9 @@ export class ApolloRecentActivityPublisher {
   private lastIterationData: {
     mutations: unknown[];
     queries: Map<number, unknown>;
+    cache: NormalizedCacheObject
   } = {
+    cache: {},
     mutations: [],
     queries: new Map(),
   };
@@ -29,7 +31,7 @@ export class ApolloRecentActivityPublisher {
 
   private attachMethodsToPublisher() {
     this.apolloPublisher.provide("clearRecentActivity", () => {
-      this.lastIterationData = { mutations: [], queries: new Map() };
+      this.lastIterationData = { mutations: [], queries: new Map(), cache: {} };
     });
 
     this.apolloPublisher.provide("recordRecentActivity", (options) => {

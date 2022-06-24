@@ -3,7 +3,6 @@ import { RemplWrapper } from "../rempl-wrapper";
 import sizeOf from "object-sizeof";
 import {
   ClientCacheObject,
-  ClientRecentCacheObject,
   ClientObject,
   WrapperCallbackParams,
 } from "../../types";
@@ -11,8 +10,6 @@ import {
 export class ApolloCachePublisher {
   private apolloPublisher;
   private remplWrapper: RemplWrapper;
-  private recentCacheHistory: ClientRecentCacheObject = {};
-  private lastCacheHistory: ClientCacheObject | null = null;
   private activeClient: ClientObject | null = null;
   private recordRecentCache = false;
 
@@ -32,13 +29,6 @@ export class ApolloCachePublisher {
       if (this.activeClient) {
         this.activeClient.client.cache.evict({ id: key });
       }
-    });
-    this.apolloPublisher.provide("clearRecent", () => {
-      this.recentCacheHistory = {};
-    });
-
-    this.apolloPublisher.provide("recordRecent", (options) => {
-      this.recordRecentCache = Boolean(options?.shouldRecord);
     });
   }
 
@@ -93,7 +83,6 @@ export class ApolloCachePublisher {
     const cache = this.getCache(client.client);
     return {
       cache,
-      recentCache: this.getRecentCache(cache),
     };
   };
 
@@ -103,7 +92,6 @@ export class ApolloCachePublisher {
     }
 
     if (this.activeClient?.clientId !== activeClient.clientId) {
-      this.recentCacheHistory = {};
       this.lastCacheHistory = null;
     }
     this.activeClient = activeClient;
