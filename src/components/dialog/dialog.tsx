@@ -26,7 +26,7 @@ export const Dialog = React.memo(({value, onClose}: DialogProps) => {
             className={classes.dialogContainer}
             onClick={(e) => {e.stopPropagation()}}>
               <div className={classes.header}>
-                <Headline>{value?.key}</Headline>
+                <Headline className={classes.name}>{value?.key}</Headline>
                 <Button 
                   appearance="transparent"
                   ref={closeIcon}
