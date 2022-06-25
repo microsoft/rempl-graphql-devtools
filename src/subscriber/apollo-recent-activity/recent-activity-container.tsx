@@ -13,7 +13,7 @@ function filterActivities(
 ): RecentActivities[] {
   if (!searchKey?.trim()) return recentActivities;
 
-  return recentActivities.map(({ queries, mutations, timestamp }) => {
+  return recentActivities.map(({ queries, mutations, cache, timestamp }) => {
     const filteredQueries = queries.filter(({ data: { name } }) =>
       name.toLowerCase().includes(searchKey.toLowerCase())
     );
@@ -22,8 +22,14 @@ function filterActivities(
       name.toLowerCase().includes(searchKey.toLowerCase())
     );
 
+    const filteredCache= cache.filter(({ data: { __activity_key } }) =>
+    __activity_key.toLowerCase().includes(searchKey.toLowerCase())
+  );
+
+
     return {
       timestamp,
+      cache: filteredCache,
       queries: filteredQueries,
       mutations: filteredMutations,
     };
@@ -34,6 +40,7 @@ export const RecentActivityContainer = React.memo(() => {
   const [recentActivities, setRecentActivities] = useState<RecentActivities[]>(
     []
   );
+
   const [recordRecentActivity, setRecordRecentActivity] =
     useState<boolean>(false);
 

@@ -36,18 +36,21 @@ declare global {
 export type RecentActivity<Data> = {
   id: string;
   change: string;
+  type: string;
   data: Data;
 };
 
 export type RecentActivities = {
   queries: RecentActivity<WatchedQuery>[];
   mutations: RecentActivity<Mutation>[];
+  cache: RecentActivity<unknown>[];
   timestamp: number;
 };
 
 export type RecentActivityRaw = {
   id: string;
   change: string;
+  type: string;
   data: unknown;
 };
 

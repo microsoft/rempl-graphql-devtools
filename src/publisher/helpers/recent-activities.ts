@@ -1,11 +1,11 @@
 import { v4 as uid } from "uuid";
 import { RecentActivityRaw } from "../../types";
-import { RECENT_DATA_CHANGES_TYPES } from "../../consts";
+import { RECENT_DATA_CHANGES_TYPES, ACTIVITY_TYPE } from "../../consts";
 import {
   NormalizedCacheObject,
 } from "@apollo/client";
 
-export function getRecentActivities(
+export function getRecentOperationsActivity(
   items: unknown[],
   lastIterationItems: unknown[]
 ): RecentActivityRaw[] | null {
@@ -20,6 +20,7 @@ export function getRecentActivities(
       result.push({
         change: RECENT_DATA_CHANGES_TYPES.ADDED,
         id: uid(),
+        type: ACTIVITY_TYPE.OPERATION,
         data: value,
       });
       continue;
@@ -29,6 +30,7 @@ export function getRecentActivities(
           ...lastIterationItems.slice(0, searchedValueIndex).map((data) => ({
             id: uid(),
             change: RECENT_DATA_CHANGES_TYPES.REMOVED,
+            type: ACTIVITY_TYPE.OPERATION,
             data,
           }))
         );
@@ -41,6 +43,7 @@ export function getRecentActivities(
     ...lastIterationItems.map((data) => ({
       id: uid(),
       change: RECENT_DATA_CHANGES_TYPES.REMOVED,
+      type: ACTIVITY_TYPE.OPERATION,
       data,
     }))
   );
@@ -48,7 +51,7 @@ export function getRecentActivities(
   return result;
 }
 
-export function getRecentCacheActivities(
+export function getRecentCacheActivity(
   cache: NormalizedCacheObject,
   previousCache: NormalizedCacheObject
 ): RecentActivityRaw[] | null {
@@ -71,7 +74,8 @@ export function getRecentCacheActivities(
             {
               id: uid(),
               change: RECENT_DATA_CHANGES_TYPES.CHANGED,
-              data: {key, cacheValue: value},
+              type: ACTIVITY_TYPE.CACHE,
+              data: {__activity_key: key, cacheValue: value},
             }
           );
           continue
@@ -80,7 +84,8 @@ export function getRecentCacheActivities(
           {
             id: uid(),
             change: RECENT_DATA_CHANGES_TYPES.ADDED,
-            data: {key, cacheValue: value},
+            type: ACTIVITY_TYPE.CACHE,
+            data: {__activity_key: key, cacheValue: value},
           }
         );
     } else {
@@ -93,7 +98,8 @@ export function getRecentCacheActivities(
       {
         id: uid(),
         change: RECENT_DATA_CHANGES_TYPES.REMOVED,
-        data: {key, cacheValue: value},
+        type: ACTIVITY_TYPE.CACHE,
+        data: {__activity_key: key, cacheValue: value},
       }
     );
   }
