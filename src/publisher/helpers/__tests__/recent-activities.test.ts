@@ -7,8 +7,8 @@ describe(".getRecentOperationsActivity", () => {
   test("get list of recent Activity", () => {
     expect(
       getRecentOperationsActivity(
-        ["test1", "test3", "test4", "test5"],
-        ["test3", "test5", "test6"],
+        ["test1", "test3", "test4", "test5"] as any[],
+        ["test3", "test5", "test6"] as any[],
       ),
     ).toEqual([
       { type: ACTIVITY_TYPE.OPERATION, change: RECENT_DATA_CHANGES_TYPES.ADDED, data: "test1", id: "test" },
@@ -17,13 +17,13 @@ describe(".getRecentOperationsActivity", () => {
     ]);
     expect(
       getRecentOperationsActivity(
-        ["test2", "test3", "test4"],
-        ["test1", "test2", "test3", "test4"],
+        ["test2", "test3", "test4"] as any[],
+        ["test1", "test2", "test3", "test4"] as any[],
       ),
     ).toEqual([
       { type: ACTIVITY_TYPE.OPERATION, change: RECENT_DATA_CHANGES_TYPES.REMOVED, data: "test1", id: "test" },
     ]);
-    expect(getRecentOperationsActivity(["test1", "test3"], ["test3", "test5"])).toEqual(
+    expect(getRecentOperationsActivity(["test1", "test3"] as any[], ["test3", "test5"] as any[])).toEqual(
       [
         { type: ACTIVITY_TYPE.OPERATION, change: RECENT_DATA_CHANGES_TYPES.ADDED, data: "test1", id: "test" },
         {
@@ -35,19 +35,19 @@ describe(".getRecentOperationsActivity", () => {
       ],
     );
 
-    expect(getRecentOperationsActivity(["test1", "test5"], ["test1", "test5"])).toEqual(
+    expect(getRecentOperationsActivity(["test1", "test5"] as any[], ["test1", "test5"] as any[])).toEqual(
       [],
     );
 
-    expect(getRecentOperationsActivity(["test1"], ["test1", "test5"])).toEqual([
+    expect(getRecentOperationsActivity(["test1"] as any[], ["test1", "test5"] as any[])).toEqual([
       { type: ACTIVITY_TYPE.OPERATION, change: RECENT_DATA_CHANGES_TYPES.REMOVED, data: "test5", id: "test" },
     ]);
 
-    expect(getRecentOperationsActivity(["test1", "test5"], ["test1"])).toEqual([
+    expect(getRecentOperationsActivity(["test1", "test5"] as any[], ["test1"] as any[])).toEqual([
       { type: ACTIVITY_TYPE.OPERATION, change: RECENT_DATA_CHANGES_TYPES.ADDED, data: "test5", id: "test" },
     ]);
 
-    expect(getRecentOperationsActivity(["test1"], ["test3"])).toEqual([
+    expect(getRecentOperationsActivity(["test1"] as any[], ["test3"] as any[])).toEqual([
       { type: ACTIVITY_TYPE.OPERATION, change: RECENT_DATA_CHANGES_TYPES.ADDED, data: "test1", id: "test" },
       { type: ACTIVITY_TYPE.OPERATION, change: RECENT_DATA_CHANGES_TYPES.REMOVED, data: "test3", id: "test" },
     ]);

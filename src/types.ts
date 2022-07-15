@@ -54,11 +54,6 @@ export type RecentActivityRaw = {
   data: WatchedQuery | Mutation | CacheStoreObject;
 };
 
-export type ClientCacheObject = {
-  cache: NormalizedCacheObject;
-  recentCache: NormalizedCacheObject;
-};
-
 export type CacheDuplicates = {
   type: string;
   duplicates: { [key: string]: StoreObject };
