@@ -68,7 +68,6 @@ export const ApolloClientMetadataWrapper = ({
     };
   }, []);
 
-  console.log(apolloTrackerMetadata);
   return (
     <ApolloTrackerMetadataContext.Provider value={apolloTrackerMetadata}>
       {children}

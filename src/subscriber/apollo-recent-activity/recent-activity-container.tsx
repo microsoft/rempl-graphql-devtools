@@ -6,14 +6,28 @@ import { useStyles } from "./recent-activity.styles";
 import { RecentActivity } from "./recent-activity";
 import { Search } from "../../components";
 import { Info20Regular } from "@fluentui/react-icons";
+import { Checkbox } from "@fluentui/react-checkbox";
+
 
 function filterActivities(
   recentActivities: RecentActivities[],
-  searchKey: string
+  searchKey: string,
+  showCache: boolean,
+  showOperations: boolean,
 ): RecentActivities[] {
-  if (!searchKey?.trim()) return recentActivities;
 
-  return recentActivities.map(({ queries, mutations, timestamp }) => {
+  const filtredActivities =  recentActivities.map(({ queries, mutations, cache, timestamp }) => {
+    return {
+      timestamp,
+      cache: showCache ? cache : [],
+      queries: showOperations ? queries : [],
+      mutations: showOperations ? mutations : [],
+    };
+  });
+
+  if (!searchKey?.trim()) return filtredActivities;
+
+  return filtredActivities.map(({ queries, mutations, cache, timestamp }) => {
     const filteredQueries = queries.filter(({ data: { name } }) =>
       name.toLowerCase().includes(searchKey.toLowerCase())
     );
@@ -22,8 +36,14 @@ function filterActivities(
       name.toLowerCase().includes(searchKey.toLowerCase())
     );
 
+    const filteredCache= cache.filter(({ data: { __activity_key } }) =>
+    __activity_key.toLowerCase().includes(searchKey.toLowerCase())
+  );
+
+
     return {
       timestamp,
+      cache: filteredCache,
       queries: filteredQueries,
       mutations: filteredMutations,
     };
@@ -34,11 +54,14 @@ export const RecentActivityContainer = React.memo(() => {
   const [recentActivities, setRecentActivities] = useState<RecentActivities[]>(
     []
   );
+
   const [recordRecentActivity, setRecordRecentActivity] =
     useState<boolean>(false);
 
   const [openDescription, setOpenDescription] = useState<boolean>(false);
   const [searchKey, setSearchKey] = React.useState("");
+  const [showCache, setShowCache] = React.useState(true);
+  const [showOperations, setShowOperations] = React.useState(true);
   const classes = useStyles();
 
   useEffect(() => {
@@ -97,6 +120,12 @@ export const RecentActivityContainer = React.memo(() => {
                 ? "Stop recording"
                 : "Recording recent activity"}
             </Button>
+            <Checkbox 
+            onChange={() => setShowCache(checked => !checked)}
+            checked={showCache} label="Cache" />
+            <Checkbox 
+            onChange={() => setShowOperations(checked => !checked)}
+            checked={showOperations} label="Operations" />
           </div>
           <div className={classes.searchContainer}>
             <Search
@@ -117,7 +146,7 @@ export const RecentActivityContainer = React.memo(() => {
           queries.
         </div>
         <RecentActivity
-          activity={filterActivities(recentActivities, searchKey)}
+          activity={filterActivities(recentActivities, searchKey, showCache, showOperations)}
         />
       </div>
     </div>

@@ -12,14 +12,9 @@ const ApolloCacheContainer = React.memo(() => {
   if (!contextData) return null;
 
   const {
-    cacheObjects,
+    cache,
     removeCacheItem,
-    recordRecentCacheChanges,
-    clearRecentCacheChanges,
   } = contextData;
-
-  const cache = cacheObjects?.cache;
-  const recentCache = cacheObjects?.recentCache;
 
   const getCacheDuplicates = useCallback(() => {
     duplicateItems?.getCacheDuplicates();
@@ -30,19 +25,11 @@ const ApolloCacheContainer = React.memo(() => {
     [cache]
   );
 
-  const recentCacheObjectsWithSize = useMemo(
-    () => getCacheObjectWithSizes(recentCache as Record<string, unknown>),
-    [recentCache]
-  );
-
   return (
     <ApolloCacheRenderer
       cacheObjectsWithSize={cacheObjectsWithSize}
       getCacheDuplicates={getCacheDuplicates}
       duplicatedCacheObjects={duplicateItems?.cacheDuplicates || []}
-      recentCacheWithSize={recentCacheObjectsWithSize}
-      clearRecentCacheChanges={clearRecentCacheChanges}
-      recordRecentCacheChanges={recordRecentCacheChanges}
       cacheSize={sizeOf(cache as Record<string, unknown>)}
       removeCacheItem={removeCacheItem}
     />

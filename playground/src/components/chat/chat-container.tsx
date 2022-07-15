@@ -68,6 +68,9 @@ const ChatContainer = () => {
             },
           },
         });
+        const normalizedId = cache.identify({ id, __typename: 'Message' });
+        cache.evict({ id: normalizedId });
+        cache.gc();
       },
     });
   }, []);
