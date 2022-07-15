@@ -39,11 +39,11 @@ export type RecentActivity<Data> = {
   type: string;
   data: Data;
 };
-
+export type CacheStoreObject = {__activity_key: string} & StoreObject
 export type RecentActivities = {
   queries: RecentActivity<WatchedQuery>[];
   mutations: RecentActivity<Mutation>[];
-  cache: RecentActivity<unknown>[];
+  cache: RecentActivity<CacheStoreObject>[];
   timestamp: number;
 };
 
@@ -51,7 +51,7 @@ export type RecentActivityRaw = {
   id: string;
   change: string;
   type: string;
-  data: unknown;
+  data: WatchedQuery | Mutation | CacheStoreObject;
 };
 
 export type ClientCacheObject = {

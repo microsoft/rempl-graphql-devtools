@@ -27,8 +27,6 @@ export class GraphiQLPublisher {
       "graphiql",
       (activeClientId, graphQLParams) => {
         const client = this.apolloClients[activeClientId];
-        console.log(graphQLParams)
-        console.log(parse(graphQLParams.query))
         
         return client.query({
           query: parse(graphQLParams.query),

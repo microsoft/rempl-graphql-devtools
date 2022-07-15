@@ -1,7 +1,7 @@
 import { RemplWrapper } from "../rempl-wrapper";
 import { NormalizedCacheObject, ApolloClient } from "@apollo/client";
 import { getRecentOperationsActivity, getRecentCacheActivity } from "../helpers/recent-activities";
-import { RecentActivities, WrapperCallbackParams } from "../../types";
+import { RecentActivities, WatchedQuery, WrapperCallbackParams, Mutation } from "../../types";
 import { getRecentData } from "../helpers/parse-apollo-data";
 
 export class ApolloRecentActivityPublisher {
@@ -9,8 +9,8 @@ export class ApolloRecentActivityPublisher {
   private remplWrapper: RemplWrapper;
   private recordRecentActivity = false;
   private lastIterationData: {
-    mutations: unknown[];
-    queries: Map<number, unknown>;
+    mutations: Mutation[];
+    queries: Map<number, WatchedQuery>;
     cache: NormalizedCacheObject
   } = {
     cache: {},
@@ -69,13 +69,14 @@ export class ApolloRecentActivityPublisher {
     client: ApolloClient<NormalizedCacheObject>
   ) {
     const currentQueries = this.getQueries(client);
+
     if (!this.lastIterationData.queries.size) {
       this.lastIterationData.queries = new Map(currentQueries);
 
       return [];
     }
-    const currentQueriesValues = Array.from(currentQueries.values());
-    const lastIterationValues = Array.from(
+    const currentQueriesValues: WatchedQuery[] = Array.from(currentQueries.values());
+    const lastIterationValues: WatchedQuery[] = Array.from(
       this.lastIterationData.queries.values()
     );
     this.lastIterationData.queries = new Map(currentQueries);
@@ -114,7 +115,7 @@ export class ApolloRecentActivityPublisher {
       };
       return [];
     }
-    const currentMutationsValues = Object.values(currentMutations);
+    const currentMutationsValues: Mutation[] = Object.values(currentMutations);
     const lastIterationValues = Object.values(this.lastIterationData.mutations);
 
     this.lastIterationData.mutations = {

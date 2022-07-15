@@ -4,6 +4,7 @@ import {
   WatchedQuery,
   Mutation as MutationType,
   RecentActivityRaw,
+  CacheStoreObject,
   RecentActivity,
   RecentActivities,
 } from "../../types";
@@ -111,7 +112,7 @@ function getRecentMutationData({
 export const getRecentData = (
   queries: RecentActivityRaw[],
   mutations: RecentActivityRaw[],
-  cache: RecentActivityRaw[],
+  cache: RecentActivity<CacheStoreObject>[],
   timestamp: number
 ): RecentActivities => {
   const filteredQueries: RecentActivity<WatchedQuery>[] = queries

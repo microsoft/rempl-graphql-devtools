@@ -1,13 +1,13 @@
 import { v4 as uid } from "uuid";
-import { RecentActivityRaw } from "../../types";
+import { RecentActivityRaw, WatchedQuery, Mutation, RecentActivity, CacheStoreObject } from "../../types";
 import { RECENT_DATA_CHANGES_TYPES, ACTIVITY_TYPE } from "../../consts";
 import {
   NormalizedCacheObject,
 } from "@apollo/client";
 
 export function getRecentOperationsActivity(
-  items: unknown[],
-  lastIterationItems: unknown[]
+  items: WatchedQuery[] | Mutation[],
+  lastIterationItems: WatchedQuery[] | Mutation[]
 ): RecentActivityRaw[] | null {
   if (!lastIterationItems.length || !items.length) {
     return null;
@@ -15,7 +15,7 @@ export function getRecentOperationsActivity(
 
   const result = [];
   for (const value of items) {
-    const searchedValueIndex = lastIterationItems.indexOf(value);
+    const searchedValueIndex = lastIterationItems.indexOf(value as any);
     if (searchedValueIndex === -1) {
       result.push({
         change: RECENT_DATA_CHANGES_TYPES.ADDED,
@@ -27,7 +27,7 @@ export function getRecentOperationsActivity(
     } else {
       if (searchedValueIndex > 0) {
         result.push(
-          ...lastIterationItems.slice(0, searchedValueIndex).map((data) => ({
+          ...lastIterationItems.slice(0, searchedValueIndex).map((data: WatchedQuery | Mutation) => ({
             id: uid(),
             change: RECENT_DATA_CHANGES_TYPES.REMOVED,
             type: ACTIVITY_TYPE.OPERATION,
@@ -51,10 +51,12 @@ export function getRecentOperationsActivity(
   return result;
 }
 
+const IGNORED_KEYS = new Map([["__META", true]])
+
 export function getRecentCacheActivity(
   cache: NormalizedCacheObject,
   previousCache: NormalizedCacheObject
-): RecentActivityRaw[] | null {
+): RecentActivity<CacheStoreObject>[] | null {
   if (!Object.keys(cache).length || !Object.keys(previousCache).length) {
     return null;
   }
@@ -66,6 +68,13 @@ export function getRecentCacheActivity(
   const result = []
 
   for (const [key, value] of cacheEntries) {
+    if (IGNORED_KEYS.has(key)) {
+      if (previousCacheMap.has(key)) {
+        previousCacheMap.delete(key)
+      }
+      continue
+    }
+    
     const searchedValueIndex = previousCacheValues.indexOf(value);
       if (searchedValueIndex === -1) {
         if (previousCacheMap.has(key)) {
