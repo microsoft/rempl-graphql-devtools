@@ -34,7 +34,6 @@ export const RecentActivity = ({ activity }: {activity: any[]}) => {
 
   const buildActivityItems = () => {
     let items: any[] = [];
-    console.log(activity)
     activity.forEach((elem: any, index: number) => {
       const m = elem.mutations.map((mutation: any) => ({
         index: index + elem.timestamp,
@@ -52,12 +51,12 @@ export const RecentActivity = ({ activity }: {activity: any[]}) => {
         content: (buildItem(cache, elem.timestamp, "Cache item"))
       }));
 
-      items = [...items, ...m, ...q, ...c];
+      items = [...items, ...c, ...q, ...m];
     });
 
     return items;
   };
-  console.log(detailsValue)
+
   return (
     <div className={classes.activityContainer}>
       <List 

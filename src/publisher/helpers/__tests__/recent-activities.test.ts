@@ -75,11 +75,11 @@ describe(".getRecentCacheActivity", () => {
           type: ACTIVITY_TYPE.CACHE,
           "change": "added",
           "data": {
+            "__activity_key": "car:123",
             "cacheValue": {
               "id": 123,
               "name": "mercedes",
             },
-            "key": "car:123",
           },
           "id": "test",
         },
@@ -87,11 +87,11 @@ describe(".getRecentCacheActivity", () => {
           type: ACTIVITY_TYPE.CACHE,
           "change": "removed",
           "data": {
+            "__activity_key": "car:789",
             "cacheValue": {
               "id": 789,
               "name": "audi",
             },
-            "key": "car:789",
           },
           "id": "test",
         },
@@ -104,11 +104,11 @@ describe(".getRecentCacheActivity", () => {
           type: ACTIVITY_TYPE.CACHE,
           "change": "added",
           "data": {
+            "__activity_key": "car:123",
             "cacheValue": {
               "id": 123,
               "name": "mercedes",
             },
-            "key": "car:123",
           },
           "id": "test",
         },

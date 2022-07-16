@@ -1,7 +1,7 @@
 # Apollo Devtools
 
 ## Features
-Rempl GraphQL Devtools allows you to debug multiple apollo clients. This tool contains the following features:
+Rempl Apollo Devtools allows you to debug multiple apollo clients. This tool contains the following features:
 
 ### Cache inspector
 - Allow seeing the content of the cache and allows you to remove a specific object from the cache. Possibility to record only recent changes.
@@ -14,7 +14,7 @@ Observe active queries, or recently fired mutations.
 ![plot](./docs/operations-monitor.png)
 
 ### Recent Activity 
-Monitor recently fired mutations and recently activated/deactivated queries. 
+[EXPERIMENTAL FEATURE - Results may not be 100% accurate] It monitors changes in cache, fired mutations and activated/deactivated queries.
 
 ![plot](./docs/recent-activity.png)
 
