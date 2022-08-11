@@ -23,7 +23,7 @@ export class ApolloCachePublisher {
   }
 
   private attachMethodsToPublisher() {
-    this.apolloPublisher.provide("removeCacheKey", (key) => {
+    this.apolloPublisher.provide("removeCacheKey", (key: string) => {
       if (this.activeClient) {
         this.activeClient.client.cache.evict({ id: key });
       }

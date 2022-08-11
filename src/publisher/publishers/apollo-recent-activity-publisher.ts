@@ -34,7 +34,7 @@ export class ApolloRecentActivityPublisher {
       this.lastIterationData = { mutations: [], queries: new Map(), cache: {} };
     });
 
-    this.apolloPublisher.provide("recordRecentActivity", (options) => {
+    this.apolloPublisher.provide("recordRecentActivity", (options: {shouldRecord?: boolean} ) => {
       this.recordRecentActivity = Boolean(options?.shouldRecord);
     });
   }
