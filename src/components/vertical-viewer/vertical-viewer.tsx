@@ -1,7 +1,10 @@
 import React from "react";
-import {Button, Text } from "@fluentui/react-components";
+import { Button, Text } from "@fluentui/react-components";
 import { useStyles } from "./vertical-viewer.styles";
-import {ChevronCircleLeft20Regular, ChevronCircleRight20Regular} from "@fluentui/react-icons";
+import {
+  ChevronCircleLeft20Regular,
+  ChevronCircleRight20Regular,
+} from "@fluentui/react-icons";
 
 interface IDataItem {
   name: string;
@@ -10,6 +13,7 @@ interface IDataItem {
   mutationString?: string;
   errorMessage?: string;
   cachedData?: Record<string, unknown>;
+  networkData?: Record<string, unknown>;
 }
 
 interface VerticalViewerProps {
@@ -24,24 +28,28 @@ export const VerticalViewer = React.memo(
     const classes = useStyles();
 
     return (
-      <div
-        className={classes.container}
-      >
+      <div className={classes.container}>
         <div className={classes.header}>
-            <Button
-              title={isExpanded ? "Show list" : "Expand"}
-              className={classes.controlButton}
-              onClick={onExpand}
-            >
-              {isExpanded ? <ChevronCircleRight20Regular /> : <ChevronCircleLeft20Regular />}
-            </Button>
+          <Button
+            title={isExpanded ? "Show list" : "Expand"}
+            className={classes.controlButton}
+            onClick={onExpand}
+          >
+            {isExpanded ? (
+              <ChevronCircleRight20Regular />
+            ) : (
+              <ChevronCircleLeft20Regular />
+            )}
+          </Button>
           <Text className={classes.title} weight="semibold">
             {`${data.name} (${isMutation ? "Mutation" : "Watched Query"})`}
           </Text>
         </div>
         <div className={classes.details}>
           <div>
-            <Text weight="semibold">{isMutation ? "Mutation String" : "Query String"}</Text>
+            <Text weight="semibold">
+              {isMutation ? "Mutation String" : "Query String"}
+            </Text>
             <div className={classes.codeBox} style={{ fontSize: "12px" }}>
               <pre>
                 <code>
@@ -74,11 +82,19 @@ export const VerticalViewer = React.memo(
           )}
           {!isMutation && (
             <div>
-              <Text weight="semibold">Cache Data</Text>
+              <Text weight="semibold">Latest data from the cache</Text>
               <div className={classes.codeBox}>
                 <pre>
                   <code>
                     <p>{JSON.stringify(data.cachedData, null, 2)}</p>
+                  </code>
+                </pre>
+              </div>
+              <Text weight="semibold">Network Data</Text>
+              <div className={classes.codeBox}>
+                <pre>
+                  <code>
+                    <p>{JSON.stringify(data.networkData, null, 2)}</p>
                   </code>
                 </pre>
               </div>

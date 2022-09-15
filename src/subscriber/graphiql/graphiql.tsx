@@ -7,21 +7,22 @@ import { remplSubscriber } from "../rempl";
 
 (window as any).global = window;
 
-export const createSimpleFetcher =
-  (activeClientId: string) => (graphQLParams: FetcherParams) =>
-    new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => {
-        console.error("graiphql request timeout");
-        reject();
-      }, 3000);
+export const createSimpleFetcher = (activeClientId: string) => (
+  graphQLParams: FetcherParams,
+) =>
+  new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      console.error("GraphiQL request timeout");
+      reject();
+    }, 60000);
 
-      remplSubscriber
-        .callRemote("graphiql", activeClientId, graphQLParams)
-        .then((res: unknown) => {
-          clearTimeout(timeout);
-          resolve(res);
-        });
-    });
+    remplSubscriber
+      .callRemote("graphiql", activeClientId, graphQLParams)
+      .then((res: unknown) => {
+        clearTimeout(timeout);
+        resolve(res);
+      });
+  });
 
 const createFetcher = (activeClientId: string) => {
   const simpleFetcher = createSimpleFetcher(activeClientId);
@@ -34,7 +35,7 @@ export const GraphiQLRenderer = React.memo(() => {
   const activeClientId = useContext(ActiveClientContext);
   const classes = qraphiqlStyles();
   const storage = useRef(getStorage());
-  
+
   return (
     <div className={classes.root}>
       <div className={classes.innerContainer}>
@@ -61,7 +62,7 @@ function getStorage(): Storage {
       storage[key] = value || "";
     },
     getItem: function (key: string) {
-      return key in storage ? storage[key] : null;
+      return storage.hasOwnProperty(key) ? storage[key] : null;
     },
     removeItem: function (key: string) {
       delete storage[key];
