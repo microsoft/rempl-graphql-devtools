@@ -4,9 +4,10 @@ import ChatContainer from "./chat/chat-container";
 import { FluentProvider, teamsLightTheme } from "@fluentui/react-components";
 
 const client = buildClient();
+const client2 = buildClient();
 
 if ((window as any) && !(window as any).__APOLLO_CLIENTS__?.length) {
-  (window as any).__APOLLO_CLIENTS__ = [{ client, clientId: "main" }];
+  (window as any).__APOLLO_CLIENTS__ = [{ client, clientId: "main" }, { client: client2, clientId: "emptyClient" }];
 }
 
 const App = () => {

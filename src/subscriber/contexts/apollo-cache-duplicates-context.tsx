@@ -26,7 +26,7 @@ export const ApolloCacheDuplicatesContextWrapper = ({
             setCacheDuplicates(data);
           }
         }),
-    []
+    [],
   );
 
   const getCacheDuplicates = useCallback(() => {

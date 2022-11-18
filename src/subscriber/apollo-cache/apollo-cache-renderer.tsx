@@ -5,10 +5,7 @@ import debounce from "lodash.debounce";
 import { useStyles } from "./apollo-cache-renderer.styles";
 import { Text, Button } from "@fluentui/react-components";
 import { TabMenu, Search } from "../../components";
-import {
-  ArrowClockwise20Regular,
-  Info20Regular,
-} from "@fluentui/react-icons";
+import { ArrowClockwise20Regular, Info20Regular } from "@fluentui/react-icons";
 import { ApolloCacheDuplicatedItems } from "./apollo-cache-duplicated-items";
 import { CacheDuplicates } from "../../types";
 import { useArrowNavigationGroup } from "@fluentui/react-tabster";
@@ -23,12 +20,12 @@ interface IApolloCacheRenderer {
 
 function filterCacheObjects(
   cacheObjectsWithSize: CacheObjectWithSize[],
-  searchKey: string
+  searchKey: string,
 ) {
   if (!searchKey) return cacheObjectsWithSize;
 
   return cacheObjectsWithSize.filter(({ key }: CacheObjectWithSize) =>
-    key.toLowerCase().includes(searchKey.toLowerCase())
+    key.toLowerCase().includes(searchKey.toLowerCase()),
   );
 }
 
@@ -42,7 +39,8 @@ export const ApolloCacheRenderer = React.memo(
   }: IApolloCacheRenderer) => {
     const [searchKey, setSearchKey] = React.useState("");
     const [currentCache, setCurrentCache] = React.useState("all");
-    const [duplicatedDescriprion, setDuplicatedDescriprion] = React.useState(false);
+    const [duplicatedDescriprion, setDuplicatedDescriprion] =
+      React.useState(false);
     const classes = useStyles();
     const buttonsAttrs = useArrowNavigationGroup({
       circular: true,
@@ -58,7 +56,7 @@ export const ApolloCacheRenderer = React.memo(
 
     const debouncedSetSearchKey = useCallback(
       debounce((searchKey: string) => setSearchKey(searchKey), 250),
-      [setSearchKey]
+      [setSearchKey],
     );
 
     return (
@@ -77,7 +75,9 @@ export const ApolloCacheRenderer = React.memo(
                     title="Information"
                     tabIndex={0}
                     className={classes.actionButton}
-                    onClick={() => setDuplicatedDescriprion(!duplicatedDescriprion)}
+                    onClick={() =>
+                      setDuplicatedDescriprion(!duplicatedDescriprion)
+                    }
                   >
                     <Info20Regular />
                   </Button>
@@ -110,10 +110,10 @@ export const ApolloCacheRenderer = React.memo(
 
           {currentCache !== "duplicated" ? (
             <ApolloCacheItems
-              cacheObjectsWithSize={
-                  
-                  filterCacheObjects(cacheObjectsWithSize, searchKey)
-              }
+              cacheObjectsWithSize={filterCacheObjects(
+                cacheObjectsWithSize,
+                searchKey,
+              )}
               removeCacheItem={removeCacheItem}
             />
           ) : null}
@@ -129,5 +129,5 @@ export const ApolloCacheRenderer = React.memo(
         </Text>
       </div>
     );
-  }
+  },
 );

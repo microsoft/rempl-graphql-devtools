@@ -103,5 +103,5 @@ export const VerticalViewer = React.memo(
         </div>
       </div>
     );
-  }
+  },
 );

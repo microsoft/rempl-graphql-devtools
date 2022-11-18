@@ -15,9 +15,7 @@ export const ApolloCacheContextWrapper = ({
 }: {
   children: JSX.Element;
 }) => {
-  const [cache, setCache] = React.useState<NormalizedCacheObject>({
-  
-  });
+  const [cache, setCache] = React.useState<NormalizedCacheObject>({});
 
   React.useEffect(() => {
     remplSubscriber
@@ -34,14 +32,14 @@ export const ApolloCacheContextWrapper = ({
       setCache(removeKeyFromCacheState(key, cache));
       remplSubscriber.callRemote("removeCacheKey", key);
     },
-    [cache]
+    [cache],
   );
 
   return (
     <ApolloCacheContext.Provider
       value={{
         cache,
-        removeCacheItem
+        removeCacheItem,
       }}
     >
       {children}
@@ -51,7 +49,7 @@ export const ApolloCacheContextWrapper = ({
 
 function removeKeyFromCacheState(
   key: string,
-  cacheState: NormalizedCacheObject
+  cacheState: NormalizedCacheObject,
 ): NormalizedCacheObject {
   return Object.keys(cacheState)
     .filter((cacheKey: string) => cacheKey !== key)

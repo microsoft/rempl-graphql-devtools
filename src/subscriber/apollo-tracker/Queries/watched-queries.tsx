@@ -11,7 +11,7 @@ export const WatchedQueries = ({ queries }: { queries: WatchedQuery[] }) => {
   const globalOperations = useContext(ApolloGlobalOperationsContext);
   const globalQueries = useMemo(
     () => new Set(globalOperations.globalQueries),
-    [globalOperations]
+    [globalOperations],
   );
   const classes = watchedQueriesStyles();
 
@@ -23,10 +23,12 @@ export const WatchedQueries = ({ queries }: { queries: WatchedQuery[] }) => {
 
   return (
     <div className={classes.root}>
-      <div className={mergeClasses(
-        classes.innerContainer, 
-        isExpanded && classes.innerContainerFull
-      )}>
+      <div
+        className={mergeClasses(
+          classes.innerContainer,
+          isExpanded && classes.innerContainerFull,
+        )}
+      >
         <List
           isExpanded={isExpanded}
           items={queries

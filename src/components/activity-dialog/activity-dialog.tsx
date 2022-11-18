@@ -89,7 +89,7 @@ export const ActivityDialog = React.memo(
                         {JSON.stringify(
                           (value.data as WatchedQuery)?.cachedData,
                           null,
-                          2
+                          2,
                         )}
                       </p>
                     </code>
@@ -107,7 +107,7 @@ export const ActivityDialog = React.memo(
                         {JSON.stringify(
                           (value.data as WatchedQuery)?.networkData,
                           null,
-                          2
+                          2,
                         )}
                       </p>
                     </code>
@@ -119,5 +119,5 @@ export const ActivityDialog = React.memo(
         </div>
       </div>
     );
-  }
+  },
 );

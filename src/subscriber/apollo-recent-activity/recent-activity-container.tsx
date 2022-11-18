@@ -12,7 +12,7 @@ function filterActivities(
   recentActivities: RecentActivities[],
   searchKey: string,
   showCache: boolean,
-  showOperations: boolean
+  showOperations: boolean,
 ): RecentActivities[] {
   const filtredActivities = recentActivities.map(
     ({ queries, mutations, cache, timestamp }) => {
@@ -22,22 +22,22 @@ function filterActivities(
         queries: showOperations ? queries : [],
         mutations: showOperations ? mutations : [],
       };
-    }
+    },
   );
 
   if (!searchKey?.trim()) return filtredActivities;
 
   return filtredActivities.map(({ queries, mutations, cache, timestamp }) => {
     const filteredQueries = queries.filter(({ data: { name } }) =>
-      name.toLowerCase().includes(searchKey.toLowerCase())
+      name.toLowerCase().includes(searchKey.toLowerCase()),
     );
 
     const filteredMutations = mutations.filter(({ data: { name } }) =>
-      name.toLowerCase().includes(searchKey.toLowerCase())
+      name.toLowerCase().includes(searchKey.toLowerCase()),
     );
 
     const filteredCache = cache.filter(({ data: { __activity_key } }) =>
-      __activity_key.toLowerCase().includes(searchKey.toLowerCase())
+      __activity_key.toLowerCase().includes(searchKey.toLowerCase()),
     );
 
     return {
@@ -51,7 +51,7 @@ function filterActivities(
 
 export const RecentActivityContainer = React.memo(() => {
   const [recentActivities, setRecentActivities] = useState<RecentActivities[]>(
-    []
+    [],
   );
 
   const [recordRecentActivity, setRecordRecentActivity] =
@@ -88,7 +88,7 @@ export const RecentActivityContainer = React.memo(() => {
     (shouldRecord: boolean) => {
       remplSubscriber.callRemote("recordRecentActivity", { shouldRecord });
     },
-    []
+    [],
   );
 
   const toggleRecordRecentChanges = () => {
@@ -101,7 +101,7 @@ export const RecentActivityContainer = React.memo(() => {
       <div
         className={mergeClasses(
           classes.innerContainer,
-          openDescription && classes.innerContainerDescription
+          openDescription && classes.innerContainerDescription,
         )}
       >
         <div className={classes.header}>
@@ -142,7 +142,7 @@ export const RecentActivityContainer = React.memo(() => {
         <div
           className={mergeClasses(
             classes.description,
-            openDescription && classes.openDescription
+            openDescription && classes.openDescription,
           )}
         >
           [EXPERIMENTAL FEATURE - Results may not be 100% accurate] It monitors
@@ -153,7 +153,7 @@ export const RecentActivityContainer = React.memo(() => {
             recentActivities,
             searchKey,
             showCache,
-            showOperations
+            showOperations,
           )}
         />
       </div>

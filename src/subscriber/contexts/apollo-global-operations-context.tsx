@@ -30,7 +30,7 @@ export const ApolloGlobalOperationsWrapper = ({
             setApolloGlobalOperations(data);
           }
         }),
-    []
+    [],
   );
 
   return (

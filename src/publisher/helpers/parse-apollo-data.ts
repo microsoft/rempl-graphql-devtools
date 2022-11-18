@@ -11,7 +11,7 @@ import {
 
 export function filterMutationInfo(mutations: any[]): MutationType[] {
   return mutations.map((mutation: any, key: number) =>
-    getMutationData(mutation, key.toString())
+    getMutationData(mutation, key.toString()),
   );
 }
 
@@ -24,7 +24,7 @@ export function getErrorMessage(graphQLErrors?: GraphQLError[]) {
 }
 
 export function filterQueryInfo(
-  queryInfoMap: Map<string, any>
+  queryInfoMap: Map<string, any>,
 ): WatchedQuery[] {
   const queries = Array.from(queryInfoMap.values());
   return queries
@@ -59,11 +59,11 @@ function getQueryData(id: string, query: any): WatchedQuery | undefined {
   }
 
   const graphQLErrorMessage = getErrorMessage(
-    query.graphQLErrors as GraphQLError[]
+    query.graphQLErrors as GraphQLError[],
   );
 
   const networkErrorMessage = (query.networkError as Error)?.stack;
-  const { lastWrite, diff, lastDiff} = query
+  const { lastWrite, diff, lastDiff } = query;
 
   return {
     id,
@@ -81,7 +81,7 @@ function getMutationData(mutation: any, id: string): MutationType {
   const error = mutation.error;
 
   const graphQLErrorMessage = getErrorMessage(
-    error?.graphQLErrors as GraphQLError[]
+    error?.graphQLErrors as GraphQLError[],
   );
 
   const networkErrorMessage = (error?.networkError as Error)?.stack;
@@ -115,7 +115,7 @@ export const getRecentData = (
   queries: RecentActivityRaw[],
   mutations: RecentActivityRaw[],
   cache: RecentActivity<CacheStoreObject>[],
-  timestamp: number
+  timestamp: number,
 ): RecentActivities => {
   const filteredQueries: RecentActivity<WatchedQuery>[] = queries
     .map(getRecentQueryData)

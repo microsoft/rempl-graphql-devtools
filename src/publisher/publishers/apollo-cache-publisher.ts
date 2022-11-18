@@ -1,9 +1,6 @@
 import { NormalizedCacheObject, ApolloClient } from "@apollo/client";
 import { RemplWrapper } from "../rempl-wrapper";
-import {
-  ClientObject,
-  WrapperCallbackParams,
-} from "../../types";
+import { ClientObject, WrapperCallbackParams } from "../../types";
 
 export class ApolloCachePublisher {
   private apolloPublisher;
@@ -16,7 +13,7 @@ export class ApolloCachePublisher {
     this.remplWrapper.subscribeToRemplStatus(
       "apollo-cache",
       this.cachePublishHandler.bind(this),
-      1500
+      1500,
     );
     this.apolloPublisher = remplWrapper.publisher;
     this.attachMethodsToPublisher();
@@ -34,29 +31,12 @@ export class ApolloCachePublisher {
     return client.cache.extract(true);
   }
 
-  private diffCaches(
-    currentCache: NormalizedCacheObject,
-    previousCache: NormalizedCacheObject
-  ) {
-    return Object.fromEntries(
-      Object.entries(currentCache).filter(([key, value]) => {
-        if (
-          !previousCache[key] ||
-          JSON.stringify(previousCache[key]) !== JSON.stringify(value)
-        ) {
-          return true;
-        }
-        return false;
-      })
-    );
-  }
-
   private serializeCacheObject = (client?: ClientObject) => {
     if (!client) {
       return;
     }
 
-    return  this.getCache(client.client);
+    return this.getCache(client.client);
   };
 
   private cachePublishHandler({ activeClient }: WrapperCallbackParams) {
@@ -64,18 +44,17 @@ export class ApolloCachePublisher {
       return;
     }
 
-    if (this.activeClient?.clientId !== activeClient.clientId) {
-      this.lastCacheHistory = {};
-    }
-    this.activeClient = activeClient;
-
     const serializedCacheObject = this.serializeCacheObject(activeClient);
 
     if (!serializedCacheObject) {
       return;
     }
 
-    if (!this.hasCacheChanged(this.lastCacheHistory, serializedCacheObject)) {
+    if (this.activeClient?.clientId !== activeClient.clientId) {
+      this.activeClient = activeClient;
+    } else if (
+      !this.hasCacheChanged(this.lastCacheHistory, serializedCacheObject)
+    ) {
       return;
     }
 
@@ -83,18 +62,21 @@ export class ApolloCachePublisher {
     this.publishCache(serializedCacheObject);
   }
 
-  private hasCacheChanged(lastCacheHistory: NormalizedCacheObject , currentCache: NormalizedCacheObject) {
-    const cacheKeys = Object.keys(currentCache)
+  private hasCacheChanged(
+    lastCacheHistory: NormalizedCacheObject,
+    currentCache: NormalizedCacheObject,
+  ) {
+    const cacheKeys = Object.keys(currentCache);
     if (Object.keys(lastCacheHistory).length !== cacheKeys.length) {
-      return true
+      return true;
     }
 
     return cacheKeys.some((key) => {
       if (key === "__META") {
-        return false
+        return false;
       }
-      return (currentCache[key] !== lastCacheHistory[key])
-    })
+      return currentCache[key] !== lastCacheHistory[key];
+    });
   }
 
   public publishCache(cacheObject: NormalizedCacheObject) {

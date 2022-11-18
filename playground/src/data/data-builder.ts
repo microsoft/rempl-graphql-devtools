@@ -27,6 +27,7 @@ export const buildClient: () => ApolloClient<NormalizedCacheObject> = () => {
 
   return new ApolloClient({
     cache: new InMemoryCache({}),
+    connectToDevTools: true,
     link: from([
       new SchemaLink({
         schema: schema,
