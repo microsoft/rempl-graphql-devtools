@@ -8456,13 +8456,13 @@ relateurl@^0.2.7:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
 
-rempl@^1.0.0-alpha.23:
-  version "1.0.0-alpha.23"
-  resolved "https://registry.yarnpkg.com/rempl/-/rempl-1.0.0-alpha.23.tgz#7c9b42d1fdb7c902455b388641a33bbad0eb9efa"
-  integrity sha512-SMXd8f5l7aQ9NR2yNl/nwno9SwG0Kdo07bSua0u72HOSV50h7YM9HMbpODG7DpId4/UDKfRkJy7uauVpdpbdWw==
+rempl@^1.0.0-alpha.24:
+  version "1.0.0-alpha.24"
+  resolved "https://registry.yarnpkg.com/rempl/-/rempl-1.0.0-alpha.24.tgz#56e3b3e38282c24b1c2470f4589a44dc4d37b843"
+  integrity sha512-elMBGqcrw0X3dSFMD7mjN7B47cQyHu/y78SQ7IBaVZs0idMD5qwDWR55wAogqRF1/PVnNq1C5p8kKV+MwGo86g==
   dependencies:
     chalk "~4.1.2"
-    socket.io-client "^2.0.2"
+    socket.io-client "^2.5.0"
 
 renderkid@^3.0.0:
   version "3.0.0"
@@ -8827,10 +8827,10 @@ slash@^4.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-4.0.0.tgz#2422372176c4c6c5addb5e2ada885af984b396a7"
   integrity sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==
 
-socket.io-client@^2.0.2:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-2.4.0.tgz#aafb5d594a3c55a34355562fc8aea22ed9119a35"
-  integrity sha512-M6xhnKQHuuZd4Ba9vltCLT9oa+YvTsP8j9NcEiLElfIg8KeYPyhWOes6x4t+LTAC8enQbE/995AdTem2uNyKKQ==
+socket.io-client@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-2.5.0.tgz#34f486f3640dde9c2211fce885ac2746f9baf5cb"
+  integrity sha512-lOO9clmdgssDykiOmVQQitwBAF3I6mYcQAo7hQ7AM6Ny5X7fp8hIJ3HcQs3Rjz4SoggoxA1OgrQyY8EgTbcPYw==
   dependencies:
     backo2 "1.0.2"
     component-bind "1.0.0"
