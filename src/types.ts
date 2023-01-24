@@ -3,6 +3,7 @@ import {
   ApolloClient,
   StoreObject,
 } from "@apollo/client";
+import { IDataView } from "apollo-inspector";
 import { createPublisher } from "rempl";
 
 export type Publisher = ReturnType<typeof createPublisher>;
@@ -70,6 +71,13 @@ export type ApolloTrackerMetadata = {
   queriesCount: number;
   queriesHaveError: boolean;
   mutationsHaveError: boolean;
+};
+
+export type ApolloOperationsTracker = {
+  data: IDataView | undefined;
+  setApolloOperationsData:
+    | React.Dispatch<React.SetStateAction<IDataView | null>>
+    | undefined;
 };
 
 export type ClientRecentCacheObject = NormalizedCacheObject;
