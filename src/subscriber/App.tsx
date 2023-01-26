@@ -5,7 +5,6 @@ import { ApolloGlobalOperationsWrapper } from "./contexts/apollo-global-operatio
 import { ActiveClientContextWrapper } from "./contexts/active-client-context";
 import { ApolloCacheContextWrapper } from "./contexts/apollo-cache-context";
 import { ApolloCacheDuplicatesContextWrapper } from "./contexts/apollo-cache-duplicates-context";
-import { ApolloOperationTrackerContextWrapper } from "./contexts";
 import { FluentProvider, teamsLightTheme } from "@fluentui/react-components";
 
 const App = () => (
@@ -17,11 +16,9 @@ const App = () => (
       <ActiveClientContextWrapper>
         <ApolloClientMetadataWrapper>
           <ApolloCacheContextWrapper>
-            <ApolloOperationTrackerContextWrapper>
-              <ApolloCacheDuplicatesContextWrapper>
-                <Router />
-              </ApolloCacheDuplicatesContextWrapper>
-            </ApolloOperationTrackerContextWrapper>
+            <ApolloCacheDuplicatesContextWrapper>
+              <Router />
+            </ApolloCacheDuplicatesContextWrapper>
           </ApolloCacheContextWrapper>
         </ApolloClientMetadataWrapper>
       </ActiveClientContextWrapper>

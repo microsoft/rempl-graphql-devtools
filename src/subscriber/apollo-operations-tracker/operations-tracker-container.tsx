@@ -1,14 +1,27 @@
 import { remplSubscriber } from "../rempl";
-import * as React from "react";
-import { ApolloOperationsTrackerContext } from "../contexts";
-import { Button } from "@fluentui/react-components";
-export const OperationsTrackerContainer = () => {
-  const { data, setApolloOperationsData } = React.useContext(
-    ApolloOperationsTrackerContext,
-  );
-  const [isRecording, setIsRecording] = React.useState<boolean>(false);
+import React, { useState, useEffect, useCallback } from "react";
+import { IDataView } from "apollo-inspector";
+import { Button, mergeClasses } from "@fluentui/react-components";
+import { Info20Regular } from "@fluentui/react-icons";
+import { OperationViewContainer } from "./operations-tracker";
+import { useStyles } from "./operations-tracker-styles";
 
-  const toggleRecording = React.useCallback(() => {
+export const OperationsTrackerContainer = () => {
+  const [openDescription, setOpenDescription] = useState<boolean>(false);
+  const classes = useStyles();
+  const [apollOperationsData, setApolloOperationsData] =
+    useState<IDataView | null>(null);
+
+  useEffect(() => {
+    remplSubscriber
+      .ns("apollo-operations-tracker")
+      .subscribe((data: IDataView) => {
+        setApolloOperationsData(data);
+      });
+  }, []);
+  const [isRecording, setIsRecording] = useState<boolean>(false);
+
+  const toggleRecording = useCallback(() => {
     setIsRecording?.((isRecording) => {
       if (!isRecording) {
         remplSubscriber.callRemote("startOperationsTracker");
@@ -19,18 +32,48 @@ export const OperationsTrackerContainer = () => {
     });
   }, [setIsRecording]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       remplSubscriber.callRemote("stopOperationsTracker", {});
     };
   }, [remplSubscriber]);
 
   return (
-    <div>
-      able to render{" "}
-      <Button onClick={toggleRecording}>
-        {isRecording ? "Stop Recording" : "Start Recording"}
-      </Button>
+    <div className={classes.root}>
+      <div
+        className={mergeClasses(
+          classes.innerContainer,
+          openDescription && classes.innerContainerDescription,
+        )}
+      >
+        <div className={classes.header}>
+          <div>
+            <Button
+              title="Information"
+              tabIndex={0}
+              className={classes.infoButton}
+              onClick={() => setOpenDescription(!openDescription)}
+            >
+              <Info20Regular />
+            </Button>
+            <Button onClick={toggleRecording}>
+              {isRecording ? "Stop recording" : "Record recent activity"}
+            </Button>
+          </div>
+        </div>
+        <div
+          className={mergeClasses(
+            classes.description,
+            openDescription && classes.openDescription,
+          )}
+        >
+          It monitors changes in cache, fired mutations and
+          activated/deactivated queries.
+        </div>
+        <OperationViewContainer
+          operations={apollOperationsData?.verboseOperations || null}
+        />
+      </div>
     </div>
   );
 };

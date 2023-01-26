@@ -21,7 +21,7 @@ export class ApolloOperationsTrackerPublisher {
     this.remplWrapper.subscribeToRemplStatus(
       "operations-tracker",
       this.setActiveClient.bind(this),
-      400,
+      1000,
     );
     this.apolloPublisher = remplWrapper.publisher;
     this.attachMethodsToPublisher();
