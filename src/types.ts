@@ -100,6 +100,13 @@ interface Query {
   errorMessage?: string;
 }
 
+export enum TabHeaders {
+  AllOperationsView,
+  OperationsView,
+  VerboseOperationView,
+  AffectedQueriesView,
+}
+
 export type WatchedQuery = Query & {
   typename: "WatchedQuery";
   queryString: string;
