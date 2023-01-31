@@ -26,8 +26,6 @@ export const OperationsViewContainer = (props: IOperationViewContainer) => {
     TabHeaders.VerboseOperationView,
   );
 
-  if (!data) return null;
-
   const updatedTabItems = React.useMemo(() => {
     const newTabHeaders = tabHeaders.filter(
       (tabHeader) => tabHeader.key === TabHeaders.VerboseOperationView,
@@ -50,6 +48,7 @@ export const OperationsViewContainer = (props: IOperationViewContainer) => {
     setSelectedTab(value);
   }, []);
 
+  if (!data) return null;
   return (
     <>
       <TabList
