@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, mergeClasses } from "@fluentui/react-components";
 import { Info20Regular } from "@fluentui/react-icons";
-import { useStyles } from "./operations-tracker-styles";
+import { useStyles } from "./operations-tracker-container-styles";
 
 export interface IOperationsTrackerHeaderProps {
   setOpenDescription: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,15 +33,12 @@ export const OperationsTrackerHeader = (
           </Button>
         </div>
       </div>
-      <div
-        className={mergeClasses(
-          classes.description,
-          openDescription && classes.openDescription,
-        )}
-      >
-        It monitors changes in cache, fired mutations and activated/deactivated
-        queries.
-      </div>
+      {openDescription && (
+        <div className={classes.description}>
+          It monitors changes in cache, fired mutations and
+          activated/deactivated queries.
+        </div>
+      )}
     </>
   );
 };

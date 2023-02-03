@@ -2,8 +2,8 @@ import { remplSubscriber } from "../rempl";
 import React, { useState, useEffect, useCallback } from "react";
 import { IDataView } from "apollo-inspector";
 import { mergeClasses } from "@fluentui/react-components";
-import { OperationsViewContainer } from "./operations-view-container";
-import { useStyles } from "./operations-tracker-styles";
+import { OperationsListViewContainer } from "./operations-list-view-container/operations-list-view-container";
+import { useStyles } from "./operations-tracker-container-styles";
 import { OperationsTrackerHeader } from "./operations-tracker-header";
 
 export const OperationsTrackerContainer = () => {
@@ -53,7 +53,7 @@ export const OperationsTrackerContainer = () => {
           setOpenDescription={setOpenDescription}
           toggleRecording={toggleRecording}
         />
-        <OperationsViewContainer data={apollOperationsData} />
+        <OperationsListViewContainer data={apollOperationsData} />
       </div>
     </div>
   );

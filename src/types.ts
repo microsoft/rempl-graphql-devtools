@@ -118,3 +118,9 @@ export type Mutation = Query & {
   typename: "Mutation";
   mutationString: string;
 };
+
+export enum ResultsFrom {
+  CACHE = "CACHE",
+  NETWORK = "NETWORK",
+  UNKNOWN = "UNKNOWN",
+}
