@@ -53,5 +53,5 @@
   },
   "resolutions": {
     "@apollo/client": "3.6.5"
-}
+  }
 }
