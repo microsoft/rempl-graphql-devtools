@@ -72,8 +72,9 @@ export const VerboseOperationView = (props: IVerboseOperationViewProps) => {
       <h2 key="operationType">{operationType}</h2>
       <Accordion
         className={classes.operationDetails}
-        key={"accordion"}
+        key={"operationnViewAccordionn"}
         multiple
+        collapsible
       >
         {...accordionItems}
       </Accordion>
@@ -132,8 +133,8 @@ const getVariablesPanel = (
   variables: OperationVariables | undefined,
   classes: Record<stylesKeys, string>,
 ) => (
-  <AccordionItem value="varibales">
-    <Tooltip content={"Varibles for the operation"} relationship="label">
+  <AccordionItem value="variables">
+    <Tooltip content={"Variables for the operation"} relationship="label">
       <AccordionHeader>{"Variables"}</AccordionHeader>
     </Tooltip>
     <AccordionPanel>
@@ -168,7 +169,7 @@ const getAffectedQueriesPanel = (
   }));
 
   return (
-    <AccordionItem value="fetchPolicy">
+    <AccordionItem value="affectedQueries">
       <Tooltip
         content={
           "Watch queries which are going to re-render due to the result of current operation"
@@ -194,6 +195,7 @@ const getResultPanel = (
 ) => {
   const items = result.map((res) => {
     const resultFrom = getResultFromString(res.from);
+    console.log({ resultFrom });
 
     return (
       <AccordionItem value={resultFrom}>
@@ -237,7 +239,7 @@ const getResultFromString = (from: ResultsFrom) => {
 };
 
 const getErrorPanel = (error: unknown, classes: Record<stylesKeys, string>) => (
-  <AccordionItem value="fetchPolicy">
+  <AccordionItem value="errorPanel">
     <Tooltip
       content={"Error message for operation failure"}
       relationship="label"
@@ -254,7 +256,7 @@ const getWarningPanel = (
   warning: unknown[],
   classes: Record<stylesKeys, string>,
 ) => (
-  <AccordionItem value="fetchPolicy">
+  <AccordionItem value="warningPanel">
     <Tooltip
       content={
         "Show any warning like missing field error or why the result is not fetched from cache"
@@ -273,7 +275,7 @@ const getDurationPanel = (
   duration: IVerboseOperationDuration | undefined,
   classes: Record<stylesKeys, string>,
 ) => (
-  <AccordionItem value="fetchPolicy">
+  <AccordionItem value="duration">
     <Tooltip
       content={"Detailed time info for operation in milliSeconds"}
       relationship="label"
