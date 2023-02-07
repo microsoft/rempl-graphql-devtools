@@ -73,14 +73,14 @@ export const VerboseOperationsListViewRenderer = (
       <Search items={operations} setFilteredItems={filterItems} />
       <div className={classes.operations}>
         <div className={classes.operationsNameListWrapper}>
-          <Button
+          {/* <Button
             className={classes.copyAllOpBtn}
             key="copyAllOpBtn"
             onClick={onCopy}
             size="small"
             shape="rounded"
             appearance="secondary"
-          >{`Copy All Operations`}</Button>
+          >{`Copy All Operations`}</Button> */}
           <TabList
             className={classes.operationsList}
             vertical

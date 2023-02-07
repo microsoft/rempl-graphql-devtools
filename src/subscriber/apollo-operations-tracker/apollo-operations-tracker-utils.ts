@@ -1,3 +1,5 @@
+import { DocumentNode, OperationDefinitionNode } from "graphql";
+
 export const getOperationName = (query: DocumentNode) => {
   const definition =
     query && query.definitions && query.definitions.length > 0

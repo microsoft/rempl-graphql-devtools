@@ -59,7 +59,7 @@ export const VerboseOperationView = (props: IVerboseOperationViewProps) => {
 
   return (
     <div className={classes.operationView}>
-      <Button
+      {/* <Button
         className={classes.copyBtn}
         key={"copyBtn"}
         onClick={onCopy}
@@ -68,7 +68,7 @@ export const VerboseOperationView = (props: IVerboseOperationViewProps) => {
         appearance="primary"
       >
         {"Copy currentOperation"}
-      </Button>
+      </Button> */}
       <h2 key="operationType">{operationType}</h2>
       <Accordion
         className={classes.operationDetails}
