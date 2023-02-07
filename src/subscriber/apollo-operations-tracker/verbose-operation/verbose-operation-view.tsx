@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
   Accordion,
-  Button,
   AccordionHeader,
   AccordionItem,
   AccordionPanel,
@@ -55,20 +54,8 @@ export const VerboseOperationView = (props: IVerboseOperationViewProps) => {
     [operation, classes],
   );
 
-  const onCopy = useCopyOneOperation(operation);
-
   return (
     <div className={classes.operationView}>
-      {/* <Button
-        className={classes.copyBtn}
-        key={"copyBtn"}
-        onClick={onCopy}
-        size="small"
-        shape="rounded"
-        appearance="primary"
-      >
-        {"Copy currentOperation"}
-      </Button> */}
       <h2 key="operationType">{operationType}</h2>
       <Accordion
         className={classes.operationDetails}

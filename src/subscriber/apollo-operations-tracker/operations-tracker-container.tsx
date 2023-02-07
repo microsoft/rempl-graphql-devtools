@@ -16,7 +16,6 @@ export const OperationsTrackerContainer = () => {
     remplSubscriber
       .ns("apollo-operations-tracker")
       .subscribe((data: IDataView) => {
-        console.log({ data });
         setApolloOperationsData(data);
       });
   }, []);
