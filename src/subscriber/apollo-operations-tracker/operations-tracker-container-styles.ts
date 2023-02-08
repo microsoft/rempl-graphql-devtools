@@ -52,4 +52,12 @@ export const useStyles = makeStyles({
     ...shorthands.borderRadius("12px"),
     ...shorthands.borderStyle("none"),
   },
+  centerDiv: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: "auto",
+  },
 });

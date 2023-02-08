@@ -47,8 +47,18 @@ export class ApolloOperationsTrackerPublisher {
     this.apolloPublisher.provide("stopOperationsTracker", () => {
       if (this.stopTracking) {
         this.isRecording = false;
-        const data = this.stopTracking?.();
-        this.publishApolloOperations(data);
+        try {
+          const data = this.stopTracking?.();
+          this.publishApolloOperations(data);
+        } catch (error) {
+          // publish error to subscriber to show error UX
+          this.publishApolloOperations({
+            error: JSON.stringify(error),
+            message: "Something went wrong",
+          } as any);
+          throw error;
+        }
+
         this.stopTracking = undefined;
       }
     });
