@@ -70,44 +70,6 @@ export const VerboseOperationsListViewRenderer = (
   );
 };
 
-/* const useCopyAllOperation = (operations: IVerboseOperation[] | null) =>
-  React.useCallback(async () => {
-    const objToCopy = operations?.map((op) => {
-      const {
-        affectedQueries,
-        operationName,
-        operationString,
-        operationType,
-        result,
-        variables,
-        isOptimistic,
-        error,
-        fetchPolicy,
-        id,
-        warning,
-        duration,
-        isActive,
-      } = op;
-
-      return {
-        operationName,
-        operationString,
-        operationType,
-        result,
-        variables,
-        isOptimistic,
-        error,
-        fetchPolicy,
-        id,
-        warning,
-        duration,
-        isActive,
-        affectedQueries: affectedQueries.map((item) => getOperationName(item)),
-      };
-    });
-    await copyToClipboard(objToCopy);
-  }, [operations]); */
-
 const useOperationListNames = (
   filteredOperations: IVerboseOperation[] | null,
   classes: Record<

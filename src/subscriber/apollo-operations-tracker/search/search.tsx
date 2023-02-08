@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Input, Text, InputProps } from "@fluentui/react-components";
 import { IVerboseOperation } from "apollo-inspector";
-import { debounce } from "lodash";
+import debounce from "lodash.debounce";
 import { useStyles } from "./search-styles";
 
 export interface ISearchProps<T> {
