@@ -2,3 +2,6 @@ node_modules
 .npmrc
 playground/public/apollo-devtools.js
 playground/public/apollo-devtools.js.map
+dist/*
+yarn-error.log
+.DS_Store
