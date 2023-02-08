@@ -14,11 +14,7 @@ import {
 } from "apollo-inspector";
 import { useStyles } from "./verbose-operation-view-styles";
 import { OperationVariables, WatchQueryFetchPolicy } from "@apollo/client";
-import {
-  getOperationName,
-  isNumber,
-  copyToClipboard,
-} from "../apollo-operations-tracker-utils";
+import { getOperationName, isNumber } from "../apollo-operations-tracker-utils";
 import { DocumentNode } from "graphql";
 import { ResultsFrom } from "../../../types";
 
@@ -34,7 +30,8 @@ type stylesKeys =
   | "warningAccPanel"
   | "affectedQueriesAccPanel"
   | "operationDetails"
-  | "operationName";
+  | "operationName"
+  | "resultPanel";
 
 interface IVerboseOperationViewProps {
   operation: IVerboseOperation | undefined;
@@ -91,7 +88,7 @@ const getAccordionItems = (
   items.push(getVariablesPanel(variables, classes));
   fetchPolicy && items.push(getFetchPolicyPanel(fetchPolicy, classes));
   items.push(getDurationPanel(duration, classes));
-  items.push(getResultPanel(isOptimistic, result));
+  items.push(getResultPanel(isOptimistic, result, classes));
   error && items.push(getErrorPanel(error, classes));
   warning && items.push(getWarningPanel(warning, classes));
   items.push(
@@ -179,16 +176,18 @@ const getAffectedQueriesPanel = (
 const getResultPanel = (
   isOptimistic: boolean | undefined,
   result: IOperationResult[],
+  classes: Record<stylesKeys, string>,
 ) => {
   const items = result.map((res) => {
     const resultFrom = getResultFromString(res.from);
-    console.log({ resultFrom });
 
     return (
       <AccordionItem value={resultFrom}>
         <AccordionHeader>{resultFrom}</AccordionHeader>
         <AccordionPanel>
-          <div> {`${JSON.stringify(res.result, null, spaceForStringify)}`}</div>
+          <div className={classes.resultPanel}>
+            {`${JSON.stringify(res.result, null, spaceForStringify)}`}
+          </div>
         </AccordionPanel>
       </AccordionItem>
     );
@@ -297,7 +296,7 @@ const getDurationPanel = (
   </AccordionItem>
 );
 
-const useCopyOneOperation = (operation: IVerboseOperation) => {
+/* const useCopyOneOperation = (operation: IVerboseOperation) => {
   const {
     operationName,
     operationString,
@@ -341,3 +340,4 @@ const useCopyOneOperation = (operation: IVerboseOperation) => {
   ]);
   return onCopy;
 };
+ */

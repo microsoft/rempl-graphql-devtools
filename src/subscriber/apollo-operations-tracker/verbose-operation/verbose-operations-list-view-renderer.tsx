@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TabList, Tab, Text } from "@fluentui/react-components";
+import { TabList, Tab, Text, Tooltip } from "@fluentui/react-components";
 import { IVerboseOperation } from "apollo-inspector";
 import { Search } from "../search/search";
 import { useStyles } from "./verbose-operations-list-view-renderer-styles";
@@ -20,20 +20,7 @@ export const VerboseOperationsListViewRenderer = (
     React.useState(operations);
 
   const classes = useStyles();
-  const tabListItems = React.useMemo(() => {
-    const tabItems = filteredOperations?.map((op) => {
-      return (
-        <Tab key={op.id} value={op.id}>
-          <div className={classes.operationName}>
-            <Text weight={"semibold"}>{op.operationName}</Text>
-            <Text>{`(${op.id}):${op.operationType}:${op.fetchPolicy}`}</Text>
-          </div>
-        </Tab>
-      );
-    });
-
-    return tabItems || [];
-  }, [filteredOperations]);
+  const tabListItems = useOperationListNames(filteredOperations, classes);
 
   const operationsMap = React.useMemo(() => {
     const map = new Map<number, IVerboseOperation>();
@@ -82,3 +69,81 @@ export const VerboseOperationsListViewRenderer = (
     </div>
   );
 };
+
+/* const useCopyAllOperation = (operations: IVerboseOperation[] | null) =>
+  React.useCallback(async () => {
+    const objToCopy = operations?.map((op) => {
+      const {
+        affectedQueries,
+        operationName,
+        operationString,
+        operationType,
+        result,
+        variables,
+        isOptimistic,
+        error,
+        fetchPolicy,
+        id,
+        warning,
+        duration,
+        isActive,
+      } = op;
+
+      return {
+        operationName,
+        operationString,
+        operationType,
+        result,
+        variables,
+        isOptimistic,
+        error,
+        fetchPolicy,
+        id,
+        warning,
+        duration,
+        isActive,
+        affectedQueries: affectedQueries.map((item) => getOperationName(item)),
+      };
+    });
+    await copyToClipboard(objToCopy);
+  }, [operations]); */
+
+const useOperationListNames = (
+  filteredOperations: IVerboseOperation[] | null,
+  classes: Record<
+    | "operationName"
+    | "root"
+    | "operations"
+    | "operationsList"
+    | "operationNameWrapper"
+    | "operationsNameListWrapper"
+    | "opCountTxt"
+    | "copyAllOpBtn",
+    string
+  >,
+) =>
+  React.useMemo(() => {
+    const tabItems = filteredOperations?.map((op) => {
+      return (
+        <Tab key={op.id} value={op.id}>
+          <div className={classes.operationNameWrapper}>
+            {(op.operationName?.length || 0) > 30 ? (
+              <Tooltip content={op.operationName || ""} relationship="label">
+                <Text className={classes.operationName} weight={"semibold"}>
+                  {op.operationName}
+                </Text>
+              </Tooltip>
+            ) : (
+              <Text className={classes.operationName} weight={"semibold"}>
+                {op.operationName}
+              </Text>
+            )}
+
+            <Text>{`(${op.id}):${op.operationType}:${op.fetchPolicy}`}</Text>
+          </div>
+        </Tab>
+      );
+    });
+
+    return tabItems || [];
+  }, [filteredOperations]);

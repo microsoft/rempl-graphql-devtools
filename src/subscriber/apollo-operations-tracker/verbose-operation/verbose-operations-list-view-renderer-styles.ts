@@ -17,7 +17,7 @@ export const useStyles = makeStyles({
     minHeight: 0,
     height: "100%",
   },
-  operationName: {
+  operationNameWrapper: {
     display: "flex",
     flexDirection: "column",
   },
@@ -25,6 +25,7 @@ export const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     minWidth: "19rem",
+    maxWidth: "25rem",
   },
   opCountTxt: {
     marginBottom: "1rem",
@@ -33,5 +34,11 @@ export const useStyles = makeStyles({
   copyAllOpBtn: {
     minHeight: "32px",
     marginRight: "1rem",
+  },
+  operationName: {
+    textOverflow: "ellipsis",
+    overflowX: "hidden",
+    overflowY: "hidden",
+    whiteSpace: "nowrap",
   },
 });

@@ -25,6 +25,9 @@ export const useStyles = makeStyles({
   fetchPolicyAccPanel: { marginLeft: "1rem" },
   errorAccPanel: { marginLeft: "1rem" },
   warningAccPanel: { marginLeft: "1rem" },
+  resultPanel: {
+    whiteSpace: "pre-wrap",
+  },
   affectedQueriesAccPanel: {
     marginLeft: "1rem",
     display: "flex",
