@@ -3096,10 +3096,10 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apollo-inspector@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/apollo-inspector/-/apollo-inspector-1.7.0.tgz#5559ddfb1f2aef7aec8dfe2d898a1f147dcbc113"
-  integrity sha512-NYEzv75uiv4R2oP8BIY9vafWK0l7dEukhxfZX6dxJ1m6AEJbEq3/jplbRLo6GSGjigZTZUl6TruzGdumHHQ6vQ==
+apollo-inspector@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/apollo-inspector/-/apollo-inspector-1.10.0.tgz#f26ac3015f5f7623ea494db0b2616a0e55fd5e36"
+  integrity sha512-igG5C79wmNB8hbNLdZTXN3nazcKeEpdUdzxIi2z7jLQQIXuMMJ+MtWqKiR3nLermXOSTfZMJ1L6AVJZG67f9Pg==
   dependencies:
     "@swc/helpers" "^0.4.14"
     "@types/node" "^18.11.17"
