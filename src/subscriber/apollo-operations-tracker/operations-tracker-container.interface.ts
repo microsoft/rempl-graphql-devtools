@@ -14,10 +14,6 @@ export type stylesClasses =
   | "root"
   | "innerContainer"
   | "innerContainerDescription"
-  | "header"
-  | "infoButton"
-  | "description"
-  | "openDescription"
   | "name"
   | "label"
   | "centerDiv";
