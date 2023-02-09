@@ -46,3 +46,16 @@ export const useStyles = makeStyles({
     marginLeft: "1rem",
   },
 });
+
+export type stylesKeys =
+  | "operationView"
+  | "operationNameAccPanel"
+  | "operationVariablesAccPanel"
+  | "durationAccPanel"
+  | "fetchPolicyAccPanel"
+  | "errorAccPanel"
+  | "warningAccPanel"
+  | "affectedQueriesAccPanel"
+  | "operationDetails"
+  | "operationName"
+  | "resultPanel";

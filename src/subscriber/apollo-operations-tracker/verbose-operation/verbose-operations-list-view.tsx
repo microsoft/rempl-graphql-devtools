@@ -1,23 +1,36 @@
 import * as React from "react";
 import { TabList, Tab, Text, Tooltip } from "@fluentui/react-components";
 import { IVerboseOperation } from "apollo-inspector";
-import { Search } from "../search/search";
-import { useStyles } from "./verbose-operations-list-view-renderer-styles";
-import { VerboseOperationView } from "./verbose-operation-view";
+import { useStyles } from "./verbose-operations-list-view-styles";
+import {
+  IReducerAction,
+  ReducerActionEnum,
+} from "../operations-tracker-body/operations-tracker-body.interface";
 
 export interface IVerboseOperationViewRendererProps {
   operations: IVerboseOperation[] | null;
+  filter: string;
+  setSelectedOperation: React.Dispatch<
+    React.SetStateAction<IVerboseOperation | undefined>
+  >;
+  selectedOperation: IVerboseOperation | undefined;
+  dispatchOperationsCount: React.Dispatch<IReducerAction>;
 }
 
-export const VerboseOperationsListViewRenderer = (
+export const VerboseOperationsListView = (
   props: IVerboseOperationViewRendererProps,
 ) => {
-  const { operations } = props;
-  const [selectedOperation, setSelectedOperation] = React.useState(
-    props.operations?.[0],
-  );
-  const [filteredOperations, setFilteredOperations] =
-    React.useState(operations);
+  const {
+    operations,
+    filter,
+    selectedOperation,
+    setSelectedOperation,
+    dispatchOperationsCount,
+  } = props;
+
+  const [filteredOperations, setFilteredOperations] = React.useState<
+    IVerboseOperation[] | null | undefined
+  >(operations);
 
   const classes = useStyles();
   const tabListItems = useOperationListNames(filteredOperations, classes);
@@ -38,40 +51,32 @@ export const VerboseOperationsListViewRenderer = (
     [setSelectedOperation, filteredOperations],
   );
 
-  const filterItems = React.useCallback(
-    (items: IVerboseOperation[] | null | undefined) => {
-      setFilteredOperations(items as IVerboseOperation[] | null);
-    },
-    [setFilteredOperations],
-  );
+  React.useEffect(() => {
+    const filtereItems = getFilteredItems(operations, filter);
+    setFilteredOperations(filtereItems);
+    dispatchOperationsCount({
+      type: ReducerActionEnum.UpdateVerboseOperationsCount,
+      value: filtereItems?.length,
+    });
+  }, [filter, setFilteredOperations, operations, dispatchOperationsCount]);
 
   return (
-    <div className={classes.root}>
-      <Text
-        weight="medium"
-        className={classes.opCountTxt}
-      >{`Total operations count: ${operations?.length}`}</Text>
-      <Search items={operations} setFilteredItems={filterItems} />
-      <div className={classes.operations}>
-        <div className={classes.operationsNameListWrapper}>
-          <TabList
-            className={classes.operationsList}
-            vertical
-            selectedValue={selectedOperation?.id}
-            onTabSelect={onTabSelect}
-            key="operationNameList"
-          >
-            {tabListItems}
-          </TabList>
-        </div>
-        <VerboseOperationView operation={selectedOperation} />
-      </div>
+    <div className={classes.operationsNameListWrapper}>
+      <TabList
+        className={classes.operationsList}
+        vertical
+        selectedValue={selectedOperation?.id}
+        onTabSelect={onTabSelect}
+        key="operationNameList"
+      >
+        {tabListItems}
+      </TabList>
     </div>
   );
 };
 
 const useOperationListNames = (
-  filteredOperations: IVerboseOperation[] | null,
+  filteredOperations: IVerboseOperation[] | null | undefined,
   classes: Record<
     | "operationName"
     | "root"
@@ -109,3 +114,19 @@ const useOperationListNames = (
 
     return tabItems || [];
   }, [filteredOperations]);
+
+const getFilteredItems = (
+  items: IVerboseOperation[] | null | undefined,
+  filter: string,
+) => {
+  if (filter.length === 0) {
+    return items;
+  } else {
+    const filteredItems = items?.filter((item) => {
+      return (
+        item.operationName?.toLowerCase().indexOf(filter.toLowerCase()) != -1
+      );
+    });
+    return filteredItems;
+  }
+};
