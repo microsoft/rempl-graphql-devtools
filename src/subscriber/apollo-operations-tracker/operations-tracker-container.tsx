@@ -2,13 +2,14 @@ import { remplSubscriber } from "../rempl";
 import React, { useState, useEffect, useCallback } from "react";
 import { IDataView } from "apollo-inspector";
 import { mergeClasses, Spinner, Title2 } from "@fluentui/react-components";
-import { OperationsListViewContainer } from "./operations-list-view-container/operations-list-view-container";
+import { OperationsTrackerBody } from "./operations-tracker-body/operations-tracker-body";
 import { useStyles } from "./operations-tracker-container-styles";
-import { OperationsTrackerHeader } from "./operations-tracker-header";
+import { OperationsTrackerHeader } from "./operations-tracker-header/operations-tracker-header";
 import {
   IError,
-  stylesClasses,
   ILoader,
+  IUseMainSlotParams,
+  IUseMainSlotService,
 } from "./operations-tracker-container.interface";
 
 export const OperationsTrackerContainer = () => {
@@ -21,8 +22,8 @@ export const OperationsTrackerContainer = () => {
   });
   const [error, setError] = React.useState<IError | null>(null);
   const [isRecording, setIsRecording] = useState<boolean>(false);
+  const [filter, setFilter] = useState<string>("");
   const classes = useStyles();
-
   useSubscribeToPublisher(setError, setApolloOperationsData, setLoader);
 
   const toggleRecording = useToggleRecording(
@@ -38,7 +39,10 @@ export const OperationsTrackerContainer = () => {
     };
   }, [remplSubscriber]);
 
-  const mainSlot = useMainSlot(error, classes, loader, apollOperationsData);
+  const mainSlot = useMainSlot(
+    { error, loader, apollOperationsData, filter },
+    { classes },
+  );
 
   return (
     <div className={classes.root}>
@@ -53,6 +57,7 @@ export const OperationsTrackerContainer = () => {
           openDescription={openDescription}
           setOpenDescription={setOpenDescription}
           toggleRecording={toggleRecording}
+          setFilter={setFilter}
         />
         {mainSlot}
       </div>
@@ -61,10 +66,8 @@ export const OperationsTrackerContainer = () => {
 };
 
 const useMainSlot = (
-  error: IError | null,
-  classes: Record<stylesClasses, string>,
-  loader: ILoader,
-  apollOperationsData: IDataView | null,
+  { apollOperationsData, error, loader, filter }: IUseMainSlotParams,
+  { classes }: IUseMainSlotService,
 ) =>
   React.useMemo(() => {
     if (error) {
@@ -82,8 +85,8 @@ const useMainSlot = (
       );
     }
 
-    return <OperationsListViewContainer data={apollOperationsData} />;
-  }, [error, loader, apollOperationsData, classes]);
+    return <OperationsTrackerBody data={apollOperationsData} filter={filter} />;
+  }, [error, loader, apollOperationsData, classes, filter]);
 
 const useToggleRecording = (
   setIsRecording: React.Dispatch<React.SetStateAction<boolean>>,
@@ -119,8 +122,7 @@ const useSubscribeToPublisher = (
     remplSubscriber
       .ns("apollo-operations-tracker")
       .subscribe((data: IDataView) => {
-        console.log(`jps data received`);
-        if ((data as any).message) {
+        if (data && (data as any).message) {
           const typedData = data as any;
           setError({ error: typedData.error, message: typedData.message });
           setLoader({ message: "", loading: false });
