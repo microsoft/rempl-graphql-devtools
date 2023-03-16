@@ -9,6 +9,7 @@ import {
   IReducerAction,
   ReducerActionEnum,
 } from "./operations-tracker-body.interface";
+import { AffectedQueriesContainer } from "../affected-queries";
 
 export interface IOperationViewRendererProps {
   selectedTab: TabHeaders;
@@ -26,6 +27,7 @@ const tabHeaders = [
   { key: TabHeaders.AllOperationsView, name: "All operations" },
   { key: TabHeaders.OperationsView, name: "Only Cache operations" },
   { key: TabHeaders.VerboseOperationView, name: "Verbose operations" },
+  { key: TabHeaders.WaterFall, name: "Waterfall" },
   { key: TabHeaders.AffectedQueriesView, name: "Affected Queries" },
 ];
 
@@ -45,12 +47,14 @@ export const OperationsTrackerBody = (props: IOperationViewContainer) => {
   const classes = useStyles();
   const updatedTabItems = React.useMemo(() => {
     const newTabHeaders = tabHeaders.filter(
-      (tabHeader) => tabHeader.key === TabHeaders.VerboseOperationView,
+      (tabHeader) =>
+        tabHeader.key === TabHeaders.VerboseOperationView ||
+        tabHeader.key === TabHeaders.AffectedQueriesView,
     );
 
     return newTabHeaders;
   }, []);
-
+  console.log({ updatedTabItems });
   const tabs = React.useMemo(() => {
     const items = updatedTabItems.map((item) => {
       return (
@@ -102,6 +106,14 @@ const OperationsViewRenderer = (props: IOperationViewRendererProps) => {
           operations={data.verboseOperations}
           filter={filter}
           dispatchOperationsCount={dispatchOperationsCount}
+        />
+      );
+    }
+
+    case TabHeaders.AffectedQueriesView: {
+      return (
+        <AffectedQueriesContainer
+          affectedQueries={data.affectedQueriesOperations}
         />
       );
     }

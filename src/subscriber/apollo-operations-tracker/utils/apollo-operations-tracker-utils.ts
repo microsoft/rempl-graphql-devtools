@@ -1,10 +1,7 @@
-import { DocumentNode, OperationDefinitionNode } from "graphql";
+import { DocumentNode, getOperationAST } from "graphql";
 
 export const getOperationName = (query: DocumentNode) => {
-  const definition =
-    query && query.definitions && query.definitions.length > 0
-      ? (query.definitions[0] as OperationDefinitionNode)
-      : null;
+  const definition = getOperationAST(query);
   const operationName = definition ? definition.name?.value : "name_not_found";
 
   return operationName;
