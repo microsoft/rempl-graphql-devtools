@@ -1,6 +1,6 @@
 import React, { createRef, useEffect } from "react";
 import { dialogStyles } from "./activity-dialog.styles";
-import { Text, Button } from "@fluentui/react-components";
+import { Text, Button, Title1 } from "@fluentui/react-components";
 import { Dismiss20Regular } from "@fluentui/react-icons";
 import { RecentActivityRaw, WatchedQuery, Mutation } from "../../types";
 
@@ -27,9 +27,9 @@ export const ActivityDialog = React.memo(
           }}
         >
           <div className={classes.header}>
-            <Text>{`${value.data?.name} (${
+            <Title1>{`${value.data?.name} (${
               value.isMutation ? "Mutation" : "Watched Query"
-            })`}</Text>
+            })`}</Title1>
             <Button
               appearance="transparent"
               ref={closeIcon}

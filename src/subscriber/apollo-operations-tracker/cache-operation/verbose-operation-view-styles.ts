@@ -9,7 +9,6 @@ export const useStyles = makeStyles({
     flexShrink: 1,
     flexBasis: "auto",
     backgroundColor: "grey",
-    minWidth: 0,
   },
   operationNameAccPanel: {
     whiteSpace: "pre-wrap",

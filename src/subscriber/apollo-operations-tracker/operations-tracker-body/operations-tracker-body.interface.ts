@@ -8,6 +8,8 @@ export enum ReducerActionEnum {
   UpdateVerboseOperationsCount,
   UpdateAllOperationsCount,
   UpdateCacheOperationsCount,
+
+  ClearVerboseOperations,
 }
 
 export interface IReducerAction {

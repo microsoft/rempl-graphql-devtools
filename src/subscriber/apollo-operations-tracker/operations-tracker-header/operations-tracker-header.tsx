@@ -4,13 +4,17 @@ import { Info20Regular } from "@fluentui/react-icons";
 import { useStyles } from "./operations-tracker-header-styles";
 import { Search } from "../../../components";
 import debounce from "lodash.debounce";
+import { CopyButton } from "./operations-copy-button";
 
 export interface IOperationsTrackerHeaderProps {
   setOpenDescription: React.Dispatch<React.SetStateAction<boolean>>;
   openDescription: boolean;
   toggleRecording: () => void;
   isRecording: boolean;
-  setFilter: React.Dispatch<React.SetStateAction<string>>;
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
+  copyOperation: (type: "all" | "selected") => void;
+  clearApolloOperations: () => void;
+  showClear: boolean;
 }
 
 export const OperationsTrackerHeader = (
@@ -22,20 +26,24 @@ export const OperationsTrackerHeader = (
     openDescription,
     setOpenDescription,
     toggleRecording,
-    setFilter,
+    setSearchText,
+    copyOperation,
+    clearApolloOperations,
+    showClear,
   } = props;
 
   const debouncedFilter = React.useCallback(
     debounce((e: React.SyntheticEvent) => {
       const input = e.target as HTMLInputElement;
-      setFilter(input.value);
+      setSearchText(input.value);
     }, 200),
-    [setFilter],
+    [setSearchText],
   );
+
   return (
     <>
       <div className={classes.header}>
-        <div>
+        <div className={classes.buttonContainer}>
           <Button
             title="Information"
             tabIndex={0}
@@ -45,7 +53,18 @@ export const OperationsTrackerHeader = (
             <Info20Regular />
           </Button>
           <Button onClick={toggleRecording}>
-            {isRecording ? "Stop recording" : "Record recent activity"}
+            {isRecording ? "Stop" : "Record"}
+          </Button>
+          <CopyButton
+            hideCopy={isRecording || !showClear}
+            copyOperation={copyOperation}
+          />
+          <Button
+            style={{ marginLeft: "0.5rem" }}
+            onClick={clearApolloOperations}
+            disabled={!showClear}
+          >
+            Clear All
           </Button>
         </div>
         <div>

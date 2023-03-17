@@ -49,6 +49,7 @@ export const AffectedQueriesGridRenderers = (
         items={items}
         columns={columns}
         focusMode="cell"
+        resizableColumns
         columnSizingOptions={{
           operationName: { minWidth: 330, defaultWidth: 350 },
           id: { minWidth: 20, defaultWidth: 20 },

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TabList, Tab } from "@fluentui/react-components";
-import { IDataView } from "apollo-inspector";
+import { IDataView, IOperation, IVerboseOperation } from "apollo-inspector";
 import { TabHeaders } from "../../../types";
 import { VerboseOperationsContainer } from "../verbose-operation/verbose-operations-container";
 import { useStyles } from "./operations-tracker-body-styles";
@@ -14,25 +14,38 @@ import { AffectedQueriesContainer } from "../affected-queries";
 export interface IOperationViewRendererProps {
   selectedTab: TabHeaders;
   data: IDataView;
-  filter: string;
+  searchText: string;
   dispatchOperationsCount: React.Dispatch<IReducerAction>;
+  updateOperations: ({
+    operations,
+    filteredOperations,
+  }: {
+    operations: IVerboseOperation[];
+    filteredOperations: IVerboseOperation[];
+  }) => void;
 }
 
 export interface IOperationViewContainer {
   data: IDataView | null;
-  filter: string;
+  searchText: string;
+  updateOperations: ({
+    operations,
+    filteredOperations,
+  }: {
+    operations: IVerboseOperation[];
+    filteredOperations: IVerboseOperation[];
+  }) => void;
 }
 
 const tabHeaders = [
   { key: TabHeaders.AllOperationsView, name: "All operations" },
   { key: TabHeaders.OperationsView, name: "Only Cache operations" },
   { key: TabHeaders.VerboseOperationView, name: "Verbose operations" },
-  { key: TabHeaders.WaterFall, name: "Waterfall" },
   { key: TabHeaders.AffectedQueriesView, name: "Affected Queries" },
 ];
 
 export const OperationsTrackerBody = (props: IOperationViewContainer) => {
-  const { data, filter } = props;
+  const { data, searchText, updateOperations } = props;
   const [selectedTab, setSelectedTab] = React.useState(
     TabHeaders.VerboseOperationView,
   );
@@ -89,23 +102,31 @@ export const OperationsTrackerBody = (props: IOperationViewContainer) => {
       <OperationsViewRenderer
         data={data}
         selectedTab={selectedTab}
-        filter={filter}
+        searchText={searchText}
         dispatchOperationsCount={dispatchOperationsCount}
+        updateOperations={updateOperations}
       />
     </div>
   );
 };
 
 const OperationsViewRenderer = (props: IOperationViewRendererProps) => {
-  const { selectedTab, data, filter, dispatchOperationsCount } = props;
+  const {
+    selectedTab,
+    data,
+    searchText,
+    dispatchOperationsCount,
+    updateOperations,
+  } = props;
 
   switch (selectedTab) {
     case TabHeaders.VerboseOperationView: {
       return (
         <VerboseOperationsContainer
           operations={data.verboseOperations}
-          filter={filter}
+          searchText={searchText}
           dispatchOperationsCount={dispatchOperationsCount}
+          updateOperations={updateOperations}
         />
       );
     }

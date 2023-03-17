@@ -1,6 +1,6 @@
 import { remplSubscriber } from "../rempl";
 import React, { useState, useEffect, useCallback } from "react";
-import { IDataView } from "apollo-inspector";
+import { IDataView, IVerboseOperation } from "apollo-inspector";
 import { mergeClasses, Spinner, Title2 } from "@fluentui/react-components";
 import { OperationsTrackerBody } from "./operations-tracker-body/operations-tracker-body";
 import { useStyles } from "./operations-tracker-container-styles";
@@ -11,6 +11,7 @@ import {
   IUseMainSlotParams,
   IUseMainSlotService,
 } from "./operations-tracker-container.interface";
+import { copyToClipboard } from "./utils/apollo-operations-tracker-utils";
 
 export const OperationsTrackerContainer = () => {
   const [openDescription, setOpenDescription] = useState<boolean>(false);
@@ -22,7 +23,13 @@ export const OperationsTrackerContainer = () => {
   });
   const [error, setError] = React.useState<IError | null>(null);
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const [filter, setFilter] = useState<string>("");
+  const [searchText, setSearchText] = useState<string>("");
+  const [checkedOperations, setCheckedOperations] = useState<
+    IVerboseOperation[] | null
+  >([]);
+  const [filteredOperations, setFilteredOperations] = useState<
+    IVerboseOperation[] | null
+  >([]);
   const classes = useStyles();
   useSubscribeToPublisher(setError, setApolloOperationsData, setLoader);
 
@@ -33,6 +40,30 @@ export const OperationsTrackerContainer = () => {
     setError,
   );
 
+  const copyOperation = useCallback(
+    (type: "all" | "selected") => {
+      console.log("inside copy operation", type);
+      if (type === "all") {
+        copyToClipboard(filteredOperations);
+      } else {
+        copyToClipboard(checkedOperations);
+      }
+    },
+    [apollOperationsData, checkedOperations, filteredOperations],
+  );
+
+  const clearApolloOperations = useCallback(() => {
+    setApolloOperationsData(null);
+  }, [setApolloOperationsData]);
+
+  const updateOperations = useCallback(
+    ({ operations, filteredOperations }) => {
+      setCheckedOperations(operations);
+      setFilteredOperations(filteredOperations);
+    },
+    [setCheckedOperations, setFilteredOperations],
+  );
+
   useEffect(() => {
     return () => {
       remplSubscriber.callRemote("stopOperationsTracker", {});
@@ -40,7 +71,13 @@ export const OperationsTrackerContainer = () => {
   }, [remplSubscriber]);
 
   const mainSlot = useMainSlot(
-    { error, loader, apollOperationsData, filter },
+    {
+      error,
+      loader,
+      apollOperationsData,
+      searchText,
+      updateOperations,
+    },
     { classes },
   );
 
@@ -57,7 +94,10 @@ export const OperationsTrackerContainer = () => {
           openDescription={openDescription}
           setOpenDescription={setOpenDescription}
           toggleRecording={toggleRecording}
-          setFilter={setFilter}
+          setSearchText={setSearchText}
+          copyOperation={copyOperation}
+          clearApolloOperations={clearApolloOperations}
+          showClear={!!apollOperationsData?.verboseOperations}
         />
         {mainSlot}
       </div>
@@ -66,27 +106,38 @@ export const OperationsTrackerContainer = () => {
 };
 
 const useMainSlot = (
-  { apollOperationsData, error, loader, filter }: IUseMainSlotParams,
+  {
+    apollOperationsData,
+    error,
+    loader,
+    searchText,
+    updateOperations,
+  }: IUseMainSlotParams,
   { classes }: IUseMainSlotService,
-) =>
-  React.useMemo(() => {
-    if (error) {
-      return (
-        <div className={classes.centerDiv}>
-          <Title2>{error.message}</Title2>
-        </div>
-      );
-    }
-    if (loader.loading) {
-      return (
-        <div className={classes.centerDiv}>
-          <Spinner labelPosition="below" label={loader.message} />
-        </div>
-      );
-    }
+) => {
+  if (error) {
+    return (
+      <div className={classes.centerDiv}>
+        <Title2>{error.message}</Title2>
+      </div>
+    );
+  }
+  if (loader.loading) {
+    return (
+      <div className={classes.centerDiv}>
+        <Spinner labelPosition="below" label={loader.message} />
+      </div>
+    );
+  }
 
-    return <OperationsTrackerBody data={apollOperationsData} filter={filter} />;
-  }, [error, loader, apollOperationsData, classes, filter]);
+  return (
+    <OperationsTrackerBody
+      updateOperations={updateOperations}
+      data={apollOperationsData}
+      searchText={searchText}
+    />
+  );
+};
 
 const useToggleRecording = (
   setIsRecording: React.Dispatch<React.SetStateAction<boolean>>,

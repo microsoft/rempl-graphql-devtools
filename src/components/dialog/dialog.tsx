@@ -1,6 +1,6 @@
 import React, { createRef, useEffect } from "react";
 import { dialogStyles } from "./dialog.styles";
-import { Text, Button } from "@fluentui/react-components";
+import { Text, Button, Title1 } from "@fluentui/react-components";
 import { CacheObjectWithSize } from "../../subscriber/apollo-cache/types";
 import { Dismiss20Regular } from "@fluentui/react-icons";
 
@@ -26,7 +26,7 @@ export const Dialog = React.memo(({ value, onClose }: DialogProps) => {
         }}
       >
         <div className={classes.header}>
-          <Text className={classes.name}>{value?.key}</Text>
+          <Title1 className={classes.name}>{value?.key}</Title1>
           <Button
             appearance="transparent"
             ref={closeIcon}

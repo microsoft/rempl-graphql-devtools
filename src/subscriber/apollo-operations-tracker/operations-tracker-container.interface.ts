@@ -1,4 +1,4 @@
-import { IDataView } from "apollo-inspector";
+import { IDataView, IVerboseOperation } from "apollo-inspector";
 
 export interface IError {
   error: any;
@@ -22,7 +22,14 @@ export interface IUseMainSlotParams {
   error: IError | null;
   loader: ILoader;
   apollOperationsData: IDataView | null;
-  filter: string;
+  searchText: string;
+  updateOperations: ({
+    operations,
+    filteredOperations,
+  }: {
+    operations: IVerboseOperation[];
+    filteredOperations: IVerboseOperation[];
+  }) => void;
 }
 
 export interface IUseMainSlotService {

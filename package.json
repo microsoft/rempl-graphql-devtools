@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "@apollo/client": "3.6.5",
-    "@fluentui/react-components": "^9.18.0",
-    "@fluentui/react-data-grid-react-window": "^9.0.0-beta.12",
+    "@fluentui/react-components": "^9.0.0",
+    "@fluentui/react-data-grid-react-window": "^9.0.0-beta.14",
     "@fluentui/react-tabster": "^9.5.6",
     "@types/jest": "^27.4.1",
     "@types/lodash.debounce": "^4.0.6",
