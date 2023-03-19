@@ -16,14 +16,14 @@ if (require.main === module) {
           __GRAPHIQL_CSS__: JSON.stringify(
             readFileSync(
               resolve(process.cwd(), "scripts/graphiql.min.css"),
-              "utf8",
-            ),
+              "utf8"
+            )
           ),
           __GLOBAL_CSS__: JSON.stringify(
             readFileSync(
               resolve(process.cwd(), "src/subscriber/styles.css"),
-              "utf8",
-            ),
+              "utf8"
+            )
           ),
         },
       })
@@ -39,7 +39,7 @@ if (require.main === module) {
       format: "iife",
       define: {
         __APOLLO_DEVTOOLS_SUBSCRIBER__: JSON.stringify(
-          __APOLLO_DEVTOOLS_SUBSCRIBER__,
+          __APOLLO_DEVTOOLS_SUBSCRIBER__
         ),
       },
     });
