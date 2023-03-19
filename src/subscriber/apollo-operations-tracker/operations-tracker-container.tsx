@@ -1,6 +1,6 @@
 import { remplSubscriber } from "../rempl";
 import React, { useState, useEffect, useCallback } from "react";
-import { IDataView, IVerboseOperation } from "apollo-inspector";
+import { IDataView } from "apollo-inspector";
 import { mergeClasses, Spinner, Title2 } from "@fluentui/react-components";
 import { OperationsTrackerBody } from "./operations-tracker-body/operations-tracker-body";
 import { useStyles } from "./operations-tracker-container-styles";
@@ -11,9 +11,15 @@ import {
   IUseMainSlotParams,
   IUseMainSlotService,
 } from "./operations-tracker-container.interface";
-import { copyToClipboard } from "./utils/apollo-operations-tracker-utils";
+import { ErrorBoundary } from "./operation-tracker-error-boundary";
+import {
+  getInitialState,
+  OperationReducerActionEnum,
+  reducers,
+} from "./operations-tracker-container-helper";
 
 export const OperationsTrackerContainer = () => {
+  console.log(`rendering OperationsTrackerContainer`);
   const [openDescription, setOpenDescription] = useState<boolean>(false);
   const [apollOperationsData, setApolloOperationsData] =
     useState<IDataView | null>(null);
@@ -23,13 +29,19 @@ export const OperationsTrackerContainer = () => {
   });
   const [error, setError] = React.useState<IError | null>(null);
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const [searchText, setSearchText] = useState<string>("");
+  /*  const [searchText, setSearchText] = useState<string>("");
   const [checkedOperations, setCheckedOperations] = useState<
     IVerboseOperation[] | null
   >([]);
   const [filteredOperations, setFilteredOperations] = useState<
     IVerboseOperation[] | null
-  >([]);
+  >([]); */
+
+  const [operationsState, dispatchOperationsState] = React.useReducer(
+    reducers,
+    getInitialState(),
+  );
+
   const classes = useStyles();
   useSubscribeToPublisher(setError, setApolloOperationsData, setLoader);
 
@@ -39,30 +51,22 @@ export const OperationsTrackerContainer = () => {
     setLoader,
     setError,
   );
-
-  const copyOperation = useCallback(
-    (type: "all" | "selected") => {
-      console.log("inside copy operation", type);
-      if (type === "all") {
-        copyToClipboard(filteredOperations);
-      } else {
-        copyToClipboard(checkedOperations);
-      }
-    },
-    [apollOperationsData, checkedOperations, filteredOperations],
-  );
+  React.useMemo(() => {
+    console.log({ operationsState });
+    return null;
+  }, [operationsState]);
 
   const clearApolloOperations = useCallback(() => {
     setApolloOperationsData(null);
   }, [setApolloOperationsData]);
 
-  const updateOperations = useCallback(
+  /*  const updateOperations = useCallback(
     ({ operations, filteredOperations }) => {
       setCheckedOperations(operations);
       setFilteredOperations(filteredOperations);
     },
     [setCheckedOperations, setFilteredOperations],
-  );
+  ); */
 
   useEffect(() => {
     return () => {
@@ -75,33 +79,46 @@ export const OperationsTrackerContainer = () => {
       error,
       loader,
       apollOperationsData,
-      searchText,
-      updateOperations,
+      operationsState,
+      dispatchOperationsState,
     },
     { classes },
   );
 
+  const setSearchText = React.useCallback(
+    (text) => {
+      dispatchOperationsState({
+        type: OperationReducerActionEnum.UpdateSearchText,
+        value: text,
+      });
+    },
+    [dispatchOperationsState],
+  );
+
   return (
-    <div className={classes.root}>
-      <div
-        className={mergeClasses(
-          classes.innerContainer,
-          openDescription && classes.innerContainerDescription,
-        )}
-      >
-        <OperationsTrackerHeader
-          isRecording={isRecording}
-          openDescription={openDescription}
-          setOpenDescription={setOpenDescription}
-          toggleRecording={toggleRecording}
-          setSearchText={setSearchText}
-          copyOperation={copyOperation}
-          clearApolloOperations={clearApolloOperations}
-          showClear={!!apollOperationsData?.verboseOperations}
-        />
-        {mainSlot}
+    <ErrorBoundary>
+      <div className={classes.root}>
+        <div
+          className={mergeClasses(
+            classes.innerContainer,
+            openDescription && classes.innerContainerDescription,
+          )}
+        >
+          <OperationsTrackerHeader
+            isRecording={isRecording}
+            openDescription={openDescription}
+            setOpenDescription={setOpenDescription}
+            toggleRecording={toggleRecording}
+            setSearchText={setSearchText}
+            operationsState={operationsState}
+            apollOperationsData={apollOperationsData}
+            clearApolloOperations={clearApolloOperations}
+            showClear={!!apollOperationsData?.verboseOperations}
+          />
+          {mainSlot}
+        </div>
       </div>
-    </div>
+    </ErrorBoundary>
   );
 };
 
@@ -110,8 +127,8 @@ const useMainSlot = (
     apollOperationsData,
     error,
     loader,
-    searchText,
-    updateOperations,
+    dispatchOperationsState,
+    operationsState,
   }: IUseMainSlotParams,
   { classes }: IUseMainSlotService,
 ) => {
@@ -132,9 +149,9 @@ const useMainSlot = (
 
   return (
     <OperationsTrackerBody
-      updateOperations={updateOperations}
+      dispatchOperationsState={dispatchOperationsState}
       data={apollOperationsData}
-      searchText={searchText}
+      operationsState={operationsState}
     />
   );
 };

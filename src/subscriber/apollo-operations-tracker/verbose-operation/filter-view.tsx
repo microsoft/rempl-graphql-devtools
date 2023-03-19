@@ -1,6 +1,6 @@
+import * as React from "react";
 import { Checkbox } from "@fluentui/react-components";
 import { OperationType, ResultsFrom } from "apollo-inspector";
-import * as React from "react";
 import { useStyles } from "./filter-view.styles";
 
 interface IFilterView {
@@ -33,12 +33,16 @@ export const fragmentSubTypes = [
   OperationType.CacheWriteFragment,
   OperationType.ClientReadFragment,
   OperationType.ClientWriteFragment,
+  OperationType.Fragment,
 ];
 
-export const FilterView = (props: IFilterView) => {
+export const FilterView = React.memo((props: IFilterView) => {
+  console.log(`rendering FilterView`);
+
   const [operationTypesFilter, setOperationTypesFilter] = React.useState<
     string[]
   >([]);
+  console.log({ operationTypesFilter });
   const [resultFromFilter, setResultFromFilter] = React.useState<string[]>([]);
   const [statusFilter, setStatusFilter] = React.useState<string[]>([]);
   const { setFilters } = props;
@@ -67,17 +71,19 @@ export const FilterView = (props: IFilterView) => {
     operationTypesFilter,
   );
 
-  const statues = Object.entries(OperationStatus).map((value, key) => {
-    const checkboxValue = (value as unknown as Array<string>)[0];
-    return (
-      <Checkbox
-        onChange={onStatusChange}
-        value={checkboxValue}
-        label={checkboxValue}
-        key={key}
-      />
-    );
-  });
+  const statues = Object.entries(OperationStatus)
+    .filter((status) => status[0] !== OperationStatus.InFlight)
+    .map((value, key) => {
+      const checkboxValue = (value as unknown as Array<string>)[0];
+      return (
+        <Checkbox
+          onChange={onStatusChange}
+          value={checkboxValue}
+          label={checkboxValue}
+          key={key}
+        />
+      );
+    });
 
   const resultsFrom = Object.entries(ResultsFrom).map((value, key) => {
     const checkboxValue = (value as unknown as Array<string>)[0];
@@ -123,7 +129,7 @@ export const FilterView = (props: IFilterView) => {
       </div>
     </div>
   );
-};
+});
 
 interface IUseOperationTypesCheckBoxParams {
   operationTypesFilter: string[];
@@ -141,22 +147,49 @@ const useOperationTypesCheckBox = ({
 }: IUseOperationTypesCheckBoxParams) => {
   const onOperationTypeChange = React.useCallback(
     ({ target: { value } }, { checked }) => {
-      let arr = operationTypesFilter.concat([]);
+      let typesFilter = operationTypesFilter.concat([]);
+      console.log({ value, checked, typesFilter, operationTypesFilter });
       if (checked) {
-        arr.push(value);
+        typesFilter.push(value);
+        if (value == OperationType.Query) {
+          querySubTypes.forEach((type) => {
+            typesFilter.push(type);
+          });
+
+          fragmentSubTypes.forEach((type) => {
+            typesFilter.push(type);
+          });
+        }
       } else {
-        arr = arr.filter((x) => x !== value);
+        typesFilter = typesFilter.filter((x) => x !== value);
+
+        if (value == OperationType.Query) {
+          typesFilter = typesFilter.filter((x) => {
+            if (x === value) {
+              return x === value;
+            }
+            if (querySubTypes.find((type) => type === x)) {
+              return false;
+            }
+
+            if (fragmentSubTypes.find((type) => type === x)) {
+              return false;
+            }
+
+            return true;
+          });
+        }
       }
-      setOperationTypesFilter(arr);
+      setOperationTypesFilter(typesFilter);
       setTimeout(() => {
         setFilters({
+          types: typesFilter,
           results: resultFromFilter,
-          types: arr,
           statuses: statusFilter,
         });
       }, 0);
     },
-    [operationTypesFilter, setOperationTypesFilter],
+    [operationTypesFilter, setOperationTypesFilter, setFilters],
   );
   const operationTypes = React.useMemo(() => {
     return Object.entries(OperationType)
@@ -183,7 +216,7 @@ const useOperationTypesCheckBox = ({
           />
         );
       });
-  }, []);
+  }, [onOperationTypeChange]);
 
   return operationTypes;
 };

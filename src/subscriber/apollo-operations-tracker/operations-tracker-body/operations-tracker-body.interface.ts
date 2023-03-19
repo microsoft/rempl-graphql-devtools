@@ -1,10 +1,10 @@
-export interface IReducerState {
+export interface ICountReducerState {
   verboseOperationsCount: number;
   allOperationsCount: number;
   cacheOperationsCount: number;
 }
 
-export enum ReducerActionEnum {
+export enum CountReducerActionEnum {
   UpdateVerboseOperationsCount,
   UpdateAllOperationsCount,
   UpdateCacheOperationsCount,
@@ -12,7 +12,7 @@ export enum ReducerActionEnum {
   ClearVerboseOperations,
 }
 
-export interface IReducerAction {
-  type: ReducerActionEnum;
+export interface ICountReducerAction {
+  type: CountReducerActionEnum;
   value: any;
 }

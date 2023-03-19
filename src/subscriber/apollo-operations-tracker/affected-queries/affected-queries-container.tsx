@@ -15,7 +15,7 @@ export const AffectedQueriesContainer = (
     [affectedQueries],
   );
   const [selectedItem, setSelectedItem] = React.useState<string>(
-    listOfItems[0].name,
+    (listOfItems && listOfItems.length > 0 && listOfItems[0].name) || "",
   );
 
   const gridItems = React.useMemo(

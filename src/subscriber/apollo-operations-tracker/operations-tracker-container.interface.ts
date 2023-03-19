@@ -1,4 +1,8 @@
-import { IDataView, IVerboseOperation } from "apollo-inspector";
+import { IDataView } from "apollo-inspector";
+import {
+  IOperationsAction,
+  IOperationsReducerState,
+} from "./operations-tracker-container-helper";
 
 export interface IError {
   error: any;
@@ -22,14 +26,8 @@ export interface IUseMainSlotParams {
   error: IError | null;
   loader: ILoader;
   apollOperationsData: IDataView | null;
-  searchText: string;
-  updateOperations: ({
-    operations,
-    filteredOperations,
-  }: {
-    operations: IVerboseOperation[];
-    filteredOperations: IVerboseOperation[];
-  }) => void;
+  operationsState: IOperationsReducerState;
+  dispatchOperationsState: React.Dispatch<IOperationsAction>;
 }
 
 export interface IUseMainSlotService {

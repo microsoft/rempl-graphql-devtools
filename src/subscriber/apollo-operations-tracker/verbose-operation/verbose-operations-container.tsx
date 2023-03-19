@@ -1,51 +1,50 @@
 import * as React from "react";
 import { IVerboseOperation } from "apollo-inspector";
-import { useStyles } from "./verbose-operations-list-view-styles";
+import { useStyles } from "./verbose-operations-container-styles";
 import { VerboseOperationView } from "./verbose-operation-view";
 import { DataGridView } from "./data-grid-view";
-import { IReducerAction } from "../operations-tracker-body/operations-tracker-body.interface";
+import { ICountReducerAction } from "../operations-tracker-body/operations-tracker-body.interface";
+import {
+  IOperationsAction,
+  IOperationsReducerState,
+} from "../operations-tracker-container-helper";
 
 export interface IVerboseOperationsContainerProps {
   operations: IVerboseOperation[] | null;
-  searchText: string;
-  dispatchOperationsCount: React.Dispatch<IReducerAction>;
-  updateOperations: ({
-    operations,
-    filteredOperations,
-  }: {
-    operations: IVerboseOperation[];
-    filteredOperations: IVerboseOperation[];
-  }) => void;
+  operationsState: IOperationsReducerState;
+  dispatchOperationsCount: React.Dispatch<ICountReducerAction>;
+  dispatchOperationsState: React.Dispatch<IOperationsAction>;
 }
 
 export const VerboseOperationsContainer = (
   props: IVerboseOperationsContainerProps,
 ) => {
-  const { operations, searchText, dispatchOperationsCount, updateOperations } =
-    props;
-  const [selectedOperation, setSelectedOperation] =
-    React.useState<IVerboseOperation>();
+  console.log(`rendering VerboseOperationsContainer`);
+
+  const {
+    operations,
+    operationsState,
+    dispatchOperationsCount,
+    dispatchOperationsState,
+  } = props;
+
   const classes = useStyles();
-
-  console.log(operations);
-
+  console.log({ selectedOperation: operationsState.selectedOperation });
   return (
     <div className={classes.root}>
       <div className={classes.operations}>
         <DataGridView
           key={"OperationsDataGridView"}
           operations={operations}
-          searchText={searchText}
-          setSelectedOperation={setSelectedOperation}
-          selectedOperation={selectedOperation}
+          operationsState={operationsState}
           dispatchOperationsCount={dispatchOperationsCount}
-          updateOperations={updateOperations}
+          dispatchOperationsState={dispatchOperationsState}
         />
 
         <VerboseOperationView
           key={"VerboseOperationView"}
-          operation={selectedOperation}
-          setSelectedOperation={setSelectedOperation}
+          operation={operationsState.selectedOperation}
+          dispatchOperationsState={dispatchOperationsState}
         />
       </div>
     </div>

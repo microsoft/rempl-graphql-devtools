@@ -28,6 +28,7 @@ export const useStyles = makeStyles({
   gridView: {
     minWidth: 0,
     height: "100%",
+    flexGrow: 2,
     display: "flex",
     "&:hover": {
       backgroundColor: "unset !important",
@@ -63,7 +64,15 @@ export const useStyles = makeStyles({
     ...shorthands.overflow("hidden"),
     display: "block",
   },
+  selectedOperationGridWrapper: {
+    minWidth: 0,
+    flexGrow: 2,
+  },
   gridWrapper: {
+    flexGrow: 2,
+  },
+  filterViewWrapper: {
+    flexGrow: 1,
     minWidth: 0,
   },
 });

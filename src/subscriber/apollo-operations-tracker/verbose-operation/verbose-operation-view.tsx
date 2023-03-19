@@ -19,21 +19,26 @@ import { OperationVariables, WatchQueryFetchPolicy } from "@apollo/client";
 import {
   getOperationName,
   isNumber,
+  sizeInBytes,
 } from "../utils/apollo-operations-tracker-utils";
 import { DocumentNode } from "graphql";
 import { ResultsFrom } from "../../../types";
+import {
+  IOperationsAction as IOperationsReducerActions,
+  OperationReducerActionEnum,
+} from "../operations-tracker-container-helper";
 
 const spaceForStringify = 2;
 
 interface IVerboseOperationViewProps {
-  operation: IVerboseOperation | undefined;
-  setSelectedOperation: React.Dispatch<
-    React.SetStateAction<IVerboseOperation | undefined>
-  >;
+  operation: IVerboseOperation | undefined | null;
+  dispatchOperationsState: React.Dispatch<IOperationsReducerActions>;
 }
 
 export const VerboseOperationView = (props: IVerboseOperationViewProps) => {
-  const { operation, setSelectedOperation } = props;
+  console.log(`rendering VerboseOperationView`);
+
+  const { operation, dispatchOperationsState } = props;
   if (!operation) {
     return <></>;
   }
@@ -47,38 +52,52 @@ export const VerboseOperationView = (props: IVerboseOperationViewProps) => {
   );
 
   const closePreview = React.useCallback(() => {
-    setSelectedOperation(undefined);
-  }, [setSelectedOperation]);
+    dispatchOperationsState({
+      type: OperationReducerActionEnum.UpdateSelectedOperation,
+      value: undefined,
+    });
+  }, [dispatchOperationsState]);
 
   if (!operation) {
     return null;
   }
 
   return (
-    <div className={classes.operationView}>
-      <div>
-        <div className={classes.subHeading}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <h3 key="operationType">{`${operationType} : `}&nbsp;</h3>
-            <Body1Strong underline>{operationName}</Body1Strong>
-          </div>
-          <Button
-            size="small"
-            className={classes.closeButton}
-            onClick={closePreview}
-            appearance="primary"
-          >
-            Close
-          </Button>
-        </div>
-        <Accordion
-          className={classes.operationDetails}
-          key={"operationnViewAccordionn"}
-          multiple
-          collapsible
+    <div className={classes.operationView} key="verboseOperationView">
+      <div className={classes.subHeading} key="verboseHeader">
+        <div
+          style={{ display: "flex", alignItems: "center" }}
+          key="operationType1"
         >
-          {...accordionItems}
-        </Accordion>
+          <h3 key="operationType">{`${operationType} : `}&nbsp;</h3>
+          <Body1Strong underline key="operationName1ç">
+            {operationName}
+          </Body1Strong>
+        </div>
+        <Button
+          size="small"
+          className={classes.closeButton}
+          onClick={closePreview}
+          appearance="primary"
+          key="closeButton"
+        >
+          Close
+        </Button>
+      </div>
+      <div
+        className={classes.accordionWrapper}
+        key="operationnViewAccordionnWrapper"
+      >
+        <div className={classes.accordioPreWrapper}>
+          <Accordion
+            className={classes.operationDetails}
+            key={"operationnViewAccordionn"}
+            multiple
+            collapsible
+          >
+            {...accordionItems}
+          </Accordion>
+        </div>
       </div>
     </div>
   );
@@ -122,11 +141,7 @@ const getOperationNamePanel = (
   classes: Record<stylesKeys, string>,
 ) => {
   return (
-    <AccordionItem
-      style={{ color: "white" }}
-      value="operationName"
-      key="operationName"
-    >
+    <AccordionItem value="operationName" key="operationName">
       <AccordionHeader>
         <Text style={{ fontWeight: "bold" }}>{operationName}</Text>
       </AccordionHeader>
@@ -141,7 +156,7 @@ const getVariablesPanel = (
   variables: OperationVariables | undefined,
   classes: Record<stylesKeys, string>,
 ) => (
-  <AccordionItem style={{ color: "white" }} value="variables" key="variables">
+  <AccordionItem value="variables" key="variables">
     <Tooltip content={"Variables for the operation"} relationship="label">
       <AccordionHeader>
         <Text style={{ fontWeight: "bold" }}>{"Variables"}</Text>
@@ -159,14 +174,12 @@ const getFetchPolicyPanel = (
   fetchPolicy: WatchQueryFetchPolicy | undefined,
   classes: Record<stylesKeys, string>,
 ) => (
-  <AccordionItem
-    style={{ color: "white" }}
-    value="fetchPolicy"
-    key="fetchPolicy"
-  >
+  <AccordionItem value="fetchPolicy" key="fetchPolicy">
     <Tooltip content={"Fetch policy of the operation"} relationship="label">
       <AccordionHeader>
-        <Text style={{ fontWeight: "bold" }}>{"Fetch Policy"}</Text>
+        <Text style={{ fontWeight: "bold" }}>{`Fetch Policy ${
+          fetchPolicy ? `(${fetchPolicy})` : ``
+        }`}</Text>
       </AccordionHeader>
     </Tooltip>
     <AccordionPanel>
@@ -185,11 +198,7 @@ const getAffectedQueriesPanel = (
   }));
 
   return (
-    <AccordionItem
-      style={{ color: "white" }}
-      value="affectedQueries"
-      key="affectedQueries"
-    >
+    <AccordionItem value="affectedQueries" key="affectedQueries">
       <Tooltip
         content={
           "Watch queries which are going to re-render due to the result of current operation"
@@ -218,13 +227,15 @@ const getResultPanel = (
   result: IOperationResult[],
   classes: Record<stylesKeys, string>,
 ) => {
-  const items = result.map((res) => {
+  const items = result.map((res: IOperationResult) => {
     const resultFrom = getResultFromString(res.from);
 
     return (
       <AccordionItem value={resultFrom} key={resultFrom}>
         <AccordionHeader>
-          <Text style={{ fontWeight: "bold" }}>{resultFrom}</Text>
+          <Text style={{ fontWeight: "bold" }}>{`${resultFrom} ${
+            res.size ? `(${sizeInBytes(res.size)})` : ``
+          }`}</Text>
         </AccordionHeader>
         <AccordionPanel>
           <div className={classes.resultPanel}>
@@ -236,7 +247,7 @@ const getResultPanel = (
   });
 
   return (
-    <AccordionItem style={{ color: "white" }} value="result" key="result">
+    <AccordionItem value="result" key="result">
       <Tooltip
         content={
           "Data/result of the operation, whether its from cache or network"
@@ -269,7 +280,7 @@ const getResultFromString = (from: ResultsFrom) => {
 };
 
 const getErrorPanel = (error: unknown, classes: Record<stylesKeys, string>) => (
-  <AccordionItem style={{ color: "white" }} value="errorPanel" key="errorPanel">
+  <AccordionItem value="errorPanel" key="errorPanel">
     <Tooltip
       content={"Error message for operation failure"}
       relationship="label"
@@ -290,11 +301,7 @@ const getWarningPanel = (
   warning: unknown[],
   classes: Record<stylesKeys, string>,
 ) => (
-  <AccordionItem
-    style={{ color: "white" }}
-    value="warningPanel"
-    key="warningPanel"
-  >
+  <AccordionItem value="warningPanel" key="warningPanel">
     <Tooltip
       content={
         "Show any warning like missing field error or why the result is not fetched from cache"
@@ -315,13 +322,15 @@ const getDurationPanel = (
   duration: IVerboseOperationDuration | undefined,
   classes: Record<stylesKeys, string>,
 ) => (
-  <AccordionItem style={{ color: "white" }} value="duration" key="duration">
+  <AccordionItem value="duration" key="duration">
     <Tooltip
       content={"Detailed time info for operation in milliSeconds"}
       relationship="label"
     >
       <AccordionHeader>
-        <Text style={{ fontWeight: "bold" }}>{`Duration (ms)`}</Text>
+        <Text style={{ fontWeight: "bold" }}>{`Duration ${
+          duration?.totalTime ? `(${duration.totalTime} ms)` : `(ms)`
+        }`}</Text>
       </AccordionHeader>
     </Tooltip>
     <AccordionPanel>

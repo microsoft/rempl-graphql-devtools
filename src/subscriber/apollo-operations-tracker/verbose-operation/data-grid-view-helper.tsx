@@ -1,9 +1,9 @@
+import * as React from "react";
 import {
   TableCellLayout,
   createTableColumn,
   Text,
 } from "@fluentui/react-components";
-import * as React from "react";
 import {
   IOperationResult,
   IVerboseOperation,
@@ -74,7 +74,7 @@ export const getColumns = (
           return "Id";
         },
         compare: (a, b) => {
-          return a.id > b.id ? 1 : 0;
+          return b.id - a.id;
         },
         renderCell: (item) => {
           return <TableCellLayout truncate>{item.id}</TableCellLayout>;
@@ -86,7 +86,7 @@ export const getColumns = (
           return "Type";
         },
         compare: (a, b) => {
-          return a.operationType.localeCompare(b.operationType);
+          return compareString(b.operationType, a.operationType);
         },
         renderCell: (item) => {
           return (
@@ -105,7 +105,7 @@ export const getColumns = (
           return "Name";
         },
         compare: (a, b) => {
-          return a.operationName.localeCompare(b.operationName);
+          return compareString(b.operationName, a.operationName);
         },
         renderCell: (item) => {
           return (
@@ -126,7 +126,7 @@ export const getColumns = (
         return "Id";
       },
       compare: (a, b) => {
-        return a.id > b.id ? 1 : 0;
+        return b.id - a.id;
       },
       renderCell: (item) => {
         return <TableCellLayout truncate>{item.id}</TableCellLayout>;
@@ -138,7 +138,7 @@ export const getColumns = (
         return "Type";
       },
       compare: (a, b) => {
-        return a.operationType.localeCompare(b.operationType);
+        return compareString(b.operationType, a.operationType);
       },
       renderCell: (item) => {
         return (
@@ -157,7 +157,7 @@ export const getColumns = (
         return "Name";
       },
       compare: (a, b) => {
-        return a.operationName.localeCompare(b.operationName);
+        return compareString(b.operationName, a.operationName);
       },
       renderCell: (item) => {
         return <TableCellLayout truncate>{item.operationName}</TableCellLayout>;
@@ -166,7 +166,7 @@ export const getColumns = (
     createTableColumn<Item>({
       columnId: "status",
       compare: (a, b) => {
-        return a.status.localeCompare(b.status);
+        return compareString(b.status, a.status);
       },
       renderHeaderCell: () => {
         return "Status";
@@ -178,7 +178,7 @@ export const getColumns = (
     createTableColumn<Item>({
       columnId: "fetchPolicy",
       compare: (a, b) => {
-        return a.fetchPolicy.localeCompare(b.fetchPolicy);
+        return compareString(b.fetchPolicy, a.fetchPolicy);
       },
       renderHeaderCell: () => {
         return "Fetch Policy";
@@ -190,12 +190,15 @@ export const getColumns = (
     createTableColumn<Item>({
       columnId: "totalTime",
       compare: (a, b) => {
-        return a.duration.totalTime > b.duration.totalTime ? 1 : 0;
+        return b.duration.totalTime - a.duration.totalTime;
       },
       renderHeaderCell: () => {
         return "Total Exec time";
       },
       renderCell: (item) => {
+        if (isNaN(item.duration.totalTime)) {
+          return <TableCellLayout truncate>{``}</TableCellLayout>;
+        }
         return (
           <TableCellLayout truncate>
             {item.duration.totalTime > 1000
@@ -208,7 +211,7 @@ export const getColumns = (
     createTableColumn<Item>({
       columnId: "queuedAt",
       compare: (a, b) => {
-        return a.timing.queuedAt > b.timing.queuedAt ? 1 : 0;
+        return b.timing.queuedAt - a.timing.queuedAt;
       },
       renderHeaderCell: () => {
         return "Queued at";
@@ -229,7 +232,7 @@ export const getColumns = (
         return "Size";
       },
       compare: (a, b) => {
-        return `${a.result[0]?.size}`.localeCompare(`${b.result[0]?.size}`);
+        return (b.result[0]?.size || 0) - (a.result[0]?.size || 0);
       },
       renderCell: (item) => {
         return (
@@ -258,7 +261,7 @@ export const getFilteredItems = (
       tokens.length > 0
         ? filteredItems.filter((item) => {
             return tokens.find((x) =>
-              item.operationName?.toLowerCase().includes(x),
+              item.operationName?.toLowerCase().includes(x.toLowerCase()),
             );
           })
         : filteredItems;
@@ -331,4 +334,8 @@ const getOperationIcon = (type: string) => {
     }
   }
   return null;
+};
+
+const compareString = (a: string | undefined, b: string | undefined) => {
+  return (a || "").localeCompare(b || "");
 };
