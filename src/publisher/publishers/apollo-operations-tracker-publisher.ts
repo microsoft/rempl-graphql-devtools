@@ -74,7 +74,6 @@ export class ApolloOperationsTrackerPublisher {
     this.apolloPublisher.provide(
       "copyOperationsData",
       (ids: number[] | undefined) => {
-        console.log({ ids });
         if (ids && ids.length === 1 && ids[0] === -1) {
           const stringified = JSON.stringify(
             (this.activeClient?.cache as any).data.data,

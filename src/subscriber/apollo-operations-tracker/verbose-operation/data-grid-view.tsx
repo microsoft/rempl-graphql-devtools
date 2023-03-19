@@ -52,7 +52,6 @@ export const DataGridView = (props: IDataGridView) => {
         const height = divRef.current?.getBoundingClientRect().height;
         const calcualtedHeight = height ? height - ItemSize : 400;
         setGridHeight(calcualtedHeight);
-        console.log({ calcualtedHeight });
       }, 300),
     );
     resizeObserver.observe(document.body);
@@ -108,7 +107,6 @@ export const DataGridView = (props: IDataGridView) => {
 
   const onClick = React.useCallback(
     (item) => {
-      console.log(`jps item selected for verboseOperationView`);
       const operation = operationsMap.get(item.id);
       dispatchOperationsState({
         type: OperationReducerActionEnum.UpdateSelectedOperation,

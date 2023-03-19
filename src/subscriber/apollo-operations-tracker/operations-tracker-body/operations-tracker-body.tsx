@@ -37,8 +37,6 @@ const tabHeaders = [
 ];
 
 export const OperationsTrackerBody = (props: IOperationViewContainer) => {
-  console.log(`rendering OperationsTrackerBody`);
-
   const { data, operationsState, dispatchOperationsState } = props;
   const [selectedTab, setSelectedTab] = React.useState(
     TabHeaders.VerboseOperationView,
@@ -61,7 +59,6 @@ export const OperationsTrackerBody = (props: IOperationViewContainer) => {
 
     return newTabHeaders;
   }, []);
-  console.log({ updatedTabItems });
   const tabs = React.useMemo(() => {
     const items = updatedTabItems.map((item) => {
       return (

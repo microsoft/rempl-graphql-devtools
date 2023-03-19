@@ -22,8 +22,6 @@ export interface IOperationsTrackerHeaderProps {
 
 export const OperationsTrackerHeader = React.memo(
   (props: IOperationsTrackerHeaderProps) => {
-    console.log(`rendering OperationsTrackerHeader`);
-
     const classes = useStyles();
     const {
       isRecording,

@@ -17,6 +17,7 @@ import {
   DataGridHeaderCell,
 } from "@fluentui/react-data-grid-react-window";
 import { useStyles } from "./affected-queries-grid-renderer-styles";
+import debounce from "lodash.debounce";
 
 const ItemSize = 40;
 export interface IAffectedQueriesGridRenderers {
@@ -38,11 +39,20 @@ export const AffectedQueriesGridRenderers = (
 
   React.useEffect(() => {
     const height = divRef.current?.getBoundingClientRect().height;
-    console.log({ height });
     setGridHeight(height ? height - ItemSize : 400);
+    const resizeObserver = new ResizeObserver(
+      debounce(() => {
+        const height = divRef.current?.getBoundingClientRect().height;
+        const calcualtedHeight = height ? height - ItemSize : 400;
+        setGridHeight(calcualtedHeight);
+      }, 300),
+    );
+    resizeObserver.observe(document.body);
+    return () => {
+      resizeObserver.unobserve(document.body);
+    };
   }, [divRef.current, setGridHeight]);
 
-  console.log({ gridItemsAndSize: gridHeight });
   return (
     <div ref={divRef} className={classes.root}>
       <DataGrid

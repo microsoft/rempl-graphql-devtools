@@ -37,12 +37,9 @@ export const fragmentSubTypes = [
 ];
 
 export const FilterView = React.memo((props: IFilterView) => {
-  console.log(`rendering FilterView`);
-
   const [operationTypesFilter, setOperationTypesFilter] = React.useState<
     string[]
   >([]);
-  console.log({ operationTypesFilter });
   const [resultFromFilter, setResultFromFilter] = React.useState<string[]>([]);
   const [statusFilter, setStatusFilter] = React.useState<string[]>([]);
   const { setFilters } = props;
@@ -148,7 +145,6 @@ const useOperationTypesCheckBox = ({
   const onOperationTypeChange = React.useCallback(
     ({ target: { value } }, { checked }) => {
       let typesFilter = operationTypesFilter.concat([]);
-      console.log({ value, checked, typesFilter, operationTypesFilter });
       if (checked) {
         typesFilter.push(value);
         if (value == OperationType.Query) {

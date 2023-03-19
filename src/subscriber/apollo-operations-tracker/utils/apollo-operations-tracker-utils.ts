@@ -17,12 +17,7 @@ export const isNumber = (input: string | number | undefined = "NA") => {
 };
 
 export const copyToClipboard = async (obj: unknown) => {
-  try {
-    console.log("inside clipboard", obj);
-    await window.navigator.clipboard.writeText(JSON.stringify(obj));
-  } catch (error) {
-    console.log(`failed to copy`, error);
-  }
+  await window.navigator.clipboard.writeText(JSON.stringify(obj));
 };
 
 export const secondsToTime = (time: number) => {

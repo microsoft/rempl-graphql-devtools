@@ -36,8 +36,6 @@ interface IVerboseOperationViewProps {
 }
 
 export const VerboseOperationView = (props: IVerboseOperationViewProps) => {
-  console.log(`rendering VerboseOperationView`);
-
   const { operation, dispatchOperationsState } = props;
   if (!operation) {
     return <></>;

@@ -23,55 +23,42 @@ export interface ICopyButtonProps {
 export const CopyButton = (props: ICopyButtonProps) => {
   const classes = useStyles();
   const { operationsState, hideCopy, apolloOperationsData } = props;
-  console.log({ operationsState, apolloOperationsData });
 
   const copyAll = React.useCallback(() => {
-    console.log(`jps copyAll`);
     const ids: number[] = [];
     apolloOperationsData?.verboseOperations?.forEach((op) => {
       ids.push(op.id);
     });
-    console.log({ ids });
     remplSubscriber.callRemote("copyOperationsData", ids);
   }, [apolloOperationsData]);
 
   const copyFiltered = React.useCallback(() => {
-    console.log(`jps copyFiltered`);
-
     const ids: number[] = [];
     operationsState.filteredOperations?.forEach((op) => {
       ids.push(op.id);
     });
-    console.log({ ids });
 
     remplSubscriber.callRemote("copyOperationsData", ids);
   }, [operationsState]);
 
   const copyChecked = React.useCallback(() => {
-    console.log(`jps copyChecked`);
-
     const ids: number[] = [];
     operationsState.checkedOperations?.forEach((op) => {
       ids.push(op.id);
     });
-    console.log({ ids });
 
     remplSubscriber.callRemote("copyOperationsData", ids);
   }, [operationsState]);
 
   const copySelected = React.useCallback(() => {
-    console.log(`jps copySelected`);
-
     if (operationsState.selectedOperation?.id) {
       const ids: number[] = [operationsState.selectedOperation.id];
-      console.log({ ids });
 
       remplSubscriber.callRemote("copyOperationsData", ids);
     }
   }, [operationsState]);
 
   const copyCache = React.useCallback(() => {
-    console.log(`jps copyCache`);
     remplSubscriber.callRemote("copyOperationsData", [-1]);
   }, [operationsState]);
 

@@ -19,7 +19,6 @@ import {
 } from "./operations-tracker-container-helper";
 
 export const OperationsTrackerContainer = () => {
-  console.log(`rendering OperationsTrackerContainer`);
   const [openDescription, setOpenDescription] = useState<boolean>(false);
   const [apollOperationsData, setApolloOperationsData] =
     useState<IDataView | null>(null);
@@ -29,13 +28,6 @@ export const OperationsTrackerContainer = () => {
   });
   const [error, setError] = React.useState<IError | null>(null);
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  /*  const [searchText, setSearchText] = useState<string>("");
-  const [checkedOperations, setCheckedOperations] = useState<
-    IVerboseOperation[] | null
-  >([]);
-  const [filteredOperations, setFilteredOperations] = useState<
-    IVerboseOperation[] | null
-  >([]); */
 
   const [operationsState, dispatchOperationsState] = React.useReducer(
     reducers,
@@ -52,21 +44,12 @@ export const OperationsTrackerContainer = () => {
     setError,
   );
   React.useMemo(() => {
-    console.log({ operationsState });
     return null;
   }, [operationsState]);
 
   const clearApolloOperations = useCallback(() => {
     setApolloOperationsData(null);
   }, [setApolloOperationsData]);
-
-  /*  const updateOperations = useCallback(
-    ({ operations, filteredOperations }) => {
-      setCheckedOperations(operations);
-      setFilteredOperations(filteredOperations);
-    },
-    [setCheckedOperations, setFilteredOperations],
-  ); */
 
   useEffect(() => {
     return () => {

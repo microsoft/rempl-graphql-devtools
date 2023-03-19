@@ -250,7 +250,6 @@ export const getFilteredItems = (
   searchText: string,
   filters: IFilterSet | null,
 ) => {
-  const startTime = performance.now();
   let filteredItems = items || [];
   if (searchText.length > 0) {
     const tokens = searchText
@@ -298,8 +297,6 @@ export const getFilteredItems = (
       );
     }
   }
-  const endTime = performance.now();
-  console.log({ totalTime: endTime - startTime });
   return filteredItems;
 };
 
