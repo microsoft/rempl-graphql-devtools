@@ -24,7 +24,7 @@ Observe active queries, or recently fired mutations.
 
 ### Operations Tracker
 
-It records all the operations done via Apollo client.
+It records all the operations done via Apollo client. [More info](./docs/operations-tracker.md)
 
 ### GraphiQL
 
