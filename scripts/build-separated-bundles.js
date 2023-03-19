@@ -9,7 +9,7 @@ if (require.main === module) {
         entryPoints: ["src/publisher/index.ts"],
         write: true,
         bundle: true,
-        minify: false,
+        minify: true,
         sourcemap: false,
         outfile: "dist/apollo-devtools-publisher.js",
         format: "iife",
