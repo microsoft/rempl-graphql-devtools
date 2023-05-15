@@ -1,3 +1,5 @@
+# DEPRECATED: Use [@graphitation/rempl-apollo-devtools](https://github.com/microsoft/graphitation/tree/main/packages/rempl-apollo-devtools) instead
+
 # Apollo Devtools
 
 ## Features
